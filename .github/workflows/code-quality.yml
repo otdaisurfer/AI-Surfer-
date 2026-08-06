@@ -2,61 +2,71 @@ name: Code Quality
 
 on:
   push:
-    branches: [main, develop]
+    branches:
+      - main
+      - develop
+
   pull_request:
-    branches: [main, develop]
+    branches:
+      - main
+      - develop
 
 jobs:
   quality:
     runs-on: ubuntu-latest
     name: SonarCloud Analysis
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
-      
+          node-version: 20
+          cache: npm
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Run tests with coverage
         run: npm test --if-present -- --coverage --watchAll=false
         continue-on-error: true
-      
+
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         continue-on-error: true
 
+
   coverage:
     runs-on: ubuntu-latest
     name: Coverage Check
+
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
-      
+          node-version: 20
+          cache: npm
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Generate coverage
         run: npm test --if-present -- --coverage --watchAll=false
         continue-on-error: true
-      
+
       - name: Comment PR with coverage
-        uses: romeovs/lcov-reporter-action@v0.3.1
         if: github.event_name == 'pull_request'
+        uses: romeovs/lcov-reporter-action@v0.3.1
         with:
           lcov-file: ./coverage/lcov.info
         continue-on-error: true

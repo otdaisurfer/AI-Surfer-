@@ -18,10 +18,6 @@ import {
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { supabase } from "../../lib/supabase";
-
-import homepageConcept from "../../assets/images/ocean_ai_yacht.png";
-import cyberWave from "../../assets/images/cyber_surfer_wave_1779220118634.png";
-
 import OceanBackground from "../../components/landing/OceanBackground";
 import Navbar from "../../components/landing/Navbar";
 import SunriseGlow from "../../components/landing/SunriseGlow";
@@ -126,6 +122,12 @@ export default function NewLanding() {
         bg-slate-950
         text-white
       "
+      style={{
+        backgroundImage: 'linear-gradient(rgba(2,12,30,0.9), rgba(2,12,30,0.95)), url("/images/Members-bg.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
       <OceanBackground />
       <SunriseGlow />

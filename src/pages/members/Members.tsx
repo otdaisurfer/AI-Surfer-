@@ -76,7 +76,15 @@ export default function Members() {
 
   return (
 
-    <div className="min-h-screen bg-slate-950 text-white flex">
+    <div
+      className="min-h-screen bg-slate-950 text-white flex"
+      style={{
+        backgroundImage: 'linear-gradient(rgba(2,12,30,0.92), rgba(2,12,30,0.96)), url("/images/Members-bg.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
 
 
       {/* Ocean Glow Background */}

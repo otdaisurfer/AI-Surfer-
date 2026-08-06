@@ -2,9 +2,12 @@ name: Deploy Pipeline
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -13,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -21,11 +26,16 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project
         run: npm run build
 
+      - name: Verify build output
+        run: ls -la dist
+
       - name: Deploy to Production (Main only)
         if: github.ref == 'refs/heads/main'
-        run: echo "🚀 Deploy step goes here (Vercel / Netlify / Cloudflare)"
+        run: |
+          echo "🚀 Production deployment ready"
+          echo "Connect Vercel, Netlify, Cloudflare Pages, or GitHub Pages here"
