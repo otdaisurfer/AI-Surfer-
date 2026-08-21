@@ -5,6 +5,7 @@ import MemberGate from "./pages/members/MemberGate";
 import MembersDashboard from "./pages/members/MembersDashboard";
 import MemberProduct from "./pages/members/MemberProduct";
 import WaveAudit from "./pages/wave-audit/WaveAudit";
+import LaunchDesk from "./launch-desk/LaunchDesk";
 
 export default function RouterApp() {
   return (
@@ -13,6 +14,7 @@ export default function RouterApp() {
       <Route path="/pricing" element={<App />} />
       <Route path="/wave-audit" element={<WaveAudit />} />
       <Route path="/wave-check" element={<WaveAudit />} />
+      <Route path="/launch-desk" element={<LaunchDesk />} />
       <Route path="/login" element={<Login />} />
       <Route path="/members" element={<MemberGate><MembersDashboard /></MemberGate>} />
       <Route path="/members/products/:slug" element={<MemberGate><MemberProduct /></MemberGate>} />
