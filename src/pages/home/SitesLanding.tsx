@@ -11,6 +11,7 @@ const products = [
     stage: "Discover",
     name: "AEO Wave Audit™",
     category: "AI Visibility & Discovery",
+    image: "/packages/aeo-wave-audit.jpg",
     description:
       "Find the visibility gaps that keep AI systems from understanding, trusting, citing, and recommending your business.",
     cta: "Run the Wave Audit",
@@ -21,6 +22,7 @@ const products = [
     stage: "Diagnose",
     name: "AI Opportunity Report™",
     category: "Business AI Strategy",
+    image: "/packages/ai-opportunity-report.jpg",
     description:
       "Turn scattered AI possibilities into a prioritized list of the opportunities most likely to create measurable business value.",
     cta: "Explore Opportunities",
@@ -30,6 +32,7 @@ const products = [
     stage: "Plan",
     name: "AEO Blueprint™",
     category: "AI Search Strategy",
+    image: "/packages/aeo-blueprint.jpg",
     description:
       "Build a practical roadmap for becoming more visible, understandable, and authoritative across AI-powered answer engines.",
     cta: "Build the Blueprint",
@@ -39,6 +42,7 @@ const products = [
     stage: "Plan",
     name: "Automation Blueprint™",
     category: "AI Workflow Strategy",
+    image: "/packages/automation-blueprint.jpg",
     description:
       "Map repetitive work into AI-powered workflows that reduce manual effort, connect your tools, and make operations more scalable.",
     cta: "Map Your Workflows",
@@ -48,6 +52,7 @@ const products = [
     stage: "Implement",
     name: "Wave Scout™",
     category: "Lead Generation AI",
+    image: "/packages/wave-scout.jpg",
     description:
       "Identify prospects, research buying signals, and organize opportunities so your team spends less time hunting and more time closing.",
     cta: "Ride with Wave Scout",
@@ -57,6 +62,7 @@ const products = [
     stage: "Implement",
     name: "Sales Rider™",
     category: "AI Sales Assistant",
+    image: "/packages/sales-rider.jpg",
     description:
       "Turn leads into conversations and conversations into opportunities with an always-on sales assistant.",
     cta: "Meet Sales Rider",
@@ -66,6 +72,7 @@ const products = [
     stage: "Implement",
     name: "Content Creator™",
     category: "AI Marketing Engine",
+    image: "/packages/content-creator.jpg",
     description:
       "Generate strategic social posts, emails, blogs, campaigns, offers, and marketing assets while keeping your message aligned.",
     cta: "Create with Content Creator",
@@ -75,6 +82,7 @@ const products = [
     stage: "Implement",
     name: "Automation Architect™",
     category: "AI Business Automation",
+    image: "/packages/automation-architect.jpg",
     description:
       "Connect processes, tools, data, and AI agents to automate repetitive work and create a more scalable operation.",
     cta: "Automate the Work",
@@ -84,6 +92,7 @@ const products = [
     stage: "Transform",
     name: "Big Kahuna™",
     category: "AI Growth Architect",
+    image: "/packages/big-kahuna.jpg",
     description:
       "Bring strategy, visibility, automation, agents, workflows, and growth opportunities together into one complete AI transformation experience.",
     cta: "Go Big Kahuna",
@@ -164,11 +173,7 @@ export default function SitesLanding() {
 
       <section
         aria-label="AI Surfer visual showcase"
-        style={{
-          maxWidth: 1184,
-          margin: "0 auto 110px",
-          padding: "0 28px",
-        }}
+        style={{ maxWidth: 1184, margin: "0 auto 110px", padding: "0 28px" }}
       >
         <div
           style={{
@@ -261,19 +266,35 @@ export default function SitesLanding() {
             <article
               className={`product-card ${product.featured ? "product-card-featured" : ""}`}
               key={product.name}
+              style={{ overflow: "hidden", padding: 0 }}
             >
-              <div className="product-topline">
-                <span className={`stage stage-${product.stage.toLowerCase()}`}>
-                  {product.stage}
-                </span>
-                <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
+              <img
+                src={product.image}
+                alt={`${product.name} Ocean Tide Drop AI Surfer artwork`}
+                loading="lazy"
+                style={{
+                  display: "block",
+                  width: "100%",
+                  aspectRatio: "4 / 3",
+                  objectFit: "cover",
+                  objectPosition: "center top",
+                  borderBottom: "1px solid rgba(111,147,178,.22)",
+                }}
+              />
+              <div style={{ display: "flex", flexDirection: "column", flex: 1, padding: 25 }}>
+                <div className="product-topline">
+                  <span className={`stage stage-${product.stage.toLowerCase()}`}>
+                    {product.stage}
+                  </span>
+                  <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <p className="product-category">{product.category}</p>
+                <h3>{product.name}</h3>
+                <p className="product-description">{product.description}</p>
+                <a className="product-card-cta button button-primary" href={`${LIVE_SITE}${product.href}`} style={{ marginTop: "auto", width: "100%" }}>
+                  {product.cta} <span aria-hidden="true">→</span>
+                </a>
               </div>
-              <p className="product-category">{product.category}</p>
-              <h3>{product.name}</h3>
-              <p className="product-description">{product.description}</p>
-              <a className="product-card-cta button button-primary" href={`${LIVE_SITE}${product.href}`}>
-                {product.cta} <span aria-hidden="true">→</span>
-              </a>
             </article>
           ))}
         </div>
