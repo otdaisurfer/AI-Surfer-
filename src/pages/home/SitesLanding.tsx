@@ -1,4 +1,6 @@
 import "./SitesLanding.css";
+import homepageConcept from "../../assets/images/new-landing-hero.png";
+import oceanAiYacht from "../../assets/images/ocean_ai_yacht.png";
 
 const LIVE_SITE = "https://otdaisurfer.surf";
 
@@ -157,6 +159,60 @@ export default function SitesLanding() {
               <small>Let&apos;s make it work for your business.</small>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section
+        aria-label="AI Surfer visual showcase"
+        style={{
+          maxWidth: 1184,
+          margin: "0 auto 110px",
+          padding: "0 28px",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: 24,
+            alignItems: "stretch",
+          }}
+        >
+          <figure
+            style={{
+              margin: 0,
+              overflow: "hidden",
+              borderRadius: 30,
+              border: "1px solid rgba(24,238,241,.32)",
+              background: "linear-gradient(145deg, rgba(10,31,51,.96), rgba(6,13,25,.98))",
+              boxShadow: "0 28px 75px rgba(0,0,0,.35)",
+            }}
+          >
+            <img
+              src={homepageConcept}
+              alt="Ocean Tide Drop AI Surfer homepage concept artwork"
+              loading="eager"
+              style={{ display: "block", width: "100%", height: "100%", minHeight: 360, objectFit: "cover" }}
+            />
+          </figure>
+
+          <figure
+            style={{
+              margin: 0,
+              overflow: "hidden",
+              borderRadius: 30,
+              border: "1px solid rgba(255,60,185,.34)",
+              background: "linear-gradient(145deg, rgba(10,31,51,.96), rgba(6,13,25,.98))",
+              boxShadow: "0 28px 75px rgba(0,0,0,.35)",
+            }}
+          >
+            <img
+              src={oceanAiYacht}
+              alt="Ocean AI yacht artwork for Ocean Tide Drop AI Surfer"
+              loading="lazy"
+              style={{ display: "block", width: "100%", height: "100%", minHeight: 360, objectFit: "cover" }}
+            />
+          </figure>
         </div>
       </section>
 
