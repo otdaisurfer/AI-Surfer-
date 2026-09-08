@@ -26,12 +26,21 @@ const showcase = [
   { image: '/packages/otd-ai-surfers.jpg', label: 'Built by the Ocean', copy: 'Powered by AI. Driven by purpose. Sailor, Stormy, and Sky bring the brand story home.' },
 ];
 
-function ShowcaseImage({ src, alt }: { src: string; alt: string }) {
+function ShowcaseImage({ src, alt, delay = 0 }: { src: string; alt: string; delay?: number }) {
   const [failed, setFailed] = useState(false);
   if (failed) {
     return <div style={styles.imageFallback}><span>🌊</span><strong>{alt}</strong><small>Artwork ready to sync</small></div>;
   }
-  return <img src={src} alt={alt} style={styles.showcaseImage} loading="lazy" onError={() => setFailed(true)} />;
+  return (
+    <img
+      className="ai-showcase-image"
+      src={src}
+      alt={alt}
+      style={{ ...styles.showcaseImage, animationDelay: `${delay}s` }}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
 }
 
 export default function App() {
@@ -86,6 +95,23 @@ export default function App() {
 
   return (
     <div style={styles.page}>
+      <style>{`
+        @keyframes aiSurferDrift {
+          0%, 100% { transform: scale(1.01) translate3d(0, 0, 0); }
+          50% { transform: scale(1.045) translate3d(0, -8px, 0); }
+        }
+        @keyframes aiSurferCardFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-7px); }
+        }
+        .ai-showcase-card { animation: aiSurferCardFloat 7s ease-in-out infinite; }
+        .ai-showcase-image { animation: aiSurferDrift 9s ease-in-out infinite; transition: transform .65s ease, filter .65s ease; }
+        .ai-showcase-card:hover .ai-showcase-image { transform: scale(1.075); filter: saturate(1.12) brightness(1.04); }
+        .ai-showcase-card:hover { box-shadow: 0 30px 90px rgba(56,189,248,.24) !important; border-color: rgba(103,232,249,.42) !important; }
+        @media (prefers-reduced-motion: reduce) {
+          .ai-showcase-card, .ai-showcase-image { animation: none !important; transition: none !important; }
+        }
+      `}</style>
       <div style={styles.glowOne} />
       <div style={styles.glowTwo} />
       <div style={styles.container}>
@@ -129,8 +155,16 @@ export default function App() {
           <p style={styles.sectionLead}>We are using the artwork as part of the sales story, not decoration. Each panel shows a business problem, the AI Surfer solution, and the outcome waiting on the other side of the wave.</p>
           <div style={styles.showcaseGrid}>
             {showcase.map((item, index) => (
-              <article key={item.label} style={{ ...styles.showcaseCard, ...((index === 0 || index === 6 || index === 7) ? styles.showcaseCardWide : {}) }}>
-                <ShowcaseImage src={item.image} alt={`${item.label} AI Surfer artwork`} />
+              <article
+                key={item.label}
+                className="ai-showcase-card"
+                style={{
+                  ...styles.showcaseCard,
+                  ...((index === 0 || index === 6 || index === 7) ? styles.showcaseCardWide : {}),
+                  animationDelay: `${index * 0.45}s`,
+                }}
+              >
+                <ShowcaseImage src={item.image} alt={`${item.label} AI Surfer artwork`} delay={index * 0.35} />
                 <div style={styles.showcaseOverlay}>
                   <span style={styles.showcaseLabel}>{item.label}</span>
                   <p style={styles.showcaseCopy}>{item.copy}</p>
@@ -216,11 +250,11 @@ const styles: Record<string, React.CSSProperties> = {
   sectionTitle: { margin: '0 auto', fontSize: 'clamp(2.1rem,5vw,4rem)', lineHeight: 1.02, letterSpacing: '-.035em' },
   sectionLead: { maxWidth: 760, margin: '18px auto 34px', color: '#a8b7cc', lineHeight: 1.7, fontSize: '1.04rem' },
   showcaseGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))', gap: 18, alignItems: 'stretch' },
-  showcaseCard: { position: 'relative', minHeight: 430, overflow: 'hidden', borderRadius: 28, border: '1px solid rgba(103,232,249,.16)', background: '#07111f', boxShadow: '0 24px 70px rgba(0,0,0,.30)' },
+  showcaseCard: { position: 'relative', minHeight: 430, overflow: 'hidden', borderRadius: 28, border: '1px solid rgba(103,232,249,.16)', background: '#07111f', boxShadow: '0 24px 70px rgba(0,0,0,.30)', willChange: 'transform' },
   showcaseCardWide: { gridColumn: 'span 2' },
-  showcaseImage: { width: '100%', height: '100%', minHeight: 430, objectFit: 'cover', display: 'block' },
+  showcaseImage: { width: '100%', height: '100%', minHeight: 430, objectFit: 'cover', display: 'block', willChange: 'transform' },
   imageFallback: { minHeight: 430, height: '100%', display: 'grid', placeItems: 'center', alignContent: 'center', gap: 8, padding: 28, background: 'radial-gradient(circle at 50% 18%,rgba(14,116,144,.55),rgba(3,13,25,.98) 70%)', color: '#dff9ff', textAlign: 'center' },
-  showcaseOverlay: { position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', textAlign: 'left', padding: 24, background: 'linear-gradient(180deg,transparent 48%,rgba(1,8,18,.18) 58%,rgba(1,8,18,.94) 100%)' },
+  showcaseOverlay: { position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', textAlign: 'left', padding: 24, background: 'linear-gradient(180deg,transparent 48%,rgba(1,8,18,.18) 58%,rgba(1,8,18,.94) 100%)', pointerEvents: 'none' },
   showcaseLabel: { display: 'inline-block', alignSelf: 'flex-start', padding: '8px 11px', borderRadius: 999, background: 'rgba(103,232,249,.95)', color: '#00131c', fontWeight: 950, fontSize: '.76rem', letterSpacing: '.08em', textTransform: 'uppercase' },
   showcaseCopy: { maxWidth: 430, margin: '10px 0 0', color: '#e9f7ff', fontWeight: 750, lineHeight: 1.45 },
   offer: { textAlign: 'center', padding: '72px 20px', maxWidth: 900, margin: '0 auto', borderTop: '1px solid rgba(255,255,255,.08)' },
