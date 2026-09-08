@@ -104,6 +104,34 @@ const products = [
 export default function SitesLanding() {
   return (
     <main className="sites-landing">
+      <style>{`
+        @keyframes landingWaveFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-7px); }
+        }
+        @keyframes landingImageDrift {
+          0%, 100% { transform: scale(1.01) translate3d(0, 0, 0); }
+          50% { transform: scale(1.045) translate3d(0, -8px, 0); }
+        }
+        .visual-showcase-card, .product-card { animation: landingWaveFloat 7s ease-in-out infinite; }
+        .visual-showcase-image, .product-card-image {
+          animation: landingImageDrift 9s ease-in-out infinite;
+          transition: transform .65s ease, filter .65s ease;
+          will-change: transform;
+        }
+        .visual-showcase-card:hover .visual-showcase-image,
+        .product-card:hover .product-card-image {
+          transform: scale(1.075);
+          filter: saturate(1.12) brightness(1.04);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .visual-showcase-card, .product-card,
+          .visual-showcase-image, .product-card-image {
+            animation: none !important;
+            transition: none !important;
+          }
+        }
+      `}</style>
       <div className="announcement">
         <span>🌺 Launch wave</span>
         <strong>20% off recurring app access and major software console plans</strong>
@@ -184,6 +212,7 @@ export default function SitesLanding() {
           }}
         >
           <figure
+            className="visual-showcase-card"
             style={{
               margin: 0,
               overflow: "hidden",
@@ -194,6 +223,7 @@ export default function SitesLanding() {
             }}
           >
             <img
+              className="visual-showcase-image"
               src={homepageConcept}
               alt="Ocean Tide Drop AI Surfer homepage concept artwork"
               loading="eager"
@@ -202,6 +232,7 @@ export default function SitesLanding() {
           </figure>
 
           <figure
+            className="visual-showcase-card"
             style={{
               margin: 0,
               overflow: "hidden",
@@ -212,6 +243,7 @@ export default function SitesLanding() {
             }}
           >
             <img
+              className="visual-showcase-image"
               src={oceanAiYacht}
               alt="Ocean AI yacht artwork for Ocean Tide Drop AI Surfer"
               loading="lazy"
@@ -266,9 +298,10 @@ export default function SitesLanding() {
             <article
               className={`product-card ${product.featured ? "product-card-featured" : ""}`}
               key={product.name}
-              style={{ overflow: "hidden", padding: 0 }}
+              style={{ overflow: "hidden", padding: 0, animationDelay: `${index * 0.35}s` }}
             >
               <img
+                className="product-card-image"
                 src={product.image}
                 alt={`${product.name} Ocean Tide Drop AI Surfer artwork`}
                 loading="lazy"
