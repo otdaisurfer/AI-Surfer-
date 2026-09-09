@@ -63,6 +63,7 @@ const products = [
     name: "Sales Rider™",
     category: "AI Sales Assistant",
     image: "/packages/sales-rider.jpg",
+    video: "/images/sales-rider-sparkle-animated.mp4",
     description:
       "Turn leads into conversations and conversations into opportunities with an always-on sales assistant.",
     cta: "Meet Sales Rider",
@@ -93,6 +94,7 @@ const products = [
     name: "Big Kahuna™",
     category: "AI Growth Architect",
     image: "/packages/big-kahuna.jpg",
+    video: "/images/big-kahuna-strategy-sparkle-animated.mp4",
     description:
       "Bring strategy, visibility, automation, agents, workflows, and growth opportunities together into one complete AI transformation experience.",
     cta: "Go Big Kahuna",
@@ -293,6 +295,30 @@ export default function SitesLanding() {
           </p>
         </div>
 
+        <figure
+          className="visual-showcase-card"
+          style={{
+            margin: "0 0 34px",
+            overflow: "hidden",
+            borderRadius: 30,
+            border: "1px solid rgba(24,238,241,.32)",
+            background: "linear-gradient(145deg, rgba(10,31,51,.96), rgba(6,13,25,.98))",
+            boxShadow: "0 28px 75px rgba(0,0,0,.35)",
+          }}
+        >
+          <video
+            className="visual-showcase-image"
+            src="/images/product-ladder-sparkle-animated.mp4"
+            aria-label="AI Surfer product ladder"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{ display: "block", width: "100%", objectFit: "cover" }}
+          />
+        </figure>
+
         <div className="product-grid">
           {products.map((product, index) => (
             <article
@@ -300,20 +326,41 @@ export default function SitesLanding() {
               key={product.name}
               style={{ overflow: "hidden", padding: 0, animationDelay: `${index * 0.35}s` }}
             >
-              <img
-                className="product-card-image"
-                src={product.image}
-                alt={`${product.name} Ocean Tide Drop AI Surfer artwork`}
-                loading="lazy"
-                style={{
-                  display: "block",
-                  width: "100%",
-                  aspectRatio: "4 / 3",
-                  objectFit: "cover",
-                  objectPosition: "center top",
-                  borderBottom: "1px solid rgba(111,147,178,.22)",
-                }}
-              />
+              {product.video ? (
+                <video
+                  className="product-card-image"
+                  src={product.video}
+                  aria-label={`${product.name} Ocean Tide Drop AI Surfer artwork`}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    aspectRatio: "4 / 3",
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                    borderBottom: "1px solid rgba(111,147,178,.22)",
+                  }}
+                />
+              ) : (
+                <img
+                  className="product-card-image"
+                  src={product.image}
+                  alt={`${product.name} Ocean Tide Drop AI Surfer artwork`}
+                  loading="lazy"
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    aspectRatio: "4 / 3",
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                    borderBottom: "1px solid rgba(111,147,178,.22)",
+                  }}
+                />
+              )}
               <div style={{ display: "flex", flexDirection: "column", flex: 1, padding: 25 }}>
                 <div className="product-topline">
                   <span className={`stage stage-${product.stage.toLowerCase()}`}>

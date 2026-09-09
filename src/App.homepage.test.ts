@@ -8,9 +8,9 @@ const appSource = readFileSync(resolve(here, 'App.tsx'), 'utf8');
 
 describe('homepage conversion copy', () => {
   it('leads with a clear business outcome and keeps the Wave Check primary', () => {
-    expect(appSource).toContain('AI for your business, without the tech headache.');
+    expect(appSource).toContain('Ride the AI wave.');
     expect(appSource).toContain('Get My Free AI Wave Check™');
-    expect(appSource).toContain('Automate repetitive work');
+    expect(appSource).toContain('automate repetitive work');
   });
 
   it('describes membership tiers in business-outcome language', () => {
