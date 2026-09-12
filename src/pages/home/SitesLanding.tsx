@@ -1,6 +1,4 @@
 import "./SitesLanding.css";
-import homepageConcept from "../../assets/images/new-landing-hero.png";
-import oceanAiYacht from "../../assets/images/ocean_ai_yacht.png";
 
 const LIVE_SITE = "https://otdaisurfer.surf";
 
@@ -224,12 +222,16 @@ export default function SitesLanding() {
               boxShadow: "0 28px 75px rgba(0,0,0,.35)",
             }}
           >
-            <img
+            <video
               className="visual-showcase-image"
-              src={homepageConcept}
-              alt="Ocean Tide Drop AI Surfer homepage concept artwork"
-              loading="eager"
-              style={{ display: "block", width: "100%", height: "100%", minHeight: 360, objectFit: "cover" }}
+              src="/images/sales-rider-sparkle-animated.mp4"
+              aria-label="Sales Rider Ocean Tide Drop AI Surfer artwork"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={{ display: "block", width: "100%", aspectRatio: "4 / 5", objectFit: "cover" }}
             />
           </figure>
 
@@ -244,12 +246,16 @@ export default function SitesLanding() {
               boxShadow: "0 28px 75px rgba(0,0,0,.35)",
             }}
           >
-            <img
+            <video
               className="visual-showcase-image"
-              src={oceanAiYacht}
-              alt="Ocean AI yacht artwork for Ocean Tide Drop AI Surfer"
-              loading="lazy"
-              style={{ display: "block", width: "100%", height: "100%", minHeight: 360, objectFit: "cover" }}
+              src="/images/big-kahuna-strategy-sparkle-animated.mp4"
+              aria-label="Big Kahuna Ocean Tide Drop AI Surfer artwork"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={{ display: "block", width: "100%", aspectRatio: "4 / 5", objectFit: "cover" }}
             />
           </figure>
         </div>
@@ -315,7 +321,7 @@ export default function SitesLanding() {
             loop
             playsInline
             preload="metadata"
-            style={{ display: "block", width: "100%", objectFit: "cover" }}
+            style={{ display: "block", width: "100%", aspectRatio: "4 / 5", objectFit: "cover" }}
           />
         </figure>
 
