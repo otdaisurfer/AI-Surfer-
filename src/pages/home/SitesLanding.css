@@ -106,7 +106,7 @@
 .sites-landing .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0,1fr) minmax(380px,.88fr);
+  grid-template-columns: minmax(0,1fr);
   align-items: center;
   gap: clamp(42px,6vw,90px);
   max-width: 1240px;
