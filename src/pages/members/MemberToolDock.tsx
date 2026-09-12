@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   generateMemberToolResult,
@@ -20,8 +20,16 @@ export default function MemberToolDock() {
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const workspaceRef = useRef<HTMLDivElement>(null);
+  const businessInputRef = useRef<HTMLInputElement>(null);
 
   const selectedTool = memberTools.find((tool) => tool.id === activeTool);
+
+  useEffect(() => {
+    if (!activeTool) return;
+    workspaceRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    businessInputRef.current?.focus({ preventScroll: true });
+  }, [activeTool]);
 
   const openTool = (toolId: MemberToolId) => {
     setActiveTool(toolId);
@@ -73,14 +81,14 @@ export default function MemberToolDock() {
             <strong style={styles.toolName}>{tool.name}</strong>
             <p style={styles.description}>{tool.description}</p>
             <button type="button" onClick={() => openTool(tool.id)} style={styles.openButton}>
-              Open Tool
+              {activeTool === tool.id ? "Tool Open ↓" : "Open Tool"}
             </button>
           </article>
         ))}
       </div>
 
       {selectedTool && (
-        <div style={styles.workspace}>
+        <div ref={workspaceRef} style={styles.workspace}>
           <div style={styles.workspaceHeading}>
             <div>
               <p style={styles.kicker}>NOW BUILDING</p>
@@ -92,7 +100,7 @@ export default function MemberToolDock() {
           <div style={styles.formGrid}>
             <label style={styles.label}>
               Business name
-              <input value={input.business} onChange={(event) => setInput({ ...input, business: event.target.value })} placeholder="Ocean Tide Drop AI SURFER" style={styles.input} />
+              <input ref={businessInputRef} name="business" value={input.business} onChange={(event) => setInput({ ...input, business: event.target.value })} placeholder="Ocean Tide Drop AI SURFER" style={styles.input} />
             </label>
             <label style={styles.label}>
               Ideal customer
