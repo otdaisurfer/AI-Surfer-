@@ -52,7 +52,41 @@ function cleanInput(input: MemberToolInput): MemberToolInput {
     throw new Error("Complete all four fields to build your result.");
   }
 
+  if (cleaned.business.length > 80 || /[\r\n]/.test(cleaned.business)) {
+    throw new Error("Enter only your business name—not a previous result.");
+  }
+
   return cleaned;
+}
+
+function lowerFirst(value: string): string {
+  return value.charAt(0).toLowerCase() + value.slice(1);
+}
+
+function actionGoal(value: string): string {
+  return lowerFirst(value.replace(/^to\s+/i, ""));
+}
+
+function gerundGoal(value: string): string {
+  const action = actionGoal(value);
+  const replacements: Record<string, string> = {
+    generate: "generating",
+    increase: "increasing",
+    improve: "improving",
+    create: "creating",
+    grow: "growing",
+    get: "getting",
+    make: "making",
+    build: "building",
+    attract: "attracting",
+    reduce: "reducing",
+    save: "saving",
+    sell: "selling",
+  };
+  const [firstWord, ...rest] = action.split(/\s+/);
+  const gerund = replacements[firstWord.toLowerCase()];
+
+  return gerund ? [gerund, ...rest].join(" ") : action;
 }
 
 export function generateMemberToolResult(
@@ -60,18 +94,20 @@ export function generateMemberToolResult(
   rawInput: MemberToolInput,
 ): string {
   const { business, audience, goal, offer } = cleanInput(rawInput);
+  const action = actionGoal(goal);
+  const ongoingGoal = gerundGoal(goal);
 
   switch (toolId) {
     case "prompt-wave-builder":
       return `PROMPT WAVE FOR ${business.toUpperCase()}
 
-Act as a practical growth strategist for ${business}. Our ideal audience is ${audience}. Our current offer is ${offer}, and our primary goal is to ${goal}.
+Act as a practical growth strategist for ${business}. Our ideal audience is ${audience}. Our current offer is ${offer}, and our primary goal is to ${action}.
 
 Create a focused action plan that includes:
 1. The three highest-impact actions to take first.
 2. A clear message that explains why ${offer} matters to ${audience}.
 3. One low-cost way to reach more of this audience this week.
-4. A simple call to action that moves people toward the goal: ${goal}.
+4. A simple call to action that moves people toward the goal: ${action}.
 5. Three measurements that will show whether the plan is working.
 
 Use plain language, short sections, and steps a small business can complete without a large team. Keep every recommendation aligned with ${business}.`;
@@ -81,7 +117,7 @@ Use plain language, short sections, and steps a small business can complete with
 
 Hi [First Name],
 
-I wanted to follow up because you mentioned wanting help with ${goal}. At ${business}, we help ${audience} move forward with ${offer}—without making the process feel complicated or overwhelming.
+I wanted to follow up because you mentioned wanting help with ${ongoingGoal}. At ${business}, we help ${audience} move forward with ${offer}—without making the process feel complicated or overwhelming.
 
 If this is still a priority, I’d be happy to show you the simplest next step and answer any questions. There’s no pressure; I just don’t want you to miss an option that could help.
 
@@ -92,7 +128,7 @@ Thanks,
 ${business}
 
 QUICK TEXT VERSION
-Hi [First Name]—just checking in about your goal to ${goal}. ${business} offers ${offer} for ${audience}. Want me to send the simplest next step?`;
+Hi [First Name]—just checking in about your goal of ${ongoingGoal}. ${business} offers ${offer} for ${audience}. Want me to send the simplest next step?`;
 
     case "offer-builder":
       return `THE ${business.toUpperCase()} OFFER
@@ -101,13 +137,13 @@ WHO IT HELPS
 ${audience}
 
 THE PROBLEM
-They want to ${goal}, but need a clear and practical path forward.
+They want to ${action}, but need a clear and practical path forward.
 
 THE OFFER
 ${offer}
 
 THE PROMISE
-${business} helps ${audience} make meaningful progress toward ${goal} with a solution that is clear, supportive, and built for real-world use.
+${business} helps ${audience} make meaningful progress toward ${ongoingGoal} with a solution that is clear, supportive, and built for real-world use.
 
 WHAT TO INCLUDE
 • A simple starting assessment or conversation
@@ -117,12 +153,12 @@ WHAT TO INCLUDE
 • A defined next step after completion
 
 CALL TO ACTION
-Ready to ${goal}? Start with ${offer} from ${business}. Reply “READY” or choose the next-step button to begin.`;
+Ready to ${action}? Start with ${offer} from ${business}. Reply “READY” or choose the next-step button to begin.`;
 
     case "thirty-day-plan":
       return `30-DAY WAVE PLAN FOR ${business.toUpperCase()}
 
-GOAL: ${goal}
+GOAL: ${action}
 AUDIENCE: ${audience}
 OFFER: ${offer}
 
@@ -139,6 +175,6 @@ WEEK 4 — CREATE REVENUE MOMENTUM
 Follow up with every response, track conversations and sales, repeat the best-performing message, and choose the next 30-day target.
 
 DAILY MINIMUM
-Spend 20 minutes creating visibility, 20 minutes following up, and 10 minutes tracking what moved ${business} closer to ${goal}.`;
+Spend 20 minutes creating visibility, 20 minutes following up, and 10 minutes tracking what moved ${business} closer to ${ongoingGoal}.`;
   }
 }
