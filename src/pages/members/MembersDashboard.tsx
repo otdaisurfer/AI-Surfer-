@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../lib/supabase";
+import MemberToolDock from "./MemberToolDock";
 
 const products = [
   ["🔎", "Wave Scout", "Find AI opportunities and qualified leads.", "wave-scout"],
@@ -75,6 +76,8 @@ export default function MembersDashboard() {
           <button onClick={() => navigate("/wave-audit")} style={styles.cta}>Launch Wave Audit</button>
         </div>
       </section>
+
+      <MemberToolDock />
 
       <section style={styles.productsSection}>
         <div style={styles.sectionHeading}>
