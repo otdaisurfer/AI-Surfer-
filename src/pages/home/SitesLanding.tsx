@@ -9,7 +9,6 @@ const products = [
     stage: "Discover",
     name: "AEO Wave Audit™",
     category: "AI Visibility & Discovery",
-    image: "/packages/aeo-wave-audit.jpg",
     description:
       "Find the visibility gaps that keep AI systems from understanding, trusting, citing, and recommending your business.",
     cta: "Run the Wave Audit",
@@ -20,7 +19,6 @@ const products = [
     stage: "Diagnose",
     name: "AI Opportunity Report™",
     category: "Business AI Strategy",
-    image: "/packages/ai-opportunity-report.jpg",
     description:
       "Turn scattered AI possibilities into a prioritized list of the opportunities most likely to create measurable business value.",
     cta: "Explore Opportunities",
@@ -30,7 +28,6 @@ const products = [
     stage: "Plan",
     name: "AEO Blueprint™",
     category: "AI Search Strategy",
-    image: "/packages/aeo-blueprint.jpg",
     description:
       "Build a practical roadmap for becoming more visible, understandable, and authoritative across AI-powered answer engines.",
     cta: "Build the Blueprint",
@@ -40,7 +37,6 @@ const products = [
     stage: "Plan",
     name: "Automation Blueprint™",
     category: "AI Workflow Strategy",
-    image: "/packages/automation-blueprint.jpg",
     description:
       "Map repetitive work into AI-powered workflows that reduce manual effort, connect your tools, and make operations more scalable.",
     cta: "Map Your Workflows",
@@ -50,7 +46,6 @@ const products = [
     stage: "Implement",
     name: "Wave Scout™",
     category: "Lead Generation AI",
-    image: "/packages/wave-scout.jpg",
     description:
       "Identify prospects, research buying signals, and organize opportunities so your team spends less time hunting and more time closing.",
     cta: "Ride with Wave Scout",
@@ -60,8 +55,6 @@ const products = [
     stage: "Implement",
     name: "Sales Rider™",
     category: "AI Sales Assistant",
-    image: "/packages/sales-rider.jpg",
-    video: "/images/sales-rider-sparkle-animated.mp4",
     description:
       "Turn leads into conversations and conversations into opportunities with an always-on sales assistant.",
     cta: "Meet Sales Rider",
@@ -71,7 +64,6 @@ const products = [
     stage: "Implement",
     name: "Content Creator™",
     category: "AI Marketing Engine",
-    image: "/packages/content-creator.jpg",
     description:
       "Generate strategic social posts, emails, blogs, campaigns, offers, and marketing assets while keeping your message aligned.",
     cta: "Create with Content Creator",
@@ -81,7 +73,6 @@ const products = [
     stage: "Implement",
     name: "Automation Architect™",
     category: "AI Business Automation",
-    image: "/packages/automation-architect.jpg",
     description:
       "Connect processes, tools, data, and AI agents to automate repetitive work and create a more scalable operation.",
     cta: "Automate the Work",
@@ -91,8 +82,6 @@ const products = [
     stage: "Transform",
     name: "Big Kahuna™",
     category: "AI Growth Architect",
-    image: "/packages/big-kahuna.jpg",
-    video: "/images/big-kahuna-strategy-sparkle-animated.mp4",
     description:
       "Bring strategy, visibility, automation, agents, workflows, and growth opportunities together into one complete AI transformation experience.",
     cta: "Go Big Kahuna",
@@ -109,24 +98,9 @@ export default function SitesLanding() {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-7px); }
         }
-        @keyframes landingImageDrift {
-          0%, 100% { transform: scale(1.01) translate3d(0, 0, 0); }
-          50% { transform: scale(1.045) translate3d(0, -8px, 0); }
-        }
-        .visual-showcase-card, .product-card { animation: landingWaveFloat 7s ease-in-out infinite; }
-        .visual-showcase-image, .product-card-image {
-          animation: landingImageDrift 9s ease-in-out infinite;
-          transition: transform .65s ease, filter .65s ease;
-          will-change: transform;
-        }
-        .visual-showcase-card:hover .visual-showcase-image,
-        .product-card:hover .product-card-image {
-          transform: scale(1.075);
-          filter: saturate(1.12) brightness(1.04);
-        }
+        .product-card { animation: landingWaveFloat 7s ease-in-out infinite; }
         @media (prefers-reduced-motion: reduce) {
-          .visual-showcase-card, .product-card,
-          .visual-showcase-image, .product-card-image {
+          .product-card {
             animation: none !important;
             transition: none !important;
           }
@@ -182,83 +156,6 @@ export default function SitesLanding() {
           </div>
         </div>
 
-        <div className="logo-stage" aria-label="Ocean Tide Drop AI SURFER brand artwork">
-          <div className="logo-frame">
-            <img
-              src="/ai-surfer-logo.jpg"
-              alt="Ocean Tide Drop AI SURFER logo with waves, dolphins, sunrise, and surfboard"
-            />
-          </div>
-          <div className="logo-caption">
-            <span className="pulse" />
-            <div>
-              <strong>The next wave is already here.</strong>
-              <small>Let&apos;s make it work for your business.</small>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        aria-label="AI Surfer visual showcase"
-        style={{ maxWidth: 1184, margin: "0 auto 110px", padding: "0 28px" }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 24,
-            alignItems: "stretch",
-          }}
-        >
-          <figure
-            className="visual-showcase-card"
-            style={{
-              margin: 0,
-              overflow: "hidden",
-              borderRadius: 30,
-              border: "1px solid rgba(24,238,241,.32)",
-              background: "linear-gradient(145deg, rgba(10,31,51,.96), rgba(6,13,25,.98))",
-              boxShadow: "0 28px 75px rgba(0,0,0,.35)",
-            }}
-          >
-            <video
-              className="visual-showcase-image"
-              src="/images/sales-rider-sparkle-animated.mp4"
-              aria-label="Sales Rider Ocean Tide Drop AI Surfer artwork"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              style={{ display: "block", width: "100%", aspectRatio: "4 / 5", objectFit: "cover" }}
-            />
-          </figure>
-
-          <figure
-            className="visual-showcase-card"
-            style={{
-              margin: 0,
-              overflow: "hidden",
-              borderRadius: 30,
-              border: "1px solid rgba(255,60,185,.34)",
-              background: "linear-gradient(145deg, rgba(10,31,51,.96), rgba(6,13,25,.98))",
-              boxShadow: "0 28px 75px rgba(0,0,0,.35)",
-            }}
-          >
-            <video
-              className="visual-showcase-image"
-              src="/images/big-kahuna-strategy-sparkle-animated.mp4"
-              aria-label="Big Kahuna Ocean Tide Drop AI Surfer artwork"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              style={{ display: "block", width: "100%", aspectRatio: "4 / 5", objectFit: "cover" }}
-            />
-          </figure>
-        </div>
       </section>
 
       <section className="revenue-funnel" aria-label="AI Surfer revenue funnel">
@@ -301,30 +198,6 @@ export default function SitesLanding() {
           </p>
         </div>
 
-        <figure
-          className="visual-showcase-card"
-          style={{
-            margin: "0 0 34px",
-            overflow: "hidden",
-            borderRadius: 30,
-            border: "1px solid rgba(24,238,241,.32)",
-            background: "linear-gradient(145deg, rgba(10,31,51,.96), rgba(6,13,25,.98))",
-            boxShadow: "0 28px 75px rgba(0,0,0,.35)",
-          }}
-        >
-          <video
-            className="visual-showcase-image"
-            src="/images/product-ladder-sparkle-animated.mp4"
-            aria-label="AI Surfer product ladder"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            style={{ display: "block", width: "100%", aspectRatio: "4 / 5", objectFit: "cover" }}
-          />
-        </figure>
-
         <div className="product-grid">
           {products.map((product, index) => (
             <article
@@ -332,41 +205,6 @@ export default function SitesLanding() {
               key={product.name}
               style={{ overflow: "hidden", padding: 0, animationDelay: `${index * 0.35}s` }}
             >
-              {product.video ? (
-                <video
-                  className="product-card-image"
-                  src={product.video}
-                  aria-label={`${product.name} Ocean Tide Drop AI Surfer artwork`}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="metadata"
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    aspectRatio: "4 / 3",
-                    objectFit: "cover",
-                    objectPosition: "center top",
-                    borderBottom: "1px solid rgba(111,147,178,.22)",
-                  }}
-                />
-              ) : (
-                <img
-                  className="product-card-image"
-                  src={product.image}
-                  alt={`${product.name} Ocean Tide Drop AI Surfer artwork`}
-                  loading="lazy"
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    aspectRatio: "4 / 3",
-                    objectFit: "cover",
-                    objectPosition: "center top",
-                    borderBottom: "1px solid rgba(111,147,178,.22)",
-                  }}
-                />
-              )}
               <div style={{ display: "flex", flexDirection: "column", flex: 1, padding: 25 }}>
                 <div className="product-topline">
                   <span className={`stage stage-${product.stage.toLowerCase()}`}>
@@ -407,7 +245,6 @@ export default function SitesLanding() {
 
       <footer>
         <div className="footer-brand">
-          <img src="/ai-surfer-logo.jpg" alt="" />
           <div>
             <strong>Ocean Tide Drop AI SURFER</strong>
             <span>Ride the Wave 🌊 Grow with AI.</span>
