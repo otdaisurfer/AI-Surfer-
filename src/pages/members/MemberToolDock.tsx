@@ -101,6 +101,7 @@ export default function MemberToolDock() {
             <label style={styles.label}>
               Business name
               <input ref={businessInputRef} name="business" value={input.business} onChange={(event) => setInput({ ...input, business: event.target.value })} placeholder="Ocean Tide Drop AI SURFER" style={styles.input} />
+              <span style={styles.hint}>Name only — not a previous result</span>
             </label>
             <label style={styles.label}>
               Ideal customer
@@ -109,6 +110,7 @@ export default function MemberToolDock() {
             <label style={styles.label}>
               Main goal
               <input value={input.goal} onChange={(event) => setInput({ ...input, goal: event.target.value })} placeholder="generate more qualified leads" style={styles.input} />
+              <span style={styles.hint}>Start with an action word, like generate, grow or save</span>
             </label>
             <label style={styles.label}>
               Product or service
@@ -159,6 +161,7 @@ const styles: Record<string, React.CSSProperties> = {
   formGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 15, marginTop: 22 },
   label: { display: "grid", gap: 7, color: "#cbd5e1", fontSize: 13, fontWeight: 800 },
   input: { width: "100%", minHeight: 48, padding: "11px 13px", border: "1px solid #334155", borderRadius: 12, outline: "none", background: "#081323", color: "white", fontSize: 16 },
+  hint: { color: "#94a3b8", fontSize: 12, fontWeight: 600, lineHeight: 1.35 },
   error: { margin: "15px 0 0", color: "#fecdd3", fontWeight: 750 },
   actions: { display: "flex", flexWrap: "wrap", gap: 10, marginTop: 20 },
   generateButton: { minHeight: 48, padding: "12px 19px", border: 0, borderRadius: 999, background: "linear-gradient(90deg,#22d3ee,#60a5fa,#f472b6)", color: "#03131d", fontWeight: 900, cursor: "pointer" },

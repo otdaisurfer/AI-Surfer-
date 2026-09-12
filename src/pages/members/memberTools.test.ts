@@ -24,7 +24,9 @@ describe("member tool generators", () => {
 
     expect(result).toContain("Tideway Bakery");
     expect(result).toContain("busy local parents");
-    expect(result).toContain("increase weekday orders");
+    expect(result).toContain(
+      tool.id === "follow-up-maker" ? "increasing weekday orders" : "increase weekday orders",
+    );
     expect(result).toContain("family breakfast boxes");
     expect(result.length).toBeGreaterThan(250);
   });
@@ -33,5 +35,31 @@ describe("member tool generators", () => {
     expect(() =>
       generateMemberToolResult("offer-builder", { ...input, audience: "" }),
     ).toThrow("Complete all four fields");
+  });
+
+  it("uses natural grammar when a goal starts with an action verb", () => {
+    const actionInput = {
+      business: "Ocean Tide Drop AI SURFER",
+      audience: "local business owners",
+      goal: "Generate more qualifying leads",
+      offer: "AI Wave Check",
+    };
+
+    const followUp = generateMemberToolResult("follow-up-maker", actionInput);
+    const offer = generateMemberToolResult("offer-builder", actionInput);
+
+    expect(followUp).toContain("your goal of generating more qualifying leads");
+    expect(followUp).not.toContain("your goal to Generate");
+    expect(offer).toContain("progress toward generating more qualifying leads");
+    expect(offer).not.toContain("progress toward Generate");
+  });
+
+  it("rejects a pasted result in place of a business name", () => {
+    expect(() =>
+      generateMemberToolResult("thirty-day-plan", {
+        ...input,
+        business: "THE OCEAN TIDE DROP AI SURFER OFFER\nWHO IT HELPS\nLocal business owners",
+      }),
+    ).toThrow("Enter only your business name");
   });
 });

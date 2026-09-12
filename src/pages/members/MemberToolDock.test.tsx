@@ -24,6 +24,24 @@ describe("MemberToolDock", () => {
     expect(markup.match(/>Open Tool</g)).toHaveLength(4);
   });
 
+  it("shows short examples that clarify what belongs in each field", async () => {
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: vi.fn(),
+    });
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+
+    await act(async () => root.render(<MemberToolDock />));
+    await act(async () => container.querySelector("article button")?.dispatchEvent(new MouseEvent("click", { bubbles: true })));
+
+    expect(container.textContent).toContain("Name only — not a previous result");
+    expect(container.textContent).toContain("Start with an action word");
+
+    await act(async () => root.unmount());
+  });
+
   it.each([
     "Prompt Wave Builder",
     "Follow-Up Message Maker",
