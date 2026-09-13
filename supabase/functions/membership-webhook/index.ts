@@ -50,6 +50,35 @@ async function upsertCheckoutMembership(
   if (error) throw error;
 }
 
+async function recordWaveStarterPayment(session: StripeType.Checkout.Session) {
+  if (!admin) throw new Error("Supabase admin unavailable");
+
+  const email = session.customer_details?.email ?? session.customer_email ?? null;
+  const paymentIntentId = typeof session.payment_intent === "string"
+    ? session.payment_intent
+    : session.payment_intent?.id ?? null;
+
+  const { error } = await admin
+    .from("payments")
+    .upsert({
+      email: email?.trim().toLowerCase() || null,
+      amount: session.amount_total ?? 49700,
+      currency: session.currency ?? "usd",
+      status: session.payment_status === "paid" ? "succeeded" : "pending",
+      stripe_payment_id: paymentIntentId,
+      stripe_checkout_session_id: session.id,
+      product_slug: "wave-starter",
+      description: "Wave Starter",
+      metadata: {
+        crm_sync_status: "queued",
+        offer_slug: "wave-starter",
+        source: session.metadata?.source ?? "otdaisurfer-pricing",
+      },
+    }, { onConflict: "stripe_checkout_session_id" });
+
+  if (error) throw error;
+}
+
 async function updateMembershipByCustomer(
   customerId: string,
   changes: { tier?: string; status: "active" | "cancelled" | "paused" | "trialing" },
@@ -101,14 +130,17 @@ Deno.serve(async (req: Request) => {
   try {
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as StripeType.Checkout.Session;
-      if (session.metadata?.product_slug !== "ai-surfer-membership") return text("ok");
 
-      const email = session.customer_details?.email ?? session.customer_email ?? "";
-      const tier = session.metadata?.tier;
-      const customerId = customerIdFrom(session.customer);
+      if (session.metadata?.offer_slug === "wave-starter") {
+        await recordWaveStarterPayment(session);
+      } else if (session.metadata?.product_slug === "ai-surfer-membership") {
+        const email = session.customer_details?.email ?? session.customer_email ?? "";
+        const tier = session.metadata?.tier;
+        const customerId = customerIdFrom(session.customer);
 
-      if (email && tier) {
-        await upsertCheckoutMembership(email, customerId, tier);
+        if (email && tier) {
+          await upsertCheckoutMembership(email, customerId, tier);
+        }
       }
     }
 
