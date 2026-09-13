@@ -8,6 +8,7 @@ import MemberProduct from "./pages/members/MemberProduct";
 import SitesLanding from "./pages/home/SitesLanding";
 import NotFound from "./pages/not-found/NotFound";
 import Pricing from "./pages/pricing/Pricing";
+import WaveStarterSuccess from "./pages/pricing/WaveStarterSuccess";
 import Privacy from "./pages/legal/Privacy";
 import Terms from "./pages/legal/Terms";
 import WaveAudit from "./pages/wave-audit/WaveAudit";
@@ -33,6 +34,7 @@ export default function RouterApp() {
         <Routes>
           <Route path="/" element={<SitesLanding />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/wave-starter/success" element={<WaveStarterSuccess />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/reviews" element={<Navigate to="/pricing" replace />} />

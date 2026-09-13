@@ -90,6 +90,18 @@ describe("shared site branding", () => {
     expect(html).toContain("Continue to My Audit Intake");
   });
 
+  it("renders the Wave Starter payment-success onboarding handoff", () => {
+    const html = renderToStaticMarkup(
+      <MemoryRouter initialEntries={["/wave-starter/success?session_id=cs_live_123"]}>
+        <AuthProvider><RouterApp /></AuthProvider>
+      </MemoryRouter>,
+    );
+    expect(html).toContain("Wave Starter Payment Received");
+    expect(html).toContain("What happens next");
+    expect(html).toContain("oceantidedropservice@gmail.com");
+    expect(html).not.toContain("cs_live_123");
+  });
+
   it("renders a clear not-found page for unknown public routes", () => {
     const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/__healthcheck-not-found__"]}><AuthProvider><RouterApp /></AuthProvider></MemoryRouter>);
     expect(html).toContain("404");
