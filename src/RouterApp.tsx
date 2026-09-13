@@ -38,6 +38,7 @@ export default function RouterApp() {
         <Routes>
           <Route path="/" element={<SitesLanding />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/reviews" element={<Navigate to="/pricing" replace />} />
           <Route path="/wave-audit" element={<WaveAudit />} />
           <Route path="/wave-check" element={<WaveAudit />} />
           <Route path="/login" element={<Login />} />
