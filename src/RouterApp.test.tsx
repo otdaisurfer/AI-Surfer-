@@ -28,6 +28,8 @@ describe("shared site branding", () => {
     expect(html).toContain("Grow with AI.");
     expect(html).toContain("THE AI SURFER PRODUCT WAVE");
     expect(html).toContain('aria-label="Ocean Tide Drop AI SURFER home"');
+    expect(html).toContain('data-homepage-logo="true"');
+    expect(html).toContain('src="/ocean_tide_logo.png"');
     expect(html).not.toContain('aria-label="Ocean Tide Drop AI Surfer brand"');
     expect(html.match(/Launch wave/g)).toHaveLength(1);
   });
@@ -119,11 +121,11 @@ describe("shared site branding", () => {
 
   it("renders audit success", () => {
     const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/audit/success"]}><AuthProvider><RouterApp /></AuthProvider></MemoryRouter>);
-    expect(html).toContain("Payment Successful");
+    expect(html).toContain("Your AEO Wave Audit Is Paid");
   });
 
   it("renders a 404 page for unknown routes", () => {
     const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/not-a-route"]}><AuthProvider><RouterApp /></AuthProvider></MemoryRouter>);
-    expect(html).toContain("Page Not Found");
+    expect(html).toContain("That wave drifted out to sea.");
   });
 });
