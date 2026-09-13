@@ -13,9 +13,13 @@ describe("canonical membership webhook source", () => {
     const source = readFileSync(webhookPath, "utf8");
 
     expect(source).toContain("invoice.payment_failed");
-    expect(source).toContain("past_due");
+    expect(source).toContain('status: "paused"');
     expect(source).toContain("invoice.paid");
+    expect(source).toContain('status: "active"');
     expect(source).toContain("customer.subscription.deleted");
-    expect(source).toMatch(/tier:\s*['\"]free['\"]/);
+    expect(source).toContain('tier: "free"');
+
+    const failedPaymentBlock = source.split('event.type === "invoice.payment_failed"')[1]?.split("if (event.type")[0] ?? "";
+    expect(failedPaymentBlock).not.toContain('tier: "free"');
   });
 });
