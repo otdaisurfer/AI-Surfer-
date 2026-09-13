@@ -56,7 +56,8 @@ describe("shared site branding", () => {
     expect(html).toContain("Choose Your AI Wave");
     expect(html).toContain("AI Surfer Memberships");
     expect(html).not.toContain("AI for your business, without the tech headache.");
-    expect(html.match(/LAUNCH WEEK SPECIAL/g)).toHaveLength(1);
+    expect(html).not.toContain("LAUNCH WEEK SPECIAL");
+    expect(html).not.toContain("OCEANTIDE20");
   });
 
   it("renders the paid audit success handoff after Stripe returns", () => {
