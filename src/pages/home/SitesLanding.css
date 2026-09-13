@@ -106,7 +106,7 @@
 .sites-landing .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0,1fr);
+  grid-template-columns: minmax(0,1fr) minmax(320px,.72fr);
   align-items: center;
   gap: clamp(42px,6vw,90px);
   max-width: 1240px;
@@ -209,6 +209,60 @@
   color: #738ba4;
   font-size: .72rem;
   font-weight: 700;
+}
+
+.sites-landing .approved-showcase {
+  max-width: 1184px;
+  margin: 0 auto 110px;
+  padding: 0 28px;
+}
+.sites-landing .approved-media-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 20px;
+  align-items: start;
+}
+.sites-landing .approved-media-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(24,238,241,.28);
+  border-radius: 28px;
+  background: linear-gradient(145deg,rgba(10,31,51,.96),rgba(6,13,25,.98));
+  box-shadow: 0 28px 75px rgba(0,0,0,.35);
+}
+.sites-landing .approved-media-card:nth-child(even) {
+  border-color: rgba(255,60,185,.3);
+}
+.sites-landing .approved-landing-image,
+.sites-landing .approved-landing-video,
+.sites-landing .approved-video-fallback {
+  margin: 0 auto;
+  background: #071423;
+}
+.sites-landing .approved-media-card figcaption {
+  min-height: 72px;
+  padding: 18px 20px;
+  color: #d9f9ff;
+  font-size: .84rem;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.sites-landing .approved-video-fallback { display: none; }
+.sites-landing .hero-media-card {
+  position: relative;
+  z-index: 2;
+  width: min(460px,100%);
+  justify-self: end;
+}
+.sites-landing .product-ladder-media-card {
+  width: min(460px,100%);
+  margin: 0 auto 42px;
+}
+.sites-landing .product-card-media {
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid rgba(255,60,185,.22);
+  background: #071423;
 }
 
 .sites-landing .logo-stage { transform: rotate(1.4deg); }
@@ -447,7 +501,9 @@
 
 @media (max-width:980px) {
   .sites-landing .hero { grid-template-columns: 1fr; padding-top: 48px; }
+  .sites-landing .hero-media-card { justify-self: center; }
   .sites-landing .logo-stage { width: min(680px,100%); margin: 0 auto; }
+  .sites-landing .approved-media-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .sites-landing .product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .sites-landing .wave-check, .sites-landing .membership { margin-right: 24px; margin-left: 24px; }
   .sites-landing .membership { padding: 50px; }
@@ -462,6 +518,11 @@
   .sites-landing .hero h1 { font-size: clamp(3.25rem,16vw,5.1rem); }
   .sites-landing .hero-actions .button { width: 100%; }
   .sites-landing .trust-line { display: grid; gap: 9px; }
+  .sites-landing .hero-media-card { width: min(360px,100%); }
+  .sites-landing .approved-showcase { margin-bottom: 88px; padding: 0 16px; }
+  .sites-landing .approved-media-grid { grid-template-columns: 1fr; }
+  .sites-landing .approved-media-card { width: min(390px,100%); margin-right: auto; margin-left: auto; }
+  .sites-landing .approved-media-card figcaption { min-height: 0; }
   .sites-landing .logo-stage { transform: none; }
   .sites-landing .logo-frame { border-radius: 20px; }
   .sites-landing .logo-frame img { border-radius: 14px; }
@@ -487,6 +548,8 @@
 @media (prefers-reduced-motion:reduce) {
   .sites-landing { scroll-behavior: auto; }
   .sites-landing .button, .sites-landing .product-card { transition: none; }
+  .sites-landing .approved-landing-video { display: none; }
+  .sites-landing .approved-video-fallback { display: block; }
 }
 
 /* Sparkle and dance */

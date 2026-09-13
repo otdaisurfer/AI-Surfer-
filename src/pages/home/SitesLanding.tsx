@@ -4,6 +4,14 @@ const LIVE_SITE = "https://otdaisurfer.surf";
 
 const revenueFunnel = ["LAND", "CAPTURE", "AUDIT", "RESULTS", "SELL", "IMPLEMENT", "RETAIN"];
 
+const approvedMediaStyle = {
+  display: "block",
+  width: "100%",
+  aspectRatio: "4 / 5",
+  objectFit: "contain",
+  maxHeight: 560,
+} as const;
+
 const products = [
   {
     stage: "Discover",
@@ -82,6 +90,8 @@ const products = [
     stage: "Transform",
     name: "Big Kahuna™",
     category: "AI Growth Architect",
+    video: "/images/approved-landing/big-kahuna-animated.mp4",
+    poster: "/images/approved-landing/big-kahuna-visibility.png",
     description:
       "Bring strategy, visibility, automation, agents, workflows, and growth opportunities together into one complete AI transformation experience.",
     cta: "Go Big Kahuna",
@@ -156,6 +166,72 @@ export default function SitesLanding() {
           </div>
         </div>
 
+        <figure className="approved-media-card hero-media-card">
+          <img
+            className="approved-landing-image"
+            src="/images/approved-landing/product-ladder.png"
+            alt="Ocean Tide Drop AI SURFER product ladder from the AEO Wave Audit through Big Kahuna"
+            decoding="async"
+            style={approvedMediaStyle}
+          />
+          <figcaption>Start with insight. Build, automate, and grow with the right wave.</figcaption>
+        </figure>
+      </section>
+
+      <section className="approved-showcase" aria-labelledby="approved-showcase-title">
+        <div className="section-heading">
+          <p className="eyebrow">SEE THE AI SURFER SYSTEM</p>
+          <h2 id="approved-showcase-title">Practical AI support for visibility, customers, and growth.</h2>
+        </div>
+        <div className="approved-media-grid">
+          <figure className="approved-media-card">
+            <img
+              className="approved-landing-image"
+              src="/images/approved-landing/customer-care-cove.png"
+              alt="Customer Care Cove showing faster answers, FAQ support, appointment triage, and owner escalation"
+              loading="lazy"
+              decoding="async"
+              style={approvedMediaStyle}
+            />
+            <figcaption>Customer Care Cove keeps customer conversations flowing.</figcaption>
+          </figure>
+
+          <figure className="approved-media-card">
+            <video
+              className="approved-landing-video"
+              src="/images/approved-landing/ai-visibility-animated.mp4"
+              poster="/images/approved-landing/big-kahuna-visibility.png"
+              aria-label="Animated AI visibility strategy artwork"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={approvedMediaStyle}
+            />
+            <img
+              className="approved-video-fallback"
+              src="/images/approved-landing/big-kahuna-visibility.png"
+              alt="Big Kahuna AI visibility strategy"
+              loading="lazy"
+              decoding="async"
+              style={approvedMediaStyle}
+            />
+            <figcaption>Become easier for Google and AI answer engines to find and trust.</figcaption>
+          </figure>
+
+          <figure className="approved-media-card">
+            <img
+              className="approved-landing-image"
+              src="/images/approved-landing/big-kahuna-visibility.png"
+              alt="Big Kahuna strategy showing AEO, GEO, Google, ChatGPT, Gemini, and Perplexity visibility"
+              loading="lazy"
+              decoding="async"
+              style={approvedMediaStyle}
+            />
+            <figcaption>Big Kahuna connects visibility, authority, automation, and growth.</figcaption>
+          </figure>
+        </div>
       </section>
 
       <section className="revenue-funnel" aria-label="AI Surfer revenue funnel">
@@ -198,6 +274,30 @@ export default function SitesLanding() {
           </p>
         </div>
 
+        <figure className="approved-media-card product-ladder-media-card">
+          <video
+            className="approved-landing-video"
+            src="/images/approved-landing/product-ladder-animated.mp4"
+            poster="/images/approved-landing/product-ladder.png"
+            aria-label="Animated Ocean Tide Drop AI SURFER product ladder"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={approvedMediaStyle}
+          />
+          <img
+            className="approved-video-fallback"
+            src="/images/approved-landing/product-ladder.png"
+            alt="Ocean Tide Drop AI SURFER product ladder"
+            loading="lazy"
+            decoding="async"
+            style={approvedMediaStyle}
+          />
+          <figcaption>Ride from your first Wave Check to a connected AI growth system.</figcaption>
+        </figure>
+
         <div className="product-grid">
           {products.map((product, index) => (
             <article
@@ -205,6 +305,30 @@ export default function SitesLanding() {
               key={product.name}
               style={{ overflow: "hidden", padding: 0, animationDelay: `${index * 0.35}s` }}
             >
+              {product.video && product.poster ? (
+                <div className="product-card-media">
+                  <video
+                    className="approved-landing-video"
+                    src={product.video}
+                    poster={product.poster}
+                    aria-label={`${product.name} animated AI visibility strategy artwork`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    style={approvedMediaStyle}
+                  />
+                  <img
+                    className="approved-video-fallback"
+                    src={product.poster}
+                    alt={`${product.name} AI visibility strategy`}
+                    loading="lazy"
+                    decoding="async"
+                    style={approvedMediaStyle}
+                  />
+                </div>
+              ) : null}
               <div style={{ display: "flex", flexDirection: "column", flex: 1, padding: 25 }}>
                 <div className="product-topline">
                   <span className={`stage stage-${product.stage.toLowerCase()}`}>

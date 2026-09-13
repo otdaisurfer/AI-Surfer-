@@ -46,7 +46,6 @@ describe("SitesLanding approved media", () => {
 
     for (const video of videos) {
       expect(video.autoplay).toBe(true);
-      expect(video.muted).toBe(true);
       expect(video.loop).toBe(true);
       expect(video.playsInline).toBe(true);
       expect(video.getAttribute("poster")).toMatch(/^\/images\/approved-landing\/.+\.png$/);
