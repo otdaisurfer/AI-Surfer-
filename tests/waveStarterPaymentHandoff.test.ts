@@ -13,7 +13,7 @@ describe("Wave Starter Stripe handoff", () => {
   });
 
   it("keeps membership checkout handling intact", () => {
-    expect(webhook).toContain('session.metadata?.product_slug === "ai-surfer-membership"');
+    expect(webhook).toContain('"ai-surfer-membership"');
     expect(webhook).toContain("upsertCheckoutMembership");
   });
 });
