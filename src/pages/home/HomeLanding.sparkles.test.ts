@@ -31,12 +31,8 @@ describe('sparkle landing page', () => {
     expect(sparkleSource).toContain('const palette = isTopDense ? topColors : lowerColors;');
   });
 
-  it('restores the 20% launch banner above the logo header', () => {
-    const offerIndex = routerSource.indexOf('LAUNCH WEEK SPECIAL: Get 20% OFF');
-    const logoIndex = routerSource.indexOf('<SiteLogoHeader />');
-
-    expect(offerIndex).toBeGreaterThanOrEqual(0);
-    expect(routerSource).toContain('OCEANTIDE20');
-    expect(offerIndex).toBeLessThan(logoIndex);
+  it('does not show the retired 20% launch promo on routed pages', () => {
+    expect(routerSource).not.toContain('LAUNCH WEEK SPECIAL: Get 20% OFF');
+    expect(routerSource).not.toContain('OCEANTIDE20');
   });
 });
