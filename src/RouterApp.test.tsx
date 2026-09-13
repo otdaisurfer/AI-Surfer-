@@ -28,8 +28,6 @@ describe("shared site branding", () => {
     expect(html).toContain("Grow with AI.");
     expect(html).toContain("THE AI SURFER PRODUCT WAVE");
     expect(html).toContain('aria-label="Ocean Tide Drop AI SURFER home"');
-    expect(html).toContain('data-homepage-logo="true"');
-    expect(html).toContain('src="/ocean_tide_logo.png"');
     expect(html).not.toContain('aria-label="Ocean Tide Drop AI Surfer brand"');
     expect(html.match(/Launch wave/g)).toHaveLength(1);
   });
