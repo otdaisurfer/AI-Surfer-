@@ -37,8 +37,36 @@ serve(async (req) => {
     if (email && tier && productSlug === "ai-surfer-membership") {
       await supabase
         .from("users")
-        .update({ tier })
+        .update({
+          tier,
+          subscription_status: "active",
+          stripe_customer_email: email,
+          updated_at: new Date().toISOString(),
+        })
         .eq("email", email);
+    }
+  }
+
+  if (event.type === "customer.subscription.deleted") {
+    const subscription = event.data.object;
+    const customerId = typeof subscription.customer === "string"
+      ? subscription.customer
+      : subscription.customer?.id;
+
+    if (customerId) {
+      const customer = await stripe.customers.retrieve(customerId);
+      const email = !customer.deleted ? customer.email : null;
+
+      if (email) {
+        await supabase
+          .from("users")
+          .update({
+            tier: "free",
+            subscription_status: "canceled",
+            updated_at: new Date().toISOString(),
+          })
+          .eq("email", email);
+      }
     }
   }
 
