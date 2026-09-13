@@ -122,7 +122,13 @@ export default function SitesLanding() {
 
       <nav className="nav-shell" aria-label="Main navigation">
         <a className="brand" href="#top" aria-label="Ocean Tide Drop AI SURFER home">
-          <span className="brand-mark">OTD</span>
+          <img
+            className="brand-mark"
+            src="/ocean_tide_logo.png"
+            alt=""
+            aria-hidden="true"
+            data-homepage-logo="true"
+          />
           <span>
             <strong>Ocean Tide Drop</strong>
             <small>AI SURFER</small>
