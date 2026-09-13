@@ -30,10 +30,11 @@ serve(async (req) => {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
 
-    const email = session.customer_details?.email;
-    const tier = session.metadata?.tier || "bronze";
+    const email = session.customer_details?.email || session.customer_email;
+    const tier = session.metadata?.tier;
+    const productSlug = session.metadata?.product_slug;
 
-    if (email) {
+    if (email && tier && productSlug === "ai-surfer-membership") {
       await supabase
         .from("users")
         .update({ tier })
