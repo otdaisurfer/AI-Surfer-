@@ -11,6 +11,14 @@ const supabase = createClient(
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
 );
 
+async function getCustomerEmail(customerRef: string | Stripe.Customer | Stripe.DeletedCustomer | null) {
+  const customerId = typeof customerRef === "string" ? customerRef : customerRef?.id;
+  if (!customerId) return null;
+
+  const customer = await stripe.customers.retrieve(customerId);
+  return !customer.deleted ? customer.email : null;
+}
+
 serve(async (req) => {
   const signature = req.headers.get("stripe-signature")!;
   const body = await req.text();
@@ -47,26 +55,51 @@ serve(async (req) => {
     }
   }
 
+  if (event.type === "invoice.payment_failed") {
+    const invoice = event.data.object;
+    const email = await getCustomerEmail(invoice.customer);
+
+    if (email) {
+      await supabase
+        .from("users")
+        .update({
+          subscription_status: "past_due",
+          updated_at: new Date().toISOString(),
+        })
+        .eq("stripe_customer_email", email)
+        .neq("tier", "free");
+    }
+  }
+
+  if (event.type === "invoice.paid") {
+    const invoice = event.data.object;
+    const email = await getCustomerEmail(invoice.customer);
+
+    if (email) {
+      await supabase
+        .from("users")
+        .update({
+          subscription_status: "active",
+          updated_at: new Date().toISOString(),
+        })
+        .eq("stripe_customer_email", email)
+        .neq("tier", "free");
+    }
+  }
+
   if (event.type === "customer.subscription.deleted") {
     const subscription = event.data.object;
-    const customerId = typeof subscription.customer === "string"
-      ? subscription.customer
-      : subscription.customer?.id;
+    const email = await getCustomerEmail(subscription.customer);
 
-    if (customerId) {
-      const customer = await stripe.customers.retrieve(customerId);
-      const email = !customer.deleted ? customer.email : null;
-
-      if (email) {
-        await supabase
-          .from("users")
-          .update({
-            tier: "free",
-            subscription_status: "canceled",
-            updated_at: new Date().toISOString(),
-          })
-          .eq("email", email);
-      }
+    if (email) {
+      await supabase
+        .from("users")
+        .update({
+          tier: "free",
+          subscription_status: "canceled",
+          updated_at: new Date().toISOString(),
+        })
+        .eq("email", email);
     }
   }
 
