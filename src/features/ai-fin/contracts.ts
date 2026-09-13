@@ -3,12 +3,9 @@ export type AccessMode = 'public' | 'owner';
 export type ProductId =
   | 'free-wave-check'
   | 'aeo-wave-audit'
-  | 'wave-scout'
-  | 'sales-rider'
-  | 'content-creator'
-  | 'customer-care-cove'
-  | 'automation-architect'
-  | 'big-kahuna';
+  | 'wave-starter'
+  | 'wave-builder'
+  | 'tsunami-growth';
 
 export type KnowledgeVisibility = 'public' | 'owner';
 export type KnowledgeStatus = 'draft' | 'active' | 'retired';
