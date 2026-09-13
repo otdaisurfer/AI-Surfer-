@@ -18,12 +18,18 @@ import AuditIntake from "./pages/audit/AuditIntake";
 import AuditReport from "./pages/audit/AuditReport";
 import LaunchDesk from "./launch-desk/LaunchDesk";
 import SiteLogoHeader from "./components/SiteLogoHeader";
+import AiFinChat from "./features/ai-fin/AiFinChat";
 
 function SiteChrome() {
   const { pathname } = useLocation();
   if (pathname === "/") return null;
 
   return <SiteLogoHeader />;
+}
+
+function PublicAiFinLauncher() {
+  const { pathname } = useLocation();
+  return pathname === "/" ? <AiFinChat mode="public" /> : null;
 }
 
 export default function RouterApp() {
@@ -48,6 +54,7 @@ export default function RouterApp() {
           <Route path="/audit/report/:orderId" element={<ProtectedRoute><AuditReport /></ProtectedRoute>} />
 
           <Route path="/launch-desk" element={<ProtectedRoute><LaunchDesk /></ProtectedRoute>} />
+          <Route path="/ai-fin/owner" element={<ProtectedRoute><AiFinChat mode="owner" embedded /></ProtectedRoute>} />
           <Route path="/members" element={<ProtectedRoute><MembersLayout /></ProtectedRoute>}>
             <Route index element={<MembersDashboard />} />
             <Route path="products/:slug" element={<MemberProduct />} />
@@ -58,6 +65,7 @@ export default function RouterApp() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
+      <PublicAiFinLauncher />
     </>
   );
 }
