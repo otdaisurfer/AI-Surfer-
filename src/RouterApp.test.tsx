@@ -51,13 +51,37 @@ describe("shared site branding", () => {
     expect(html).toContain("Choose a secure new password for your AI-Surfer account.");
   });
 
-  it("renders the dedicated pricing experience at /pricing", () => {
+  it("renders the approved three-offer launch pricing at /pricing", () => {
     const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/pricing"]}><AuthProvider><RouterApp /></AuthProvider></MemoryRouter>);
-    expect(html).toContain("Choose Your AI Wave");
-    expect(html).toContain("AI Surfer Memberships");
-    expect(html).not.toContain("AI for your business, without the tech headache.");
+    expect(html).toContain("Wave Starter");
+    expect(html).toContain("$497");
+    expect(html).toContain("Wave Builder");
+    expect(html).toContain("$1,997");
+    expect(html).toContain("Tsunami Growth");
+    expect(html).toContain("$3,997");
+    expect(html).not.toContain("$97");
+    expect(html).not.toContain("$17/month");
+    expect(html).not.toContain("$2,500");
     expect(html).not.toContain("LAUNCH WEEK SPECIAL");
     expect(html).not.toContain("OCEANTIDE20");
+  });
+
+  it("renders a complete privacy policy at /privacy", () => {
+    const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/privacy"]}><AuthProvider><RouterApp /></AuthProvider></MemoryRouter>);
+    expect(html).toContain("Privacy Policy");
+    expect(html).toContain("Data We Collect");
+    expect(html).toContain("Data Retention");
+    expect(html).toContain("Deletion Requests");
+    expect(html).toContain("Payment Information");
+  });
+
+  it("renders customer-facing terms at /terms", () => {
+    const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/terms"]}><AuthProvider><RouterApp /></AuthProvider></MemoryRouter>);
+    expect(html).toContain("Terms of Service");
+    expect(html).toContain("Services and AI Outputs");
+    expect(html).toContain("Payments");
+    expect(html).toContain("Customer Responsibilities");
+    expect(html).toContain("Refunds and Cancellations");
   });
 
   it("renders the paid audit success handoff after Stripe returns", () => {
