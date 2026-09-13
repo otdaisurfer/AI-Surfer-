@@ -45,6 +45,47 @@ describe("shared site branding", () => {
     expect(html.match(/class="product-card-cta button button-primary"/g)).toHaveLength(9);
   });
 
+  it("makes the Free AI Wave Check the primary homepage conversion action", () => {
+    const html = renderToStaticMarkup(
+      <MemoryRouter initialEntries={["/"]}>
+        <AuthProvider><RouterApp /></AuthProvider>
+      </MemoryRouter>,
+    );
+
+    expect(html).toContain("Get My Free AI Wave Check™");
+    expect(html).toContain('data-funnel-cta="hero-wave-check"');
+    expect(html).toContain('href="/wave-check"');
+    expect(html).not.toContain('href="https://otdaisurfer.surf/wave-check"');
+  });
+
+  it("explains the Wave Check path from assessment to implementation", () => {
+    const html = renderToStaticMarkup(
+      <MemoryRouter initialEntries={["/"]}>
+        <AuthProvider><RouterApp /></AuthProvider>
+      </MemoryRouter>,
+    );
+
+    expect(html).toContain("How the Wave Check works");
+    expect(html).toContain("See your strongest AI opportunity");
+    expect(html).toContain("Get a clear next step");
+    expect(html).toContain("Turn the recommendation into action");
+    expect(html).toContain('data-funnel-cta="midpage-wave-check"');
+  });
+
+  it("keeps products, pricing, and members connected to the funnel", () => {
+    const html = renderToStaticMarkup(
+      <MemoryRouter initialEntries={["/"]}>
+        <AuthProvider><RouterApp /></AuthProvider>
+      </MemoryRouter>,
+    );
+
+    expect(html).toContain("THE AI SURFER PRODUCT WAVE");
+    expect(html).toContain('href="/pricing"');
+    expect(html).toContain('href="/members"');
+    expect(html).toContain('data-funnel-cta="members"');
+    expect(html).toContain('data-funnel-cta="product"');
+  });
+
   it("opens a dedicated password-recovery screen from the email link", () => {
     const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/reset-password"]}><AuthProvider><RouterApp /></AuthProvider></MemoryRouter>);
     expect(html).toContain("Set a New Password");
