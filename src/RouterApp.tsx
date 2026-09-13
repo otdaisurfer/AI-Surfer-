@@ -20,14 +20,7 @@ function SiteChrome() {
   const { pathname } = useLocation();
   if (pathname === "/") return null;
 
-  return (
-    <>
-      <div role="status" aria-label="Launch week discount" style={{ position: "relative", zIndex: 60, boxSizing: "border-box", width: "100%", padding: "12px 16px", background: "linear-gradient(90deg,#00f2fe,#4facfe)", color: "#020305", textAlign: "center", fontWeight: 800, lineHeight: 1.4 }}>
-        🌊 LAUNCH WEEK SPECIAL: Get 20% OFF with code <strong>OCEANTIDE20</strong> at checkout! 🏄‍♀️
-      </div>
-      <SiteLogoHeader />
-    </>
-  );
+  return <SiteLogoHeader />;
 }
 
 export default function RouterApp() {
