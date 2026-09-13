@@ -1,7 +1,5 @@
 import "./SitesLanding.css";
 
-const LIVE_SITE = "https://otdaisurfer.surf";
-
 const revenueFunnel = ["LAND", "CAPTURE", "AUDIT", "RESULTS", "SELL", "IMPLEMENT", "RETAIN"];
 
 const approvedMediaStyle = {
@@ -119,7 +117,7 @@ export default function SitesLanding() {
       <div className="announcement">
         <span>🌺 Launch wave</span>
         <strong>20% off recurring app access and major software console plans</strong>
-        <a href={`${LIVE_SITE}/pricing`}>See plans →</a>
+        <a href="/pricing">See plans →</a>
       </div>
 
       <nav className="nav-shell" aria-label="Main navigation">
@@ -132,7 +130,7 @@ export default function SitesLanding() {
         </a>
         <div className="nav-links">
           <a href="#product-wave">Products</a>
-          <a href={`${LIVE_SITE}/wave-check`}>Free Wave Check</a>
+          <a href="/wave-check">Free Wave Check</a>
           <a className="nav-button" href="/members">Members</a>
         </div>
       </nav>
@@ -152,7 +150,11 @@ export default function SitesLanding() {
             consoles built to help small businesses save time, get found, and grow.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href={`${LIVE_SITE}/wave-check`}>
+            <a
+              className="button button-primary"
+              href="/wave-check"
+              data-funnel-cta="hero-wave-check"
+            >
               Get My Free AI Wave Check™
             </a>
             <a className="button button-secondary" href="#product-wave">
@@ -176,6 +178,43 @@ export default function SitesLanding() {
           />
           <figcaption>Start with insight. Build, automate, and grow with the right wave.</figcaption>
         </figure>
+      </section>
+
+      <section className="wave-check-steps" aria-labelledby="wave-check-steps-title">
+        <div className="section-heading">
+          <p className="eyebrow">START WITH THE RIGHT WAVE</p>
+          <h2 id="wave-check-steps-title">How the Wave Check works</h2>
+          <p>
+            Get a practical read on where AI can create the most value in your business
+            before you spend money building the wrong thing.
+          </p>
+        </div>
+        <div className="wave-check-step-grid">
+          <article className="wave-check-step-card">
+            <span>01</span>
+            <h3>Check the business signals</h3>
+            <p>
+              We look at visibility, repetitive work, lead follow-up, customer support,
+              and automation opportunities.
+            </p>
+          </article>
+          <article className="wave-check-step-card">
+            <span>02</span>
+            <h3>See your strongest AI opportunity</h3>
+            <p>
+              Your result highlights the gap or workflow where AI can make the clearest
+              business impact.
+            </p>
+          </article>
+          <article className="wave-check-step-card">
+            <span>03</span>
+            <h3>Get a clear next step</h3>
+            <p>
+              We connect the result to the AI SURFER product, service, or implementation
+              path that fits the opportunity.
+            </p>
+          </article>
+        </div>
       </section>
 
       <section className="approved-showcase" aria-labelledby="approved-showcase-title">
@@ -251,16 +290,56 @@ export default function SitesLanding() {
 
       <section className="wave-check" aria-labelledby="wave-check-title">
         <div>
-          <p className="eyebrow">FREE AI VISIBILITY CHECK</p>
-          <h2 id="wave-check-title">Can AI find and recommend your business?</h2>
+          <p className="eyebrow">FREE AI VISIBILITY + OPPORTUNITY CHECK</p>
+          <h2 id="wave-check-title">Can AI find your business and help it run smarter?</h2>
           <p>
-            Get a fast read on the visibility gaps that may keep AI systems from
-            understanding, trusting, citing, and recommending you.
+            Get a fast read on visibility gaps and operational AI opportunities, then
+            leave with practical next steps instead of generic AI advice.
           </p>
         </div>
-        <a className="button button-primary" href={`${LIVE_SITE}/wave-check`}>
+        <a
+          className="button button-primary"
+          href="/wave-check"
+          data-funnel-cta="midpage-wave-check"
+        >
           Start My Free Wave Check →
         </a>
+      </section>
+
+      <section className="results-preview" aria-labelledby="results-preview-title">
+        <div className="section-heading">
+          <p className="eyebrow">KNOW WHAT TO DO NEXT</p>
+          <h2 id="results-preview-title">Your Wave Check turns AI possibilities into a decision.</h2>
+          <p>
+            Instead of generic AI advice, the result points you toward the business
+            opportunity worth acting on first.
+          </p>
+        </div>
+        <div className="results-preview-grid">
+          <article>
+            <span>Strongest opportunity</span>
+            <h3>Find the highest-value wave</h3>
+            <p>
+              See whether visibility, follow-up, support, content, or workflow automation
+              deserves attention first.
+            </p>
+          </article>
+          <article>
+            <span>Business gap</span>
+            <h3>Understand what is slowing growth</h3>
+            <p>
+              See the visibility or workflow gap behind the recommendation in plain
+              business language.
+            </p>
+          </article>
+          <article>
+            <span>Recommended action</span>
+            <h3>Move from diagnosis to action</h3>
+            <p>
+              Get a clear next step and the AI SURFER product or service that matches it.
+            </p>
+          </article>
+        </div>
       </section>
 
       <section className="product-section" id="product-wave" aria-labelledby="products-title">
@@ -339,13 +418,33 @@ export default function SitesLanding() {
                 <p className="product-category">{product.category}</p>
                 <h3>{product.name}</h3>
                 <p className="product-description">{product.description}</p>
-                <a className="product-card-cta button button-primary" href={`${LIVE_SITE}${product.href}`} style={{ marginTop: "auto", width: "100%" }}>
+                <a
+                  className="product-card-cta button button-primary"
+                  href={product.href}
+                  data-funnel-cta="product"
+                  style={{ marginTop: "auto", width: "100%" }}
+                >
                   {product.cta} <span aria-hidden="true">→</span>
                 </a>
               </div>
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="implementation-path" aria-labelledby="implementation-path-title">
+        <div>
+          <p className="eyebrow">FROM RECOMMENDATION TO REAL WORK</p>
+          <h2 id="implementation-path-title">Turn the recommendation into action.</h2>
+          <p>
+            AI SURFER can help move from diagnosis into practical setup with focused
+            agents, automations, visibility work, and service packages built around the
+            business problem you found first.
+          </p>
+        </div>
+        <a className="button button-secondary" href="/pricing">
+          See Implementation Options →
+        </a>
       </section>
 
       <section className="membership">
@@ -358,10 +457,10 @@ export default function SitesLanding() {
           </p>
         </div>
         <div className="membership-actions">
-          <a className="button button-primary" href="/members">
+          <a className="button button-primary" href="/members" data-funnel-cta="members">
             Enter the Members Area
           </a>
-          <a className="text-link" href={`${LIVE_SITE}/pricing`}>
+          <a className="text-link" href="/pricing">
             View membership options →
           </a>
         </div>
@@ -375,10 +474,10 @@ export default function SitesLanding() {
           </div>
         </div>
         <div className="footer-links">
-          <a href={`${LIVE_SITE}/wave-check`}>Free Wave Check</a>
-          <a href={`${LIVE_SITE}/pricing`}>Pricing</a>
+          <a href="/wave-check">Free Wave Check</a>
+          <a href="/pricing">Pricing</a>
           <a href="/members">Members</a>
-          <a href={LIVE_SITE}>Full Website</a>
+          <a href="/">Full Website</a>
           <a href="tel:8438704590">Call/Text (843) 870-4590</a>
         </div>
         <p>© 2026 Ocean Tide Drop AI SURFER. Built for the next wave.</p>
