@@ -1,3 +1,16 @@
+.sites-landing .brand-mark {
+  display: block;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: url("/ocean_tide_logo.png") center / cover no-repeat;
+  color: transparent;
+  font-size: 0;
+  box-shadow: 0 0 24px rgba(24, 238, 241, .18);
+}
+
 .sites-landing .wave-check-steps,
 .sites-landing .results-preview {
   max-width: 1184px;
@@ -106,6 +119,13 @@
 }
 
 @media (max-width: 720px) {
+  .sites-landing .brand-mark {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+    border-radius: 14px;
+  }
+
   .sites-landing .wave-check-steps,
   .sites-landing .results-preview {
     margin-bottom: 88px;

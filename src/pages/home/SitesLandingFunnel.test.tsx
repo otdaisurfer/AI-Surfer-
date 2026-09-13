@@ -14,6 +14,11 @@ describe("landing funnel responsive styles", () => {
     expect(funnelCss).toContain(".sites-landing a:focus-visible");
   });
 
+  it("uses the approved Ocean Tide Drop logo in the homepage brand mark", () => {
+    expect(funnelCss).toContain(".sites-landing .brand-mark");
+    expect(funnelCss).toContain('url("/ocean_tide_logo.png")');
+  });
+
   it("keeps phone and reduced-motion behavior explicit", () => {
     expect(funnelCss).toContain("@media (max-width: 720px)");
     expect(funnelCss).toContain("@media (prefers-reduced-motion: reduce)");
