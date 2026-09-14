@@ -2,13 +2,19 @@ export type MemberToolId =
   | "prompt-wave-builder"
   | "follow-up-maker"
   | "offer-builder"
-  | "thirty-day-plan";
+  | "thirty-day-plan"
+  | "offer-wave-builder"
+  | "revenue-tide-planner"
+  | "content-wave-generator";
 
 export type MemberToolInput = {
   business: string;
   audience: string;
   goal: string;
   offer: string;
+  monthlyRevenueGoal?: string;
+  averageSale?: string;
+  recurringPrice?: string;
 };
 
 export const memberTools: Array<{
@@ -41,6 +47,24 @@ export const memberTools: Array<{
     name: "My 30-Day Wave Plan",
     description: "Get four focused weeks of practical growth actions.",
   },
+  {
+    id: "offer-wave-builder",
+    icon: "🌺",
+    name: "Offer Wave Builder",
+    description: "Create three packages, pricing guidance, recurring revenue, and a launch plan.",
+  },
+  {
+    id: "revenue-tide-planner",
+    icon: "💰",
+    name: "Revenue Tide Planner",
+    description: "Turn a monthly income goal into weekly sales and lead targets.",
+  },
+  {
+    id: "content-wave-generator",
+    icon: "📣",
+    name: "Content Wave Generator",
+    description: "Build a seven-day campaign with hooks, posts, reels, and calls to action.",
+  },
 ];
 
 function cleanInput(input: MemberToolInput): MemberToolInput {
@@ -48,7 +72,7 @@ function cleanInput(input: MemberToolInput): MemberToolInput {
     Object.entries(input).map(([key, value]) => [key, value.trim()]),
   ) as MemberToolInput;
 
-  if (Object.values(cleaned).some((value) => !value)) {
+  if ([cleaned.business, cleaned.audience, cleaned.goal, cleaned.offer].some((value) => !value)) {
     throw new Error("Complete all four fields to build your result.");
   }
 
@@ -57,6 +81,10 @@ function cleanInput(input: MemberToolInput): MemberToolInput {
   }
 
   return cleaned;
+}
+
+function parseMoney(value: string | undefined): number {
+  return Number((value ?? "").replace(/[$,\s]/g, ""));
 }
 
 function lowerFirst(value: string): string {
@@ -87,6 +115,14 @@ function gerundGoal(value: string): string {
   const gerund = replacements[firstWord.toLowerCase()];
 
   return gerund ? [gerund, ...rest].join(" ") : action;
+}
+
+function money(value: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(value);
 }
 
 export function generateMemberToolResult(
@@ -176,5 +212,113 @@ Follow up with every response, track conversations and sales, repeat the best-pe
 
 DAILY MINIMUM
 Spend 20 minutes creating visibility, 20 minutes following up, and 10 minutes tracking what moved ${business} closer to ${ongoingGoal}.`;
+
+    case "offer-wave-builder":
+      return `OFFER WAVE FOR ${business.toUpperCase()}
+
+IDEAL CUSTOMER
+${audience}
+
+CORE RESULT
+Help ${audience} ${action} through ${offer}.
+
+GOOD — STARTER WAVE
+A focused entry package that solves one urgent part of the problem. Include a short assessment, one clear deliverable, and a next-step recommendation. Price it as the easiest low-risk way to begin.
+
+BETTER — GROWTH WAVE
+The complete ${offer} experience. Include the assessment, strategy, implementation support, and a 30-day progress check. Position this as the best-value choice for customers who want meaningful momentum.
+
+BEST — BIG KAHUNA
+A high-touch package with the full Growth Wave plus customization, priority support, implementation, and a 90-day optimization review. Price it for the value of speed, access, and hands-on help.
+
+MONTHLY REVENUE
+Add a care plan after delivery with monthly reporting, optimization, support, or fresh campaign assets. Aim for a recurring price equal to 10–20% of the Growth Wave package.
+
+SALES ANGLE
+You do not need more complexity—you need a clear path to ${action}. ${business} turns ${offer} into a practical system built for ${audience}.
+
+7-DAY LAUNCH
+Day 1: Name the customer problem. Day 2: Publish the three choices. Day 3: Invite five warm leads. Day 4: Share one useful tip. Day 5: Follow up. Day 6: Answer objections. Day 7: close the first spots with a direct call to action.`;
+
+    case "revenue-tide-planner": {
+      const monthlyGoal = parseMoney(rawInput.monthlyRevenueGoal);
+      const averageSale = parseMoney(rawInput.averageSale);
+      const recurringPrice = parseMoney(rawInput.recurringPrice);
+
+      if (![monthlyGoal, averageSale, recurringPrice].every((value) => Number.isFinite(value) && value > 0)) {
+        throw new Error("Enter amounts greater than zero for all three revenue fields.");
+      }
+
+      const salesNeeded = Math.ceil(monthlyGoal / averageSale);
+      const weeklySales = Math.ceil(salesNeeded / 4);
+      const recurringMembers = Math.ceil(monthlyGoal / recurringPrice);
+      const balancedOneTimeSales = Math.ceil((monthlyGoal * 0.6) / averageSale);
+      const balancedMembers = Math.ceil((monthlyGoal * 0.4) / recurringPrice);
+      const balancedCustomers = balancedOneTimeSales + balancedMembers;
+      const weeklyLeads = Math.ceil((balancedCustomers * 5) / 4);
+      const dailyLeads = Math.ceil(weeklyLeads / 5);
+
+      return `REVENUE TIDE PLAN FOR ${business.toUpperCase()}
+
+MONTHLY GOAL
+${business} will target ${money(monthlyGoal)} from ${offer} for ${audience} while working to ${action}.
+
+PATH 1 — ONE-TIME SALES
+Close ${salesNeeded} one-time sales at ${money(averageSale)} each. That is ${weeklySales} sales per week.
+
+PATH 2 — RECURRING REVENUE
+Build to ${recurringMembers} recurring members at ${money(recurringPrice)} per month for ${money(monthlyGoal)} in monthly recurring revenue.
+
+RECOMMENDED BALANCED MIX
+Close ${balancedOneTimeSales} one-time sales and add ${balancedMembers} recurring members. This combines cash now with steadier monthly income.
+
+LEAD TARGET
+Start ${weeklyLeads} qualified conversations per week—about ${dailyLeads} per weekday—using a planning assumption of one sale for every five qualified conversations.
+
+ORDER OF ATTACK
+1. Secure one clear promise for ${offer}.
+2. Stabilize the price and buying step.
+3. Deploy direct outreach to ${audience}.
+4. Track conversations, sales, and recurring revenue every Friday.
+
+These are planning estimates, not guaranteed results. Replace the five-to-one conversation assumption with your real close rate as soon as you have it.`;
+    }
+
+    case "content-wave-generator":
+      return `7-DAY CONTENT WAVE FOR ${business.toUpperCase()}
+
+CAMPAIGN GOAL
+Help ${audience} understand how ${offer} helps them ${action}.
+
+DAY 1 — PROBLEM HOOK
+“Trying to ${action} but not sure what to fix first?” Explain the cost of staying stuck, then invite readers to learn about ${offer}.
+
+DAY 2 — QUICK WIN
+Share three simple actions ${audience} can take today. End with: “Want the complete path? Ask ${business} about ${offer}.”
+
+DAY 3 — MYTH BUSTER
+Challenge one common belief that keeps your audience from ${ongoingGoal}. Replace it with a practical next step.
+
+DAY 4 — BEHIND THE SCENES
+Show how ${business} approaches ${offer}. Focus on clarity, care, and the result—not technical jargon.
+
+DAY 5 — CUSTOMER STORY
+Tell a short before-and-after story: the problem, the decision, the work, and the outcome. Use a real approved customer example before publishing.
+
+DAY 6 — FAQ POST
+Answer the three questions people ask before buying ${offer}: who it is for, what happens next, and how to get started.
+
+DAY 7 — DIRECT INVITATION
+“If ${action} is a priority this month, ${offer} gives ${audience} a clear next step. Message ‘WAVE’ and we’ll help you begin.”
+
+REEL IDEAS
+• Three signs you need ${offer}
+• One mistake blocking you from ${ongoingGoal}
+• A 20-second look at the ${business} process
+
+CALLS TO ACTION
+• Comment “WAVE” for the next step.
+• Send us a message to see if ${offer} fits.
+• Visit ${business} to start ${ongoingGoal} today.`;
   }
 }
