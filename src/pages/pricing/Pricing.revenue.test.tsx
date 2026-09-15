@@ -20,15 +20,15 @@ afterEach(() => {
 });
 
 describe("launch revenue conversion path", () => {
-  it("sends high-ticket offers to the real strategy-call booking page and keeps email fallback", () => {
+  it("routes high-ticket inquiries to distinct email subjects when booking is unavailable", () => {
     const { container, root } = renderPricing();
     const anchors = Array.from(container.querySelectorAll("a"));
-    const builder = anchors.find((a) => a.textContent?.includes("Book a Strategy Call"));
+    const builder = anchors.find((a) => a.textContent?.includes("Request a Strategy Call"));
     const tsunami = anchors.find((a) => a.textContent?.includes("Talk With AI Surfer"));
     const fallback = anchors.find((a) => a.getAttribute("href")?.startsWith("mailto:"));
 
-    expect(builder?.getAttribute("href")).toBe("https://calendly.com/oceantidedrop/new-meeting");
-    expect(tsunami?.getAttribute("href")).toBe("https://calendly.com/oceantidedrop/new-meeting");
+    expect(builder?.getAttribute("href")).toBe("mailto:oceantidedropservice@gmail.com?subject=Wave%20Builder%20Strategy%20Call");
+    expect(tsunami?.getAttribute("href")).toBe("mailto:oceantidedropservice@gmail.com?subject=Tsunami%20Growth%20Strategy%20Call");
     expect(fallback?.getAttribute("href")).toContain("oceantidedropservice@gmail.com");
     act(() => root.unmount());
   });
@@ -44,7 +44,7 @@ describe("launch revenue conversion path", () => {
     const { container, root } = renderPricing();
     const anchors = Array.from(container.querySelectorAll("a"));
     const starter = anchors.find((a) => a.textContent?.includes("Buy Wave Starter"));
-    const builder = anchors.find((a) => a.textContent?.includes("Book a Strategy Call"));
+    const builder = anchors.find((a) => a.textContent?.includes("Request a Strategy Call"));
     const waveCheck = anchors.find((a) => a.textContent?.includes("Start the free AI Wave Check"));
 
     act(() => starter?.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true })));
