@@ -7,15 +7,21 @@ const input = {
   audience: "busy local parents",
   goal: "increase weekday orders",
   offer: "family breakfast boxes",
+  monthlyRevenueGoal: "5000",
+  averageSale: "500",
+  recurringPrice: "100",
 };
 
 describe("member tool generators", () => {
-  it("ships the four approved member tools", () => {
+  it("ships the seven approved member tools", () => {
     expect(memberTools.map((tool) => tool.name)).toEqual([
       "Prompt Wave Builder",
       "Follow-Up Message Maker",
       "Offer Builder",
       "My 30-Day Wave Plan",
+      "Offer Wave Builder",
+      "Revenue Tide Planner",
+      "Content Wave Generator",
     ]);
   });
 
@@ -61,5 +67,61 @@ describe("member tool generators", () => {
         business: "THE OCEAN TIDE DROP AI SURFER OFFER\nWHO IT HELPS\nLocal business owners",
       }),
     ).toThrow("Enter only your business name");
+  });
+
+  it("builds good, better and best packages with recurring revenue", () => {
+    const result = generateMemberToolResult("offer-wave-builder", input);
+
+    expect(result).toContain("GOOD — STARTER WAVE");
+    expect(result).toContain("BETTER — GROWTH WAVE");
+    expect(result).toContain("BEST — BIG KAHUNA");
+    expect(result).toContain("MONTHLY REVENUE");
+    expect(result).toContain("7-DAY LAUNCH");
+  });
+
+  it("calculates a practical revenue path from the member's numbers", () => {
+    const result = generateMemberToolResult("revenue-tide-planner", {
+      ...input,
+      monthlyRevenueGoal: "5000",
+      averageSale: "500",
+      recurringPrice: "100",
+    });
+
+    expect(result).toContain("10 one-time sales");
+    expect(result).toContain("3 sales per week");
+    expect(result).toContain("50 recurring members");
+    expect(result).toContain("$5,000");
+    expect(result).toContain("33 qualified conversations per week");
+  });
+
+  it("accepts commonly formatted currency amounts", () => {
+    const result = generateMemberToolResult("revenue-tide-planner", {
+      ...input,
+      monthlyRevenueGoal: "$5,000",
+      averageSale: "$500",
+      recurringPrice: "$100",
+    });
+
+    expect(result).toContain("10 one-time sales");
+  });
+
+  it("rejects missing or invalid revenue numbers", () => {
+    expect(() =>
+      generateMemberToolResult("revenue-tide-planner", {
+        ...input,
+        monthlyRevenueGoal: "5000",
+        averageSale: "0",
+        recurringPrice: "100",
+      }),
+    ).toThrow("Enter amounts greater than zero");
+  });
+
+  it("creates a seven-day content campaign with hooks and calls to action", () => {
+    const result = generateMemberToolResult("content-wave-generator", input);
+
+    expect(result).toContain("7-DAY CONTENT WAVE");
+    expect(result).toContain("DAY 1 — PROBLEM HOOK");
+    expect(result).toContain("REEL IDEAS");
+    expect(result).toContain("CALLS TO ACTION");
   });
 });
