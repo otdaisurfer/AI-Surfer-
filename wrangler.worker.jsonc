@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ai-surfer-browser",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-08-25",
+  "browser": {
+    "binding": "BROWSER",
+    "remote": true
+  },
+  "observability": {
+    "enabled": true
+  }
+}
