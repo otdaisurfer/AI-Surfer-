@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ai-surfer-wave-check-retry",
+  "main": "src/worker/waveCheckRetry.ts",
+  "compatibility_date": "2026-08-25",
+  "observability": {
+    "enabled": true
+  },
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  },
+  "d1_databases": [
+    {
+      "binding": "OTDAISURFER",
+      "database_name": "OTDAISURFER",
+      "database_id": "6c3651bc-03b9-4d2a-9c66-76b19ffc016d"
+    }
+  ]
+}
