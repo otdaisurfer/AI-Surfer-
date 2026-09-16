@@ -5,7 +5,8 @@ export type MemberToolId =
   | "thirty-day-plan"
   | "offer-wave-builder"
   | "revenue-tide-planner"
-  | "content-wave-generator";
+  | "content-wave-generator"
+  | "sales-wave-script-builder";
 
 export type MemberToolInput = {
   business: string;
@@ -64,6 +65,12 @@ export const memberTools: Array<{
     icon: "📣",
     name: "Content Wave Generator",
     description: "Build a seven-day campaign with hooks, posts, reels, and calls to action.",
+  },
+  {
+    id: "sales-wave-script-builder",
+    icon: "🤝",
+    name: "Sales Wave Script Builder",
+    description: "Turn your offer into a natural sales conversation with discovery, objections, closes, and follow-up.",
   },
 ];
 
@@ -329,5 +336,49 @@ CALLS TO ACTION
 • Comment “WAVE” for the next step.
 • Send us a message to see if ${offer} fits.
 • Visit ${business} to start ${ongoingGoal} today.`;
+
+    case "sales-wave-script-builder":
+      return `SALES WAVE SCRIPT FOR ${business.toUpperCase()}
+
+IDEAL CUSTOMER
+${audience}
+
+GOAL
+Help them ${action} through ${offer}.
+
+OPENING
+“Thanks for taking a minute to talk. Before I explain ${offer}, I’d like to understand what is happening in your business right now and what you want to improve.”
+
+DISCOVERY QUESTIONS
+1. What is the biggest challenge you are running into when trying to ${action}?
+2. What have you already tried, and what happened?
+3. What is that problem costing you in leads, time, revenue, or missed opportunities?
+4. If this were working better 30 days from now, what would success look like?
+5. How important is solving this right now compared with your other priorities?
+
+OFFER EXPLANATION
+“Based on what you shared, ${offer} may be a strong next step. ${business} uses it to help ${audience} get a clearer path toward ${ongoingGoal}. We focus on the highest-impact opportunities first so you know what to do next instead of adding more complexity.”
+
+OBJECTION RESPONSES
+“IT SOUNDS EXPENSIVE.”
+“I understand. The important question is whether the problem is costing you more than fixing it. We can look at the smallest useful starting point and make sure the next step makes business sense.”
+
+“I NEED TO THINK ABOUT IT.”
+“Absolutely. What part would you like to think through: the fit, the timing, the investment, or what happens next?”
+
+“I DON’T HAVE TIME.”
+“That is exactly why we keep the process focused. The goal is to reduce wasted effort and give you a clear next move, not create another project for you to manage.”
+
+SOFT CLOSE
+“Would it be helpful if I showed you the simplest way to start with ${offer}?”
+
+DIRECT CLOSE
+“If you’re ready to ${action}, let’s get your ${offer} started. We can take the next step now and make sure you know exactly what happens after that.”
+
+TEXT / DM VERSION
+“Hi [First Name] — based on what you shared about wanting to ${action}, I think ${offer} could give you a much clearer next step. Want me to send you the simple way to get started?”
+
+NOT READY YET FOLLOW-UP
+“Hi [First Name] — just checking back in on your goal of ${ongoingGoal}. No pressure at all. If it is still a priority, I can show you the simplest next step with ${offer} and answer anything that is still unclear.”`;
   }
 }
