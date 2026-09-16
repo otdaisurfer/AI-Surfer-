@@ -18,7 +18,10 @@
     "cloudflare:whoami": "npx wrangler@4.112.0 whoami",
     "worker:dev": "npx wrangler@4.112.0 dev --remote --config wrangler.worker.jsonc",
     "worker:deploy": "npx wrangler@4.112.0 deploy --config wrangler.worker.jsonc",
-    "worker:browser": "npx wrangler@4.112.0 browser create"
+    "worker:browser": "npx wrangler@4.112.0 browser create",
+    "worker:retry:dev": "npx wrangler@4.112.0 dev --remote --config wrangler.wave-check-retry.jsonc",
+    "worker:retry:deploy": "npx wrangler@4.112.0 deploy --config wrangler.wave-check-retry.jsonc",
+    "worker:retry:check": "npx wrangler@4.112.0 deploy --dry-run --config wrangler.wave-check-retry.jsonc"
   },
   "keywords": ["react", "vite", "typescript", "marketing", "ai-surfer", "agents"],
   "author": "Shannon Foster",
