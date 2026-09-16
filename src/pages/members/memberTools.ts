@@ -7,7 +7,8 @@ export type MemberToolId =
   | "revenue-tide-planner"
   | "content-wave-generator"
   | "sales-wave-script-builder"
-  | "sales-page-wave-builder";
+  | "sales-page-wave-builder"
+  | "lead-magnet-wave-builder";
 
 export type MemberToolInput = {
   business: string;
@@ -78,6 +79,12 @@ export const memberTools: Array<{
     icon: "💻",
     name: "Sales Page Wave Builder",
     description: "Turn your offer into a clear sales page with positioning, fit, FAQs, and strong calls to action.",
+  },
+  {
+    id: "lead-magnet-wave-builder",
+    icon: "🧲",
+    name: "Lead Magnet Wave Builder",
+    description: "Create a lead magnet concept, opt-in page, thank-you message, and first follow-up.",
   },
 ];
 
@@ -455,5 +462,52 @@ Take the next step with ${offer} →
 
 MOBILE SHORT VERSION
 Want to ${action} without adding more complexity? ${business} helps ${audience} use ${offer} to find the clearest next move. Start with ${offer} today.`;
+
+    case "lead-magnet-wave-builder":
+      return `LEAD MAGNET WAVE FOR ${business.toUpperCase()}
+
+IDEAL CUSTOMER
+${audience}
+
+MAGNETIC TITLE
+The ${offer} Quick-Start Guide: 5 Steps to ${action}
+
+PROMISE
+Give ${audience} a fast, useful win by showing them what to focus on first when they want to ${action}, while naturally introducing ${offer} as the next step for deeper help.
+
+RECOMMENDED FORMAT
+A short 5-page PDF, checklist, or mobile-friendly guide that can be completed in about 10 minutes. Keep it practical, visual, and easy to act on.
+
+5-PART OUTLINE
+1. Spot the biggest obstacle currently blocking ${ongoingGoal}.
+2. Identify one quick improvement that can be made this week.
+3. Check where leads, time, or opportunities may be slipping away.
+4. Choose the highest-impact next action instead of trying to fix everything at once.
+5. Use ${offer} from ${business} when you want a clearer, customized path forward.
+
+LANDING PAGE COPY
+HEADLINE
+Want to ${action}? Start with the five things that matter most.
+
+SUBHEADLINE
+This free quick-start guide helps ${audience} find a clearer first move without adding more complexity.
+
+BODY
+If you know you want to ${action} but are not sure what to fix first, this guide gives you a simple place to begin. You will walk through five focused checkpoints, identify your biggest opportunity, and leave with one practical next action.
+
+OPT-IN CTA
+Send Me the Free Quick-Start Guide →
+
+THANK-YOU MESSAGE
+Your guide is ready. Start with the first checkpoint and keep your focus on one useful improvement at a time. When you want a customized path, ${business} can help you take the next step with ${offer}.
+
+FIRST FOLLOW-UP MESSAGE
+Hi [First Name],
+
+I wanted to make sure you received the quick-start guide from ${business}. Which of the five checkpoints stood out most for your goal of ${ongoingGoal}?
+
+If you found an area you want help improving, ${offer} is the next step we use with ${audience} to turn that insight into a practical plan.
+
+Want me to show you how to get started?`;
   }
 }
