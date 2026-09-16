@@ -13,7 +13,7 @@ afterEach(() => {
 });
 
 describe("MemberToolDock", () => {
-  it("renders all eight tools with a launch control", () => {
+  it("renders all nine tools with a launch control", () => {
     const markup = renderToStaticMarkup(<MemberToolDock />);
 
     expect(markup).toContain("Members Tool Dock");
@@ -25,7 +25,8 @@ describe("MemberToolDock", () => {
     expect(markup).toContain("Revenue Tide Planner");
     expect(markup).toContain("Content Wave Generator");
     expect(markup).toContain("Sales Wave Script Builder");
-    expect(markup.match(/>Open Tool</g)).toHaveLength(8);
+    expect(markup).toContain("Sales Page Wave Builder");
+    expect(markup.match(/>Open Tool</g)).toHaveLength(9);
   });
 
   it("shows short examples that clarify what belongs in each field", async () => {
@@ -55,6 +56,7 @@ describe("MemberToolDock", () => {
     "Revenue Tide Planner",
     "Content Wave Generator",
     "Sales Wave Script Builder",
+    "Sales Page Wave Builder",
   ])("brings %s into view and focuses its first field", async (toolName) => {
     const scrollIntoView = vi.fn();
     Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
