@@ -1,6 +1,7 @@
 const SUPABASE_URL = "https://mkgnyarwiscttobnytin.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZ255YXJ3aXNjdHRvYm55dGluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNDQwNTQsImV4cCI6MjA5NDgyMDA1NH0.eO2hcLQ4Qfq2_VkT74pMNnUG0uvPTmA__BuUOhLWFG0";
 const HUBSPOT_API_BASE = "https://api.hubapi.com/crm/v3/objects";
+const DEFAULT_HUBSPOT_TIMEOUT_MS = 3000;
 
 type WaveCheckSubmission = {
   submission_id: string;
@@ -48,9 +49,15 @@ function isValidSubmission(value: unknown): value is WaveCheckSubmission {
   );
 }
 
-async function hubSpotRequest(path: string, accessToken: string, init: RequestInit) {
+async function hubSpotRequest(
+  path: string,
+  accessToken: string,
+  init: RequestInit,
+  timeoutMs: number,
+) {
   const response = await fetch(`${HUBSPOT_API_BASE}${path}`, {
     ...init,
+    signal: AbortSignal.timeout(timeoutMs),
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
@@ -66,7 +73,11 @@ async function hubSpotRequest(path: string, accessToken: string, init: RequestIn
   return response.json() as Promise<{ id?: string; results?: Array<{ id: string }> }>;
 }
 
-async function syncHubSpotContact(email: string, accessToken?: string): Promise<HubSpotSyncStatus> {
+async function syncHubSpotContact(
+  email: string,
+  accessToken?: string,
+  timeoutMs = DEFAULT_HUBSPOT_TIMEOUT_MS,
+): Promise<HubSpotSyncStatus> {
   if (!accessToken) return "not_configured";
 
   try {
@@ -83,7 +94,7 @@ async function syncHubSpotContact(email: string, accessToken?: string): Promise<
         limit: 1,
         properties: ["email"],
       }),
-    });
+    }, timeoutMs);
 
     if (search.results?.[0]?.id) return "synced";
 
@@ -95,7 +106,7 @@ async function syncHubSpotContact(email: string, accessToken?: string): Promise<
           lifecyclestage: "lead",
         },
       }),
-    });
+    }, timeoutMs);
 
     return "synced";
   } catch (error) {
@@ -107,6 +118,7 @@ async function syncHubSpotContact(email: string, accessToken?: string): Promise<
 export async function handleWaveCheckSubmit(
   request: Request,
   hubSpotAccessToken?: string,
+  hubSpotTimeoutMs = DEFAULT_HUBSPOT_TIMEOUT_MS,
 ): Promise<Response> {
   if (request.method !== "POST") return json({ error: "Method not allowed." }, 405);
 
@@ -147,7 +159,11 @@ export async function handleWaveCheckSubmit(
       }
     }
 
-    const hubspotStatus = await syncHubSpotContact(normalized.email, hubSpotAccessToken);
+    const hubspotStatus = await syncHubSpotContact(
+      normalized.email,
+      hubSpotAccessToken,
+      hubSpotTimeoutMs,
+    );
     return json({
       status: "saved",
       submissionId: normalized.submission_id,
