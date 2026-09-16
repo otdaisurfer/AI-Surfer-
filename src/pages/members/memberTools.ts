@@ -6,7 +6,8 @@ export type MemberToolId =
   | "offer-wave-builder"
   | "revenue-tide-planner"
   | "content-wave-generator"
-  | "sales-wave-script-builder";
+  | "sales-wave-script-builder"
+  | "sales-page-wave-builder";
 
 export type MemberToolInput = {
   business: string;
@@ -71,6 +72,12 @@ export const memberTools: Array<{
     icon: "🤝",
     name: "Sales Wave Script Builder",
     description: "Turn your offer into a natural sales conversation with discovery, objections, closes, and follow-up.",
+  },
+  {
+    id: "sales-page-wave-builder",
+    icon: "💻",
+    name: "Sales Page Wave Builder",
+    description: "Turn your offer into a clear sales page with positioning, fit, FAQs, and strong calls to action.",
   },
 ];
 
@@ -380,5 +387,73 @@ TEXT / DM VERSION
 
 NOT READY YET FOLLOW-UP
 “Hi [First Name] — just checking back in on your goal of ${ongoingGoal}. No pressure at all. If it is still a priority, I can show you the simplest next step with ${offer} and answer anything that is still unclear.”`;
+
+    case "sales-page-wave-builder":
+      return `SALES PAGE WAVE FOR ${business.toUpperCase()}
+
+IDEAL CUSTOMER
+${audience}
+
+HEADLINE
+A clearer path to ${action} with ${offer}.
+
+SUBHEADLINE
+${business} helps ${audience} move toward ${ongoingGoal} with a practical offer built around the next steps that matter most.
+
+THE PROBLEM
+You want to ${action}, but it is hard to know what to fix first. Scattered tools, unclear priorities, and inconsistent follow-up can make progress slower than it needs to be.
+
+THE OFFER
+${offer}
+
+WHY IT MATTERS
+Instead of adding more complexity, ${offer} gives ${audience} a focused way to identify the right next move and create momentum toward ${ongoingGoal}.
+
+WHAT YOU GET
+• A clear starting point
+• A focused review of the biggest opportunity
+• Practical recommendations tied to your goal
+• A simple next-step plan
+• Guidance on what to do first, next, and later
+
+GOOD FIT IF
+• You are part of ${audience}
+• ${ongoingGoal} is a real priority
+• You want a practical path instead of more guesswork
+• You are ready to take action on clear recommendations
+
+NOT A FIT IF
+• You are only looking for generic ideas with no intention to act
+• You want guaranteed results without implementation
+• You need a solution outside the scope of ${offer}
+
+FAQ
+WHO IS ${offer.toUpperCase()} FOR?
+It is designed for ${audience} who want to ${action} with a clearer, more practical plan.
+
+WHAT HAPPENS NEXT?
+You begin with ${offer}, review the highest-impact opportunities, and leave with a defined next step.
+
+DO I NEED TO BE AN AI OR TECH EXPERT?
+No. ${business} keeps the process focused on the business outcome, not technical jargon.
+
+HOW DO I GET STARTED?
+Choose the next-step button, send a message, or book the appropriate starting conversation.
+
+OBJECTION HANDLING
+“I’M NOT SURE THIS IS FOR ME.”
+Start by comparing your current challenge with the result ${offer} is designed to support. If the fit is not clear, do not force it.
+
+“I DON’T HAVE TIME FOR ANOTHER PROJECT.”
+The purpose is to reduce confusion and give you a smaller number of useful next actions, not create more busywork.
+
+PRIMARY CTA
+Ready to ${action}? Start with ${offer} from ${business}.
+
+CHECKOUT / BOOKING CTA
+Take the next step with ${offer} →
+
+MOBILE SHORT VERSION
+Want to ${action} without adding more complexity? ${business} helps ${audience} use ${offer} to find the clearest next move. Start with ${offer} today.`;
   }
 }
