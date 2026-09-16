@@ -6,7 +6,7 @@ import {
   type MemberToolId,
   type MemberToolInput,
 } from "./memberTools";
-import { loadMemberToolWorkspace } from "./memberToolWorkspace";
+import { loadMemberToolWorkspace, saveMemberToolWorkspace } from "./memberToolWorkspace";
 
 const emptyInput: MemberToolInput = {
   business: "",
@@ -93,12 +93,21 @@ export default function MemberToolDock() {
   const generate = () => {
     if (!activeTool) return;
     try {
-      setResult(generateMemberToolResult(activeTool, input));
+      const freshResult = generateMemberToolResult(activeTool, input);
+      setResult(freshResult);
       setError("");
       setCopied(false);
+      setPersistenceStatus("saving");
+
+      void saveMemberToolWorkspace(activeTool, input, freshResult).then((saved) => {
+        if (saved.status === "saved") setPersistenceStatus("saved");
+        else if (saved.status === "error") setPersistenceStatus("save-error");
+        else setPersistenceStatus("idle");
+      });
     } catch (caught) {
       setResult("");
       setError(caught instanceof Error ? caught.message : "Unable to build your result.");
+      setPersistenceStatus("idle");
     }
   };
 
@@ -113,6 +122,7 @@ export default function MemberToolDock() {
     setResult("");
     setError("");
     setCopied(false);
+    setPersistenceStatus("idle");
   };
 
   return (
@@ -191,7 +201,10 @@ export default function MemberToolDock() {
 
           {error && <p role="alert" style={styles.error}>{error}</p>}
           {persistenceStatus === "restored" && <p style={styles.persistence}>Restored from your workspace</p>}
+          {persistenceStatus === "saving" && <p style={styles.persistence}>Saving...</p>}
+          {persistenceStatus === "saved" && <p style={styles.persistence}>Saved &#10003;</p>}
           {persistenceStatus === "restore-error" && <p style={styles.persistenceError}>Couldn't restore your saved workspace. You can keep working here.</p>}
+          {persistenceStatus === "save-error" && <p style={styles.persistenceError}>Save failed. Your result is still available on this page.</p>}
 
           <div style={styles.actions}>
             <button type="button" onClick={generate} style={styles.generateButton}>Build My Result 🌊</button>

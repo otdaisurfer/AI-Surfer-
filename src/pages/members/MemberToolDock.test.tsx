@@ -258,4 +258,104 @@ describe("MemberToolDock", () => {
     await act(async () => root.unmount());
   });
 
+
+  it("shows the generated result before persistence resolves", async () => {
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", { configurable: true, value: vi.fn() });
+    let resolveSave: ((value: { status: "saved" }) => void) | undefined;
+    workspaceMocks.save.mockImplementation(() => new Promise((resolve) => { resolveSave = resolve; }));
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    await act(async () => root.render(<MemberToolDock />));
+    const card = Array.from(container.querySelectorAll("article")).find((item) => item.textContent?.includes("Content Wave Generator"));
+    await act(async () => { card?.querySelector("button")?.click(); await new Promise((resolve) => setTimeout(resolve, 0)); });
+    const values = ["Tideway Bakery", "busy parents", "increase orders", "breakfast boxes"];
+    for (const [index, input] of Array.from(container.querySelectorAll("input")).slice(0, 4).entries()) {
+      await act(async () => {
+        const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+        setter?.call(input, values[index]);
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    }
+    const generateButton = Array.from(container.querySelectorAll("button")).find((button) => button.textContent?.includes("Build My Result"));
+    await act(async () => generateButton?.click());
+    expect(container.textContent).toContain("7-DAY CONTENT WAVE");
+    expect(container.textContent).toContain("Saving...");
+    await act(async () => resolveSave?.({ status: "saved" }));
+    await act(async () => root.unmount());
+  });
+
+  it("shows Saved after a successful workspace save", async () => {
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", { configurable: true, value: vi.fn() });
+    workspaceMocks.save.mockResolvedValue({ status: "saved" });
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    await act(async () => root.render(<MemberToolDock />));
+    const card = Array.from(container.querySelectorAll("article")).find((item) => item.textContent?.includes("Offer Builder"));
+    await act(async () => { card?.querySelector("button")?.click(); await new Promise((resolve) => setTimeout(resolve, 0)); });
+    for (const [index, value] of ["Tideway", "parents", "grow orders", "boxes"].entries()) {
+      const input = Array.from(container.querySelectorAll("input"))[index];
+      await act(async () => {
+        const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+        setter?.call(input, value);
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    }
+    const generateButton = Array.from(container.querySelectorAll("button")).find((button) => button.textContent?.includes("Build My Result"));
+    await act(async () => { generateButton?.click(); await new Promise((resolve) => setTimeout(resolve, 0)); });
+    expect(container.textContent).toContain(`Saved ${String.fromCharCode(10003)}`);
+    await act(async () => root.unmount());
+  });
+
+
+  it("keeps the generated result visible when persistence fails", async () => {
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", { configurable: true, value: vi.fn() });
+    workspaceMocks.save.mockResolvedValue({ status: "error" });
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    await act(async () => root.render(<MemberToolDock />));
+    const card = Array.from(container.querySelectorAll("article")).find((item) => item.textContent?.includes("Offer Builder"));
+    await act(async () => { card?.querySelector("button")?.click(); await new Promise((resolve) => setTimeout(resolve, 0)); });
+    for (const [index, value] of ["Tideway", "parents", "grow orders", "boxes"].entries()) {
+      const input = Array.from(container.querySelectorAll("input"))[index];
+      await act(async () => {
+        const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+        setter?.call(input, value);
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    }
+    const generateButton = Array.from(container.querySelectorAll("button")).find((button) => button.textContent?.includes("Build My Result"));
+    await act(async () => { generateButton?.click(); await new Promise((resolve) => setTimeout(resolve, 0)); });
+    expect(container.textContent).toContain("THE TIDEWAY OFFER");
+    expect(container.textContent).toContain("Save failed. Your result is still available on this page.");
+    await act(async () => root.unmount());
+  });
+
+  it("keeps signed-out generation behavior unchanged", async () => {
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", { configurable: true, value: vi.fn() });
+    workspaceMocks.save.mockResolvedValue({ status: "signed-out" });
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+    await act(async () => root.render(<MemberToolDock />));
+    const card = Array.from(container.querySelectorAll("article")).find((item) => item.textContent?.includes("Offer Builder"));
+    await act(async () => { card?.querySelector("button")?.click(); await new Promise((resolve) => setTimeout(resolve, 0)); });
+    for (const [index, value] of ["Tideway", "parents", "grow orders", "boxes"].entries()) {
+      const input = Array.from(container.querySelectorAll("input"))[index];
+      await act(async () => {
+        const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+        setter?.call(input, value);
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    }
+    const generateButton = Array.from(container.querySelectorAll("button")).find((button) => button.textContent?.includes("Build My Result"));
+    await act(async () => { generateButton?.click(); await new Promise((resolve) => setTimeout(resolve, 0)); });
+    expect(container.textContent).toContain("THE TIDEWAY OFFER");
+    expect(container.textContent).not.toContain("Save failed");
+    expect(container.textContent).not.toContain("Saved âœ“");
+    await act(async () => root.unmount());
+  });
+
 });
