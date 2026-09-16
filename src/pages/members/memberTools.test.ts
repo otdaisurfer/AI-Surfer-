@@ -13,7 +13,7 @@ const input = {
 };
 
 describe("member tool generators", () => {
-  it("ships the seven approved member tools", () => {
+  it("ships the eight approved member tools", () => {
     expect(memberTools.map((tool) => tool.name)).toEqual([
       "Prompt Wave Builder",
       "Follow-Up Message Maker",
@@ -22,6 +22,7 @@ describe("member tool generators", () => {
       "Offer Wave Builder",
       "Revenue Tide Planner",
       "Content Wave Generator",
+      "Sales Wave Script Builder",
     ]);
   });
 
@@ -159,5 +160,18 @@ describe("member tool generators", () => {
     expect(result).toContain("DAY 1 — PROBLEM HOOK");
     expect(result).toContain("REEL IDEAS");
     expect(result).toContain("CALLS TO ACTION");
+  });
+
+  it("creates a complete sales conversation script with closes and follow-up", () => {
+    const result = generateMemberToolResult("sales-wave-script-builder", input);
+
+    expect(result).toContain("SALES WAVE SCRIPT");
+    expect(result).toContain("OPENING");
+    expect(result).toContain("DISCOVERY QUESTIONS");
+    expect(result).toContain("OBJECTION RESPONSES");
+    expect(result).toContain("SOFT CLOSE");
+    expect(result).toContain("DIRECT CLOSE");
+    expect(result).toContain("TEXT / DM VERSION");
+    expect(result).toContain("NOT READY YET FOLLOW-UP");
   });
 });
