@@ -6,6 +6,7 @@ import {
   type MemberToolId,
   type MemberToolInput,
 } from "./memberTools";
+import { loadMemberToolWorkspace } from "./memberToolWorkspace";
 
 const emptyInput: MemberToolInput = {
   business: "",
@@ -22,6 +23,8 @@ const emptyInput: MemberToolInput = {
   weeklyRevenue: "",
 };
 
+type PersistenceStatus = "idle" | "restoring" | "restored" | "restore-error" | "saving" | "saved" | "save-error";
+
 const workflowNext: Partial<Record<MemberToolId, MemberToolId>> = {
   "offer-wave-builder": "revenue-tide-planner",
   "revenue-tide-planner": "content-wave-generator",
@@ -37,6 +40,8 @@ export default function MemberToolDock() {
   const [result, setResult] = useState("");
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [persistenceStatus, setPersistenceStatus] = useState<PersistenceStatus>("idle");
+  const handoffRef = useRef(false);
   const workspaceRef = useRef<HTMLDivElement>(null);
   const businessInputRef = useRef<HTMLInputElement>(null);
 
@@ -46,15 +51,43 @@ export default function MemberToolDock() {
 
   useEffect(() => {
     if (!activeTool) return;
+    let cancelled = false;
+    const isHandoff = handoffRef.current;
+    handoffRef.current = false;
+
     workspaceRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     businessInputRef.current?.focus({ preventScroll: true });
+    setPersistenceStatus("restoring");
+
+    void loadMemberToolWorkspace(activeTool).then((saved) => {
+      if (cancelled) return;
+      if (saved.status === "loaded") {
+        setInput((current) => isHandoff ? {
+          ...saved.input,
+          business: current.business,
+          audience: current.audience,
+          goal: current.goal,
+          offer: current.offer,
+        } : saved.input);
+        setResult(saved.generatedResult);
+        setPersistenceStatus("restored");
+      } else if (saved.status === "error") {
+        setPersistenceStatus("restore-error");
+      } else {
+        setPersistenceStatus("idle");
+      }
+    });
+
+    return () => { cancelled = true; };
   }, [activeTool]);
 
-  const openTool = (toolId: MemberToolId) => {
+  const openTool = (toolId: MemberToolId, mode: "manual" | "handoff" = "manual") => {
+    handoffRef.current = mode === "handoff";
     setActiveTool(toolId);
     setResult("");
     setError("");
     setCopied(false);
+    setPersistenceStatus("idle");
   };
 
   const generate = () => {
@@ -157,6 +190,8 @@ export default function MemberToolDock() {
           </div>
 
           {error && <p role="alert" style={styles.error}>{error}</p>}
+          {persistenceStatus === "restored" && <p style={styles.persistence}>Restored from your workspace</p>}
+          {persistenceStatus === "restore-error" && <p style={styles.persistenceError}>Couldn't restore your saved workspace. You can keep working here.</p>}
 
           <div style={styles.actions}>
             <button type="button" onClick={generate} style={styles.generateButton}>Build My Result 🌊</button>
@@ -170,7 +205,7 @@ export default function MemberToolDock() {
                 <div style={styles.resultActions}>
                   <button type="button" onClick={copyResult} style={styles.copyButton}>{copied ? "Copied ✓" : "Copy Result"}</button>
                   {nextTool && nextToolId && (
-                    <button type="button" onClick={() => openTool(nextToolId)} style={styles.nextButton}>
+                    <button type="button" onClick={() => openTool(nextToolId, "handoff")} style={styles.nextButton}>
                       Continue to {nextTool.name} →
                     </button>
                   )}
@@ -217,6 +252,8 @@ const styles: Record<string, React.CSSProperties> = {
   input: { width: "100%", minHeight: 48, padding: "11px 13px", border: "1px solid #334155", borderRadius: 12, outline: "none", background: "#081323", color: "white", fontSize: 16 },
   hint: { color: "#94a3b8", fontSize: 12, fontWeight: 600, lineHeight: 1.35 },
   error: { margin: "15px 0 0", color: "#fecdd3", fontWeight: 750 },
+  persistence: { margin: "15px 0 0", color: "#a7f3d0", fontSize: 13, fontWeight: 750 },
+  persistenceError: { margin: "15px 0 0", color: "#fde68a", fontSize: 13, fontWeight: 750 },
   actions: { display: "flex", flexWrap: "wrap", gap: 10, marginTop: 20 },
   generateButton: { minHeight: 48, padding: "12px 19px", border: 0, borderRadius: 999, background: "linear-gradient(90deg,#22d3ee,#60a5fa,#f472b6)", color: "#03131d", fontWeight: 900, cursor: "pointer" },
   resetButton: { minHeight: 48, padding: "12px 18px", border: "1px solid #334155", borderRadius: 999, background: "transparent", color: "#cbd5e1", fontWeight: 800, cursor: "pointer" },
