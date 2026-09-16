@@ -19,6 +19,7 @@ CLAUDE_APP_ID = "cb512f89-15f3-4ad2-ba1f-7f85eb0cd639"
 CLAUDE_CLIENT_ID = "33c77729-02ec-4320-b400-09fae854fa83"
 OPENAI_AGENT_BUILDER_URL = "https://platform.openai.com/agent-builder/edit"
 STRIPE_PUBLISHABLE_KEY = "pk_live_51Q2XUORwAZCPDqtydW4uiu9lb4c3lQmiD3stgOYTwouLpIZgGshtd83dt82kZl8olvhEIvJAVBTZJnCuUnCK757o00guoyHSoi"
+SUPABASE_URL = "https://mkgnyarwiscttobnytin.supabase.co"
 VITE_FIREBASE_APP_ID = "1:46473040430:web:8438a456c93831be0605bf"
 VITE_FIREBASE_AUTH_DOMAIN = "otd-ai-surfer.firebaseapp.com"
 VITE_FIREBASE_MESSAGING_SENDER_ID = "46473040430"
@@ -26,6 +27,9 @@ VITE_FIREBASE_PROJECT_ID = "otd-ai-surfer"
 VITE_FIREBASE_STORAGE_BUCKET = "otd-ai-surfer.firebasestorage.app"
 VITE_SUPABASE_ANON_KEY = "sb_publishable_QEzJowvtsB5eRypf9FYUOA_csiTgKyU"
 VITE_SUPABASE_URL = "https://dbpoyuwgmfmrefxwzfnh.supabase.co"
+
+[env.production.secrets]
+required = [ "OPENAI_API_KEY", "SUPABASE_SERVICE_ROLE_KEY" ]
 
 [[env.production.d1_databases]]
 database_id = "6c3651bc-03b9-4d2a-9c66-76b19ffc016d"
@@ -39,4 +43,3 @@ environment = "production"
 
 [env.production.ai]
 binding = "OTDAISURFER workers AI"
-
