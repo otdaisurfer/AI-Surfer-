@@ -105,6 +105,42 @@ describe("member tool generators", () => {
     expect(result).toContain("10 one-time sales");
   });
 
+  it.each(["5,00", "49,99", "1 00"])(
+    "rejects malformed currency input %s instead of changing its value",
+    (averageSale) => {
+      expect(() =>
+        generateMemberToolResult("revenue-tide-planner", {
+          ...input,
+          averageSale,
+        }),
+      ).toThrow("Enter valid U.S. dollar amounts");
+    },
+  );
+
+  it("preserves cents in displayed revenue amounts", () => {
+    const result = generateMemberToolResult("revenue-tide-planner", {
+      ...input,
+      monthlyRevenueGoal: "100",
+      averageSale: "$0.50",
+      recurringPrice: "$49.99",
+    });
+
+    expect(result).toContain("200 one-time sales at $0.50 each");
+    expect(result).toContain("3 recurring members at $49.99 per month");
+  });
+
+  it("reports the actual revenue produced by rounded-up recurring members", () => {
+    const result = generateMemberToolResult("revenue-tide-planner", {
+      ...input,
+      monthlyRevenueGoal: "5000",
+      averageSale: "500",
+      recurringPrice: "3000",
+    });
+
+    expect(result).toContain("2 recurring members at $3,000 per month for $6,000");
+    expect(result).not.toContain("2 recurring members at $3,000 per month for $5,000");
+  });
+
   it("rejects missing or invalid revenue numbers", () => {
     expect(() =>
       generateMemberToolResult("revenue-tide-planner", {

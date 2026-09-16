@@ -16,8 +16,8 @@
     "server": "tsx src/server/app.ts",
     "server:dev": "tsx watch src/server/app.ts",
     "cloudflare:whoami": "npx wrangler@4.112.0 whoami",
-    "worker:dev": "npx wrangler@4.112.0 dev --remote",
-    "worker:deploy": "npx wrangler@4.112.0 deploy",
+    "worker:dev": "npx wrangler@4.112.0 dev --remote --config wrangler.worker.jsonc",
+    "worker:deploy": "npx wrangler@4.112.0 deploy --config wrangler.worker.jsonc",
     "worker:browser": "npx wrangler@4.112.0 browser create"
   },
   "keywords": ["react", "vite", "typescript", "marketing", "ai-surfer", "agents"],

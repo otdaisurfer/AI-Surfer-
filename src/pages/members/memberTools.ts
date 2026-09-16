@@ -84,7 +84,14 @@ function cleanInput(input: MemberToolInput): MemberToolInput {
 }
 
 function parseMoney(value: string | undefined): number {
-  return Number((value ?? "").replace(/[$,\s]/g, ""));
+  const normalized = (value ?? "").trim();
+  const validUsd = /^\$?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?$/;
+
+  if (!validUsd.test(normalized)) {
+    throw new Error("Enter valid U.S. dollar amounts, such as 500, $500, or $5,000.00.");
+  }
+
+  return Number(normalized.replace(/[$,]/g, ""));
 }
 
 function lowerFirst(value: string): string {
@@ -121,7 +128,8 @@ function money(value: number): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-    maximumFractionDigits: 0,
+    minimumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    maximumFractionDigits: 2,
   }).format(value);
 }
 
@@ -252,6 +260,7 @@ Day 1: Name the customer problem. Day 2: Publish the three choices. Day 3: Invit
       const salesNeeded = Math.ceil(monthlyGoal / averageSale);
       const weeklySales = Math.ceil(salesNeeded / 4);
       const recurringMembers = Math.ceil(monthlyGoal / recurringPrice);
+      const recurringRevenue = recurringMembers * recurringPrice;
       const balancedOneTimeSales = Math.ceil((monthlyGoal * 0.6) / averageSale);
       const balancedMembers = Math.ceil((monthlyGoal * 0.4) / recurringPrice);
       const balancedCustomers = balancedOneTimeSales + balancedMembers;
@@ -267,7 +276,7 @@ PATH 1 — ONE-TIME SALES
 Close ${salesNeeded} one-time sales at ${money(averageSale)} each. That is ${weeklySales} sales per week.
 
 PATH 2 — RECURRING REVENUE
-Build to ${recurringMembers} recurring members at ${money(recurringPrice)} per month for ${money(monthlyGoal)} in monthly recurring revenue.
+Build to ${recurringMembers} recurring members at ${money(recurringPrice)} per month for ${money(recurringRevenue)} in monthly recurring revenue.
 
 RECOMMENDED BALANCED MIX
 Close ${balancedOneTimeSales} one-time sales and add ${balancedMembers} recurring members. This combines cash now with steadier monthly income.

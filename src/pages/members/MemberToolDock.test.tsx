@@ -13,7 +13,7 @@ afterEach(() => {
 });
 
 describe("MemberToolDock", () => {
-  it("renders all seven tools with a launch control", () => {
+  it("renders all four tools with a launch control", () => {
     const markup = renderToStaticMarkup(<MemberToolDock />);
 
     expect(markup).toContain("Members Tool Dock");
@@ -21,10 +21,7 @@ describe("MemberToolDock", () => {
     expect(markup).toContain("Follow-Up Message Maker");
     expect(markup).toContain("Offer Builder");
     expect(markup).toContain("My 30-Day Wave Plan");
-    expect(markup).toContain("Offer Wave Builder");
-    expect(markup).toContain("Revenue Tide Planner");
-    expect(markup).toContain("Content Wave Generator");
-    expect(markup.match(/>Open Tool</g)).toHaveLength(7);
+    expect(markup.match(/>Open Tool</g)).toHaveLength(4);
   });
 
   it("shows short examples that clarify what belongs in each field", async () => {
@@ -50,9 +47,6 @@ describe("MemberToolDock", () => {
     "Follow-Up Message Maker",
     "Offer Builder",
     "My 30-Day Wave Plan",
-    "Offer Wave Builder",
-    "Revenue Tide Planner",
-    "Content Wave Generator",
   ])("brings %s into view and focuses its first field", async (toolName) => {
     const scrollIntoView = vi.fn();
     Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
@@ -75,42 +69,6 @@ describe("MemberToolDock", () => {
     expect(container.querySelector("h3")?.textContent).toContain(toolName);
     expect(document.activeElement).toBe(container.querySelector('input[name="business"]'));
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: "smooth", block: "start" });
-
-    await act(async () => root.unmount());
-  });
-
-  it("generates a result for a non-revenue tool without hidden revenue fields", async () => {
-    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
-      configurable: true,
-      value: vi.fn(),
-    });
-    const container = document.createElement("div");
-    document.body.appendChild(container);
-    const root = createRoot(container);
-
-    await act(async () => root.render(<MemberToolDock />));
-    const card = Array.from(container.querySelectorAll("article")).find((item) =>
-      item.textContent?.includes("Content Wave Generator"),
-    );
-    await act(async () => card?.querySelector("button")?.click());
-
-    const values = ["Tideway Bakery", "busy parents", "increase orders", "breakfast boxes"];
-    const inputs = Array.from(container.querySelectorAll("input"));
-    for (const [index, input] of inputs.entries()) {
-      await act(async () => {
-        const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
-        setter?.call(input, values[index]);
-        input.dispatchEvent(new Event("input", { bubbles: true }));
-      });
-    }
-    const generateButton = Array.from(container.querySelectorAll("button")).find((button) =>
-      button.textContent?.includes("Build My Result"),
-    );
-    await act(async () => generateButton?.click());
-
-    expect(container.textContent).toContain("Your result is ready");
-    expect(container.textContent).toContain("7-DAY CONTENT WAVE");
-    expect(container.querySelector('[role="alert"]')).toBeNull();
 
     await act(async () => root.unmount());
   });

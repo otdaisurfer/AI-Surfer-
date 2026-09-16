@@ -1,5 +1,6 @@
 const SUPABASE_URL = "https://mkgnyarwiscttobnytin.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZ255YXJ3aXNjdHRvYm55dGluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNDQwNTQsImV4cCI6MjA5NDgyMDA1NH0.eO2hcLQ4Qfq2_VkT74pMNnUG0uvPTmA__BuUOhLWFG0";
+const HUBSPOT_API_BASE = "https://api.hubapi.com/crm/v3/objects";
 
 type WaveCheckSubmission = {
   submission_id: string;
@@ -13,6 +14,8 @@ type WaveCheckSubmission = {
   source: "wave-audit";
   report_version: number;
 };
+
+type HubSpotSyncStatus = "synced" | "not_configured" | "failed";
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -45,7 +48,66 @@ function isValidSubmission(value: unknown): value is WaveCheckSubmission {
   );
 }
 
-export async function handleWaveCheckSubmit(request: Request): Promise<Response> {
+async function hubSpotRequest(path: string, accessToken: string, init: RequestInit) {
+  const response = await fetch(`${HUBSPOT_API_BASE}${path}`, {
+    ...init,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+      ...(init.headers ?? {}),
+    },
+  });
+
+  if (!response.ok) {
+    const detail = await response.text().catch(() => "");
+    throw new Error(`HubSpot ${response.status}: ${detail.slice(0, 500)}`);
+  }
+
+  return response.json() as Promise<{ id?: string; results?: Array<{ id: string }> }>;
+}
+
+async function syncHubSpotContact(email: string, accessToken?: string): Promise<HubSpotSyncStatus> {
+  if (!accessToken) return "not_configured";
+
+  try {
+    const search = await hubSpotRequest("/contacts/search", accessToken, {
+      method: "POST",
+      body: JSON.stringify({
+        filterGroups: [{
+          filters: [{
+            propertyName: "email",
+            operator: "EQ",
+            value: email,
+          }],
+        }],
+        limit: 1,
+        properties: ["email"],
+      }),
+    });
+
+    if (search.results?.[0]?.id) return "synced";
+
+    await hubSpotRequest("/contacts", accessToken, {
+      method: "POST",
+      body: JSON.stringify({
+        properties: {
+          email,
+          lifecyclestage: "lead",
+        },
+      }),
+    });
+
+    return "synced";
+  } catch (error) {
+    console.error("Wave Check HubSpot sync failed", error);
+    return "failed";
+  }
+}
+
+export async function handleWaveCheckSubmit(
+  request: Request,
+  hubSpotAccessToken?: string,
+): Promise<Response> {
   if (request.method !== "POST") return json({ error: "Method not allowed." }, 405);
 
   let submission: unknown;
@@ -78,18 +140,28 @@ export async function handleWaveCheckSubmit(request: Request): Promise<Response>
 
     if (!response.ok) {
       const detail = await response.text().catch(() => "");
-      if (response.status === 409 && detail.includes("23505")) {
-        return json({ status: "saved", submissionId: normalized.submission_id });
+      const duplicate = response.status === 409 && detail.includes("23505");
+      if (!duplicate) {
+        console.error("Wave Check Supabase save failed", response.status, detail.slice(0, 500));
+        return json({ error: "Unable to confirm Wave Check save." }, 502);
       }
-      console.error("Wave Check Supabase save failed", response.status, detail.slice(0, 500));
-      return json({ error: "Unable to confirm Wave Check save." }, 502);
     }
 
-    return json({ status: "saved", submissionId: normalized.submission_id });
+    const hubspotStatus = await syncHubSpotContact(normalized.email, hubSpotAccessToken);
+    return json({
+      status: "saved",
+      submissionId: normalized.submission_id,
+      hubspotStatus,
+    });
   } catch (error) {
     console.error("Wave Check same-origin save failed", error);
     return json({ error: "Unable to confirm Wave Check save." }, 502);
   }
 }
 
-export const onRequestPost: PagesFunction = async ({ request }) => handleWaveCheckSubmit(request);
+type WaveCheckEnv = {
+  HUBSPOT_ACCESS_TOKEN?: string;
+};
+
+export const onRequestPost: PagesFunction<WaveCheckEnv> = async ({ request, env }) =>
+  handleWaveCheckSubmit(request, env.HUBSPOT_ACCESS_TOKEN);
