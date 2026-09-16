@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://mkgnyarwiscttobnytin.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJyZWZlcmVuY2Uta2V5Iiwicm9sZSI6ImFub24ifQ.placeholder";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rZ255YXJ3aXNjdHRvYm55dGluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNDQwNTQsImV4cCI6MjA5NDgyMDA1NH0.eO2hcLQ4Qfq2_VkT74pMNnUG0uvPTmA__BuUOhLWFG0";
 const HUBSPOT_API_BASE = "https://api.hubapi.com/crm/v3/objects";
 const DEFAULT_HUBSPOT_TIMEOUT_MS = 3000;
 const RATE_LIMIT_WINDOW_SECONDS = 600;
