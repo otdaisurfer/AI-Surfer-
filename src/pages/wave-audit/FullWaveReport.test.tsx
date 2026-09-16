@@ -57,17 +57,26 @@ describe("FullWaveReport", () => {
     expect(html).not.toContain("on the way");
   });
 
-  it("offers the paid AEO Wave Audit instead of sending the surfer to generic pricing", () => {
+  it("offers the approved paid implementation ladder instead of the retired $97 audit", () => {
     const html = renderReport();
 
-    expect(html).toContain("Get My $97 AEO Wave Audit");
-    expect(html).not.toContain('href="/pricing"');
+    expect(html).toContain("Catch Your Next Wave");
+    expect(html).toContain("Wave Starter");
+    expect(html).toContain("$497");
+    expect(html).toContain("Wave Builder");
+    expect(html).toContain("$1,997");
+    expect(html).toContain("Tsunami Growth");
+    expect(html).toContain("$3,997");
+    expect(html).not.toContain("Get My $97 AEO Wave Audit");
   });
 
-  it("routes the paid audit CTA into the protected checkout handoff", () => {
+  it("routes the $497 offer to Stripe and higher tiers to strategy-call handoffs", () => {
     const html = renderReport();
 
-    expect(html).toContain('href="/audit/checkout"');
+    expect(html).toContain("https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b");
+    expect(html).toContain("Wave%20Builder%20Strategy%20Call");
+    expect(html).toContain("Tsunami%20Growth%20Strategy%20Call");
+    expect(html).not.toContain('href="/audit/checkout"');
   });
 
   it("offers a safe retry when save confirmation is uncertain", async () => {
