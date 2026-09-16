@@ -14,6 +14,12 @@ describe("landing funnel responsive styles", () => {
     expect(funnelCss).toContain(".sites-landing a:focus-visible");
   });
 
+  it("styles the founding-client offer for desktop and phone layouts", () => {
+    expect(funnelCss).toContain(".sites-landing .founding-client-offer");
+    expect(funnelCss).toContain(".sites-landing .founding-client-benefits");
+    expect(funnelCss).toContain(".sites-landing .founding-client-actions");
+  });
+
   it("uses the approved Ocean Tide Drop logo in the homepage brand mark", () => {
     expect(funnelCss).toContain(".sites-landing .brand-mark");
     expect(funnelCss).toContain('url("/ocean_tide_logo.png")');

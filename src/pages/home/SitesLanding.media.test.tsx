@@ -17,6 +17,24 @@ const approvedVideos = [
 ];
 
 describe("SitesLanding approved media", () => {
+  it("promotes the three founding-client spots without fake urgency", () => {
+    const markup = renderToStaticMarkup(<SitesLanding />);
+    const document = new JSDOM(markup).window.document;
+    const announcement = document.querySelector<HTMLElement>(".announcement");
+    const offer = document.querySelector<HTMLElement>(".founding-client-offer");
+
+    expect(announcement?.textContent).toContain("Now accepting 3 founding clients");
+    expect(offer?.textContent).toContain("Wave Starter");
+    expect(offer?.textContent).toContain("$497");
+    expect(offer?.textContent).toContain("30 days of optimization support");
+    expect(offer?.querySelector('a[href="/wave-check"]')?.textContent).toContain(
+      "Start My Free AI Wave Check",
+    );
+    expect(`${announcement?.textContent} ${offer?.textContent}`).not.toMatch(
+      /countdown|expires tonight|only \d+ hours/i,
+    );
+  });
+
   it("renders exactly the six approved landing assets", () => {
     const markup = renderToStaticMarkup(<SitesLanding />);
     const document = new JSDOM(markup).window.document;

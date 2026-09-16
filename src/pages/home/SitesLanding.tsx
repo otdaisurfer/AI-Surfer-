@@ -115,9 +115,9 @@ export default function SitesLanding() {
         }
       `}</style>
       <div className="announcement">
-        <span>🌺 Launch wave</span>
-        <strong>20% off recurring app access and major software console plans</strong>
-        <a href="/pricing">See plans →</a>
+        <span>🌺 Founding-client launch</span>
+        <strong>Now accepting 3 founding clients</strong>
+        <a href="/wave-check">Start free →</a>
       </div>
 
       <nav className="nav-shell" aria-label="Main navigation">
@@ -184,6 +184,34 @@ export default function SitesLanding() {
           />
           <figcaption>Start with insight. Build, automate, and grow with the right wave.</figcaption>
         </figure>
+      </section>
+
+      <section className="founding-client-offer" aria-labelledby="founding-client-title">
+        <div className="founding-client-copy">
+          <p className="eyebrow">FIRST THREE BUSINESSES</p>
+          <h2 id="founding-client-title">Become an AI SURFER founding client.</h2>
+          <p>
+            Start with the Free AI Wave Check. If Wave Starter is the right next step,
+            we&apos;ll turn your strongest opportunity into one practical AI solution for
+            a one-time investment of <strong>$497</strong>.
+          </p>
+          <ul className="founding-client-benefits">
+            <li>Focused AI opportunity and implementation plan</li>
+            <li>One priority AI solution built for your business</li>
+            <li>30 days of optimization support included</li>
+          </ul>
+        </div>
+        <div className="founding-client-actions">
+          <span className="founding-client-price">Wave Starter · $497</span>
+          <a
+            className="button button-primary"
+            href="/wave-check"
+            data-funnel-cta="founding-client-wave-check"
+          >
+            Start My Free AI Wave Check →
+          </a>
+          <small>No long-term contract. Limited to the first three businesses.</small>
+        </div>
       </section>
 
       <section className="wave-check-steps" aria-labelledby="wave-check-steps-title">
