@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { AlertTriangle, Check, Clipboard, Download, Gauge, Target, Waves } from "lucide-react";
-import { Link } from "react-router-dom";
 import { buildWaveAuditReport, formatWaveAuditReport } from "../../features/wave-audit/report";
 import type { WaveAuditAnswers, WaveAuditResult } from "../../features/wave-audit/types";
 
@@ -13,10 +12,67 @@ interface FullWaveReportProps {
   result: WaveAuditResult;
 }
 
+type OfferId = "wave-starter" | "wave-builder" | "tsunami-growth";
+
+type Offer = {
+  id: OfferId;
+  name: string;
+  price: string;
+  description: string;
+  cta: string;
+  href: string;
+};
+
+const OFFERS: Offer[] = [
+  {
+    id: "wave-starter",
+    name: "Wave Starter",
+    price: "$497",
+    description: "A focused implementation sprint for one clear AI opportunity, lead leak, or repeatable workflow.",
+    cta: "Buy Wave Starter",
+    href: "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b",
+  },
+  {
+    id: "wave-builder",
+    name: "Wave Builder",
+    price: "$1,997",
+    description: "Connect AI visibility, lead flow, follow-up, content, or automation into a broader growth system.",
+    cta: "Book Wave Builder Strategy Call",
+    href: "mailto:oceantidedropservice@gmail.com?subject=Wave%20Builder%20Strategy%20Call",
+  },
+  {
+    id: "tsunami-growth",
+    name: "Tsunami Growth",
+    price: "$3,997",
+    description: "Strategy plus deeper implementation when several AI systems need to work together across the customer journey.",
+    cta: "Book Tsunami Growth Strategy Call",
+    href: "mailto:oceantidedropservice@gmail.com?subject=Tsunami%20Growth%20Strategy%20Call",
+  },
+];
+
+function recommendOffer(answers: WaveAuditAnswers): OfferId {
+  if (answers.aiPriority === "multiple" || (answers.timeDrain === "multiple" && answers.lostOpportunity === "multiple")) {
+    return "tsunami-growth";
+  }
+
+  if (
+    answers.timeDrain === "multiple" ||
+    answers.lostOpportunity === "operations" ||
+    answers.aiPriority === "automation" ||
+    answers.aiPriority === "marketing" ||
+    answers.aiPriority === "support"
+  ) {
+    return "wave-builder";
+  }
+
+  return "wave-starter";
+}
+
 export default function FullWaveReport({ email, submissionId, saveStatus, onRetrySave, answers, result }: FullWaveReportProps) {
   const [copied, setCopied] = useState(false);
   const report = useMemo(() => buildWaveAuditReport(answers, result), [answers, result]);
   const reportText = useMemo(() => formatWaveAuditReport(report, submissionId), [report, submissionId]);
+  const recommendedOfferId = useMemo(() => recommendOffer(answers), [answers]);
 
   const copyReport = async () => {
     await navigator.clipboard.writeText(reportText);
@@ -34,8 +90,17 @@ export default function FullWaveReport({ email, submissionId, saveStatus, onRetr
     URL.revokeObjectURL(url);
   };
 
-  const rememberCheckoutContext = () => {
-    window.sessionStorage.setItem("ai-surfer:aeo-checkout-context", JSON.stringify({ email, submissionId }));
+  const rememberOfferContext = (offer: Offer) => {
+    window.sessionStorage.setItem("ai-surfer:offer-context", JSON.stringify({
+      email,
+      submissionId,
+      offerId: offer.id,
+      recommendedAgent: result.recommendedAgent,
+    }));
+
+    window.dispatchEvent(new CustomEvent("ai-surfer:funnel", {
+      detail: { event: offer.id === "wave-starter" ? "checkout_start" : "strategy_call_click", offer: offer.name },
+    }));
   };
 
   return (
@@ -71,10 +136,38 @@ export default function FullWaveReport({ email, submissionId, saveStatus, onRetr
           <article className="rounded-3xl border border-fuchsia-300/20 bg-fuchsia-300/5 p-6"><div className="text-xs font-bold uppercase tracking-[0.16em] text-fuchsia-200">Recommended AI Surfer Agent</div><h3 className="mt-2 text-3xl font-black">{report.agent.name}</h3><p className="mt-3 text-sm leading-6 text-slate-200">{report.agent.fit}</p></article>
         </div>
         <div className="mt-8 rounded-3xl border border-amber-200/20 bg-amber-100/5 p-6"><div className="text-xs font-bold uppercase tracking-[0.16em] text-amber-200">🐚 Your practical first move</div><p className="mt-3 text-lg font-semibold leading-8">{report.firstRecommendation}</p></div>
+
+        <div className="mt-10 rounded-[2rem] border border-cyan-300/25 bg-slate-950/55 p-6 md:p-8">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-300">Catch Your Next Wave</div>
+          <h3 className="mt-2 text-3xl font-black">Turn this report into a working AI system.</h3>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-300">Based on your answers, we highlighted the implementation level that best matches the size of the opportunity. You can still choose any option.</p>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {OFFERS.map((offer) => {
+              const recommended = offer.id === recommendedOfferId;
+              return (
+                <article key={offer.id} className={`relative rounded-3xl border p-5 ${recommended ? "border-cyan-300 bg-cyan-300/10 shadow-[0_0_30px_rgba(45,212,191,.12)]" : "border-white/10 bg-white/[0.03]"}`}>
+                  {recommended && <div className="mb-3 inline-flex rounded-full bg-cyan-300 px-3 py-1 text-[11px] font-black uppercase tracking-wider text-slate-950">Recommended for you</div>}
+                  <h4 className="text-2xl font-black">{offer.name}</h4>
+                  <div className="mt-2 text-3xl font-black text-cyan-300">{offer.price}</div>
+                  <p className="mt-3 text-sm leading-6 text-slate-300">{offer.description}</p>
+                  <a
+                    href={offer.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => rememberOfferContext(offer)}
+                    className={`mt-5 inline-flex w-full items-center justify-center rounded-full px-4 py-3 text-center text-sm font-black ${recommended ? "bg-gradient-to-r from-cyan-300 to-teal-300 text-slate-950" : "border border-cyan-300/30 bg-cyan-300/10 text-cyan-100"}`}
+                  >
+                    {offer.cta}
+                  </a>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <button type="button" onClick={copyReport} className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-6 py-3 font-bold text-cyan-100 hover:bg-cyan-300/15">{copied ? <Check size={17} /> : <Clipboard size={17} />}{copied ? "Copied" : "Copy Report"}</button>
           <button type="button" onClick={downloadReport} className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-bold text-white hover:bg-white/10"><Download size={17} /> Download Report</button>
-          <Link to="/audit/checkout" onClick={rememberCheckoutContext} className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-300 to-teal-300 px-6 py-3 font-black text-slate-950 hover:from-cyan-200 hover:to-teal-200">Get My $97 AEO Wave Audit</Link>
         </div>
         <p className="mt-5 break-all text-xs text-slate-500">Report receipt: {submissionId}</p>
       </div>
