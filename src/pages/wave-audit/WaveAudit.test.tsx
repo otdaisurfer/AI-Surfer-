@@ -32,7 +32,7 @@ describe("WaveAudit", () => {
     expect(html).not.toContain("Unlock My Full AI Wave Report");
   });
 
-  it("unlocks the full report after the audit is saved", async () => {
+  it("unlocks the full report and routes into the paid implementation ladder after the audit is saved", async () => {
     vi.useFakeTimers();
     saveWaveAuditLead.mockResolvedValueOnce({
       status: "saved",
@@ -69,6 +69,23 @@ describe("WaveAudit", () => {
 
     expect(container.textContent).toContain("Your Full AI Wave Report");
     expect(container.textContent).toContain("30-Day Wave Plan");
+    expect(container.textContent).toContain("Catch Your Next Wave");
+    expect(container.textContent).toContain("Wave Starter");
+    expect(container.textContent).toContain("$497");
+    expect(container.textContent).toContain("Wave Builder");
+    expect(container.textContent).toContain("$1,997");
+    expect(container.textContent).toContain("Tsunami Growth");
+    expect(container.textContent).toContain("$3,997");
+
+    const offerLinks = [...container.querySelectorAll<HTMLAnchorElement>("a")];
+    const starter = offerLinks.find((link) => link.textContent?.includes("Buy Wave Starter"));
+    const builder = offerLinks.find((link) => link.textContent?.includes("Book Wave Builder Strategy Call"));
+    const tsunami = offerLinks.find((link) => link.textContent?.includes("Book Tsunami Growth Strategy Call"));
+
+    expect(starter?.href).toContain("buy.stripe.com");
+    expect(builder?.href).toContain("mailto:");
+    expect(tsunami?.href).toContain("mailto:");
+    expect(container.textContent).not.toContain("Get My $97 AEO Wave Audit");
     expect(saveWaveAuditLead).toHaveBeenCalledWith(expect.objectContaining({
       email: "surfer@example.com",
       submissionId: expect.any(String),
