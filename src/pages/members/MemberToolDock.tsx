@@ -12,6 +12,9 @@ const emptyInput: MemberToolInput = {
   audience: "",
   goal: "",
   offer: "",
+  monthlyRevenueGoal: "",
+  averageSale: "",
+  recurringPrice: "",
 };
 
 export default function MemberToolDock() {
@@ -116,6 +119,22 @@ export default function MemberToolDock() {
               Product or service
               <input value={input.offer} onChange={(event) => setInput({ ...input, offer: event.target.value })} placeholder="AI Wave Check" style={styles.input} />
             </label>
+            {activeTool === "revenue-tide-planner" && (
+              <>
+                <label style={styles.label}>
+                  Monthly revenue goal ($)
+                  <input inputMode="decimal" value={input.monthlyRevenueGoal} onChange={(event) => setInput({ ...input, monthlyRevenueGoal: event.target.value })} placeholder="5000" style={styles.input} />
+                </label>
+                <label style={styles.label}>
+                  Average one-time sale ($)
+                  <input inputMode="decimal" value={input.averageSale} onChange={(event) => setInput({ ...input, averageSale: event.target.value })} placeholder="500" style={styles.input} />
+                </label>
+                <label style={styles.label}>
+                  Monthly recurring price ($)
+                  <input inputMode="decimal" value={input.recurringPrice} onChange={(event) => setInput({ ...input, recurringPrice: event.target.value })} placeholder="100" style={styles.input} />
+                </label>
+              </>
+            )}
           </div>
 
           {error && <p role="alert" style={styles.error}>{error}</p>}
