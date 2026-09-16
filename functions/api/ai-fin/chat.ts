@@ -162,11 +162,17 @@ export async function handleAiFinChat(
     return jsonResponse(request, env, { error: 'Too many requests', traceId }, 429);
   }
 
-  if (!env.OPENAI_API_KEY || !env.SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
+  const missingBindings = [
+    !env.OPENAI_API_KEY && 'OPENAI_API_KEY',
+    !env.SUPABASE_URL && 'SUPABASE_URL',
+    !env.SUPABASE_SERVICE_ROLE_KEY && 'SUPABASE_SERVICE_ROLE_KEY',
+  ].filter(Boolean);
+
+  if (missingBindings.length > 0) {
     return jsonResponse(
       request,
       env,
-      { error: 'AI Fin is temporarily unavailable', traceId },
+      { error: 'AI Fin is temporarily unavailable', traceId, missingBindings },
       503,
     );
   }
