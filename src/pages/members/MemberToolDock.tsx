@@ -22,6 +22,15 @@ const emptyInput: MemberToolInput = {
   weeklyRevenue: "",
 };
 
+const workflowNext: Partial<Record<MemberToolId, MemberToolId>> = {
+  "offer-wave-builder": "revenue-tide-planner",
+  "revenue-tide-planner": "content-wave-generator",
+  "content-wave-generator": "sales-wave-script-builder",
+  "sales-wave-script-builder": "sales-page-wave-builder",
+  "sales-page-wave-builder": "lead-magnet-wave-builder",
+  "lead-magnet-wave-builder": "friday-revenue-scorecard",
+};
+
 export default function MemberToolDock() {
   const [activeTool, setActiveTool] = useState<MemberToolId | null>(null);
   const [input, setInput] = useState(emptyInput);
@@ -32,6 +41,8 @@ export default function MemberToolDock() {
   const businessInputRef = useRef<HTMLInputElement>(null);
 
   const selectedTool = memberTools.find((tool) => tool.id === activeTool);
+  const nextToolId = activeTool ? workflowNext[activeTool] : undefined;
+  const nextTool = nextToolId ? memberTools.find((tool) => tool.id === nextToolId) : undefined;
 
   useEffect(() => {
     if (!activeTool) return;
@@ -77,7 +88,7 @@ export default function MemberToolDock() {
         <div>
           <p style={styles.kicker}>USE IT RIGHT NOW</p>
           <h2 id="member-tool-dock-title" style={styles.title}>Members Tool Dock</h2>
-          <p style={styles.intro}>Choose a tool, add your business details, and get a ready-to-use result.</p>
+          <p style={styles.intro}>Choose a tool, add your business details, and get a ready-to-use result. Your core details stay filled in as you move through the workflow.</p>
         </div>
         <span style={styles.included}>Included with membership</span>
       </div>
@@ -156,7 +167,14 @@ export default function MemberToolDock() {
             <div style={styles.resultWrap} aria-live="polite">
               <div style={styles.resultHeading}>
                 <strong>Your result is ready</strong>
-                <button type="button" onClick={copyResult} style={styles.copyButton}>{copied ? "Copied ✓" : "Copy Result"}</button>
+                <div style={styles.resultActions}>
+                  <button type="button" onClick={copyResult} style={styles.copyButton}>{copied ? "Copied ✓" : "Copy Result"}</button>
+                  {nextTool && nextToolId && (
+                    <button type="button" onClick={() => openTool(nextToolId)} style={styles.nextButton}>
+                      Continue to {nextTool.name} →
+                    </button>
+                  )}
+                </div>
               </div>
               <pre style={styles.result}>{result}</pre>
             </div>
@@ -204,6 +222,8 @@ const styles: Record<string, React.CSSProperties> = {
   resetButton: { minHeight: 48, padding: "12px 18px", border: "1px solid #334155", borderRadius: 999, background: "transparent", color: "#cbd5e1", fontWeight: 800, cursor: "pointer" },
   resultWrap: { marginTop: 22, padding: 18, border: "1px solid rgba(34,211,238,.28)", borderRadius: 16, background: "#07111f" },
   resultHeading: { display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12, marginBottom: 14 },
+  resultActions: { display: "flex", flexWrap: "wrap", gap: 8 },
   copyButton: { padding: "9px 14px", border: 0, borderRadius: 999, background: "#67e8f9", color: "#06202a", fontWeight: 900, cursor: "pointer" },
+  nextButton: { padding: "9px 14px", border: "1px solid rgba(244,114,182,.45)", borderRadius: 999, background: "rgba(244,114,182,.12)", color: "#fce7f3", fontWeight: 900, cursor: "pointer" },
   result: { margin: 0, whiteSpace: "pre-wrap", overflowWrap: "anywhere", color: "#dbeafe", fontFamily: "system-ui, sans-serif", fontSize: 14, lineHeight: 1.65 },
 };
