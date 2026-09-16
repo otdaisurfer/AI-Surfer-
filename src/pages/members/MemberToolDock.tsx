@@ -15,6 +15,11 @@ const emptyInput: MemberToolInput = {
   monthlyRevenueGoal: "",
   averageSale: "",
   recurringPrice: "",
+  qualifiedConversations: "",
+  leads: "",
+  oneTimeSales: "",
+  recurringCustomers: "",
+  weeklyRevenue: "",
 };
 
 export default function MemberToolDock() {
@@ -119,20 +124,23 @@ export default function MemberToolDock() {
               Product or service
               <input value={input.offer} onChange={(event) => setInput({ ...input, offer: event.target.value })} placeholder="AI Wave Check" style={styles.input} />
             </label>
+
             {activeTool === "revenue-tide-planner" && (
               <>
-                <label style={styles.label}>
-                  Monthly revenue goal ($)
-                  <input inputMode="decimal" value={input.monthlyRevenueGoal} onChange={(event) => setInput({ ...input, monthlyRevenueGoal: event.target.value })} placeholder="5000" style={styles.input} />
-                </label>
-                <label style={styles.label}>
-                  Average one-time sale ($)
-                  <input inputMode="decimal" value={input.averageSale} onChange={(event) => setInput({ ...input, averageSale: event.target.value })} placeholder="500" style={styles.input} />
-                </label>
-                <label style={styles.label}>
-                  Monthly recurring price ($)
-                  <input inputMode="decimal" value={input.recurringPrice} onChange={(event) => setInput({ ...input, recurringPrice: event.target.value })} placeholder="100" style={styles.input} />
-                </label>
+                <NumberField label="Monthly revenue goal ($)" value={input.monthlyRevenueGoal} placeholder="5000" onChange={(value) => setInput({ ...input, monthlyRevenueGoal: value })} />
+                <NumberField label="Average one-time sale ($)" value={input.averageSale} placeholder="500" onChange={(value) => setInput({ ...input, averageSale: value })} />
+                <NumberField label="Monthly recurring price ($)" value={input.recurringPrice} placeholder="100" onChange={(value) => setInput({ ...input, recurringPrice: value })} />
+              </>
+            )}
+
+            {activeTool === "friday-revenue-scorecard" && (
+              <>
+                <NumberField label="Monthly revenue goal ($)" value={input.monthlyRevenueGoal} placeholder="5000" onChange={(value) => setInput({ ...input, monthlyRevenueGoal: value })} />
+                <NumberField label="Qualified conversations this week" value={input.qualifiedConversations} placeholder="25" whole onChange={(value) => setInput({ ...input, qualifiedConversations: value })} />
+                <NumberField label="Leads this week" value={input.leads} placeholder="15" whole onChange={(value) => setInput({ ...input, leads: value })} />
+                <NumberField label="One-time sales this week" value={input.oneTimeSales} placeholder="4" whole onChange={(value) => setInput({ ...input, oneTimeSales: value })} />
+                <NumberField label="Recurring customers added" value={input.recurringCustomers} placeholder="2" whole onChange={(value) => setInput({ ...input, recurringCustomers: value })} />
+                <NumberField label="Revenue this week ($)" value={input.weeklyRevenue} placeholder="1500" onChange={(value) => setInput({ ...input, weeklyRevenue: value })} />
               </>
             )}
           </div>
@@ -156,6 +164,15 @@ export default function MemberToolDock() {
         </div>
       )}
     </section>
+  );
+}
+
+function NumberField({ label, value, placeholder, whole = false, onChange }: { label: string; value?: string; placeholder: string; whole?: boolean; onChange: (value: string) => void }) {
+  return (
+    <label style={styles.label}>
+      {label}
+      <input inputMode={whole ? "numeric" : "decimal"} value={value ?? ""} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} style={styles.input} />
+    </label>
   );
 }
 
