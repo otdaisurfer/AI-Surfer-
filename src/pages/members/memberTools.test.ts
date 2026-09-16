@@ -13,7 +13,7 @@ const input = {
 };
 
 describe("member tool generators", () => {
-  it("ships the eight approved member tools", () => {
+  it("ships the nine approved member tools", () => {
     expect(memberTools.map((tool) => tool.name)).toEqual([
       "Prompt Wave Builder",
       "Follow-Up Message Maker",
@@ -23,6 +23,7 @@ describe("member tool generators", () => {
       "Revenue Tide Planner",
       "Content Wave Generator",
       "Sales Wave Script Builder",
+      "Sales Page Wave Builder",
     ]);
   });
 
@@ -173,5 +174,19 @@ describe("member tool generators", () => {
     expect(result).toContain("DIRECT CLOSE");
     expect(result).toContain("TEXT / DM VERSION");
     expect(result).toContain("NOT READY YET FOLLOW-UP");
+  });
+
+  it("creates a complete sales page with positioning, fit, FAQ, and calls to action", () => {
+    const result = generateMemberToolResult("sales-page-wave-builder", input);
+
+    expect(result).toContain("SALES PAGE WAVE");
+    expect(result).toContain("HEADLINE");
+    expect(result).toContain("THE PROBLEM");
+    expect(result).toContain("WHAT YOU GET");
+    expect(result).toContain("GOOD FIT IF");
+    expect(result).toContain("NOT A FIT IF");
+    expect(result).toContain("FAQ");
+    expect(result).toContain("PRIMARY CTA");
+    expect(result).toContain("MOBILE SHORT VERSION");
   });
 });
