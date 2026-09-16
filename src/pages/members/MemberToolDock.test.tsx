@@ -122,4 +122,46 @@ describe("MemberToolDock", () => {
 
     await act(async () => root.unmount());
   });
+
+  it("continues to the next workflow tool without making members retype core business details", async () => {
+    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
+      configurable: true,
+      value: vi.fn(),
+    });
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const root = createRoot(container);
+
+    await act(async () => root.render(<MemberToolDock />));
+    const offerCard = Array.from(container.querySelectorAll("article")).find((item) =>
+      item.textContent?.includes("Offer Wave Builder"),
+    );
+    await act(async () => offerCard?.querySelector("button")?.click());
+
+    const values = ["Tideway Bakery", "busy parents", "increase orders", "breakfast boxes"];
+    const inputs = Array.from(container.querySelectorAll("input")).slice(0, 4);
+    for (const [index, input] of inputs.entries()) {
+      await act(async () => {
+        const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+        setter?.call(input, values[index]);
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    }
+
+    const generateButton = Array.from(container.querySelectorAll("button")).find((button) =>
+      button.textContent?.includes("Build My Result"),
+    );
+    await act(async () => generateButton?.click());
+
+    const continueButton = Array.from(container.querySelectorAll("button")).find((button) =>
+      button.textContent?.includes("Continue to Revenue Tide Planner"),
+    );
+    expect(continueButton).toBeDefined();
+    await act(async () => continueButton?.click());
+
+    expect(container.querySelector("h3")?.textContent).toContain("Revenue Tide Planner");
+    expect(Array.from(container.querySelectorAll("input")).slice(0, 4).map((input) => input.value)).toEqual(values);
+
+    await act(async () => root.unmount());
+  });
 });
