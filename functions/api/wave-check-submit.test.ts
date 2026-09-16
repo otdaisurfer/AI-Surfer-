@@ -103,4 +103,21 @@ describe("handleWaveCheckSubmit", () => {
       hubspotStatus: "failed",
     });
   });
+
+  it("releases the customer report when HubSpot stalls past the timeout", async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(new Response(null, { status: 201 }))
+      .mockImplementationOnce((_url: string, init?: RequestInit) => new Promise<Response>((_resolve, reject) => {
+        init?.signal?.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")), { once: true });
+      }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await handleWaveCheckSubmit(request(), "hubspot-token", 5);
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      status: "saved",
+      hubspotStatus: "failed",
+    });
+  });
 });
