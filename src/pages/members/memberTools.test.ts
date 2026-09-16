@@ -10,10 +10,15 @@ const input = {
   monthlyRevenueGoal: "5000",
   averageSale: "500",
   recurringPrice: "100",
+  qualifiedConversations: "25",
+  leads: "15",
+  oneTimeSales: "4",
+  recurringCustomers: "2",
+  weeklyRevenue: "1500",
 };
 
 describe("member tool generators", () => {
-  it("ships the ten approved member tools", () => {
+  it("ships the eleven approved member tools", () => {
     expect(memberTools.map((tool) => tool.name)).toEqual([
       "Prompt Wave Builder",
       "Follow-Up Message Maker",
@@ -25,6 +30,7 @@ describe("member tool generators", () => {
       "Sales Wave Script Builder",
       "Sales Page Wave Builder",
       "Lead Magnet Wave Builder",
+      "Friday Revenue Scorecard",
     ]);
   });
 
@@ -203,5 +209,22 @@ describe("member tool generators", () => {
     expect(result).toContain("OPT-IN CTA");
     expect(result).toContain("THANK-YOU MESSAGE");
     expect(result).toContain("FIRST FOLLOW-UP MESSAGE");
+  });
+
+  it("turns weekly activity into a Friday revenue scorecard", () => {
+    const result = generateMemberToolResult("friday-revenue-scorecard", input);
+
+    expect(result).toContain("FRIDAY REVENUE SCORECARD");
+    expect(result).toContain("25 qualified conversations");
+    expect(result).toContain("15 leads");
+    expect(result).toContain("4 one-time sales");
+    expect(result).toContain("2 recurring customers");
+    expect(result).toContain("$1,500");
+    expect(result).toContain("60%");
+    expect(result).toContain("24%");
+    expect(result).toContain("MONTHLY PACE");
+    expect(result).toContain("STRONGEST SIGNAL");
+    expect(result).toContain("BIGGEST LEAK");
+    expect(result).toContain("3 MOVES FOR NEXT WEEK");
   });
 });
