@@ -13,7 +13,7 @@ const input = {
 };
 
 describe("member tool generators", () => {
-  it("ships the nine approved member tools", () => {
+  it("ships the ten approved member tools", () => {
     expect(memberTools.map((tool) => tool.name)).toEqual([
       "Prompt Wave Builder",
       "Follow-Up Message Maker",
@@ -24,6 +24,7 @@ describe("member tool generators", () => {
       "Content Wave Generator",
       "Sales Wave Script Builder",
       "Sales Page Wave Builder",
+      "Lead Magnet Wave Builder",
     ]);
   });
 
@@ -188,5 +189,19 @@ describe("member tool generators", () => {
     expect(result).toContain("FAQ");
     expect(result).toContain("PRIMARY CTA");
     expect(result).toContain("MOBILE SHORT VERSION");
+  });
+
+  it("creates a lead magnet package with opt-in copy and follow-up", () => {
+    const result = generateMemberToolResult("lead-magnet-wave-builder", input);
+
+    expect(result).toContain("LEAD MAGNET WAVE");
+    expect(result).toContain("MAGNETIC TITLE");
+    expect(result).toContain("PROMISE");
+    expect(result).toContain("RECOMMENDED FORMAT");
+    expect(result).toContain("5-PART OUTLINE");
+    expect(result).toContain("LANDING PAGE COPY");
+    expect(result).toContain("OPT-IN CTA");
+    expect(result).toContain("THANK-YOU MESSAGE");
+    expect(result).toContain("FIRST FOLLOW-UP MESSAGE");
   });
 });
