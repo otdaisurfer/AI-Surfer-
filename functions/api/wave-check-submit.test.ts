@@ -120,4 +120,16 @@ describe("handleWaveCheckSubmit", () => {
       hubspotStatus: "failed",
     });
   });
+
+  it("blocks a rate-limited client before Supabase or HubSpot writes", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    const limiter = vi.fn().mockResolvedValue(false);
+
+    const response = await handleWaveCheckSubmit(request(), "hubspot-token", 3000, limiter);
+
+    expect(response.status).toBe(429);
+    expect(await response.json()).toMatchObject({ error: "Too many Wave Check submissions. Please try again shortly." });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 });
