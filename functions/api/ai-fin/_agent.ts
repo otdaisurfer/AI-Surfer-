@@ -238,7 +238,12 @@ export async function runAiFin(
       escalationRequired: output.escalationRequired,
       traceId: context.traceId,
     };
-  } catch {
+  } catch (error) {
+    console.error('AI Fin agent run failed', {
+      traceId: context.traceId,
+      name: error instanceof Error ? error.name : 'UnknownError',
+      message: error instanceof Error ? error.message : String(error),
+    });
     return {
       answer:
         'I hit a temporary snag while checking that for you. Your request has not been submitted or saved. Please try again, and I’ll pick the wave back up from here.',
