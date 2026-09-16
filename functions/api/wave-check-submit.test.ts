@@ -132,4 +132,26 @@ describe("handleWaveCheckSubmit", () => {
     expect(await response.json()).toMatchObject({ error: "Too many Wave Check submissions. Please try again shortly." });
     expect(fetchMock).not.toHaveBeenCalled();
   });
+
+  it("queues HubSpot work off the customer response path when a background handoff is provided", async () => {
+    const fetchMock = vi.fn().mockResolvedValueOnce(new Response(null, { status: 201 }));
+    vi.stubGlobal("fetch", fetchMock);
+    const backgroundHandoff = vi.fn();
+
+    const response = await handleWaveCheckSubmit(
+      request(),
+      "hubspot-token",
+      3000,
+      undefined,
+      backgroundHandoff,
+    );
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      status: "saved",
+      hubspotStatus: "queued",
+    });
+    expect(backgroundHandoff).toHaveBeenCalledWith("surfer@example.com", submission.submission_id);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
 });
