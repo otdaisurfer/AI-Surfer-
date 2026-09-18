@@ -19,9 +19,12 @@ function request(secret = "health-secret") {
 
 function readyFetch() {
   return vi.fn(async (input: RequestInfo | URL) => {
-    const url = String(input);
+    const url = new URL(String(input));
 
-    if (url.includes("api.hubapi.com/crm/v3/objects/products/")) {
+    if (
+      url.hostname === "api.hubapi.com" &&
+      url.pathname.startsWith("/crm/v3/objects/products/")
+    ) {
       return new Response(JSON.stringify({
         id: "332891806434",
         properties: {
@@ -36,14 +39,20 @@ function readyFetch() {
       });
     }
 
-    if (url.includes("supabase.co/rest/v1/wave_starter_intakes")) {
+    if (
+      url.hostname === "mkgnyarwiscttobnytin.supabase.co" &&
+      url.pathname === "/rest/v1/wave_starter_intakes"
+    ) {
       return new Response("[]", {
         status: 200,
         headers: { "Content-Type": "application/json" },
       });
     }
 
-    if (url.includes("api.stripe.com/v1/payment_links/")) {
+    if (
+      url.hostname === "api.stripe.com" &&
+      url.pathname.startsWith("/v1/payment_links/")
+    ) {
       return new Response(JSON.stringify({
         active: true,
         livemode: true,
@@ -60,7 +69,7 @@ function readyFetch() {
       });
     }
 
-    throw new Error(`Unexpected URL: ${url}`);
+    throw new Error(`Unexpected URL: ${url.toString()}`);
   });
 }
 
@@ -101,9 +110,9 @@ describe("production launch readiness", () => {
 
   it("blocks launch when the live HubSpot Wave Starter product drifts", async () => {
     const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
-      const url = String(input);
+      const url = new URL(String(input));
 
-      if (url.includes("api.hubapi.com")) {
+      if (url.hostname === "api.hubapi.com") {
         return new Response(JSON.stringify({
           properties: {
             name: "🌊 Wave Starter",
