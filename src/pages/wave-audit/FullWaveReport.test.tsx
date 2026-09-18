@@ -74,8 +74,8 @@ describe("FullWaveReport", () => {
     const html = renderReport();
 
     expect(html).toContain("https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b");
-    expect(html).toContain("Wave%20Builder%20Strategy%20Call");
-    expect(html).toContain("Tsunami%20Growth%20Strategy%20Call");
+    expect(html).toContain("https://calendly.com/oceantidedrop/new-meeting");
+    expect(html.match(/https:\/\/calendly\.com\/oceantidedrop\/new-meeting/g)?.length).toBeGreaterThanOrEqual(2);
     expect(html).not.toContain('href="/audit/checkout"');
   });
 
