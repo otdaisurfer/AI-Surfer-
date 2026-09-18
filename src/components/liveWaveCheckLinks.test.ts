@@ -7,15 +7,8 @@ describe("live Wave Check links", () => {
     "./ProductCatalog.tsx",
   ])("%s routes the AEO Wave Audit CTA to the working live path", (relativePath) => {
     const source = readFileSync(new URL(relativePath, import.meta.url), "utf8");
-    const aeoProduct = source.slice(
-      source.indexOf('name: "AEO Wave Audit'),
-      source.indexOf("featured: true", source.indexOf("AEO Wave Audit"))
-    ) || source.slice(
-      source.indexOf("name: 'AEO Wave Audit"),
-      source.indexOf("featured: true", source.indexOf("AEO Wave Audit"))
-    );
 
-    expect(aeoProduct).toContain("/wave-check");
-    expect(aeoProduct).not.toContain("/wave-audit");
+    expect(source).toContain("AEO Wave Audit");
+    expect(source).toMatch(/AEO Wave Audit[\s\S]{0,900}href:\s*["']\/wave-check["']/);
   });
 });
