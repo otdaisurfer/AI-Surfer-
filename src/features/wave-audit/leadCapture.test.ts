@@ -71,6 +71,27 @@ describe("saveWaveAuditLead", () => {
     }));
   });
 
+  it("adds UTM attribution to saved Wave Check answers", async () => {
+    window.history.replaceState({}, "", "/wave-check?utm_source=facebook&utm_medium=social&utm_campaign=first-client-launch");
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      status: "saved",
+      submissionId: payload.submissionId,
+    }), { status: 200, headers: { "Content-Type": "application/json" } }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await saveWaveAuditLead(payload);
+
+    const [, init] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(String(init.body));
+    expect(body.answers).toMatchObject({
+      ...payload.answers,
+      _campaign_source: "facebook",
+      _campaign_medium: "social",
+      _campaign_name: "first-client-launch",
+    });
+    window.history.replaceState({}, "", "/");
+  });
+
   it("retries a lost response with the same receipt", async () => {
     const fetchMock = vi.fn()
       .mockRejectedValueOnce(new TypeError("Failed to fetch"))
