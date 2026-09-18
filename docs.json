@@ -8,6 +8,70 @@
     "light": "#22D3EE",
     "dark": "#0E7490"
   },
+  "appearance": {
+    "default": "system"
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "background": {
+    "decoration": "gradient"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Main Website",
+        "href": "https://otdaisurfer.surf/"
+      },
+      {
+        "type": "github",
+        "href": "https://github.com/otdaisurfer/AI-Surfer-"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Free AI Wave Check",
+      "href": "https://otdaisurfer.surf/#wave-check"
+    }
+  },
+  "footer": {
+    "socials": {
+      "website": "https://otdaisurfer.surf/",
+      "github": "https://github.com/otdaisurfer/AI-Surfer-"
+    },
+    "links": [
+      {
+        "header": "AI SURFER",
+        "items": [
+          {
+            "label": "Main Website",
+            "href": "https://otdaisurfer.surf/"
+          },
+          {
+            "label": "Free AI Wave Check",
+            "href": "https://otdaisurfer.surf/#wave-check"
+          }
+        ]
+      },
+      {
+        "header": "Explore",
+        "items": [
+          {
+            "label": "Pricing",
+            "href": "/docs/knowledge-hub/pricing"
+          },
+          {
+            "label": "AI Agent Crew",
+            "href": "/docs/knowledge-hub/agents/overview"
+          },
+          {
+            "label": "Developer",
+            "href": "/api/overview"
+          }
+        ]
+      }
+    ]
+  },
   "navigation": {
     "groups": [
       {
