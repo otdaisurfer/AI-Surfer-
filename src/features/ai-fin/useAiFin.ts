@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
+import { aiSurferApi } from '../../lib/aiSurferApiClient';
 import type {
   AccessMode,
   ChatResponse,
@@ -54,28 +55,19 @@ export function useAiFin(mode: AccessMode) {
       setError(null);
 
       try {
-        const response = await fetch('/api/ai-fin/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            ...(mode === 'owner' && options.accessToken
-              ? { Authorization: `Bearer ${options.accessToken}` }
-              : {}),
-          },
-          body: JSON.stringify({
+        const body = await aiSurferApi.chatAiFin(
+          {
             mode,
             message: trimmed,
             conversation,
             ...(options.lead ? { lead: options.lead } : {}),
             ...(mode === 'owner' && options.preview ? { preview: true } : {}),
-          }),
-          signal: controller.signal,
-        });
-
-        const body = (await response.json()) as Partial<ChatResponse> & { error?: string };
-        if (!response.ok || typeof body.answer !== 'string') {
-          throw new Error(body.error || 'AI Fin could not complete that request.');
-        }
+          },
+          {
+            accessToken: mode === 'owner' ? options.accessToken : undefined,
+            signal: controller.signal,
+          },
+        );
 
         const parsed: ChatResponse = {
           answer: body.answer,
