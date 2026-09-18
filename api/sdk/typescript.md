@@ -1,12 +1,17 @@
+---
+title: "TypeScript Client"
+description: "Use the lightweight typed AI SURFER API client included in the repository."
+---
+
 # TypeScript Client 🌊
 
-AI SURFER now includes a lightweight typed TypeScript client at:
+AI SURFER includes a lightweight typed TypeScript client at:
 
 ```text
 src/lib/aiSurferApiClient.ts
 ```
 
-It wraps the current backend endpoints without adding a separate dependency.
+It wraps the current backend endpoints without adding a separate package dependency.
 
 ## Import
 
@@ -19,6 +24,23 @@ const api = new AiSurferApiClient({
 });
 ```
 
+## Common Operations
+
+<CardGroup cols={2}>
+  <Card title="Health" icon="activity">
+    Verify the API and integration configuration.
+  </Card>
+  <Card title="Lead Capture" icon="user-plus">
+    Save qualified AI Fin leads and receive the recommended next action.
+  </Card>
+  <Card title="Audit" icon="radar">
+    Start an AI Wave or AEO audit.
+  </Card>
+  <Card title="Launch Desk" icon="rocket">
+    Stream launch planning events through the typed client.
+  </Card>
+</CardGroup>
+
 ## Health
 
 ```ts
@@ -26,7 +48,7 @@ const health = await api.health();
 console.log(health.status);
 ```
 
-## Save a lead
+## Save a Lead
 
 ```ts
 const lead = await api.saveLead({
@@ -47,7 +69,7 @@ const lead = await api.saveLead({
 console.log(lead.leadId, lead.nextAction);
 ```
 
-## Start an audit
+## Start an Audit
 
 ```ts
 const audit = await api.startAudit({
@@ -59,7 +81,7 @@ const audit = await api.startAudit({
 });
 ```
 
-## Queue follow-up
+## Queue Follow-Up
 
 ```ts
 await api.queueFollowUp({
@@ -74,7 +96,7 @@ await api.queueFollowUp({
 });
 ```
 
-## Start onboarding
+## Start Onboarding
 
 ```ts
 await api.startOnboarding({
@@ -103,10 +125,12 @@ for await (const event of api.streamLaunchPlan({
 }
 ```
 
-## Why this exists
+## Production Safety
 
-The OpenAPI file is the machine-readable source of truth. This client gives the current React / TypeScript app a convenient typed wrapper immediately, while leaving room for generated SDKs later.
+<Warning>
+  Keep `AI_SURFER_API_KEY` server-side. Do not place it in a `VITE_*` variable or ship it in browser JavaScript.
+</Warning>
 
-For production, point `baseUrl` at the protected API origin and supply `AI_SURFER_API_KEY` only from server-side code.
+Browser traffic should go through a same-origin backend, worker, or another protected server-side boundary.
 
-Do **not** put this key in a `VITE_*` variable or ship it in browser JavaScript. Browser traffic should go through a same-origin backend / worker or another protected server-side boundary.
+The OpenAPI file remains the machine-readable API source of truth. This client provides a convenient typed wrapper for the current React and TypeScript application.
