@@ -1,3 +1,8 @@
+---
+title: "Launch Desk"
+description: "Move AI SURFER work through Secure, Stabilize, Deploy, and Revenue."
+---
+
 # Launch Desk
 
 **Launch Desk** is the implementation workspace used to move AI SURFER work from plan to production.
