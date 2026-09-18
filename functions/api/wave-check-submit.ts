@@ -220,7 +220,7 @@ export const onRequestPost: PagesFunction<WaveCheckEnv> = async ({
     DEFAULT_HUBSPOT_TIMEOUT_MS,
     makeD1RateLimitCheck(env.OTDAISURFER),
     env.HUBSPOT_ACCESS_TOKEN
-      ? (email, submissionId) => waitUntil(
+      ? (email, submissionId, context) => waitUntil(
         runBackgroundHubSpotHandoff(
           env.OTDAISURFER,
           email,
