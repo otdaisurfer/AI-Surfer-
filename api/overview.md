@@ -28,6 +28,7 @@ For public sales pages and customer-facing funnels, keep the existing Ocean Tide
 
 - [5-minute API Quickstart](./quickstart.md)
 - [API Reference](./reference/index.md)
+- [API Recipes](./recipes/index.md)
 - [Project overview](../README.md)
 - [API README](./README.md)
 - [Launch Desk](../docs/launch-desk/README.md)
