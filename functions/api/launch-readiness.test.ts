@@ -21,6 +21,21 @@ function readyFetch() {
   return vi.fn(async (input: RequestInfo | URL) => {
     const url = String(input);
 
+    if (url.includes("api.hubapi.com/crm/v3/objects/products/")) {
+      return new Response(JSON.stringify({
+        id: "332891806434",
+        properties: {
+          name: "🌊 Wave Starter",
+          hs_sku: "wave-starter",
+          price: "497",
+          hs_status: "active",
+        },
+      }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     if (url.includes("supabase.co/rest/v1/wave_starter_intakes")) {
       return new Response("[]", {
         status: 200,
@@ -82,6 +97,30 @@ describe("production launch readiness", () => {
         hubspot: { ok: false },
       },
     });
+  });
+
+  it("blocks launch when the live HubSpot Wave Starter product drifts", async () => {
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+
+      if (url.includes("api.hubapi.com")) {
+        return new Response(JSON.stringify({
+          properties: {
+            name: "🌊 Wave Starter",
+            hs_sku: "wave-starter",
+            price: "399",
+            hs_status: "active",
+          },
+        }), { status: 200, headers: { "Content-Type": "application/json" } });
+      }
+
+      return readyFetch()(input);
+    });
+
+    const response = await handleLaunchReadiness(request(), env, fetchImpl);
+    const body = await response.json() as { blockers: string[] };
+
+    expect(body.blockers).toContain("hubspot");
   });
 
   it("blocks launch when the Supabase URL points at the wrong project", async () => {
