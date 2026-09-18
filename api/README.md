@@ -14,6 +14,7 @@ The artwork above is the official **AI Surfer technology emblem**. Use it for de
 
 - [5-minute API Quickstart](./quickstart.md)
 - [API overview](./overview.md)
+- [API Reference](./reference/index.md)
 - [Project overview](../README.md)
 - [Launch Desk](../docs/launch-desk/README.md)
 - [Security policy](../SECURITY.md)
