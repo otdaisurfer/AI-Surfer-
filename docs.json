@@ -49,6 +49,12 @@
         "pages": [
           "docs/knowledge-hub/deployment"
         ]
+      },
+      {
+        "group": "Developer",
+        "pages": [
+          "api/overview"
+        ]
       }
     ]
   }
