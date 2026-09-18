@@ -38,7 +38,7 @@ const OFFERS: Offer[] = [
     price: "$1,997",
     description: "Connect AI visibility, lead flow, follow-up, content, or automation into a broader growth system.",
     cta: "Book Wave Builder Strategy Call",
-    href: "mailto:oceantidedropservice@gmail.com?subject=Wave%20Builder%20Strategy%20Call",
+    href: "https://calendly.com/oceantidedrop/new-meeting",
   },
   {
     id: "tsunami-growth",
@@ -46,7 +46,7 @@ const OFFERS: Offer[] = [
     price: "$3,997",
     description: "Strategy plus deeper implementation when several AI systems need to work together across the customer journey.",
     cta: "Book Tsunami Growth Strategy Call",
-    href: "mailto:oceantidedropservice@gmail.com?subject=Tsunami%20Growth%20Strategy%20Call",
+    href: "https://calendly.com/oceantidedrop/new-meeting",
   },
 ];
 
