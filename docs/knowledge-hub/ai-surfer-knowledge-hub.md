@@ -182,6 +182,9 @@ Avoid stale tier names or older offer structures on public sales pages when they
 Every public documentation surface should:
 
 - use the current AI SURFER brand name;
+- use the AI Surfer technology emblem for API, developer, integration, Launch Desk, and other technical surfaces;
+- keep customer-facing sales pages anchored in the primary Ocean Tide Drop AI SURFER brand rather than replacing it with the technical emblem;
+- link the developer documentation back to `api/overview.md` when a clear technical entry point is useful;
 - use the current three-offer implementation ladder;
 - keep the six-agent lineup consistent;
 - route uncertain buyers to the Free AI Wave Check;
