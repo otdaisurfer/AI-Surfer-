@@ -1,3 +1,8 @@
+---
+title: "Deployment"
+description: "How AI SURFER uses Cloudflare, Supabase, Stripe, and OpenAI-powered workflows."
+---
+
 # Deployment
 
 AI SURFER is built for a modern web deployment stack with React, Vite, TypeScript, Cloudflare, Supabase, Stripe, and OpenAI-powered workflows.
