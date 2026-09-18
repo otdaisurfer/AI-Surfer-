@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 const SUPPORT_EMAIL = "oceantidedropservice@gmail.com";
@@ -10,9 +10,35 @@ type VerificationState =
   | { status: "pending" }
   | { status: "error"; message: string };
 
+type IntakeState = {
+  contactName: string;
+  email: string;
+  businessName: string;
+  website: string;
+  primaryGoal: string;
+  biggestBottleneck: string;
+  systemsUsed: string;
+  notes: string;
+};
+
+const EMPTY_INTAKE: IntakeState = {
+  contactName: "",
+  email: "",
+  businessName: "",
+  website: "",
+  primaryGoal: "",
+  biggestBottleneck: "",
+  systemsUsed: "",
+  notes: "",
+};
+
 export default function WaveStarterSuccess() {
   const [searchParams] = useSearchParams();
   const [verification, setVerification] = useState<VerificationState>({ status: "checking" });
+  const [intake, setIntake] = useState<IntakeState>(EMPTY_INTAKE);
+  const [submitting, setSubmitting] = useState(false);
+  const [intakeStatus, setIntakeStatus] = useState<"idle" | "success" | "error">("idle");
+  const [intakeMessage, setIntakeMessage] = useState("");
   const sessionId = searchParams.get("session_id");
 
   useEffect(() => {
@@ -75,6 +101,53 @@ export default function WaveStarterSuccess() {
     };
   }, [sessionId]);
 
+  async function submitIntake(event: FormEvent) {
+    event.preventDefault();
+    if (!sessionId || submitting) return;
+
+    setSubmitting(true);
+    setIntakeStatus("idle");
+    setIntakeMessage("");
+
+    try {
+      const response = await fetch("/api/wave-starter-intake", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId,
+          contactName: intake.contactName,
+          email: intake.email,
+          businessName: intake.businessName,
+          website: intake.website || undefined,
+          primaryGoal: intake.primaryGoal,
+          biggestBottleneck: intake.biggestBottleneck,
+          systemsUsed: intake.systemsUsed
+            .split(",")
+            .map((value) => value.trim())
+            .filter(Boolean),
+          notes: intake.notes || undefined,
+        }),
+      });
+
+      const body = await response.json() as { ok?: boolean; error?: string };
+      if (!response.ok || body.ok !== true) {
+        throw new Error(body.error || "We could not save your kickoff intake yet.");
+      }
+
+      setIntakeStatus("success");
+      setIntakeMessage("Kickoff intake received. Your Wave Starter handoff is ready for the AI SURFER team.");
+    } catch (error) {
+      setIntakeStatus("error");
+      setIntakeMessage(
+        error instanceof Error
+          ? error.message
+          : "We could not save your kickoff intake yet. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   if (verification.status === "checking") {
     return (
       <main className="min-h-screen bg-slate-950 px-5 py-16 text-white">
@@ -133,12 +206,132 @@ export default function WaveStarterSuccess() {
         </div>
 
         <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.04] p-6">
+          <h2 className="text-2xl font-black">Start your Wave Starter kickoff</h2>
+          <p className="mt-2 leading-7 text-slate-300">
+            Give us the essentials now so your paid project can move straight into handoff instead of waiting on another round of questions.
+          </p>
+
+          {intakeStatus === "success" ? (
+            <div className="mt-6 rounded-2xl border border-emerald-300/25 bg-emerald-300/10 p-5">
+              <p className="font-black text-emerald-200">Kickoff intake received 🌊</p>
+              <p className="mt-2 text-slate-200">{intakeMessage}</p>
+            </div>
+          ) : (
+            <form onSubmit={submitIntake} className="mt-6 grid gap-4">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="grid gap-2 text-sm font-bold">
+                  Your name
+                  <input
+                    required
+                    value={intake.contactName}
+                    onChange={(event) => setIntake({ ...intake, contactName: event.target.value })}
+                    className="rounded-xl border border-white/15 bg-slate-950/80 px-4 py-3 font-normal text-white"
+                    placeholder="Taylor Reed"
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-bold">
+                  Checkout email
+                  <input
+                    required
+                    type="email"
+                    value={intake.email}
+                    onChange={(event) => setIntake({ ...intake, email: event.target.value })}
+                    className="rounded-xl border border-white/15 bg-slate-950/80 px-4 py-3 font-normal text-white"
+                    placeholder="you@business.com"
+                  />
+                </label>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="grid gap-2 text-sm font-bold">
+                  Business name
+                  <input
+                    required
+                    value={intake.businessName}
+                    onChange={(event) => setIntake({ ...intake, businessName: event.target.value })}
+                    className="rounded-xl border border-white/15 bg-slate-950/80 px-4 py-3 font-normal text-white"
+                    placeholder="Your business"
+                  />
+                </label>
+                <label className="grid gap-2 text-sm font-bold">
+                  Website
+                  <input
+                    type="url"
+                    value={intake.website}
+                    onChange={(event) => setIntake({ ...intake, website: event.target.value })}
+                    className="rounded-xl border border-white/15 bg-slate-950/80 px-4 py-3 font-normal text-white"
+                    placeholder="https://yourbusiness.com"
+                  />
+                </label>
+              </div>
+
+              <label className="grid gap-2 text-sm font-bold">
+                Main goal for this build
+                <textarea
+                  required
+                  value={intake.primaryGoal}
+                  onChange={(event) => setIntake({ ...intake, primaryGoal: event.target.value })}
+                  className="min-h-24 rounded-xl border border-white/15 bg-slate-950/80 px-4 py-3 font-normal text-white"
+                  placeholder="What result matters most over the next 30 days?"
+                />
+              </label>
+
+              <label className="grid gap-2 text-sm font-bold">
+                Biggest bottleneck
+                <textarea
+                  required
+                  value={intake.biggestBottleneck}
+                  onChange={(event) => setIntake({ ...intake, biggestBottleneck: event.target.value })}
+                  className="min-h-24 rounded-xl border border-white/15 bg-slate-950/80 px-4 py-3 font-normal text-white"
+                  placeholder="What is slowing down leads, follow-up, support, content, or operations?"
+                />
+              </label>
+
+              <label className="grid gap-2 text-sm font-bold">
+                Systems you already use
+                <input
+                  value={intake.systemsUsed}
+                  onChange={(event) => setIntake({ ...intake, systemsUsed: event.target.value })}
+                  className="rounded-xl border border-white/15 bg-slate-950/80 px-4 py-3 font-normal text-white"
+                  placeholder="Website, Gmail, HubSpot, Stripe..."
+                />
+                <span className="font-normal text-slate-400">Separate systems with commas.</span>
+              </label>
+
+              <label className="grid gap-2 text-sm font-bold">
+                Anything else we should know?
+                <textarea
+                  value={intake.notes}
+                  onChange={(event) => setIntake({ ...intake, notes: event.target.value })}
+                  className="min-h-20 rounded-xl border border-white/15 bg-slate-950/80 px-4 py-3 font-normal text-white"
+                  placeholder="Timing, constraints, preferences, or context."
+                />
+              </label>
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="inline-flex justify-center rounded-full bg-gradient-to-r from-cyan-300 to-teal-300 px-7 py-4 font-black text-slate-950 disabled:cursor-wait disabled:opacity-60"
+              >
+                {submitting ? "Sending kickoff intake..." : "Send kickoff intake"}
+              </button>
+
+              {intakeStatus === "error" && (
+                <p className="rounded-xl border border-rose-300/25 bg-rose-300/10 p-3 text-sm text-rose-100" role="alert">
+                  {intakeMessage}
+                </p>
+              )}
+            </form>
+          )}
+        </div>
+
+        <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.04] p-6">
           <h2 className="text-2xl font-black">What happens next</h2>
           <ol className="mt-4 space-y-3 leading-7 text-slate-300">
-            <li><strong className="text-white">1.</strong> Your payment is recorded and queued for the Wave Starter handoff.</li>
-            <li><strong className="text-white">2.</strong> We review the goal and business details from your checkout.</li>
-            <li><strong className="text-white">3.</strong> We contact you at your checkout email to confirm scope and kickoff details.</li>
-            <li><strong className="text-white">4.</strong> Your focused implementation sprint begins after the handoff details are confirmed.</li>
+            <li><strong className="text-white">1.</strong> Your payment is recorded and verified.</li>
+            <li><strong className="text-white">2.</strong> Your kickoff intake is attached to the Wave Starter handoff.</li>
+            <li><strong className="text-white">3.</strong> We review your goal, systems, and bottleneck.</li>
+            <li><strong className="text-white">4.</strong> We contact you at your checkout email to confirm scope and kickoff details.</li>
           </ol>
         </div>
 
