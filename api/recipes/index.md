@@ -1,16 +1,27 @@
+---
+title: "API Recipes"
+description: "Connect AI SURFER endpoints into complete lead, audit, onboarding, and launch workflows."
+---
+
 # AI SURFER API Recipes 🌊
 
-Use these recipes when you want to connect the endpoints into complete business workflows instead of calling them one by one.
+Recipes show how to connect individual endpoints into complete business workflows.
 
-## Recipes
+<CardGroup cols={2}>
+  <Card title="Lead → Onboarding" icon="route" href="/api/recipes/lead-to-onboarding">
+    Save a lead, recommend the next step, queue follow-up, and begin onboarding.
+  </Card>
 
-- [Lead → Recommendation → Follow-Up → Onboarding](./lead-to-onboarding.md)
-- [AI Wave / AEO Audit Intake](./audit-intake.md)
-- [Launch Desk Streaming Client](./launch-streaming.md)
+  <Card title="Audit Intake" icon="radar" href="/api/recipes/audit-intake">
+    Start an AI Wave or AEO audit from a qualified business intake.
+  </Card>
 
-Each recipe follows the same principle: **business outcome first, API plumbing second**.
+  <Card title="Launch Desk Streaming" icon="rocket" href="/api/recipes/launch-streaming">
+    Consume the streaming Launch Desk response and build a launch workflow.
+  </Card>
+</CardGroup>
 
-## Before you begin
+## Before You Begin
 
 Set your base URL:
 
@@ -18,6 +29,8 @@ Set your base URL:
 export AI_SURFER_API_BASE="http://localhost:3001"
 ```
 
-For production, use a protected API origin and apply the security guidance in the [API Reference](../reference/index.md).
+For production, use a protected API origin and follow the security guidance in the [API Reference](/api/reference/index).
 
-**Ride the Wave 🌊 Grow with AI.**
+<Tip>
+  These recipes follow one rule: **business outcome first, API plumbing second**.
+</Tip>
