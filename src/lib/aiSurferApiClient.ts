@@ -109,15 +109,18 @@ export interface LaunchBrief {
 
 type ApiClientOptions = {
   baseUrl?: string;
+  apiKey?: string;
   fetchImpl?: typeof fetch;
 };
 
 export class AiSurferApiClient {
   private readonly baseUrl: string;
+  private readonly apiKey?: string;
   private readonly fetchImpl: typeof fetch;
 
   constructor(options: ApiClientOptions = {}) {
     this.baseUrl = (options.baseUrl ?? "").replace(/\/$/, "");
+    this.apiKey = options.apiKey;
     this.fetchImpl = options.fetchImpl ?? fetch;
   }
 
@@ -126,6 +129,7 @@ export class AiSurferApiClient {
       ...init,
       headers: {
         "Content-Type": "application/json",
+        ...(this.apiKey ? { "X-AI-Surfer-Key": this.apiKey } : {}),
         ...(init?.headers ?? {}),
       },
     });
@@ -224,7 +228,10 @@ export class AiSurferApiClient {
   async *streamLaunchPlan(input: LaunchBrief): AsyncGenerator<unknown, void, void> {
     const response = await this.fetchImpl(`${this.baseUrl}/api/launch`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        ...(this.apiKey ? { "X-AI-Surfer-Key": this.apiKey } : {}),
+      },
       body: JSON.stringify(input),
     });
 
