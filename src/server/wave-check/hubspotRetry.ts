@@ -6,6 +6,15 @@ const RETRY_BATCH_SIZE = 5;
 
 export type HubSpotSyncStatus = "synced" | "not_configured" | "failed";
 
+export type WaveCheckHubSpotContext = {
+  submissionId: string;
+  score: number;
+  topCategory: string;
+  recommendedAgent: string;
+  confidenceLabel: string;
+  opportunities: string[];
+};
+
 export type D1StatementLike = {
   bind: (...values: unknown[]) => D1StatementLike;
   run: () => Promise<unknown>;
@@ -47,10 +56,49 @@ async function hubSpotRequest(
   return response.json() as Promise<{ id?: string; results?: Array<{ id: string }> }>;
 }
 
+async function createWaveCheckNote(
+  contactId: string,
+  context: WaveCheckHubSpotContext,
+  accessToken: string,
+  timeoutMs: number,
+) {
+  const opportunityLines = context.opportunities.length
+    ? context.opportunities.map((item) => `• ${item}`).join("\n")
+    : "• No opportunity details supplied";
+
+  const body = [
+    "Free AI Wave Check",
+    `Score: ${context.score}/100 (${context.confidenceLabel})`,
+    `Biggest Wave: ${context.topCategory}`,
+    `Recommended Agent: ${context.recommendedAgent}`,
+    "Opportunities:",
+    opportunityLines,
+    `Submission receipt: ${context.submissionId}`,
+  ].join("\n");
+
+  await hubSpotRequest("/notes", accessToken, {
+    method: "POST",
+    body: JSON.stringify({
+      properties: {
+        hs_timestamp: new Date().toISOString(),
+        hs_note_body: body,
+      },
+      associations: [{
+        to: { id: contactId },
+        types: [{
+          associationCategory: "HUBSPOT_DEFINED",
+          associationTypeId: 202,
+        }],
+      }],
+    }),
+  }, timeoutMs);
+}
+
 export async function syncHubSpotContact(
   email: string,
   accessToken?: string,
   timeoutMs = DEFAULT_HUBSPOT_TIMEOUT_MS,
+  context?: WaveCheckHubSpotContext,
 ): Promise<HubSpotSyncStatus> {
   if (!accessToken) return "not_configured";
 
@@ -70,17 +118,26 @@ export async function syncHubSpotContact(
       }),
     }, timeoutMs);
 
-    if (search.results?.[0]?.id) return "synced";
+    let contactId = search.results?.[0]?.id ?? null;
 
-    await hubSpotRequest("/contacts", accessToken, {
-      method: "POST",
-      body: JSON.stringify({
-        properties: {
-          email,
-          lifecyclestage: "lead",
-        },
-      }),
-    }, timeoutMs);
+    if (!contactId) {
+      const created = await hubSpotRequest("/contacts", accessToken, {
+        method: "POST",
+        body: JSON.stringify({
+          properties: {
+            email,
+            lifecyclestage: "lead",
+          },
+        }),
+      }, timeoutMs);
+      contactId = created.id ?? null;
+    }
+
+    if (!contactId) throw new Error("HubSpot contact sync returned no contact id");
+
+    if (context) {
+      await createWaveCheckNote(contactId, context, accessToken, timeoutMs);
+    }
 
     return "synced";
   } catch (error) {
