@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import "./SitesLanding.css";
 
 const revenueFunnel = ["LAND", "CAPTURE", "AUDIT", "RESULTS", "SELL", "IMPLEMENT", "RETAIN"];
@@ -99,16 +100,38 @@ const products = [
 ];
 
 function DeferredVideo({ src, poster, label }: { src: string; poster: string; label: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        video.src = src;
+        void video.play().catch(() => undefined);
+        observer.disconnect();
+      },
+      { rootMargin: "240px 0px" },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [src]);
+
   return (
     <video
+      ref={videoRef}
       className="approved-landing-video"
+      data-src={src}
       poster={poster}
       aria-label={label}
+      autoPlay
       muted
       loop
       playsInline
       preload="none"
-      data-deferred-src={src}
       style={approvedMediaStyle}
     />
   );
