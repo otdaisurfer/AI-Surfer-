@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 import { aiSurferApi } from '../../lib/aiSurferApiClient';
 import type {
   AccessMode,
+  ChatRequest,
   ChatResponse,
   ConversationMessage,
   LeadDraft,
@@ -55,19 +56,26 @@ export function useAiFin(mode: AccessMode) {
       setError(null);
 
       try {
-        const body = await aiSurferApi.chatAiFin(
-          {
-            mode,
-            message: trimmed,
-            conversation,
-            ...(options.lead ? { lead: options.lead } : {}),
-            ...(mode === 'owner' && options.preview ? { preview: true } : {}),
-          },
-          {
-            accessToken: mode === 'owner' ? options.accessToken : undefined,
-            signal: controller.signal,
-          },
-        );
+        const request: ChatRequest =
+          mode === 'owner'
+            ? {
+                mode: 'owner',
+                message: trimmed,
+                conversation,
+                ...(options.lead ? { lead: options.lead } : {}),
+                ...(options.preview ? { preview: true } : {}),
+              }
+            : {
+                mode: 'public',
+                message: trimmed,
+                conversation,
+                ...(options.lead ? { lead: options.lead } : {}),
+              };
+
+        const body = await aiSurferApi.chatAiFin(request, {
+          accessToken: mode === 'owner' ? options.accessToken : undefined,
+          signal: controller.signal,
+        });
 
         const parsed: ChatResponse = {
           answer: body.answer,
