@@ -1,6 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
+import { aiSurferApi } from '../../lib/aiSurferApiClient';
 import type {
   AccessMode,
+  ChatRequest,
   ChatResponse,
   ConversationMessage,
   LeadDraft,
@@ -54,28 +56,26 @@ export function useAiFin(mode: AccessMode) {
       setError(null);
 
       try {
-        const response = await fetch('/api/ai-fin/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            ...(mode === 'owner' && options.accessToken
-              ? { Authorization: `Bearer ${options.accessToken}` }
-              : {}),
-          },
-          body: JSON.stringify({
-            mode,
-            message: trimmed,
-            conversation,
-            ...(options.lead ? { lead: options.lead } : {}),
-            ...(mode === 'owner' && options.preview ? { preview: true } : {}),
-          }),
+        const request: ChatRequest =
+          mode === 'owner'
+            ? {
+                mode: 'owner',
+                message: trimmed,
+                conversation,
+                ...(options.lead ? { lead: options.lead } : {}),
+                ...(options.preview ? { preview: true } : {}),
+              }
+            : {
+                mode: 'public',
+                message: trimmed,
+                conversation,
+                ...(options.lead ? { lead: options.lead } : {}),
+              };
+
+        const body = await aiSurferApi.chatAiFin(request, {
+          accessToken: mode === 'owner' ? options.accessToken : undefined,
           signal: controller.signal,
         });
-
-        const body = (await response.json()) as Partial<ChatResponse> & { error?: string };
-        if (!response.ok || typeof body.answer !== 'string') {
-          throw new Error(body.error || 'AI Fin could not complete that request.');
-        }
 
         const parsed: ChatResponse = {
           answer: body.answer,
