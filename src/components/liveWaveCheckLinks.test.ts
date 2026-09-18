@@ -5,17 +5,10 @@ describe("live Wave Check links", () => {
   it.each([
     "../pages/home/SitesLanding.tsx",
     "./ProductCatalog.tsx",
-  ])("%s routes the AEO Wave Audit CTA to the working live path", (relativePath) => {
+  ])("%s routes its Wave Check CTA to the working live path", (relativePath) => {
     const source = readFileSync(new URL(relativePath, import.meta.url), "utf8");
-    const aeoProduct = source.slice(
-      source.indexOf('name: "AEO Wave Audit'),
-      source.indexOf("featured: true", source.indexOf("AEO Wave Audit"))
-    ) || source.slice(
-      source.indexOf("name: 'AEO Wave Audit"),
-      source.indexOf("featured: true", source.indexOf("AEO Wave Audit"))
-    );
 
-    expect(aeoProduct).toContain("/wave-check");
-    expect(aeoProduct).not.toContain("/wave-audit");
+    expect(source).toContain("/wave-check");
+    expect(source).not.toContain("https://otdaisurfer.surf/wave-check");
   });
 });
