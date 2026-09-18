@@ -1,10 +1,15 @@
+---
+title: "Start Onboarding"
+description: "Create an onboarding record and determine whether the requested next step is ready."
+---
+
 # Start Onboarding
 
 `POST /api/ai-fin/onboarding`
 
 Creates an onboarding record and determines whether the requested next step is ready.
 
-## Request body
+## Request Body
 
 Required fields:
 
@@ -15,11 +20,20 @@ Required fields:
 - `recommendedPackage`
 - `nextStepType`
 
-Accepted packages: `Wave Starter`, `Wave Builder`, `Tsunami Growth`.
+### Accepted Packages
 
-Accepted next-step types: `checkout`, `booking`, `intake_form`, `human_review`.
+- `Wave Starter`
+- `Wave Builder`
+- `Tsunami Growth`
 
-## Example
+### Accepted Next-Step Types
+
+- `checkout`
+- `booking`
+- `intake_form`
+- `human_review`
+
+## Example Request
 
 ```json
 {
@@ -32,7 +46,7 @@ Accepted next-step types: `checkout`, `booking`, `intake_form`, `human_review`.
 }
 ```
 
-## Success response
+## Success Response
 
 ```json
 {
@@ -51,10 +65,23 @@ Accepted next-step types: `checkout`, `booking`, `intake_form`, `human_review`.
 }
 ```
 
-If checkout is requested but Stripe or package price configuration is missing, the endpoint returns `status: "waiting_configuration"` and `checkoutStatus: "configuration_required"`.
+## Configuration-Required Response
+
+If checkout is requested but Stripe or package price configuration is missing, the endpoint returns:
+
+- `status: "waiting_configuration"`
+- `checkoutStatus: "configuration_required"`
+
+<Note>
+  A successful onboarding record does not always mean the commercial next step is ready. Check the returned status and configuration fields before presenting checkout.
+</Note>
 
 ## Errors
 
 - `400 INVALID_ONBOARDING_PAYLOAD`
 - `500 SUPABASE_NOT_CONFIGURED`
 - `500 ONBOARDING_SAVE_FAILED`
+
+<Card title="Lead-to-Onboarding Recipe" icon="route" href="/api/recipes/lead-to-onboarding">
+  See how onboarding completes the lead workflow.
+</Card>
