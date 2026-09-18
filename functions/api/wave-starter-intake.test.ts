@@ -28,9 +28,9 @@ function makeRequest(overrides: Record<string, unknown> = {}) {
 
 function mockFetch() {
   return vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
-    const url = String(input);
+    const url = new URL(String(input));
 
-    if (url.includes("api.stripe.com/v1/checkout/sessions/")) {
+    if (url.hostname === "api.stripe.com" && url.pathname.startsWith("/v1/checkout/sessions/")) {
       return new Response(JSON.stringify({
         id: "cs_live_paid123",
         object: "checkout.session",
@@ -43,7 +43,7 @@ function mockFetch() {
       }), { status: 200, headers: { "Content-Type": "application/json" } });
     }
 
-    if (url.includes("/rest/v1/wave_starter_intakes")) {
+    if (url.hostname === "example.supabase.co" && url.pathname === "/rest/v1/wave_starter_intakes") {
       expect(init?.method).toBe("POST");
       expect(JSON.parse(String(init?.body))).toMatchObject({
         contact_name: "Taylor Reed",
@@ -57,7 +57,7 @@ function mockFetch() {
       });
     }
 
-    if (url.includes("/rest/v1/ai_fin_onboarding")) {
+    if (url.hostname === "example.supabase.co" && url.pathname === "/rest/v1/ai_fin_onboarding") {
       expect(JSON.parse(String(init?.body))).toMatchObject({
         recommended_product: "Wave Starter",
         recommended_package: "Wave Starter",
@@ -71,7 +71,7 @@ function mockFetch() {
       });
     }
 
-    throw new Error(`Unexpected URL: ${url}`);
+    throw new Error(`Unexpected URL: ${url.toString()}`);
   });
 }
 
@@ -119,7 +119,8 @@ describe("Wave Starter paid onboarding intake", () => {
 
   it("rejects an unpaid or wrong checkout", async () => {
     const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
-      if (String(input).includes("api.stripe.com")) {
+      const url = new URL(String(input));
+      if (url.hostname === "api.stripe.com") {
         return new Response(JSON.stringify({
           id: "cs_live_paid123",
           object: "checkout.session",
