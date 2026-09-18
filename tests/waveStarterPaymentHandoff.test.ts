@@ -10,6 +10,10 @@ describe("Wave Starter Stripe handoff", () => {
     expect(webhook).toContain('product_slug: "wave-starter"');
     expect(webhook).toContain('crm_sync_status: "queued"');
     expect(webhook).toContain('stripe_checkout_session_id: session.id');
+    expect(webhook).toContain('customer_name: session.customer_details?.name?.trim() || null');
+    expect(webhook).toContain('business_website: checkoutCustomField(session, "website")');
+    expect(webhook).toContain('build_goal: checkoutCustomField(session, "goal")');
+    expect(webhook).toContain('...waveStarterCustomerContext(session)');
   });
 
   it("keeps membership checkout handling intact", () => {
