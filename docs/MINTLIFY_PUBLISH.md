@@ -1,33 +1,34 @@
 # Mintlify Publish Runbook
 
-This repository now contains the canonical AI SURFER documentation source:
+This repository contains the canonical AI SURFER documentation source:
 
 - `docs.json`
 - `skill.md`
+- `llms.txt`
 - `docs/knowledge-hub/**`
+- `api/**`
 
 ## Important
 
-The public `mintlify.wiki` URL is an auto-generated snapshot. Mintlify's own documentation explains that generated repo docs are a starting point that must be cloned into a Mintlify account and published to become an actively Git-backed docs site.
-
-Repository changes alone do not guarantee that the original `mintlify.wiki` snapshot will regenerate.
+The public Mintlify experience should be treated as a Git-backed documentation site. Repository updates only become visible publicly when the connected Mintlify project is publishing from the expected branch and root.
 
 ## Publish the Current Docs
 
 1. Sign in to Mintlify.
-2. Create or open a docs project for Ocean Tide Drop AI SURFER.
-3. Connect the GitHub repository:
+2. Open the Ocean Tide Drop AI SURFER docs project.
+3. Confirm the connected GitHub repository is:
    `otdaisurfer/AI-Surfer-`
-4. Set the deployment branch to:
+4. Confirm the deployment branch is:
    `main`
 5. Use the repository root as the docs root so Mintlify can read `docs.json`.
-6. Confirm the site navigation loads these groups:
+6. Confirm the navigation loads:
    - Start Here
    - Core Features
    - AI Agents
    - AEO and GEO
    - Pricing
    - Deployment
+   - Developer
 7. Publish or deploy the project.
 8. Confirm future pushes to `main` trigger docs updates.
 
@@ -48,17 +49,19 @@ Repository changes alone do not guarantee that the original `mintlify.wiki` snap
 
 ## Do Not Publish as Current
 
-- $17 / $29 / $99 / $250 / $750 retired membership pricing
-- retired $2,500 Done-For-You packages
-- the retired 3-question Wave Check
-- Scout / Navigator / Architect / Strategist / Oracle as the current public agent lineup
+Do not present retired membership tiers, retired Done-For-You pricing, the old three-question Wave Check, or older agent lineups as current public product information.
 
 ## Verification
 
 After publish, verify:
 
 - Introduction reflects current positioning.
+- Quickstart routes users into the Free AI Wave Check.
 - Pricing shows $497 / $1,997 / $3,997.
 - Wave Check describes the current diagnostic funnel.
+- AEO Wave Audit uses the six current audit dimensions.
 - Agent docs show the six canonical agents.
-- `llms.txt` and `skill.md` reflect the same product truth.
+- Launch Desk reflects Secure → Stabilize → Deploy → Revenue.
+- Deployment includes the live customer, data, payment, and follow-up paths.
+- Developer navigation opens `api/overview.md`.
+- `llms.txt`, `skill.md`, and the Knowledge Hub source of truth agree on offers, agents, and customer journey.
