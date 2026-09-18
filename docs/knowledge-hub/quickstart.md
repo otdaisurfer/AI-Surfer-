@@ -1,3 +1,8 @@
+---
+title: "Quickstart"
+description: "Follow the AI SURFER path from Free AI Wave Check to implementation."
+---
+
 # Quickstart
 
 The fastest way to understand AI SURFER is to follow the same path a customer takes.

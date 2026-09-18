@@ -1,3 +1,8 @@
+---
+title: "AEO and GEO"
+description: "Practical answer-engine and generative-search visibility for small and local businesses."
+---
+
 # AEO and GEO
 
 AI SURFER treats **Answer Engine Optimization (AEO)** and **Generative Engine Optimization (GEO)** as practical business visibility work.

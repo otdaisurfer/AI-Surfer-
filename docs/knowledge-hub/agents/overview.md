@@ -1,3 +1,8 @@
+---
+title: "AI Agent Crew"
+description: "Meet Wave Scout, Sales Rider, Content Creator, Customer Care Cove, Automation Architect, and Big Kahuna."
+---
+
 # AI Agent Crew
 
 AI SURFER uses six named specialist agents. Each agent is tied to a business problem instead of being presented as an abstract AI persona.

@@ -1,3 +1,8 @@
+---
+title: "AEO Wave Audit"
+description: "Assess AI-search visibility, readiness, authority, and citation opportunities."
+---
+
 # AEO Wave Audit
 
 The **AEO Wave Audit** is a deeper assessment of a business's readiness to be understood, surfaced, and cited by AI-powered search and answer engines.

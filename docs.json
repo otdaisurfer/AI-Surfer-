@@ -1,0 +1,55 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Ocean Tide Drop AI SURFER",
+  "description": "Practical AI implementation, AEO/GEO visibility, automation, and specialist AI agents for small and local businesses.",
+  "colors": {
+    "primary": "#06B6D4",
+    "light": "#22D3EE",
+    "dark": "#0E7490"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Start Here",
+        "pages": [
+          "docs/knowledge-hub/introduction",
+          "docs/knowledge-hub/quickstart"
+        ]
+      },
+      {
+        "group": "Core Features",
+        "pages": [
+          "docs/knowledge-hub/features/wave-check",
+          "docs/knowledge-hub/features/wave-audit",
+          "docs/knowledge-hub/features/launch-desk",
+          "docs/knowledge-hub/features/members-dashboard"
+        ]
+      },
+      {
+        "group": "AI Agents",
+        "pages": [
+          "docs/knowledge-hub/agents/overview"
+        ]
+      },
+      {
+        "group": "AEO and GEO",
+        "pages": [
+          "docs/knowledge-hub/aeo-geo"
+        ]
+      },
+      {
+        "group": "Pricing",
+        "pages": [
+          "docs/knowledge-hub/pricing"
+        ]
+      },
+      {
+        "group": "Deployment",
+        "pages": [
+          "docs/knowledge-hub/deployment"
+        ]
+      }
+    ]
+  }
+}
