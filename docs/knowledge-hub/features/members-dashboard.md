@@ -1,3 +1,8 @@
+---
+title: "Members Dashboard"
+description: "The member command center for tools, agents, saved outputs, and next actions."
+---
+
 # Members Dashboard
 
 The Members Dashboard is the customer command center for AI SURFER tools, agent access, saved outputs, and implementation resources.
