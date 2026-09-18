@@ -3,35 +3,44 @@ import { getImplementationOffer } from "./implementationOffer";
 
 describe("getImplementationOffer", () => {
   it.each([
-    ["wave-scout", "AI Agent Systems", 2500, "https://buy.stripe.com/aFa3cv3tx6hc0Uydcb4gg08"],
-    ["sales-rider", "AI Agent Systems", 2500, "https://buy.stripe.com/aFa3cv3tx6hc0Uydcb4gg08"],
-    ["content-creator", "AI Agent Systems", 2500, "https://buy.stripe.com/aFa3cv3tx6hc0Uydcb4gg08"],
-    ["customer-care-cove", "AI Agent Systems", 2500, "https://buy.stripe.com/aFa3cv3tx6hc0Uydcb4gg08"],
-    ["automation-architect", "Automation & AI Workflow Systems", 2500, "https://buy.stripe.com/5kQ6oH5BFgVQ5aO0pp4gg06"],
-  ])("maps %s to its existing paid implementation offer", (slug, label, price, checkoutUrl) => {
-    expect(getImplementationOffer(slug)).toMatchObject({
+    ["wave-scout"],
+    ["sales-rider"],
+    ["content-creator"],
+    ["customer-care-cove"],
+  ])("maps %s to Wave Starter", (slug) => {
+    expect(getImplementationOffer(slug)).toEqual({
       kind: "checkout",
-      label,
-      price,
-      checkoutUrl,
+      label: "Wave Starter",
+      price: 497,
+      checkoutUrl: "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b",
+      cta: "Buy Wave Starter",
     });
   });
 
-  it("gives AEO Blueprint a high-touch implementation path", () => {
+  it("maps AEO Blueprint to Wave Builder", () => {
     expect(getImplementationOffer("aeo-blueprint")).toEqual({
       kind: "high-touch",
-      label: "AEO Strategy & Implementation",
-      cta: "Start My AEO Implementation",
-      path: "/pricing#premium-builds",
+      label: "Wave Builder",
+      cta: "Request a Wave Builder Strategy Call",
+      path: "/pricing",
     });
   });
 
-  it("keeps Big Kahuna as a high-touch implementation path", () => {
+  it("maps Automation Architect to Wave Builder", () => {
+    expect(getImplementationOffer("automation-architect")).toEqual({
+      kind: "high-touch",
+      label: "Wave Builder",
+      cta: "Request a Wave Builder Strategy Call",
+      path: "/pricing",
+    });
+  });
+
+  it("maps Big Kahuna to Tsunami Growth", () => {
     expect(getImplementationOffer("big-kahuna")).toEqual({
       kind: "high-touch",
-      label: "Big Kahuna Strategy & Implementation",
-      cta: "Start My Big Kahuna Plan",
-      path: "/pricing#premium-builds",
+      label: "Tsunami Growth",
+      cta: "Talk With AI Surfer",
+      path: "/pricing",
     });
   });
 
