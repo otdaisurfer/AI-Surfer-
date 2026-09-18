@@ -16,6 +16,7 @@ The artwork above is the official **AI Surfer technology emblem**. Use it for de
 - [API overview](./overview.md)
 - [API Reference](./reference/index.md)
 - [OpenAPI Specification](./openapi.yaml)
+- [TypeScript Client](./sdk/typescript.md)
 - [Project overview](../README.md)
 - [Launch Desk](../docs/launch-desk/README.md)
 - [Security policy](../SECURITY.md)

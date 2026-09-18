@@ -130,6 +130,7 @@ Before exposing write endpoints publicly:
 
 - [API Reference](./reference/index.md)
 - [API Recipes](./recipes/index.md)
+- [TypeScript Client](./sdk/typescript.md)
 - [API Overview](./overview.md)
 - [API README](./README.md)
 - [Launch Desk](../docs/launch-desk/README.md)

@@ -30,6 +30,7 @@ For public sales pages and customer-facing funnels, keep the existing Ocean Tide
 - [API Reference](./reference/index.md)
 - [API Recipes](./recipes/index.md)
 - [OpenAPI Specification](./openapi.yaml)
+- [TypeScript Client](./sdk/typescript.md)
 - [Project overview](../README.md)
 - [API README](./README.md)
 - [Launch Desk](../docs/launch-desk/README.md)
