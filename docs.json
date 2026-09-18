@@ -117,7 +117,21 @@
       {
         "group": "Developer",
         "pages": [
-          "api/overview"
+          "api/overview",
+          "api/quickstart",
+          "api/reference/index",
+          "api/reference/health",
+          "api/reference/leads",
+          "api/reference/audit-start",
+          "api/reference/handoff",
+          "api/reference/follow-up",
+          "api/reference/onboarding",
+          "api/reference/launch",
+          "api/recipes/index",
+          "api/recipes/lead-to-onboarding",
+          "api/recipes/audit-intake",
+          "api/recipes/launch-streaming",
+          "api/sdk/typescript"
         ]
       }
     ]
