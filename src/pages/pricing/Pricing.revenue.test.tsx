@@ -20,15 +20,15 @@ afterEach(() => {
 });
 
 describe("launch revenue conversion path", () => {
-  it("routes high-ticket inquiries to distinct email subjects when booking is unavailable", () => {
+  it("routes high-ticket inquiries to the live strategy-call booking flow", () => {
     const { container, root } = renderPricing();
     const anchors = Array.from(container.querySelectorAll("a"));
     const builder = anchors.find((a) => a.textContent?.includes("Request a Strategy Call"));
     const tsunami = anchors.find((a) => a.textContent?.includes("Talk With AI Surfer"));
     const fallback = anchors.find((a) => a.getAttribute("href")?.startsWith("mailto:"));
 
-    expect(builder?.getAttribute("href")).toBe("mailto:oceantidedropservice@gmail.com?subject=Wave%20Builder%20Strategy%20Call");
-    expect(tsunami?.getAttribute("href")).toBe("mailto:oceantidedropservice@gmail.com?subject=Tsunami%20Growth%20Strategy%20Call");
+    expect(builder?.getAttribute("href")).toBe("https://calendly.com/oceantidedrop/new-meeting");
+    expect(tsunami?.getAttribute("href")).toBe("https://calendly.com/oceantidedrop/new-meeting");
     expect(fallback?.getAttribute("href")).toContain("oceantidedropservice@gmail.com");
     act(() => root.unmount());
   });
