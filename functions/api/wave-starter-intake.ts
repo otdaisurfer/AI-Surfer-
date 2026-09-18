@@ -93,6 +93,15 @@ function verifyWaveStarter(session: StripeCheckoutSession) {
   );
 }
 
+async function deterministicUuid(value: string, namespace: string) {
+  const bytes = new TextEncoder().encode(`${namespace}:${value}`);
+  const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
+  digest[6] = (digest[6] & 0x0f) | 0x50;
+  digest[8] = (digest[8] & 0x3f) | 0x80;
+  const hex = Array.from(digest.slice(0, 16), (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
+
 async function supabaseInsert(
   env: WaveStarterIntakeEnv,
   table: string,
@@ -194,13 +203,14 @@ export async function handleWaveStarterIntake(
     }, 409);
   }
 
-  const intakeId = crypto.randomUUID();
-  const onboardingId = crypto.randomUUID();
+  const verifiedSessionId = session.id ?? input.sessionId!;
+  const intakeId = await deterministicUuid(verifiedSessionId, "wave-starter-intake");
+  const onboardingId = await deterministicUuid(verifiedSessionId, "wave-starter-onboarding");
 
   try {
     await supabaseInsert(env, "wave_starter_intakes", {
       id: intakeId,
-      stripe_checkout_session_id: session.id ?? input.sessionId,
+      stripe_checkout_session_id: verifiedSessionId,
       contact_name: contactName,
       email,
       business_name: businessName,
