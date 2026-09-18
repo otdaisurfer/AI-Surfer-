@@ -1,6 +1,9 @@
 name: Final Production Readiness
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - test/final-production-readiness
