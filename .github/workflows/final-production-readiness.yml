@@ -1,0 +1,44 @@
+name: Final Production Readiness
+
+on:
+  push:
+    branches:
+      - test/final-production-readiness
+
+jobs:
+  readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify SITE_HEALTH_API_KEY is available
+        shell: bash
+        env:
+          SITE_HEALTH_API_KEY: ${{ secrets.SITE_HEALTH_API_KEY }}
+        run: |
+          if [ -z "$SITE_HEALTH_API_KEY" ]; then
+            echo "::error::SITE_HEALTH_API_KEY is not configured in GitHub Actions secrets."
+            exit 1
+          fi
+
+      - name: Run private production readiness check
+        shell: bash
+        env:
+          SITE_HEALTH_API_KEY: ${{ secrets.SITE_HEALTH_API_KEY }}
+        run: |
+          set -euo pipefail
+          response="$(curl --silent --show-error --fail-with-body \
+            -X POST \
+            -H "Authorization: Bearer $SITE_HEALTH_API_KEY" \
+            -H "Accept: application/json" \
+            https://otdaisurfer.surf/api/launch-readiness)"
+
+          echo "$response" | jq .
+
+          status="$(echo "$response" | jq -r '.status // empty')"
+          blockers="$(echo "$response" | jq -r '.blockers | length')"
+
+          if [ "$status" != "ready" ] || [ "$blockers" != "0" ]; then
+            echo "::error::Production launch readiness returned status=$status blockers=$blockers"
+            exit 1
+          fi
+
+          echo "Production launch readiness: READY"
