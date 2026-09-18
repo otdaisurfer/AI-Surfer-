@@ -50,7 +50,8 @@ describe("handleWaveCheckSubmit", () => {
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(new Response(null, { status: 201 }))
       .mockResolvedValueOnce(Response.json({ results: [] }))
-      .mockResolvedValueOnce(Response.json({ id: "123" }, { status: 201 }));
+      .mockResolvedValueOnce(Response.json({ id: "123" }, { status: 201 }))
+      .mockResolvedValueOnce(Response.json({ id: "note-123" }, { status: 201 }));
     vi.stubGlobal("fetch", fetchMock);
 
     const response = await handleWaveCheckSubmit(request(), "hubspot-token");
@@ -60,7 +61,7 @@ describe("handleWaveCheckSubmit", () => {
       status: "saved",
       hubspotStatus: "synced",
     });
-    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(fetchMock).toHaveBeenCalledTimes(4);
 
     const [searchUrl, searchInit] = fetchMock.mock.calls[1] as [string, RequestInit];
     expect(searchUrl).toBe("https://api.hubapi.com/crm/v3/objects/contacts/search");
@@ -74,19 +75,32 @@ describe("handleWaveCheckSubmit", () => {
         lifecyclestage: "lead",
       },
     });
+
+    const [noteUrl, noteInit] = fetchMock.mock.calls[3] as [string, RequestInit];
+    expect(noteUrl).toBe("https://api.hubapi.com/crm/v3/objects/notes");
+    const noteBody = JSON.parse(String(noteInit.body));
+    expect(noteBody.properties.hs_note_body).toContain("Score: 93/100 (High opportunity)");
+    expect(noteBody.properties.hs_note_body).toContain("Biggest Wave: Lead & Sales Follow-Up");
+    expect(noteBody.properties.hs_note_body).toContain("Recommended Agent: Sales Rider");
+    expect(noteBody.properties.hs_note_body).toContain(submission.submission_id);
+    expect(noteBody.associations[0].to.id).toBe("123");
+    expect(noteBody.associations[0].types[0].associationTypeId).toBe(202);
   });
 
   it("does not duplicate an existing HubSpot contact", async () => {
     const fetchMock = vi.fn()
       .mockResolvedValueOnce(new Response(null, { status: 201 }))
-      .mockResolvedValueOnce(Response.json({ results: [{ id: "existing-contact" }] }));
+      .mockResolvedValueOnce(Response.json({ results: [{ id: "existing-contact" }] }))
+      .mockResolvedValueOnce(Response.json({ id: "note-existing" }, { status: 201 }));
     vi.stubGlobal("fetch", fetchMock);
 
     const response = await handleWaveCheckSubmit(request(), "hubspot-token");
 
     expect(response.status).toBe(200);
     expect(await response.json()).toMatchObject({ hubspotStatus: "synced" });
-    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+    const [noteUrl] = fetchMock.mock.calls[2] as [string, RequestInit];
+    expect(noteUrl).toBe("https://api.hubapi.com/crm/v3/objects/notes");
   });
 
   it("keeps the customer report available when HubSpot is temporarily unavailable", async () => {
@@ -151,7 +165,15 @@ describe("handleWaveCheckSubmit", () => {
       status: "saved",
       hubspotStatus: "queued",
     });
-    expect(backgroundHandoff).toHaveBeenCalledWith("surfer@example.com", submission.submission_id);
+    expect(backgroundHandoff).toHaveBeenCalledWith(
+      "surfer@example.com",
+      submission.submission_id,
+      expect.objectContaining({
+        score: 93,
+        topCategory: "Lead & Sales Follow-Up",
+        recommendedAgent: "Sales Rider",
+      }),
+    );
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });
