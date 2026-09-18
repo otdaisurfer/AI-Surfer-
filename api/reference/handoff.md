@@ -1,14 +1,27 @@
+---
+title: "Human Handoff"
+description: "Queue an AI Fin conversation for human review when automation should stop or escalate."
+---
+
 # Human Handoff
 
 `POST /api/ai-fin/handoff`
 
 Queues a visitor conversation for human review.
 
-## Request body
+## Request Body
 
-Required: `contactName`, `businessName`, `email`, `reason`, `conversationSummary`, `urgency`, and `consentToFollowUp: true`.
+Required fields:
 
-Accepted reasons:
+- `contactName`
+- `businessName`
+- `email`
+- `reason`
+- `conversationSummary`
+- `urgency`
+- `consentToFollowUp: true`
+
+### Accepted Reasons
 
 - `custom_pricing`
 - `complex_scope`
@@ -19,9 +32,11 @@ Accepted reasons:
 - `visitor_requested_person`
 - `other`
 
-Urgency: `Normal`, `High`, or `Immediate`.
+### Urgency
 
-## Example
+`Normal`, `High`, or `Immediate`
+
+## Example Request
 
 ```json
 {
@@ -36,7 +51,7 @@ Urgency: `Normal`, `High`, or `Immediate`.
 }
 ```
 
-## Success response
+## Success Response
 
 ```json
 {
@@ -47,8 +62,20 @@ Urgency: `Normal`, `High`, or `Immediate`.
 }
 ```
 
+<Tip>
+  Use human handoff when the request is complex, sensitive, outside the approved automation path, or when the visitor explicitly asks for a person.
+</Tip>
+
+<Warning>
+  Preserve the visitor's real follow-up consent. A handoff should not manufacture permission to contact someone.
+</Warning>
+
 ## Errors
 
 - `400 INVALID_HANDOFF_PAYLOAD`
 - `500 SUPABASE_NOT_CONFIGURED`
 - `500 HANDOFF_QUEUE_FAILED`
+
+<Card title="Lead-to-Onboarding Recipe" icon="route" href="/api/recipes/lead-to-onboarding">
+  See where human review fits in the full lead workflow.
+</Card>
