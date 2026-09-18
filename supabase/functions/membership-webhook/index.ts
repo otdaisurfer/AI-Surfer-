@@ -33,6 +33,20 @@ function text(message: string, status = 200) {
   });
 }
 
+function checkoutCustomField(session: StripeType.Checkout.Session, key: string) {
+  const field = session.custom_fields?.find((item) => item.key === key);
+  if (!field) return null;
+  return (field as { text?: { value?: string | null } }).text?.value?.trim() || null;
+}
+
+function waveStarterCustomerContext(session: StripeType.Checkout.Session) {
+  return {
+    customer_name: session.customer_details?.name?.trim() || null,
+    business_website: checkoutCustomField(session, "website"),
+    build_goal: checkoutCustomField(session, "goal"),
+  };
+}
+
 async function upsertCheckoutMembership(
   email: string,
   customerId: string | null,
@@ -77,6 +91,7 @@ async function recordWaveStarterPayment(session: StripeType.Checkout.Session) {
         crm_sync_status: "queued",
         offer_slug: "wave-starter",
         source: session.metadata?.source ?? "otdaisurfer-pricing",
+        ...waveStarterCustomerContext(session),
       },
     }, { onConflict: "stripe_checkout_session_id" });
 
@@ -227,6 +242,7 @@ async function markWaveStarterCrmSynced(
         hubspot_deal_id: dealId,
         hubspot_line_item_id: lineItemId,
         hubspot_product_id: HUBSPOT_WAVE_STARTER_PRODUCT_ID,
+        ...waveStarterCustomerContext(session),
       },
     })
     .eq("stripe_checkout_session_id", session.id);
