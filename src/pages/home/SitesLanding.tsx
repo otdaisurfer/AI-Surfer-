@@ -98,6 +98,22 @@ const products = [
   },
 ];
 
+function DeferredVideo({ src, poster, label }: { src: string; poster: string; label: string }) {
+  return (
+    <video
+      className="approved-landing-video"
+      poster={poster}
+      aria-label={label}
+      muted
+      loop
+      playsInline
+      preload="none"
+      data-deferred-src={src}
+      style={approvedMediaStyle}
+    />
+  );
+}
+
 export default function SitesLanding() {
   return (
     <main className="sites-landing">
@@ -244,17 +260,10 @@ export default function SitesLanding() {
           </figure>
 
           <figure className="approved-media-card">
-            <video
-              className="approved-landing-video"
+            <DeferredVideo
               src="/images/approved-landing/ai-visibility-animated.mp4"
               poster="/images/approved-landing/big-kahuna-visibility.png"
-              aria-label="Animated AI visibility strategy artwork"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              style={approvedMediaStyle}
+              label="Animated AI visibility strategy artwork"
             />
             <figcaption>Become easier for Google and AI answer engines to find and trust.</figcaption>
           </figure>
@@ -355,17 +364,10 @@ export default function SitesLanding() {
         </div>
 
         <figure className="approved-media-card product-ladder-media-card">
-          <video
-            className="approved-landing-video"
+          <DeferredVideo
             src="/images/approved-landing/product-ladder-animated.mp4"
             poster="/images/approved-landing/product-ladder.png"
-            aria-label="Animated Ocean Tide Drop AI SURFER product ladder"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            style={approvedMediaStyle}
+            label="Animated Ocean Tide Drop AI SURFER product ladder"
           />
           <figcaption>Ride from your first Wave Check to a connected AI growth system.</figcaption>
         </figure>
@@ -379,17 +381,10 @@ export default function SitesLanding() {
             >
               {product.video && product.poster ? (
                 <div className="product-card-media">
-                  <video
-                    className="approved-landing-video"
+                  <DeferredVideo
                     src={product.video}
                     poster={product.poster}
-                    aria-label={`${product.name} animated AI visibility strategy artwork`}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                    style={approvedMediaStyle}
+                    label={`${product.name} animated AI visibility strategy artwork`}
                   />
                 </div>
               ) : null}
