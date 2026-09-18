@@ -1,3 +1,8 @@
+---
+title: "Health"
+description: "Check whether the AI SURFER API is running and whether required OpenAI and Supabase configuration is present."
+---
+
 # Health
 
 `GET /health`
@@ -10,7 +15,7 @@ Checks whether the API process is running and whether required OpenAI and Supaba
 curl "$AI_SURFER_API_BASE/health"
 ```
 
-## Example response
+## Example Response
 
 ```json
 {
@@ -21,7 +26,7 @@ curl "$AI_SURFER_API_BASE/health"
 }
 ```
 
-## Response fields
+## Response Fields
 
 | Field | Type | Meaning |
 | --- | --- | --- |
@@ -30,4 +35,19 @@ curl "$AI_SURFER_API_BASE/health"
 | `openaiConfigured` | boolean | Whether an OpenAI API key is present |
 | `supabaseConfigured` | boolean | Whether Supabase URL and anon key configuration is present |
 
-This endpoint reports configuration presence, not a full downstream connectivity test.
+<Note>
+  This endpoint reports configuration presence. It does not prove that every downstream service is reachable or healthy.
+</Note>
+
+## When to Use It
+
+Use this endpoint for:
+
+- deployment smoke tests
+- uptime checks
+- confirming required environment variables are present
+- quickly separating configuration problems from application-flow problems
+
+<Card title="Back to API Reference" icon="book" href="/api/reference/index">
+  Browse the rest of the AI SURFER endpoints.
+</Card>
