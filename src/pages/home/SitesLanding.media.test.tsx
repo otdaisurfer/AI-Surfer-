@@ -25,7 +25,8 @@ describe("SitesLanding approved media", () => {
     const videos = Array.from(document.querySelectorAll<HTMLVideoElement>("video.approved-landing-video"));
 
     expect(images.map((image) => image.getAttribute("src")).sort()).toEqual([...approvedImages].sort());
-    expect(videos.map((video) => video.getAttribute("src")).sort()).toEqual([...approvedVideos].sort());
+    expect(videos.map((video) => video.getAttribute("data-src")).sort()).toEqual([...approvedVideos].sort());
+    expect(videos.every((video) => !video.hasAttribute("src"))).toBe(true);
     expect(images).toHaveLength(3);
     expect(videos).toHaveLength(3);
   });
@@ -46,6 +47,7 @@ describe("SitesLanding approved media", () => {
 
     for (const video of videos) {
       expect(video.autoplay).toBe(true);
+      expect(video.preload).toBe("none");
       expect(video.loop).toBe(true);
       expect(video.playsInline).toBe(true);
       expect(video.getAttribute("poster")).toMatch(/^\/images\/approved-landing\/.+\.png$/);
