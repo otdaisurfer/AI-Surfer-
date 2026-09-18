@@ -71,7 +71,7 @@ function recommendOffer(answers: WaveAuditAnswers): OfferId {
 export default function FullWaveReport({ email, submissionId, saveStatus, onRetrySave, answers, result }: FullWaveReportProps) {
   const [copied, setCopied] = useState(false);
   const report = useMemo(() => buildWaveAuditReport(answers, result), [answers, result]);
-  const reportText = useMemo(() => formatWaveAuditReport(report, submissionId), [report, submissionId]);
+  const reportText = useMemo(() => formatWaveAuditReport(report, submissionId, result), [report, submissionId, result]);
   const recommendedOfferId = useMemo(() => recommendOffer(answers), [answers]);
 
   const copyReport = async () => {
