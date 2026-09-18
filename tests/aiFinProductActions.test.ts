@@ -6,6 +6,7 @@ describe("AI Fin product actions", () => {
     expect(getAiFinProductAction("free-wave-check")).toEqual({
       label: "Start Free AI Wave Check",
       href: "/wave-check",
+      funnelEvent: "recommendation_cta_click",
     });
   });
 
@@ -13,6 +14,7 @@ describe("AI Fin product actions", () => {
     expect(getAiFinProductAction("aeo-wave-audit")).toEqual({
       label: "Explore the AEO Wave Audit",
       href: "/wave-audit",
+      funnelEvent: "recommendation_cta_click",
     });
   });
 
@@ -21,12 +23,23 @@ describe("AI Fin product actions", () => {
       label: "Buy Wave Starter",
       href: "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b",
       external: true,
+      funnelEvent: "checkout_start",
     });
   });
 
-  it("routes higher-touch offers to the strategy-call pricing path", () => {
-    expect(getAiFinProductAction("wave-builder")?.href).toBe("/pricing");
-    expect(getAiFinProductAction("tsunami-growth")?.href).toBe("/pricing");
+  it("routes higher-touch offers directly to the live strategy-call booking path", () => {
+    expect(getAiFinProductAction("wave-builder")).toEqual({
+      label: "Request a Strategy Call",
+      href: "https://calendly.com/oceantidedrop/new-meeting",
+      external: true,
+      funnelEvent: "strategy_call_click",
+    });
+    expect(getAiFinProductAction("tsunami-growth")).toEqual({
+      label: "Talk With AI Surfer",
+      href: "https://calendly.com/oceantidedrop/new-meeting",
+      external: true,
+      funnelEvent: "strategy_call_click",
+    });
   });
 
   it("returns null when AI Fin has no recommendation yet", () => {
