@@ -179,6 +179,7 @@ export default function SitesLanding() {
             className="approved-landing-image"
             src="/images/approved-landing/product-ladder.png"
             alt="Ocean Tide Drop AI SURFER product ladder from the AEO Wave Audit through Big Kahuna"
+            fetchPriority="high"
             decoding="async"
             style={approvedMediaStyle}
           />
@@ -235,6 +236,7 @@ export default function SitesLanding() {
               src="/images/approved-landing/customer-care-cove.png"
               alt="Customer Care Cove showing faster answers, FAQ support, appointment triage, and owner escalation"
               loading="lazy"
+              fetchPriority="low"
               decoding="async"
               style={approvedMediaStyle}
             />
@@ -251,7 +253,7 @@ export default function SitesLanding() {
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               style={approvedMediaStyle}
             />
             <figcaption>Become easier for Google and AI answer engines to find and trust.</figcaption>
@@ -263,6 +265,7 @@ export default function SitesLanding() {
               src="/images/approved-landing/big-kahuna-visibility.png"
               alt="Big Kahuna strategy showing AEO, GEO, Google, ChatGPT, Gemini, and Perplexity visibility"
               loading="lazy"
+              fetchPriority="low"
               decoding="async"
               style={approvedMediaStyle}
             />
@@ -361,7 +364,7 @@ export default function SitesLanding() {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
             style={approvedMediaStyle}
           />
           <figcaption>Ride from your first Wave Check to a connected AI growth system.</figcaption>
@@ -385,7 +388,7 @@ export default function SitesLanding() {
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="none"
                     style={approvedMediaStyle}
                   />
                 </div>
