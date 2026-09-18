@@ -19,9 +19,15 @@ function campaignAttribution() {
   const source = params.get("utm_source")?.trim();
   const medium = params.get("utm_medium")?.trim();
   const campaign = params.get("utm_campaign")?.trim();
+  let referrer = "";
+  try {
+    referrer = document.referrer ? new URL(document.referrer).hostname : "";
+  } catch {
+    referrer = "";
+  }
 
   return {
-    ...(source ? { _campaign_source: source } : {}),
+    ...(source ? { _campaign_source: source } : referrer ? { _campaign_source: referrer } : {}),
     ...(medium ? { _campaign_medium: medium } : {}),
     ...(campaign ? { _campaign_name: campaign } : {}),
   };
