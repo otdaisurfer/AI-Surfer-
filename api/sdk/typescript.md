@@ -19,6 +19,35 @@ const api = new AiSurferApiClient({
 });
 ```
 
+## AI Fin chat
+
+The public / owner chat UI now uses this same typed client internally.
+
+```ts
+const result = await api.chatAiFin({
+  mode: "public",
+  message: "What can AI Surfer help my business automate?",
+  conversation: [],
+});
+
+console.log(result.answer);
+```
+
+Owner Mode can pass a Supabase access token without exposing the protected server API key:
+
+```ts
+await api.chatAiFin(
+  {
+    mode: "owner",
+    message: "Show me our current offer positioning.",
+    preview: true,
+  },
+  { accessToken: session.access_token },
+);
+```
+
+The client deliberately **never attaches `AI_SURFER_API_KEY` to `/api/ai-fin/chat`**. That Pages endpoint has its own public / owner authentication model and is safe for the browser flow.
+
 ## Health
 
 ```ts
