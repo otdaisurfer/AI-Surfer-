@@ -1,6 +1,7 @@
 import {
   DEFAULT_HUBSPOT_TIMEOUT_MS,
   type D1Like,
+  type WaveCheckHubSpotContext,
   drainHubSpotRetryQueue,
   enqueueHubSpotRetry,
   syncHubSpotContact,
@@ -25,7 +26,11 @@ type WaveCheckSubmission = {
 };
 
 type RateLimitCheck = (request: Request) => Promise<boolean>;
-type BackgroundHubSpotHandoff = (email: string, submissionId: string) => void;
+type BackgroundHubSpotHandoff = (
+  email: string,
+  submissionId: string,
+  context: WaveCheckHubSpotContext,
+) => void;
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -102,10 +107,11 @@ async function runBackgroundHubSpotHandoff(
   db: D1Like | undefined,
   email: string,
   submissionId: string,
+  context: WaveCheckHubSpotContext,
   accessToken?: string,
   timeoutMs = DEFAULT_HUBSPOT_TIMEOUT_MS,
 ) {
-  const status = await syncHubSpotContact(email, accessToken, timeoutMs);
+  const status = await syncHubSpotContact(email, accessToken, timeoutMs, context);
   if (status === "failed" && db) {
     await enqueueHubSpotRetry(db, email, submissionId);
   }
@@ -163,8 +169,17 @@ export async function handleWaveCheckSubmit(
       }
     }
 
+    const hubSpotContext: WaveCheckHubSpotContext = {
+      submissionId: normalized.submission_id,
+      score: normalized.score,
+      topCategory: normalized.top_category,
+      recommendedAgent: normalized.recommended_agent,
+      confidenceLabel: normalized.confidence_label,
+      opportunities: normalized.opportunities,
+    };
+
     if (backgroundHubSpotHandoff && hubSpotAccessToken) {
-      backgroundHubSpotHandoff(normalized.email, normalized.submission_id);
+      backgroundHubSpotHandoff(normalized.email, normalized.submission_id, hubSpotContext);
       return json({
         status: "saved",
         submissionId: normalized.submission_id,
@@ -176,6 +191,7 @@ export async function handleWaveCheckSubmit(
       normalized.email,
       hubSpotAccessToken,
       hubSpotTimeoutMs,
+      hubSpotContext,
     );
     return json({
       status: "saved",
@@ -209,6 +225,7 @@ export const onRequestPost: PagesFunction<WaveCheckEnv> = async ({
           env.OTDAISURFER,
           email,
           submissionId,
+          context,
           env.HUBSPOT_ACCESS_TOKEN,
         ),
       )
