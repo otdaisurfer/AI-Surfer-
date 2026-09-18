@@ -25,11 +25,17 @@ VITE_FIREBASE_AUTH_DOMAIN = "otd-ai-surfer.firebaseapp.com"
 VITE_FIREBASE_MESSAGING_SENDER_ID = "46473040430"
 VITE_FIREBASE_PROJECT_ID = "otd-ai-surfer"
 VITE_FIREBASE_STORAGE_BUCKET = "otd-ai-surfer.firebasestorage.app"
-VITE_SUPABASE_ANON_KEY = "sb_publishable_QEzJowvtsB5eRypf9FYUOA_csiTgKyU"
-VITE_SUPABASE_URL = "https://dbpoyuwgmfmrefxwzfnh.supabase.co"
+# Browser Supabase is pinned in src/lib/supabase.ts to the connected AI-Surfer project.
+# Do not reintroduce stale VITE_SUPABASE_* deployment overrides here.
 
 [env.production.secrets]
-required = [ "OPENAI_API_KEY", "SUPABASE_SERVICE_ROLE_KEY" ]
+required = [
+  "OPENAI_API_KEY",
+  "SUPABASE_SERVICE_ROLE_KEY",
+  "STRIPE_SECRET_KEY",
+  "HUBSPOT_ACCESS_TOKEN",
+  "SITE_HEALTH_API_KEY"
+]
 
 [[env.production.d1_databases]]
 database_id = "6c3651bc-03b9-4d2a-9c66-76b19ffc016d"
