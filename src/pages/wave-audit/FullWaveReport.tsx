@@ -131,6 +131,26 @@ export default function FullWaveReport({ email, submissionId, saveStatus, onRetr
           <article className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"><div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-amber-200"><Target size={17} /> Priority actions</div><ol className="mt-4 space-y-3 text-sm leading-6 text-slate-200">{report.priorityActions.map((action, index) => <li key={action} className="flex gap-3"><span className="font-black text-cyan-300">{index + 1}</span><span>{action}</span></li>)}</ol></article>
         </div>
         <div className="mt-8"><div className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-300">🌊 30-Day Wave Plan</div><div className="mt-4 grid gap-4 md:grid-cols-3">{report.plan.map((phase) => <article key={phase.window} className="rounded-3xl border border-cyan-300/15 bg-slate-950/45 p-5"><div className="text-sm font-black text-cyan-200">{phase.window}</div><h3 className="mt-2 text-xl font-black">{phase.title}</h3><p className="mt-3 text-sm leading-6 text-slate-300">{phase.action}</p></article>)}</div></div>
+        {(result.revenueLeaks?.length ?? 0) > 0 && (
+          <div className="mt-8">
+            <div className="text-xs font-bold uppercase tracking-[0.18em] text-amber-200">💰 Revenue Leak Check</div>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">These are opportunity signals based on your answers. Impact is shown as High or Medium until real business data is available, so we do not invent dollar-loss estimates.</p>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              {result.revenueLeaks?.map((leak) => (
+                <article key={leak.id} className="rounded-3xl border border-amber-200/15 bg-amber-100/[0.04] p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="text-lg font-black">{leak.title}</h3>
+                    <span className="rounded-full border border-amber-200/25 bg-amber-100/10 px-3 py-1 text-xs font-black text-amber-100">{leak.impact} impact</span>
+                  </div>
+                  <p className="mt-3 text-sm leading-6 text-slate-300">{leak.signal}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-200"><span className="font-bold text-cyan-200">Fix:</span> {leak.recommendedFix}</p>
+                  <div className="mt-4 text-xs font-bold uppercase tracking-wider text-cyan-300">{leak.recommendedAgent} · {leak.recommendedOffer}</div>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           <article className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"><div className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-300">📈 Signals to track</div><ul className="mt-4 space-y-3 text-sm text-slate-200">{report.metrics.map((metric) => <li key={metric} className="flex gap-2"><span aria-hidden="true">🏄</span>{metric}</li>)}</ul></article>
           <article className="rounded-3xl border border-fuchsia-300/20 bg-fuchsia-300/5 p-6"><div className="text-xs font-bold uppercase tracking-[0.16em] text-fuchsia-200">Recommended AI Surfer Agent</div><h3 className="mt-2 text-3xl font-black">{report.agent.name}</h3><p className="mt-3 text-sm leading-6 text-slate-200">{report.agent.fit}</p></article>
