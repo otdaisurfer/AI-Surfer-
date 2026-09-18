@@ -254,14 +254,6 @@ export default function SitesLanding() {
               preload="metadata"
               style={approvedMediaStyle}
             />
-            <img
-              className="approved-video-fallback"
-              src="/images/approved-landing/big-kahuna-visibility.png"
-              alt="Big Kahuna AI visibility strategy"
-              loading="lazy"
-              decoding="async"
-              style={approvedMediaStyle}
-            />
             <figcaption>Become easier for Google and AI answer engines to find and trust.</figcaption>
           </figure>
 
@@ -372,14 +364,6 @@ export default function SitesLanding() {
             preload="metadata"
             style={approvedMediaStyle}
           />
-          <img
-            className="approved-video-fallback"
-            src="/images/approved-landing/product-ladder.png"
-            alt="Ocean Tide Drop AI SURFER product ladder"
-            loading="lazy"
-            decoding="async"
-            style={approvedMediaStyle}
-          />
           <figcaption>Ride from your first Wave Check to a connected AI growth system.</figcaption>
         </figure>
 
@@ -402,14 +386,6 @@ export default function SitesLanding() {
                     loop
                     playsInline
                     preload="metadata"
-                    style={approvedMediaStyle}
-                  />
-                  <img
-                    className="approved-video-fallback"
-                    src={product.poster}
-                    alt={`${product.name} AI visibility strategy`}
-                    loading="lazy"
-                    decoding="async"
                     style={approvedMediaStyle}
                   />
                 </div>
