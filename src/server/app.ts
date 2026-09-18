@@ -7,12 +7,24 @@ import { aiFinAuditStartHandler } from "./api/aiFinAudits";
 import { aiFinHandoffHandler } from "./api/aiFinHandoffs";
 import { aiFinFollowUpHandler } from "./api/aiFinFollowUps";
 import { aiFinOnboardingHandler } from "./api/aiFinOnboarding";
+import { apiRateLimit, corsOrigin, requireApiKey } from "./security";
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: corsOrigin,
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-AI-Surfer-Key"],
+    maxAge: 86400,
+  }),
+);
 app.use(express.json({ limit: "1mb" }));
+
+// Health stays public. All /api routes are rate-limited and protected.
+app.use("/api", apiRateLimit);
+app.use("/api", requireApiKey);
 
 app.get("/health", (_req, res) => {
   res.json({
@@ -44,6 +56,18 @@ app.get("/api/dashboard", (_req, res) => {
     ],
     metrics: { leads: 18, conversions: 6, revenue: 3480, uptime: 99.98 }
   });
+});
+
+app.use((error: unknown, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (error instanceof Error && error.message.includes("CORS")) {
+    return res.status(403).json({
+      ok: false,
+      error: "ORIGIN_NOT_ALLOWED",
+      message: "This origin is not allowed to call the AI SURFER API.",
+    });
+  }
+
+  next(error);
 });
 
 const PORT = Number(process.env.PORT || 3001);

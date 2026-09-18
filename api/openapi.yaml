@@ -35,6 +35,8 @@ paths:
       tags: [AI Fin]
       summary: Save an AI Fin lead
       operationId: createAiFinLead
+      security:
+        - ApiKeyAuth: []
       requestBody:
         required: true
         content:
@@ -58,6 +60,8 @@ paths:
       tags: [AI Fin]
       summary: Start an AI Wave / AEO audit
       operationId: startAiFinAudit
+      security:
+        - ApiKeyAuth: []
       requestBody:
         required: true
         content:
@@ -81,6 +85,8 @@ paths:
       tags: [AI Fin]
       summary: Queue a human handoff
       operationId: createAiFinHandoff
+      security:
+        - ApiKeyAuth: []
       requestBody:
         required: true
         content:
@@ -104,6 +110,8 @@ paths:
       tags: [AI Fin]
       summary: Queue an AI Fin follow-up
       operationId: createAiFinFollowUp
+      security:
+        - ApiKeyAuth: []
       requestBody:
         required: true
         content:
@@ -127,6 +135,8 @@ paths:
       tags: [AI Fin]
       summary: Start onboarding
       operationId: createAiFinOnboarding
+      security:
+        - ApiKeyAuth: []
       requestBody:
         required: true
         content:
@@ -150,6 +160,8 @@ paths:
       tags: [Launch Desk]
       summary: Stream a Launch Desk plan
       operationId: createLaunchPlan
+      security:
+        - ApiKeyAuth: []
       description: |
         Returns Server-Sent Events (SSE). Event types include tool_progress,
         text_delta, final, and error.
@@ -168,6 +180,13 @@ paths:
                 type: string
 
 components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-AI-Surfer-Key
+      description: Server-side AI SURFER API key. Never expose this value in browser code.
+
   responses:
     ValidationError:
       description: Request payload failed validation

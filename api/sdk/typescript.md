@@ -15,6 +15,7 @@ import { AiSurferApiClient } from "../../src/lib/aiSurferApiClient";
 
 const api = new AiSurferApiClient({
   baseUrl: "http://localhost:3001",
+  apiKey: process.env.AI_SURFER_API_KEY,
 });
 ```
 
@@ -106,4 +107,6 @@ for await (const event of api.streamLaunchPlan({
 
 The OpenAPI file is the machine-readable source of truth. This client gives the current React / TypeScript app a convenient typed wrapper immediately, while leaving room for generated SDKs later.
 
-For production, point `baseUrl` at the protected API origin rather than exposing server write routes directly without access controls.
+For production, point `baseUrl` at the protected API origin and supply `AI_SURFER_API_KEY` only from server-side code.
+
+Do **not** put this key in a `VITE_*` variable or ship it in browser JavaScript. Browser traffic should go through a same-origin backend / worker or another protected server-side boundary.
