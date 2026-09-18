@@ -1,3 +1,8 @@
+---
+title: "Ocean Tide Drop AI SURFER"
+description: "What AI SURFER does, who it helps, and how the customer journey works."
+---
+
 # Ocean Tide Drop AI SURFER
 
 **Ride the Wave 🌊 Grow with AI.**
