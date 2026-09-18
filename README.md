@@ -47,6 +47,18 @@ The repository contains a canonical knowledge-hub source for public documentatio
 
 That document is intended to keep product names, pricing, CTAs, agent descriptions, and customer-journey language aligned across the website, documentation, AI Fin, sales pages, and external knowledge surfaces.
 
+## 📚 Documentation
+
+The public developer documentation now has a dedicated branded entry point:
+
+- [AI SURFER API Overview](api/overview.md) — developer-facing API and automation overview
+- [API README](api/README.md) — technical brand guidance and developer navigation
+- [AI SURFER Knowledge Hub](docs/knowledge-hub/ai-surfer-knowledge-hub.md) — canonical product, offer, agent, and positioning source
+- [Launch Desk](docs/launch-desk/README.md) — release-planning agent documentation
+- [Security Policy](SECURITY.md) — security guidance
+
+The **AI Surfer technology emblem** is reserved for developer documentation, APIs, integrations, Launch Desk, and other technical product surfaces. Customer-facing sales pages keep the primary Ocean Tide Drop AI SURFER brand as the lead identity.
+
 ## 🧱 Platform Stack
 
 - React 19
