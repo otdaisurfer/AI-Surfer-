@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 const WAVE_STARTER_URL = "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b";
+const STRATEGY_CALL_URL = "https://calendly.com/oceantidedrop/new-meeting";
 const STRATEGY_EMAIL = "mailto:oceantidedropservice@gmail.com?subject=AI%20Surfer%20Strategy%20Call";
 
 type FunnelEvent = {
@@ -35,7 +36,7 @@ const offers = [
     priceValue: 1997,
     text: "A larger build for businesses ready to connect AI visibility, lead flow, follow-up, and automation into one practical growth system.",
     cta: "Request a Strategy Call",
-    href: "mailto:oceantidedropservice@gmail.com?subject=Wave%20Builder%20Strategy%20Call",
+    href: STRATEGY_CALL_URL,
     kind: "strategy" as const,
   },
   {
@@ -44,7 +45,7 @@ const offers = [
     priceValue: 3997,
     text: "Strategy plus deeper implementation for businesses that need multiple AI systems working together across the customer journey.",
     cta: "Talk With AI Surfer",
-    href: "mailto:oceantidedropservice@gmail.com?subject=Tsunami%20Growth%20Strategy%20Call",
+    href: STRATEGY_CALL_URL,
     kind: "strategy" as const,
   },
 ];
