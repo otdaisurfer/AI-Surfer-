@@ -256,7 +256,7 @@ export default function AiFinChat({ mode, embedded = false }: AiFinChatProps) {
                 if (typeof window !== 'undefined') {
                   window.dispatchEvent(new CustomEvent('ai-surfer:funnel', {
                     detail: {
-                      event: recommendationAction.external ? 'checkout_start' : 'recommendation_cta_click',
+                      event: recommendationAction.funnelEvent,
                       offer: recommendation ?? lastResponse.recommendedProductId,
                     },
                   }));
