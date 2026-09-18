@@ -1,3 +1,8 @@
+---
+title: "Free AI Wave Check"
+description: "Use the Free AI Wave Check to identify the clearest practical AI opportunity."
+---
+
 # Free AI Wave Check
 
 The **Free AI Wave Check** is the primary low-friction entry point into Ocean Tide Drop AI SURFER.
