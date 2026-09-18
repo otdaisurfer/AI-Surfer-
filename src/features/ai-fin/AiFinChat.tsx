@@ -3,6 +3,7 @@ import { Bot, ChevronDown, Loader2, LockKeyhole, MessageCircle, Send, Sparkles, 
 import { useAuth } from '../../context/AuthContext';
 import type { AccessMode, LeadDraft } from './contracts';
 import { useAiFin } from './useAiFin';
+import { getAiFinProductAction } from './productActions';
 
 const OWNER_TIMEOUT_MS = 15 * 60 * 1000;
 
@@ -101,6 +102,7 @@ export default function AiFinChat({ mode, embedded = false }: AiFinChatProps) {
 
   const accessToken = isOwner ? session?.access_token : undefined;
   const recommendation = formatProductId(lastResponse?.recommendedProductId);
+  const recommendationAction = getAiFinProductAction(lastResponse?.recommendedProductId);
 
   const welcome = useMemo(
     () =>
@@ -240,8 +242,30 @@ export default function AiFinChat({ mode, embedded = false }: AiFinChatProps) {
 
       {lastResponse && (recommendation || lastResponse.escalationRequired) && (
         <div style={styles.signalBar}>
-          {recommendation && <span>Best fit: <strong>{recommendation}</strong></span>}
-          {lastResponse.escalationRequired && <span>Owner review needed</span>}
+          <div style={styles.signalText}>
+            {recommendation && <span>Best fit: <strong>{recommendation}</strong></span>}
+            {lastResponse.escalationRequired && <span>Owner review needed</span>}
+          </div>
+          {!isOwner && recommendationAction && (
+            <a
+              href={recommendationAction.href}
+              target={recommendationAction.external ? "_blank" : undefined}
+              rel={recommendationAction.external ? "noopener noreferrer" : undefined}
+              style={styles.recommendationButton}
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  window.dispatchEvent(new CustomEvent('ai-surfer:funnel', {
+                    detail: {
+                      event: recommendationAction.external ? 'checkout_start' : 'recommendation_cta_click',
+                      offer: recommendation ?? lastResponse.recommendedProductId,
+                    },
+                  }));
+                }
+              }}
+            >
+              {recommendationAction.label}
+            </a>
+          )}
         </div>
       )}
 
@@ -370,7 +394,9 @@ const styles: Record<string, React.CSSProperties> = {
   assistantMessage: { alignSelf: 'flex-start', maxWidth: '88%', padding: '11px 13px', borderRadius: '15px 15px 15px 4px', background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.08)', lineHeight: 1.48, whiteSpace: 'pre-wrap' },
   userMessage: { alignSelf: 'flex-end', maxWidth: '88%', padding: '11px 13px', borderRadius: '15px 15px 4px 15px', background: 'linear-gradient(135deg,rgba(255,79,184,.9),rgba(104,82,255,.92))', lineHeight: 1.48, whiteSpace: 'pre-wrap' },
   errorCard: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, border: '1px solid rgba(255,120,145,.35)', background: 'rgba(255,70,100,.1)', borderRadius: 12, padding: 10, color: '#ffdce5' },
-  signalBar: { display: 'flex', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', padding: '9px 16px', fontSize: 12, background: 'rgba(20,217,255,.07)', borderTop: '1px solid rgba(20,217,255,.13)', borderBottom: '1px solid rgba(20,217,255,.13)' },
+  signalBar: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', padding: '10px 16px', fontSize: 12, background: 'rgba(20,217,255,.07)', borderTop: '1px solid rgba(20,217,255,.13)', borderBottom: '1px solid rgba(20,217,255,.13)' },
+  signalText: { display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' },
+  recommendationButton: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', borderRadius: 999, padding: '8px 12px', background: 'linear-gradient(135deg,#67e8f9,#2dd4bf)', color: '#07111f', fontWeight: 900, textDecoration: 'none', whiteSpace: 'nowrap' },
   leadForm: { display: 'grid', gap: 9, padding: 14, background: 'rgba(255,79,184,.06)', borderTop: '1px solid rgba(255,79,184,.16)' },
   leadHeader: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
   fieldGrid: { display: 'grid', gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: 8 },
