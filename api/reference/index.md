@@ -29,6 +29,7 @@ The current Express server does not add endpoint authentication by itself. Produ
 ## Start here
 
 - [5-minute Quickstart](../quickstart.md)
+- [API Recipes](../recipes/index.md)
 - [API Overview](../overview.md)
 - [Security Policy](../../SECURITY.md)
 
