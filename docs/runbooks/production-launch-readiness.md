@@ -15,7 +15,7 @@ Authorization: Bearer <SITE_HEALTH_API_KEY>
 The endpoint never returns secret values. It checks:
 
 - OpenAI server binding is present
-- HubSpot server binding is present
+- HubSpot server binding is present and the live Wave Starter product is active at $497
 - Supabase points to the connected **AI-Surfer** project
 - the `wave_starter_intakes` table is reachable with the server service role
 - the live Wave Starter Stripe Payment Link is active

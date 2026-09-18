@@ -1,4 +1,5 @@
 const WAVE_STARTER_PAYMENT_LINK_ID = "plink_1UFGD3Ex9w41hLcklxOvUg4f";
+const HUBSPOT_WAVE_STARTER_PRODUCT_ID = "332891806434";
 const EXPECTED_SUPABASE_URL = "https://mkgnyarwiscttobnytin.supabase.co";
 
 interface LaunchReadinessEnv {
@@ -67,6 +68,45 @@ async function probeSupabase(env: LaunchReadinessEnv, fetchImpl: typeof fetch): 
   }
 }
 
+async function probeHubSpot(env: LaunchReadinessEnv, fetchImpl: typeof fetch): Promise<CheckResult> {
+  if (!env.HUBSPOT_ACCESS_TOKEN) {
+    return { ok: false, detail: "HubSpot server binding is missing." };
+  }
+
+  try {
+    const response = await fetchImpl(
+      `https://api.hubapi.com/crm/v3/objects/products/${HUBSPOT_WAVE_STARTER_PRODUCT_ID}?properties=name,hs_sku,price,hs_status`,
+      {
+        headers: {
+          Authorization: `Bearer ${env.HUBSPOT_ACCESS_TOKEN}`,
+        },
+      },
+    );
+
+    const body = await response.json().catch(() => ({})) as {
+      properties?: {
+        name?: string;
+        hs_sku?: string;
+        price?: string;
+        hs_status?: string;
+      };
+    };
+
+    const product = body.properties;
+    const correct =
+      response.ok &&
+      product?.hs_sku === "wave-starter" &&
+      product?.price === "497" &&
+      product?.hs_status === "active";
+
+    return correct
+      ? { ok: true, detail: "HubSpot Wave Starter product is active at $497." }
+      : { ok: false, detail: "HubSpot Wave Starter product does not match the expected launch configuration." };
+  } catch {
+    return { ok: false, detail: "HubSpot could not be reached." };
+  }
+}
+
 async function probeStripe(env: LaunchReadinessEnv, fetchImpl: typeof fetch): Promise<CheckResult> {
   if (!env.STRIPE_SECRET_KEY) {
     return { ok: false, detail: "Stripe secret binding is missing." };
@@ -126,18 +166,17 @@ export async function handleLaunchReadiness(
     openai: env.OPENAI_API_KEY
       ? { ok: true, detail: "OpenAI server binding is present." }
       : { ok: false, detail: "OpenAI server binding is missing." },
-    hubspot: env.HUBSPOT_ACCESS_TOKEN
-      ? { ok: true, detail: "HubSpot server binding is present." }
-      : { ok: false, detail: "HubSpot server binding is missing." },
   };
 
-  const [supabase, stripe] = await Promise.all([
+  const [hubspot, supabase, stripe] = await Promise.all([
+    probeHubSpot(env, fetchImpl),
     probeSupabase(env, fetchImpl),
     probeStripe(env, fetchImpl),
   ]);
 
   const checks = {
     ...bindingChecks,
+    hubspot,
     supabase,
     stripe,
   };
