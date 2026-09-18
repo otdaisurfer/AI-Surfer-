@@ -22,6 +22,26 @@ function readyFetch() {
     const url = new URL(String(input));
 
     if (
+      url.hostname === "mkgnyarwiscttobnytin.supabase.co" &&
+      url.pathname === "/auth/v1/user"
+    ) {
+      return new Response(JSON.stringify({ id: "owner-user-id" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (
+      url.hostname === "mkgnyarwiscttobnytin.supabase.co" &&
+      url.pathname === "/rest/v1/profiles"
+    ) {
+      return new Response(JSON.stringify([{ role: "owner" }]), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (
       url.hostname === "api.hubapi.com" &&
       url.pathname.startsWith("/crm/v3/objects/products/")
     ) {
@@ -190,10 +210,22 @@ describe("production launch readiness", () => {
   });
 
   it("rejects unauthorized checks", async () => {
-    const fetchImpl = vi.fn();
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      const url = new URL(String(input));
+
+      if (
+        url.hostname === "mkgnyarwiscttobnytin.supabase.co" &&
+        url.pathname === "/auth/v1/user"
+      ) {
+        return new Response(JSON.stringify({ error: "invalid token" }), { status: 401 });
+      }
+
+      throw new Error(`Unexpected URL: ${url.toString()}`);
+    });
+
     const response = await handleLaunchReadiness(request("wrong"), env, fetchImpl);
 
     expect(response.status).toBe(401);
-    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
   });
 });
