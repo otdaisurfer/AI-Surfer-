@@ -141,7 +141,7 @@ describe("MemberProduct", () => {
     });
 
     expect(container.textContent).toContain("Your Wave Scout workspace is ready.");
-    expect(container.textContent).toContain("Starter Tide membership");
+    expect(container.textContent).toContain("Base Access");
     expect(container.textContent).not.toContain("Welcome back, Surfer");
     expect(container.querySelector('[data-testid="location"]')).toBeNull();
 
