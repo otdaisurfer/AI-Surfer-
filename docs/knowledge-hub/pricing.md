@@ -1,3 +1,8 @@
+---
+title: "Pricing and Implementation Offers"
+description: "The current AI SURFER implementation ladder: $497, $1,997, and $3,997."
+---
+
 # Pricing and Implementation Offers
 
 The canonical public implementation ladder is:
