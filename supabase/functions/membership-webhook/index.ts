@@ -18,7 +18,7 @@ const WEBHOOK_SECRET = Deno.env.get("STRIPE_WEBHOOK_SECRET");
 const HUBSPOT_ACCESS_TOKEN = Deno.env.get("HUBSPOT_ACCESS_TOKEN");
 const HUBSPOT_WAVE_STARTER_PRODUCT_ID = "332891806434";
 const HUBSPOT_OWNER_ID = "96366886";
-const HUBSPOT_API_BASE = "https://api.hubapi.com/crm/objects/2026-03";
+const HUBSPOT_API_BASE = "https://api.hubapi.com/crm/v3/objects";
 
 const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "sk_test_webhook_verification_only", {
   apiVersion: "2024-11-20",
