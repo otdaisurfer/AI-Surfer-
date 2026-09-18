@@ -22,6 +22,26 @@ function readyFetch() {
     const url = new URL(String(input));
 
     if (
+      url.hostname === "mkgnyarwiscttobnytin.supabase.co" &&
+      url.pathname === "/auth/v1/user"
+    ) {
+      return new Response(JSON.stringify({ id: "owner-user-id" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (
+      url.hostname === "mkgnyarwiscttobnytin.supabase.co" &&
+      url.pathname === "/rest/v1/profiles"
+    ) {
+      return new Response(JSON.stringify([{ role: "owner" }]), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    if (
       url.hostname === "api.hubapi.com" &&
       url.pathname.startsWith("/crm/v3/objects/products/")
     ) {
@@ -91,6 +111,52 @@ describe("production launch readiness", () => {
     });
   });
 
+
+  it("allows a verified owner Supabase session to run the readiness check", async () => {
+    const ownerRequest = new Request("https://otdaisurfer.surf/api/launch-readiness", {
+      method: "POST",
+      headers: { Authorization: "Bearer owner-session-token" },
+    });
+
+    const response = await handleLaunchReadiness(ownerRequest, env, readyFetch());
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toMatchObject({
+      status: "ready",
+      blockers: [],
+    });
+  });
+
+  it("rejects a valid signed-in user who is not an owner", async () => {
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+
+      if (url.endsWith("/auth/v1/user")) {
+        return new Response(JSON.stringify({ id: "member-user-id" }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
+      if (url.includes("/rest/v1/profiles?")) {
+        return new Response(JSON.stringify([{ role: "member" }]), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
+      throw new Error(`Unexpected URL: ${url}`);
+    });
+
+    const memberRequest = new Request("https://otdaisurfer.surf/api/launch-readiness", {
+      method: "POST",
+      headers: { Authorization: "Bearer member-session-token" },
+    });
+
+    const response = await handleLaunchReadiness(memberRequest, env, fetchImpl);
+    expect(response.status).toBe(401);
+  });
+
   it("blocks launch when a required binding is missing", async () => {
     const response = await handleLaunchReadiness(
       request(),
@@ -144,10 +210,22 @@ describe("production launch readiness", () => {
   });
 
   it("rejects unauthorized checks", async () => {
-    const fetchImpl = vi.fn();
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      const url = new URL(String(input));
+
+      if (
+        url.hostname === "mkgnyarwiscttobnytin.supabase.co" &&
+        url.pathname === "/auth/v1/user"
+      ) {
+        return new Response(JSON.stringify({ error: "invalid token" }), { status: 401 });
+      }
+
+      throw new Error(`Unexpected URL: ${url.toString()}`);
+    });
+
     const response = await handleLaunchReadiness(request("wrong"), env, fetchImpl);
 
     expect(response.status).toBe(401);
-    expect(fetchImpl).not.toHaveBeenCalled();
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
   });
 });

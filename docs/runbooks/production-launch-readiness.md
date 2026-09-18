@@ -2,6 +2,8 @@
 
 Use this private check immediately before opening the funnel to customers.
 
+Owners can run it directly from **Members → Final Production Readiness** while signed in. The server verifies the Supabase owner session before running the same production probes. The `SITE_HEALTH_API_KEY` bearer path remains available for server-to-server automation.
+
 ## Endpoint
 
 `POST /api/launch-readiness`
