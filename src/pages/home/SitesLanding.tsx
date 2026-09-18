@@ -14,11 +14,11 @@ const approvedMediaStyle = {
 const products = [
   {
     stage: "Discover",
-    name: "AEO Wave Audit™",
-    category: "AI Visibility & Discovery",
+    name: "Free AI Wave Check™",
+    category: "Business AI Opportunity Check",
     description:
-      "Find the visibility gaps that keep AI systems from understanding, trusting, citing, and recommending your business.",
-    cta: "Run the Wave Audit",
+      "Answer five quick questions to see your strongest AI opportunity, practical first move, and the implementation path that fits.",
+    cta: "Start the Free Wave Check",
     href: "/wave-check",
     featured: true,
   },
@@ -154,9 +154,9 @@ export default function SitesLanding() {
         }
       `}</style>
       <div className="announcement">
-        <span>🌺 Launch wave</span>
-        <strong>20% off recurring app access and major software console plans</strong>
-        <a href="/pricing">See plans →</a>
+        <span>🌊 Start here</span>
+        <strong>The Free AI Wave Check is live</strong>
+        <a href="/wave-check">Find my biggest AI opportunity →</a>
       </div>
 
       <nav className="nav-shell" aria-label="Main navigation">
@@ -464,7 +464,7 @@ export default function SitesLanding() {
             Enter the Members Area
           </a>
           <a className="text-link" href="/pricing">
-            View membership options →
+            View implementation options →
           </a>
         </div>
       </section>
