@@ -1,230 +1,123 @@
-🌊 OCEAN TIDE DROP — CINEMATIC ARCHITECTURE README
+# 🌊 Ocean Tide Drop AI SURFER
 
-A Neon‑Surf React + Vite + Cloudflare Pages System
+**Ride the Wave. Grow with AI.**
 
----
+Ocean Tide Drop AI SURFER is an AI implementation platform for small and local businesses. It helps businesses discover practical AI opportunities, improve AI-search visibility, strengthen lead follow-up, automate repetitive work, and move from diagnosis to implementation without drowning in jargon.
 
-🌟 Overview
+## 🏄 What AI SURFER Does
 
-Ocean Tide Drop is a cinematic, neon‑surf web experience built with:
+The customer journey is designed around one clear path:
+
+**Discover → Diagnose → Plan → Implement → Transform**
+
+- **Free AI Wave Check** — identifies the strongest practical AI opportunity.
+- **AEO Wave Audit** — evaluates AI-search visibility and answer-engine readiness.
+- **AI Wave Report** — turns findings into priorities and a 30-day action path.
+- **AI Agents** — focused systems for leads, sales, content, support, automation, and transformation.
+- **Implementation Offers** — hands-on builds that put the plan to work.
+
+## 💰 Current Implementation Offers
+
+These are the primary public implementation offers and should be treated as the canonical sales ladder:
+
+| Offer | Price | Best fit | Primary CTA |
+| --- | ---: | --- | --- |
+| **Wave Starter** | **$497** | One focused AI implementation sprint | Buy Wave Starter |
+| **Wave Builder** | **$1,997** | Connected visibility, lead-flow, follow-up, or automation systems | Request a Strategy Call |
+| **Tsunami Growth** | **$3,997** | Multi-area AI strategy and deeper implementation | Talk With AI Surfer |
+
+When a visitor is unsure where to begin, the preferred entry point is the **Free AI Wave Check**.
+
+## 🤖 AI SURFER Agent Crew
+
+AI SURFER currently uses six named specialist agents:
+
+- **Wave Scout** — opportunity discovery, lead generation, and visibility gaps.
+- **Sales Rider** — lead response, sales follow-up, and conversion workflows.
+- **Content Creator** — repeatable AI-assisted content systems.
+- **Customer Care Cove** — customer support and service automation.
+- **Automation Architect** — repetitive workflow design and integrations.
+- **Big Kahuna** — multi-area AI strategy and implementation.
+
+## 🧠 Knowledge Hub
+
+The repository contains a canonical knowledge-hub source for public documentation, AI-search visibility, and future Mintlify Wiki pages:
+
+`docs/knowledge-hub/ai-surfer-knowledge-hub.md`
+
+That document is intended to keep product names, pricing, CTAs, agent descriptions, and customer-journey language aligned across the website, documentation, AI Fin, sales pages, and external knowledge surfaces.
+
+## 🧱 Platform Stack
 
 - React 19
 - Vite
 - TypeScript
 - Cloudflare Pages
+- Cloudflare Workers / Functions
+- Supabase
+- Stripe
+- OpenAI-powered AI experiences
 - Framer Motion
 - Lucide Icons
 
-The project is structured around a clean, scalable architecture designed for rapid iteration, mobile‑first workflows, and a glowing, mythic brand identity.
+## 🧭 Key Routes
 
-This README documents the full system architecture, folder structure, and development flow.
+- `/` — primary AI SURFER landing experience
+- `/wave-check` — Free AI Wave Check
+- `/pricing` — current implementation offers
+- `/members` — member dashboard
+- `/audit/*` — paid AEO Wave Audit flow
 
----
+## 🚀 Development
 
-🏛️ Project Architecture
+Install dependencies:
 
-```
-src/
-  components/      → Reusable UI components + co‑located CSS
-  pages/           → Page-level scenes (Pricing, Membership, etc.)
-  layouts/         → Global wrappers (Nav, Dock, HUD)
-  styles/          → Global CSS (variables, animations, themes)
-  utils/           → Pure helper functions
-  hooks/           → Custom React hooks
-  data/            → Product tiers, navigation, constants
-  router.tsx       → Central routing map
-  App.jsx          → App shell
-  main.jsx         → Vite entry point
-```
-
-This structure keeps your UI modular, your logic clean, and your brand consistent.
-
----
-
-🎨 Components
-All reusable UI lives in:
-
-```
-src/components/
-```
-
-Each component has a matching CSS file:
-
-```
-ProductCard.tsx
-product-card.css
-NavBar.jsx
-neon-dock.css
-Sidebar.tsx
-sidebar.css
-HUD.tsx
-hud.css
-```
-
-This ensures:
-
-- clean separation  
-- predictable imports  
-- cinematic styling per component  
-
----
-
-📄 Pages
-Pages are scenes in your cinematic universe.
-
-```
-src/pages/
-  pricing/
-    Pricing.tsx
-    PricingDetail.tsx
-    pricing.css
-  membership/
-    MembershipIndex.tsx
-    membership.css
-  home/
-    Home.jsx
-```
-
-Each page can have its own CSS, animations, and layout.
-
----
-
-🧩 Layouts
-Layouts wrap pages with global UI:
-
-```
-src/layouts/
-  Layout.tsx
-  AuthLayout.tsx
-  GameLayout.tsx
-```
-
-These handle:
-
-- Navigation  
-- Neon Dock  
-- HUD  
-- Soundscape  
-- Auth gates  
-
----
-
-🧠 Data Layer
-Centralized product + tier data:
-
-```
-src/data/
-  products.ts
-  tiers.ts
-  navigation.ts
-```
-
-This keeps your pricing system clean and maintainable.
-
----
-
-🎛️ Styles
-Global styling lives here:
-
-```
-src/styles/
-  index.css
-  variables.css
-  animations.css
-  themes.css
-```
-
-This is where your neon‑ocean glow, cosmic gradients, and waterline animations live.
-
----
-
-🧭 Routing
-All routes are defined in:
-
-```
-src/router.tsx
-```
-
-This keeps navigation clean and centralized.
-
----
-
-🌊 Surf Tier System
-Your 4‑tier cinematic pricing system:
-
-- Dawn Patrol — Entry tier  
-- Breakline — Mid‑tier  
-- Hatteras Island — High‑touch tier  
-- Cape Point — Founder‑level tier  
-
-Each tier has:
-
-- a ProductCard  
-- a PricingDetail page  
-- a narrative  
-- a feature set  
-- a cinematic image  
-
----
-
-🚀 Development
-
-Install dependencies
-```
+```bash
 npm install
 ```
 
-Run dev server
-```
+Run locally:
+
+```bash
 npm run dev
 ```
 
-Build for production
-```
+Build:
+
+```bash
 npm run build
 ```
 
-Deploy (Cloudflare Pages)
-Push to your connected GitHub repo — Cloudflare builds automatically.
+Cloudflare deploys from the connected GitHub repository.
 
-### Browser Run website health check
+## 🩺 Browser Run Website Health Check
 
-`POST /api/site-health` uses Cloudflare Browser Run Quick Actions to capture
-the live AI SURFER homepage as a screenshot, Markdown, and accessibility tree.
-The endpoint is intentionally fixed to `https://otdaisurfer.surf/` and requires
-an internal bearer key so public callers cannot spend Browser Run time.
+`POST /api/site-health` uses Cloudflare Browser Run Quick Actions to capture the live AI SURFER homepage as a screenshot, Markdown, and accessibility tree.
 
-Configure these as encrypted Cloudflare Pages environment variables:
+The endpoint is fixed to `https://otdaisurfer.surf/` and requires an internal bearer key so public callers cannot spend Browser Run time.
+
+Configure these encrypted Cloudflare Pages environment variables:
 
 - `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_BROWSER_TOKEN` — a custom token with `Browser Rendering - Edit`
-- `SITE_HEALTH_API_KEY` — a long random value used only by trusted health-check callers
+- `CLOUDFLARE_BROWSER_TOKEN`
+- `SITE_HEALTH_API_KEY`
 
-Example request:
+Example:
 
 ```bash
 curl -X POST https://otdaisurfer.surf/api/site-health \
   -H "Authorization: Bearer $SITE_HEALTH_API_KEY"
 ```
 
----
+## 🎨 Brand Direction
 
-🔥 Brand Identity
-Ocean Tide Drop is built on:
+Ocean Tide Drop AI SURFER uses a neon-ocean visual system with cyan, blue, violet, and pink accents. The voice should stay practical, energetic, friendly, and business-focused.
 
-- neon cyan + neon pink glow  
-- cinematic gradients  
-- surf‑energy motion  
-- mythic storytelling  
-- AI‑driven content systems  
+The core promise is simple:
 
-Every component and page reflects this identity.
+**Find the right AI wave, then put it to work.**
 
 ---
 
-🐚 Credits
-Created by Shannon Foster
-Architected with cinematic precision  
-Powered by React, Vite, and Cloudflare Workers
-
----
+Created by Shannon Foster.  
+Ocean Tide Drop AI SURFER 🌊
