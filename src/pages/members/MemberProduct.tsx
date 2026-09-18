@@ -25,11 +25,11 @@ const tierRank: Record<Tier, number> = {
 };
 
 const tierLabels: Record<Tier, string> = {
-  free: "Starter Tide",
-  bronze: "Builder Wave",
-  wave: "Growth Wave",
-  tsunami: "Tsunami Pro",
-  enterprise: "Ocean Dominion",
+  free: "Base Access",
+  bronze: "Builder Access",
+  wave: "Advanced Access",
+  tsunami: "Transformation Access",
+  enterprise: "Enterprise Access",
   owner: "Owner",
 };
 
@@ -54,7 +54,7 @@ function normalizeTier(value: unknown): Tier {
   if (tier === "enterprise" || tier === "ocean dominion") return "enterprise";
   if (tier === "owner") return "owner";
 
-  // Legacy/member profiles are treated as Starter Tide rather than locked out.
+  // Legacy/member profiles fall back to the base access level rather than being locked out.
   return "free";
 }
 
@@ -131,15 +131,15 @@ export default function MemberProduct() {
         <section style={styles.card}>
           <p style={styles.kicker}>ACCESS CONFIRMED</p>
           <h2>Your {product.name} workspace is ready.</h2>
-          <p>This product is connected to your <strong>{currentTierLabel}</strong> membership. The next workflow layer can be connected here as the product is activated.</p>
+          <p>This product is connected to your <strong>{currentTierLabel}</strong>. The next workflow layer can be connected here as the product is activated.</p>
           <button onClick={() => navigate("/wave-audit")} style={styles.cta}>{product.nextStep} →</button>
         </section>
       ) : (
         <section style={styles.card}>
-          <p style={styles.kicker}>MEMBERSHIP WORKSPACE</p>
+          <p style={styles.kicker}>MEMBER WORKSPACE</p>
           <h2>Unlock the ongoing {product.name} workspace with {minimumTierLabel}.</h2>
-          <p>Your current membership is <strong>{currentTierLabel}</strong>. Membership controls ongoing workspace access, while implementation can be purchased separately below.</p>
-          <button onClick={() => navigate("/pricing")} style={styles.cta}>View Membership Plans 💳</button>
+          <p>Your current access level is <strong>{currentTierLabel}</strong>. Access controls the ongoing workspace, while implementation is handled separately through the current public offers below.</p>
+          <button onClick={() => navigate("/pricing")} style={styles.cta}>View Current Offers 💳</button>
         </section>
       )}
 
