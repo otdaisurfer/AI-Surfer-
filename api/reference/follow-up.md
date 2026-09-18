@@ -1,20 +1,32 @@
+---
+title: "Queue Follow-Up"
+description: "Queue an approved follow-up record for an AI Fin lead."
+---
+
 # Queue Follow-Up
 
 `POST /api/ai-fin/follow-up`
 
 Queues an approved follow-up record for a lead.
 
-## Request body
+## Request Body
 
-Required: `contactName`, `email`, `recommendedProduct`, `conversationSummary`, `messageType`, and `consentToFollowUp: true`.
+Required fields:
 
-Accepted message types:
+- `contactName`
+- `email`
+- `recommendedProduct`
+- `conversationSummary`
+- `messageType`
+- `consentToFollowUp: true`
+
+### Accepted Message Types
 
 - `recommendation_summary`
 - `next_steps`
 - `human_review_confirmation`
 
-## Example
+## Example Request
 
 ```json
 {
@@ -28,7 +40,7 @@ Accepted message types:
 }
 ```
 
-## Success response
+## Success Response
 
 ```json
 {
@@ -38,8 +50,16 @@ Accepted message types:
 }
 ```
 
+<Warning>
+  Queue follow-up only when the visitor has consented. This endpoint records the workflow action; downstream delivery should preserve the same consent boundary.
+</Warning>
+
 ## Errors
 
 - `400 INVALID_FOLLOW_UP_PAYLOAD`
 - `500 SUPABASE_NOT_CONFIGURED`
 - `500 FOLLOW_UP_QUEUE_FAILED`
+
+<Card title="Lead-to-Onboarding Recipe" icon="route" href="/api/recipes/lead-to-onboarding">
+  See follow-up in the complete lead workflow.
+</Card>
