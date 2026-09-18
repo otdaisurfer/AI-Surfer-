@@ -13,13 +13,30 @@ export type LeadCaptureOutcome =
   | { status: "saved"; submissionId: string }
   | { status: "uncertain"; submissionId: string; message: string };
 
+function campaignAttribution() {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  const source = params.get("utm_source")?.trim();
+  const medium = params.get("utm_medium")?.trim();
+  const campaign = params.get("utm_campaign")?.trim();
+
+  return {
+    ...(source ? { _campaign_source: source } : {}),
+    ...(medium ? { _campaign_medium: medium } : {}),
+    ...(campaign ? { _campaign_name: campaign } : {}),
+  };
+}
+
 export async function saveWaveAuditLead(
   payload: LeadCapturePayload,
 ): Promise<LeadCaptureOutcome> {
   const record = {
     submission_id: payload.submissionId,
     email: payload.email.trim().toLowerCase(),
-    answers: payload.answers,
+    answers: {
+      ...payload.answers,
+      ...campaignAttribution(),
+    },
     score: payload.result.score,
     top_category: payload.result.topCategory,
     opportunities: payload.result.opportunities,
