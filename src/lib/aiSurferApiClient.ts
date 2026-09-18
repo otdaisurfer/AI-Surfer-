@@ -1,3 +1,5 @@
+import type { ChatRequest, ChatResponse } from "../features/ai-fin/contracts";
+
 export type AiFinProduct =
   | "AEO Wave Audit"
   | "Wave Scout"
@@ -124,12 +126,18 @@ export class AiSurferApiClient {
     this.fetchImpl = options.fetchImpl ?? fetch;
   }
 
-  private async json<T>(path: string, init?: RequestInit): Promise<T> {
+  private async json<T>(
+    path: string,
+    init?: RequestInit,
+    options: { includeApiKey?: boolean } = {},
+  ): Promise<T> {
     const response = await this.fetchImpl(`${this.baseUrl}${path}`, {
       ...init,
       headers: {
         "Content-Type": "application/json",
-        ...(this.apiKey ? { "X-AI-Surfer-Key": this.apiKey } : {}),
+        ...(options.includeApiKey !== false && this.apiKey
+          ? { "X-AI-Surfer-Key": this.apiKey }
+          : {}),
         ...(init?.headers ?? {}),
       },
     });
@@ -140,7 +148,9 @@ export class AiSurferApiClient {
       const message =
         body && typeof body === "object" && "message" in body
           ? String((body as { message?: unknown }).message)
-          : `AI SURFER API request failed with status ${response.status}`;
+          : body && typeof body === "object" && "error" in body
+            ? String((body as { error?: unknown }).error)
+            : `AI SURFER API request failed with status ${response.status}`;
       throw new Error(message);
     }
 
@@ -154,6 +164,26 @@ export class AiSurferApiClient {
       openaiConfigured: boolean;
       supabaseConfigured: boolean;
     }>("/health");
+  }
+
+  chatAiFin(
+    input: ChatRequest,
+    options: { accessToken?: string; signal?: AbortSignal } = {},
+  ) {
+    return this.json<ChatResponse>(
+      "/api/ai-fin/chat",
+      {
+        method: "POST",
+        headers: options.accessToken
+          ? { Authorization: `Bearer ${options.accessToken}` }
+          : undefined,
+        body: JSON.stringify(input),
+        signal: options.signal,
+      },
+      // AI Fin chat is a browser-facing Cloudflare Pages endpoint with its own
+      // public/owner authentication model. Never attach the server API key here.
+      { includeApiKey: false },
+    );
   }
 
   saveLead(input: AiFinLeadInput) {
