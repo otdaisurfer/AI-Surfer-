@@ -12,7 +12,7 @@ The goal is not to push every business into the biggest package.
 The goal is to match the business to the **smallest useful implementation that can create a meaningful result**.
 
 <Tip>
-  Not sure which offer fits? Start with the **Free AI Wave Check** and let the strongest opportunity guide the recommendation.
+  Not sure which offer fits? Start with the [**Free AI Wave Check**](https://otdaisurfer.surf/wave-check) and let the strongest opportunity guide the recommendation.
 </Tip>
 
 ## Compare the Offers
@@ -46,8 +46,8 @@ Examples may include:
 - basic handoff or usage guidance
 - a measurable result to watch
 
-<Card title="Wave Starter" icon="water">
-  **$497** — the direct-purchase path for one focused AI win.
+<Card title="Wave Starter" icon="water" href="https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b">
+  **$497** — buy directly when you are ready for one focused AI win.
 </Card>
 
 ## Wave Builder — $1,997
@@ -71,7 +71,7 @@ Wave Builder can be a fit when the opportunity involves combinations such as:
 - clearer operating guidance
 - a measurable growth or efficiency outcome
 
-Because Wave Builder is more customized, the preferred buying path is a **strategy call** before implementation begins.
+Because Wave Builder is more customized, the preferred buying path is a [**strategy call**](https://calendly.com/oceantidedrop/new-meeting) before implementation begins.
 
 ## Tsunami Growth — $3,997
 
@@ -97,7 +97,7 @@ Examples may include:
 - clearer priorities across the customer journey
 - a transformation roadmap with measurable checkpoints
 
-The preferred buying path is a **strategy call** before the build begins.
+The preferred buying path is a [**strategy call**](https://calendly.com/oceantidedrop/new-meeting) before the build begins.
 
 ## Which Offer Fits?
 
@@ -137,23 +137,13 @@ The current public buying path is:
 This keeps the funnel simple while protecting larger implementations from being sold without enough context.
 
 <CardGroup cols={2}>
-  <Card title="Start with the Free AI Wave Check" icon="wave-square" href="/docs/knowledge-hub/features/wave-check">
+  <Card title="Start the Free AI Wave Check" icon="wave-square" href="https://otdaisurfer.surf/wave-check">
     Find the strongest AI opportunity before choosing a package.
   </Card>
 
-  <Card title="Meet the AI Agent Crew" icon="users" href="/docs/knowledge-hub/agents/overview">
-    See which specialist agent may be part of your implementation.
+  <Card title="Book a Strategy Call" icon="calendar" href="https://calendly.com/oceantidedrop/new-meeting">
+    Talk through Wave Builder or Tsunami Growth before beginning a larger implementation.
   </Card>
 </CardGroup>
-
-## Documentation Rule
-
-These three offers are the current public AI SURFER implementation ladder:
-
-- **Wave Starter — $497**
-- **Wave Builder — $1,997**
-- **Tsunami Growth — $3,997**
-
-Older tier names, inactive membership pricing, or legacy Done-For-You pricing should not be presented as current public offers when they conflict with this ladder.
 
 **Start with the smallest wave that can create a real result, then grow from there. 🌊**
