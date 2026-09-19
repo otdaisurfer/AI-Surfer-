@@ -10,6 +10,7 @@ interface AiFinPagesEnv extends AiFinEnv {
   OPENAI_API_KEY: string;
   OPENAI_MODEL?: string;
   AI_FIN_ALLOWED_ORIGINS?: string;
+  HUBSPOT_ACCESS_TOKEN?: string;
 }
 
 const MessageSchema = z.object({
@@ -202,7 +203,7 @@ export async function handleAiFinChat(
     let leadSaved = false;
     if (input.lead) {
       try {
-        await saveLead(supabase, input.lead);
+        await saveLead(supabase, input.lead, env.HUBSPOT_ACCESS_TOKEN);
         leadSaved = true;
       } catch {
         return jsonResponse(
@@ -233,7 +234,7 @@ export async function handleAiFinChat(
       model: env.OPENAI_MODEL,
       traceId,
       leadSaved,
-      saveLead: (lead) => saveLead(supabase, lead),
+      saveLead: (lead) => saveLead(supabase, lead, env.HUBSPOT_ACCESS_TOKEN),
     });
 
     return jsonResponse(request, env, response, 200);
