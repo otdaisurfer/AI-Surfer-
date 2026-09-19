@@ -1,4 +1,7 @@
-# AI SURFER API Quickstart 🌊
+---
+title: "AI SURFER API Quickstart"
+description: "Make your first AI SURFER API call, save a lead, start an audit, and understand the core workflow in about five minutes."
+---
 
 Get from **zero to a working AI SURFER API call in about five minutes**.
 
@@ -128,13 +131,13 @@ Before exposing write endpoints publicly:
 
 ## Next steps
 
-- [API Reference](./reference/index.md)
-- [API Recipes](./recipes/index.md)
-- [TypeScript Client](./sdk/typescript.md)
-- [API Overview](./overview.md)
-- [API README](./README.md)
-- [Launch Desk](../docs/launch-desk/README.md)
-- [Security Policy](../SECURITY.md)
-- [Knowledge Hub](../docs/knowledge-hub/ai-surfer-knowledge-hub.md)
+- [API Reference](/api/reference/index)
+- [API Recipes](/api/recipes/index)
+- [TypeScript Client](/api/sdk/typescript)
+- [API Overview](/api/overview)
+- [API README](/api/README)
+- [Launch Desk](/docs/knowledge-hub/features/launch-desk)
+- [Security Policy](https://github.com/otdaisurfer/AI-Surfer-/blob/main/SECURITY.md)
+- [Knowledge Hub](/docs/knowledge-hub/introduction)
 
 **Ride the Wave 🌊 Grow with AI.**
