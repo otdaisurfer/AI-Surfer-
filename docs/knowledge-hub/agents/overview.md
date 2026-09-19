@@ -12,7 +12,7 @@ The goal is not to hand a business owner a generic chatbot and say, “good luck
 The goal is to match the right AI specialist to the right problem.
 
 <Tip>
-  The **Free AI Wave Check** or **AEO Wave Audit** should recommend the agent that best fits the strongest opportunity. Multi-area needs can route to **Big Kahuna**.
+  Start with the [**Free AI Wave Check**](https://otdaisurfer.surf/wave-check) when you are not sure which specialist fits. If AI-search visibility is already the priority, use the **AEO Wave Audit**.
 </Tip>
 
 ## Meet the Crew
@@ -227,8 +227,8 @@ The AI SURFER journey is:
 Different agents can support different stages, but the system should always stay focused on the outcome rather than the technology.
 
 <CardGroup cols={2}>
-  <Card title="Start with the Free AI Wave Check" icon="wave-square" href="/docs/knowledge-hub/features/wave-check">
-    Find the strongest opportunity before choosing an agent.
+  <Card title="Start the Free AI Wave Check" icon="wave-square" href="https://otdaisurfer.surf/wave-check">
+    Find the strongest opportunity and let AI SURFER recommend the right specialist.
   </Card>
 
   <Card title="Explore Launch Desk" icon="rocket" href="/docs/knowledge-hub/features/launch-desk">
