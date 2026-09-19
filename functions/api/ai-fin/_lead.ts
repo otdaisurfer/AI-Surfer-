@@ -1,6 +1,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { z } from 'zod';
 import type { LeadDraft } from '../../../src/features/ai-fin/contracts';
+import {
+  syncHubSpotContact,
+  type HubSpotSyncStatus,
+} from '../../../src/server/wave-check/hubspotRetry';
 
 const LeadSchema = z.object({
   name: z.string().trim().min(1).max(120),
@@ -38,7 +42,8 @@ export function validateLeadDraft(input: LeadDraft): LeadDraft {
 export async function saveLead(
   supabase: SupabaseClient,
   draft: LeadDraft,
-): Promise<{ id: string }> {
+  hubSpotAccessToken?: string,
+): Promise<{ id: string; hubspotStatus: HubSpotSyncStatus }> {
   const lead = validateLeadDraft(draft);
 
   const { data, error } = await supabase
@@ -62,5 +67,10 @@ export async function saveLead(
     throw new Error('AI Fin could not save this lead');
   }
 
-  return { id: String(data.id) };
+  const hubspotStatus = await syncHubSpotContact(
+    lead.email,
+    hubSpotAccessToken,
+  );
+
+  return { id: String(data.id), hubspotStatus };
 }
