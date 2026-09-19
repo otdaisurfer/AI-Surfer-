@@ -153,12 +153,12 @@ Strong AEO/GEO work can improve the chances that a business's information is:
 
 ## Recommended Starting Point
 
-If you are not sure whether AI-search visibility is your biggest opportunity, begin with the **Free AI Wave Check**.
+If you are not sure whether AI-search visibility is your biggest opportunity, begin with the [**Free AI Wave Check**](https://otdaisurfer.surf/wave-check).
 
 If visibility is already the priority, move directly into the **AEO Wave Audit**.
 
 <CardGroup cols={2}>
-  <Card title="Free AI Wave Check" icon="wave-square" href="/docs/knowledge-hub/features/wave-check">
+  <Card title="Take the Free AI Wave Check" icon="wave-square" href="https://otdaisurfer.surf/wave-check">
     Find out whether visibility, lead flow, automation, support, or another area should come first.
   </Card>
 
