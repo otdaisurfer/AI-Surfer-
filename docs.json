@@ -31,7 +31,7 @@
     "primary": {
       "type": "button",
       "label": "Free AI Wave Check",
-      "href": "https://otdaisurfer.surf/#wave-check"
+      "href": "https://otdaisurfer.surf/wave-check"
     }
   },
   "footer": {
@@ -49,7 +49,7 @@
           },
           {
             "label": "Free AI Wave Check",
-            "href": "https://otdaisurfer.surf/#wave-check"
+            "href": "https://otdaisurfer.surf/wave-check"
           }
         ]
       },
