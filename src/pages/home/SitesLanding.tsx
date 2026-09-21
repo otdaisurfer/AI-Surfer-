@@ -201,16 +201,22 @@ export default function SitesLanding() {
           >
             Start My Free AI Wave Check™
           </a>
-          <figure className="approved-media-card wave-check-hero-media">
-            <img
-              className="approved-landing-image"
-              src="/images/file_00000000f10481f9a3d2f23cc759e7c6.png"
-              alt="Ocean Tide Drop AI SURFER Free AI Wave Check"
-              fetchPriority="high"
-              decoding="async"
-              style={approvedMediaStyle}
-            />
-          </figure>
+          <a
+            className="wave-check-hero-media-link"
+            href="/wave-check"
+            aria-label="Start the Free AI Wave Check"
+            data-funnel-cta="hero-wave-check-image"
+          >
+            <figure className="wave-check-hero-media">
+              <img
+                className="wave-check-hero-image"
+                src="/images/file_00000000f10481f9a3d2f23cc759e7c6.png"
+                alt="Ocean Tide Drop AI SURFER Free AI Wave Check"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </figure>
+          </a>
           <p className="wave-check-hero-footnote">
             Free to start. Clear next step. No giant AI project required.
           </p>
