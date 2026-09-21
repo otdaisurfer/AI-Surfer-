@@ -216,6 +216,45 @@
   margin: 0 auto 110px;
   padding: 0 28px;
 }
+
+.sites-landing .lead-leak-finder {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
+  gap: clamp(28px, 5vw, 62px);
+  max-width: 1184px;
+  margin: 0 auto 110px;
+  padding: clamp(24px, 4vw, 46px);
+  border: 1px solid rgba(24, 238, 241, .3);
+  border-radius: 34px;
+  background: radial-gradient(circle at 8% 0%, rgba(24, 238, 241, .13), transparent 35%), linear-gradient(145deg, rgba(10, 31, 51, .98), rgba(5, 13, 25, .98));
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .38);
+}
+.sites-landing .lead-leak-visual { position: relative; overflow: hidden; width: min(100%, 540px); aspect-ratio: 1; margin: auto; border-radius: 50%; background: transparent; filter: drop-shadow(0 24px 46px rgba(24, 238, 241, .2)); }
+.sites-landing .lead-leak-visual img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.sites-landing .lead-leak-badge-title, .sites-landing .lead-leak-badge-url { position: absolute; right: 13%; left: 13%; z-index: 2; color: #f5fdff; font-weight: 950; letter-spacing: .08em; line-height: 1; text-align: center; text-shadow: 0 0 7px #10e9ff, 0 0 18px rgba(24, 238, 241, .9); }
+.sites-landing .lead-leak-badge-title { top: 5.3%; font-size: clamp(.84rem, 2.5vw, 1.55rem); }
+.sites-landing .lead-leak-badge-url { bottom: 5.5%; font-size: clamp(.72rem, 2.1vw, 1.25rem); }
+.sites-landing .lead-leak-content { align-self: center; }
+.sites-landing .lead-leak-content h2 { margin: 0; font-size: clamp(2.5rem, 5vw, 4.8rem); letter-spacing: -.06em; line-height: .95; }
+.sites-landing .lead-leak-question { margin: 22px 0 0; color: #e5fbff; font-size: clamp(1.05rem, 2vw, 1.35rem); font-weight: 850; line-height: 1.5; }
+.sites-landing .lead-leak-description { margin: 15px 0 25px; color: var(--muted); line-height: 1.72; }
+.sites-landing .lead-leak-cta { border: 0; cursor: pointer; font-family: inherit; }
+.sites-landing .lead-leak-form { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; padding-top: 30px; border-top: 1px solid rgba(24, 238, 241, .15); }
+.sites-landing .lead-leak-form label { display: grid; gap: 9px; color: #e7f7ff; font-size: .88rem; font-weight: 850; line-height: 1.4; }
+.sites-landing .lead-leak-form input, .sites-landing .lead-leak-form select { width: 100%; min-height: 50px; padding: 12px 14px; border: 1px solid rgba(24, 238, 241, .26); border-radius: 12px; color: #fff; background: rgba(2, 12, 24, .9); font: inherit; }
+.sites-landing .lead-leak-result { grid-column: 1 / -1; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding: 22px; border: 1px solid rgba(24, 238, 241, .24); border-radius: 22px; background: rgba(13, 73, 108, .25); }
+.sites-landing .lead-leak-result > span { font-size: 2rem; }
+.sites-landing .lead-leak-result > div { flex: 1; min-width: 240px; }
+.sites-landing .lead-leak-result h3 { margin: 0 0 7px; }
+.sites-landing .lead-leak-result p { margin: 0; color: var(--muted); line-height: 1.6; }
+.sites-landing .lead-leak-journey { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .08); }
+.sites-landing .lead-leak-journey span { padding: 7px 10px; border-radius: 999px; color: #7f95a9; background: rgba(255, 255, 255, .04); font-size: .66rem; font-weight: 900; letter-spacing: .1em; }
+.sites-landing .lead-leak-journey .active { color: #00131b; background: var(--cyan); }
+
+@media (max-width: 760px) {
+  .sites-landing .lead-leak-finder { grid-template-columns: 1fr; margin-right: 18px; margin-left: 18px; }
+  .sites-landing .lead-leak-form { grid-template-columns: 1fr; }
+}
 .sites-landing .approved-media-grid {
   display: grid;
   grid-template-columns: repeat(3,minmax(0,1fr));
