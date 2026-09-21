@@ -616,3 +616,113 @@
   .sites-landing from { text-shadow: 0 0 7px rgba(24,238,241,.12); }
   .sites-landing to { text-shadow: 0 0 16px rgba(24,238,241,.45), 0 0 28px rgba(255,60,185,.18); }
 }
+
+
+/* Wave Check homepage hero */
+.sites-landing .wave-check-hero {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 64px 28px 88px;
+  text-align: center;
+  overflow: hidden;
+}
+.sites-landing .wave-check-hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+}
+.sites-landing .wave-check-hero h1 {
+  max-width: 920px;
+  margin: 0;
+  font-size: clamp(3.2rem,7vw,6.7rem);
+  font-weight: 950;
+  letter-spacing: -.07em;
+  line-height: .94;
+}
+.sites-landing .wave-check-hero h1 span {
+  display: block;
+  color: transparent;
+  background: linear-gradient(90deg, var(--cyan), #78b4ff 38%, var(--purple) 60%, var(--pink) 78%, var(--coral));
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 220% auto;
+  animation: sites-color-dance 5s linear infinite;
+}
+.sites-landing .wave-check-hero-lead {
+  max-width: 820px;
+  margin: 26px auto 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem,2vw,1.28rem);
+  line-height: 1.72;
+}
+.sites-landing .wave-check-hero-cta {
+  position: relative;
+  min-height: 66px;
+  margin-top: 30px;
+  padding: 18px 38px;
+  font-size: clamp(1rem,2.1vw,1.18rem);
+  box-shadow: 0 18px 48px rgba(255,60,185,.26), 0 0 34px rgba(24,238,241,.18);
+  animation: sites-button-shimmer 4s linear infinite, wave-check-pulse 2.8s ease-in-out infinite;
+}
+.sites-landing .wave-check-hero-media {
+  width: min(680px,100%);
+  margin-top: 34px;
+}
+.sites-landing .wave-check-hero-footnote {
+  margin: 18px 0 0;
+  color: #91a8bc;
+  font-size: .82rem;
+  font-weight: 800;
+}
+.sites-landing .wave-check-hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+}
+.sites-landing .wave-check-hero-glow-one {
+  width: 460px;
+  height: 460px;
+  top: 2%;
+  right: 7%;
+  background: rgba(255,60,185,.16);
+}
+.sites-landing .wave-check-hero-glow-two {
+  width: 400px;
+  height: 400px;
+  bottom: 8%;
+  left: 6%;
+  background: rgba(24,238,241,.12);
+}
+@keyframes wave-check-pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.035); }
+}
+
+/* Make the AI Fin launcher self-explanatory and prominent on phones */
+@media (max-width:720px) {
+  .sites-landing .wave-check-hero {
+    padding: 48px 16px 72px;
+  }
+  .sites-landing .wave-check-hero h1 {
+    font-size: clamp(3rem,15vw,5rem);
+  }
+  .sites-landing .wave-check-hero-cta {
+    width: min(100%, 430px);
+    min-height: 70px;
+    padding: 20px 24px;
+    font-size: 1.06rem;
+  }
+  .sites-landing .wave-check-steps .section-heading {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .sites-landing .wave-check-hero-cta,
+  .sites-landing .wave-check-hero h1 span {
+    animation: none !important;
+  }
+}
