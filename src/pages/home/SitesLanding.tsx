@@ -437,7 +437,7 @@ export default function SitesLanding() {
             Enter the Members Area
           </a>
           <a className="text-link" href="/pricing">
-            View implementation options →
+            Go to Pricing →
           </a>
         </div>
       </section>
