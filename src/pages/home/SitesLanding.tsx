@@ -204,8 +204,8 @@ export default function SitesLanding() {
           <figure className="approved-media-card wave-check-hero-media">
             <img
               className="approved-landing-image"
-              src="/images/approved-landing/product-ladder.png"
-              alt="Ocean Tide Drop AI SURFER Wave Check and product journey"
+              src="/images/file_00000000f10481f9a3d2f23cc759e7c6.png"
+              alt="Ocean Tide Drop AI SURFER Free AI Wave Check"
               fetchPriority="high"
               decoding="async"
               style={approvedMediaStyle}
