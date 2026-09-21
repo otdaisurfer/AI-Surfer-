@@ -163,16 +163,19 @@ export default function AiFinChat({ mode, embedded = false }: AiFinChatProps) {
 
   if (!open && !embedded) {
     return (
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label="Open AI Fin"
-        style={styles.launcher}
-      >
-        <Sparkles size={18} />
-        <span>Ask AI Fin</span>
-        <span style={styles.launcherDot} />
-      </button>
+      <div style={styles.launcherWrap}>
+        <div style={styles.launcherHint}>Not sure where to start? Ask me.</div>
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="Open AI Fin"
+          style={styles.launcher}
+        >
+          <Sparkles size={22} />
+          <span>Ask AI Fin</span>
+          <span style={styles.launcherDot} />
+        </button>
+      </div>
     );
   }
 
@@ -332,20 +335,41 @@ export default function AiFinChat({ mode, embedded = false }: AiFinChatProps) {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  launcher: {
+  launcherWrap: {
     position: 'fixed',
-    right: 18,
-    bottom: 18,
+    right: 16,
+    bottom: 16,
     zIndex: 90,
+    display: 'grid',
+    justifyItems: 'end',
+    gap: 8,
+    maxWidth: 'calc(100vw - 32px)',
+  },
+  launcherHint: {
+    padding: '9px 13px',
+    border: '1px solid rgba(255,255,255,.18)',
+    borderRadius: 14,
+    background: 'rgba(6,12,38,.94)',
+    color: '#eaf8ff',
+    fontSize: 12,
+    fontWeight: 800,
+    lineHeight: 1.3,
+    boxShadow: '0 10px 30px rgba(0,0,0,.28)',
+    backdropFilter: 'blur(14px)',
+  },
+  launcher: {
+    display: 'flex',
     display: 'flex',
     alignItems: 'center',
-    gap: 8,
+    gap: 10,
     border: '1px solid rgba(255,255,255,.35)',
     borderRadius: 999,
-    padding: '13px 17px',
+    minHeight: 58,
+    padding: '16px 22px',
     background: 'linear-gradient(135deg,#ff4fb8,#6b5cff 52%,#14d9ff)',
     color: 'white',
     fontWeight: 900,
+    fontSize: 16,
     boxShadow: '0 20px 55px rgba(22,13,82,.48),0 0 28px rgba(20,217,255,.22)',
     cursor: 'pointer',
   },
