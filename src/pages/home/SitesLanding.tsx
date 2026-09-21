@@ -180,50 +180,41 @@ export default function SitesLanding() {
         </div>
       </nav>
 
-      <section className="hero" id="top">
-        <div className="hero-glow hero-glow-one" />
-        <div className="hero-glow hero-glow-two" />
-        <div className="hero-glow hero-glow-pink" />
-        <div className="hero-copy">
-          <p className="eyebrow">AI THAT MOVES YOUR BUSINESS FORWARD</p>
+      <section className="wave-check-hero" id="top">
+        <div className="wave-check-hero-glow wave-check-hero-glow-one" />
+        <div className="wave-check-hero-glow wave-check-hero-glow-two" />
+        <div className="wave-check-hero-inner">
+          <p className="eyebrow">START HERE: FREE AI WAVE CHECK</p>
           <h1>
-            Ride the Wave.
-            <span> Grow with AI.</span>
+            Find your business&apos;s
+            <span> biggest AI opportunity.</span>
           </h1>
-          <p className="hero-lead">
-            High-powered AI tools, custom automation, and specialized software
-            consoles built to help small businesses save time, get found, and grow.
+          <p className="wave-check-hero-lead">
+            Answer five quick questions and get a practical read on where AI can save time,
+            capture more opportunities, improve visibility, or strengthen the way your
+            business runs.
           </p>
-          <div className="hero-actions">
-            <a
-              className="button button-primary"
-              href="/wave-check"
-              data-funnel-cta="hero-wave-check"
-            >
-              Get My Free AI Wave Check™
-            </a>
-            <a className="button button-secondary" href="#product-wave">
-              Explore the Product Wave
-            </a>
-          </div>
-          <div className="trust-line">
-            <span>✓ Built for real businesses</span>
-            <span>✓ Clear next steps</span>
-            <span>✓ Human-first AI</span>
-          </div>
+          <a
+            className="button button-primary wave-check-hero-cta"
+            href="/wave-check"
+            data-funnel-cta="hero-wave-check"
+          >
+            Start My Free AI Wave Check™
+          </a>
+          <figure className="approved-media-card wave-check-hero-media">
+            <img
+              className="approved-landing-image"
+              src="/images/approved-landing/product-ladder.png"
+              alt="Ocean Tide Drop AI SURFER Wave Check and product journey"
+              fetchPriority="high"
+              decoding="async"
+              style={approvedMediaStyle}
+            />
+          </figure>
+          <p className="wave-check-hero-footnote">
+            Free to start. Clear next step. No giant AI project required.
+          </p>
         </div>
-
-        <figure className="approved-media-card hero-media-card">
-          <img
-            className="approved-landing-image"
-            src="/images/approved-landing/product-ladder.png"
-            alt="Ocean Tide Drop AI SURFER product ladder from the AEO Wave Audit through Big Kahuna"
-            fetchPriority="high"
-            decoding="async"
-            style={approvedMediaStyle}
-          />
-          <figcaption>Start with insight. Build, automate, and grow with the right wave.</figcaption>
-        </figure>
       </section>
 
       <section className="wave-check-steps" aria-labelledby="wave-check-steps-title">
@@ -319,24 +310,6 @@ export default function SitesLanding() {
         <p className="revenue-funnel-caption">
           Attract the right visitor, turn interest into action, and keep the relationship growing.
         </p>
-      </section>
-
-      <section className="wave-check" aria-labelledby="wave-check-title">
-        <div>
-          <p className="eyebrow">FREE AI VISIBILITY + OPPORTUNITY CHECK</p>
-          <h2 id="wave-check-title">Can AI find your business and help it run smarter?</h2>
-          <p>
-            Get a fast read on visibility gaps and operational AI opportunities, then
-            leave with practical next steps instead of generic AI advice.
-          </p>
-        </div>
-        <a
-          className="button button-primary"
-          href="/wave-check"
-          data-funnel-cta="midpage-wave-check"
-        >
-          Start My Free Wave Check →
-        </a>
       </section>
 
       <section className="results-preview" aria-labelledby="results-preview-title">
