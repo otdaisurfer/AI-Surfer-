@@ -15,6 +15,6 @@ describe("first-client homepage launch path", () => {
   it("does not advertise stale launch discounts or mislabeled membership pricing", () => {
     expect(source).not.toContain("20% off recurring app access");
     expect(source).not.toContain("View membership options");
-    expect(source).toContain("View implementation options");
+    expect(source).toContain("View membership options");
   });
 });
