@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import "./SitesLanding.css";
 
 const revenueFunnel = ["LAND", "CAPTURE", "AUDIT", "RESULTS", "SELL", "IMPLEMENT", "RETAIN"];
@@ -138,6 +138,26 @@ function DeferredVideo({ src, poster, label }: { src: string; poster: string; la
 }
 
 export default function SitesLanding() {
+  const [leadLeakOpen, setLeadLeakOpen] = useState(false);
+  const [leadLeakComplete, setLeadLeakComplete] = useState(false);
+  const [leadLeakAnswers, setLeadLeakAnswers] = useState({
+    source: "",
+    responseTime: "",
+    owner: "",
+    followUps: "",
+    conversion: "",
+  });
+
+  const updateLeadLeakAnswer = (field: keyof typeof leadLeakAnswers, value: string) => {
+    setLeadLeakAnswers((current) => ({ ...current, [field]: value }));
+  };
+
+  const handleLeadLeakSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    sessionStorage.setItem("ai-surfer-lead-leak-answers", JSON.stringify(leadLeakAnswers));
+    setLeadLeakComplete(true);
+  };
+
   return (
     <main className="sites-landing">
       <style>{`
@@ -257,6 +277,97 @@ export default function SitesLanding() {
               path that fits the opportunity.
             </p>
           </article>
+        </div>
+      </section>
+
+      <section className="lead-leak-finder" id="lead-leak-finder" aria-labelledby="lead-leak-title">
+        <div className="lead-leak-visual">
+          <img
+            src="/images/lead-leak-finder.png"
+            alt="AI Fin finding lost leads in a glowing ocean sales pipeline"
+            loading="lazy"
+            decoding="async"
+          />
+          <strong className="lead-leak-badge-title">LEAD LEAK FINDER</strong>
+          <strong className="lead-leak-badge-url">OTDAISURFER.SURF</strong>
+        </div>
+        <div className="lead-leak-content">
+          <p className="eyebrow">DIAGNOSE · CLIENT-READY SKILL</p>
+          <h2 id="lead-leak-title">Lead Leak Finder</h2>
+          <p className="lead-leak-question">
+            How many potential customers are disappearing because follow-up is too slow—or never happens?
+          </p>
+          <p className="lead-leak-description">
+            AI SURFER traces the path from first inquiry to sale, spots where prospects drift away,
+            and identifies the first follow-up automation worth building.
+          </p>
+          {!leadLeakOpen && (
+            <button className="button button-primary lead-leak-cta" type="button" onClick={() => setLeadLeakOpen(true)}>
+              Find My Lead Leak →
+            </button>
+          )}
+        </div>
+
+        {leadLeakOpen && !leadLeakComplete && (
+          <form className="lead-leak-form" onSubmit={handleLeadLeakSubmit}>
+            <label>
+              1. Where do most new leads come from?
+              <input required value={leadLeakAnswers.source} onChange={(event) => updateLeadLeakAnswer("source", event.target.value)} placeholder="Website, phone, Facebook, referrals…" />
+            </label>
+            <label>
+              2. How quickly do you usually respond?
+              <select required value={leadLeakAnswers.responseTime} onChange={(event) => updateLeadLeakAnswer("responseTime", event.target.value)}>
+                <option value="">Choose a response time</option>
+                <option>Under 5 minutes</option>
+                <option>Within 1 hour</option>
+                <option>Same business day</option>
+                <option>Next day or later</option>
+                <option>It varies</option>
+              </select>
+            </label>
+            <label>
+              3. Who is responsible for following up?
+              <input required value={leadLeakAnswers.owner} onChange={(event) => updateLeadLeakAnswer("owner", event.target.value)} placeholder="Owner, salesperson, office team…" />
+            </label>
+            <label>
+              4. How many follow-ups happen before you stop?
+              <select required value={leadLeakAnswers.followUps} onChange={(event) => updateLeadLeakAnswer("followUps", event.target.value)}>
+                <option value="">Choose the closest answer</option>
+                <option>None</option>
+                <option>One</option>
+                <option>Two or three</option>
+                <option>Four or more</option>
+                <option>No consistent process</option>
+              </select>
+            </label>
+            <label>
+              5. What counts as a successful conversion?
+              <input required value={leadLeakAnswers.conversion} onChange={(event) => updateLeadLeakAnswer("conversion", event.target.value)} placeholder="Booked call, estimate, appointment, purchase…" />
+            </label>
+            <button className="button button-primary lead-leak-cta" type="submit">
+              Show My First Lead Leak Read →
+            </button>
+          </form>
+        )}
+
+        {leadLeakComplete && (
+          <div className="lead-leak-result" role="status">
+            <span aria-hidden="true">🌊</span>
+            <div>
+              <h3>Your Lead Leak Map has started.</h3>
+              <p>
+                Your answers are saved for this visit. Continue to the free AI Wave Check to connect
+                your response time, follow-up ownership, and conversion goal to the clearest automation opportunity.
+              </p>
+            </div>
+            <a className="button button-primary" href="/wave-check">Continue to My AI Wave Check →</a>
+          </div>
+        )}
+
+        <div className="lead-leak-journey" aria-label="AI Surfer customer journey">
+          {["DISCOVER", "DIAGNOSE", "PLAN", "IMPLEMENT", "TRANSFORM"].map((stage) => (
+            <span className={stage === "DIAGNOSE" ? "active" : ""} key={stage}>{stage}</span>
+          ))}
         </div>
       </section>
 
