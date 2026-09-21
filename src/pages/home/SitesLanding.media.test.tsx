@@ -7,7 +7,6 @@ import SitesLanding from "./SitesLanding";
 const approvedImages = [
   "/images/approved-landing/customer-care-cove.png",
   "/images/approved-landing/big-kahuna-visibility.png",
-  "/images/approved-landing/product-ladder.png",
 ];
 
 const approvedVideos = [
@@ -27,7 +26,7 @@ describe("SitesLanding approved media", () => {
     expect(images.map((image) => image.getAttribute("src")).sort()).toEqual([...approvedImages].sort());
     expect(videos.map((video) => video.getAttribute("data-src")).sort()).toEqual([...approvedVideos].sort());
     expect(videos.every((video) => !video.hasAttribute("src"))).toBe(true);
-    expect(images).toHaveLength(3);
+    expect(images).toHaveLength(2);
     expect(videos).toHaveLength(3);
   });
 
@@ -37,7 +36,7 @@ describe("SitesLanding approved media", () => {
     const media = Array.from(document.querySelectorAll<HTMLElement>(".approved-landing-image, .approved-landing-video"));
     const videos = Array.from(document.querySelectorAll<HTMLVideoElement>("video.approved-landing-video"));
 
-    expect(media).toHaveLength(6);
+    expect(media).toHaveLength(5);
     for (const element of media) {
       expect(element.style.aspectRatio).toBe("4 / 5");
       expect(element.style.objectFit).toBe("contain");
