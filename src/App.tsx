@@ -31,6 +31,16 @@ function ShowcaseImage({ src, alt, delay = 0 }: { src: string; alt: string; dela
   if (failed) {
     return <div style={styles.imageFallback}><span>🌊</span><strong>{alt}</strong><small>Artwork ready to sync</small></div>;
   }
+  const handleLeadLeakSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    sessionStorage.setItem('ai-surfer-lead-leak-answers', JSON.stringify(leadLeakAnswers));
+    setLeadLeakComplete(true);
+  };
+
+  const updateLeadLeakAnswer = (field: keyof typeof leadLeakAnswers, value: string) => {
+    setLeadLeakAnswers((current) => ({ ...current, [field]: value }));
+  };
+
   return (
     <img
       className="ai-showcase-image"
@@ -50,6 +60,15 @@ export default function App() {
   const [discountRate, setDiscountRate] = useState(0);
   const [promoStatus, setPromoStatus] = useState<{ msg: string; success: boolean } | null>(null);
   const [loading, setLoading] = useState(false);
+  const [leadLeakOpen, setLeadLeakOpen] = useState(false);
+  const [leadLeakComplete, setLeadLeakComplete] = useState(false);
+  const [leadLeakAnswers, setLeadLeakAnswers] = useState({
+    source: '',
+    responseTime: '',
+    owner: '',
+    followUps: '',
+    conversion: '',
+  });
 
   const handleOpenCheckout = (tier: Tier) => {
     setSelectedTier(tier);
@@ -108,6 +127,11 @@ export default function App() {
         .ai-showcase-image { animation: aiSurferDrift 9s ease-in-out infinite; transition: transform .65s ease, filter .65s ease; }
         .ai-showcase-card:hover .ai-showcase-image { transform: scale(1.075); filter: saturate(1.12) brightness(1.04); }
         .ai-showcase-card:hover { box-shadow: 0 30px 90px rgba(56,189,248,.24) !important; border-color: rgba(103,232,249,.42) !important; }
+        .lead-leak-button { animation: leadLeakPulse 3.2s ease-in-out infinite; }
+        @keyframes leadLeakPulse {
+          0%, 100% { box-shadow: 0 12px 34px rgba(56,189,248,.20); transform: translateY(0); }
+          50% { box-shadow: 0 15px 42px rgba(103,232,249,.38); transform: translateY(-2px); }
+        }
         @media (prefers-reduced-motion: reduce) {
           .ai-showcase-card, .ai-showcase-image { animation: none !important; transition: none !important; }
         }
@@ -147,6 +171,79 @@ export default function App() {
             <p style={styles.muted}>Get a fast read on visibility gaps, missed opportunities, and the first AI-powered move worth making.</p>
           </div>
           <Link to="/wave-check" style={styles.cta}>Start Free →</Link>
+        </section>
+
+        <section id="lead-leak-finder" style={styles.leadLeak} aria-labelledby="lead-leak-title">
+          <div style={styles.leadLeakHeader}>
+            <div>
+              <p style={styles.eyebrow}>DIAGNOSE · CLIENT-READY SKILL</p>
+              <h2 id="lead-leak-title" style={styles.leadLeakTitle}>Lead Leak Finder</h2>
+              <p style={styles.leadLeakQuestion}>“How many potential customers am I losing because I don’t follow up fast enough?”</p>
+              <p style={styles.muted}>Trace the path from first inquiry to sale, reveal where prospects drift away, and identify the first follow-up automation worth building.</p>
+            </div>
+            {!leadLeakOpen && (
+              <button className="lead-leak-button" type="button" onClick={() => setLeadLeakOpen(true)} style={styles.cta}>
+                Find My Lead Leak →
+              </button>
+            )}
+          </div>
+
+          {leadLeakOpen && !leadLeakComplete && (
+            <form onSubmit={handleLeadLeakSubmit} style={styles.leadLeakForm}>
+              <label style={styles.questionLabel}>
+                1. Where do most new leads come from?
+                <input required value={leadLeakAnswers.source} onChange={(event) => updateLeadLeakAnswer('source', event.target.value)} placeholder="Website, phone, Facebook, referrals…" style={styles.leadLeakInput} />
+              </label>
+              <label style={styles.questionLabel}>
+                2. How quickly do you usually respond?
+                <select required value={leadLeakAnswers.responseTime} onChange={(event) => updateLeadLeakAnswer('responseTime', event.target.value)} style={styles.leadLeakInput}>
+                  <option value="">Choose a response time</option>
+                  <option>Under 5 minutes</option>
+                  <option>Within 1 hour</option>
+                  <option>Same business day</option>
+                  <option>Next day or later</option>
+                  <option>It varies</option>
+                </select>
+              </label>
+              <label style={styles.questionLabel}>
+                3. Who is responsible for following up?
+                <input required value={leadLeakAnswers.owner} onChange={(event) => updateLeadLeakAnswer('owner', event.target.value)} placeholder="Owner, salesperson, office team…" style={styles.leadLeakInput} />
+              </label>
+              <label style={styles.questionLabel}>
+                4. How many follow-ups happen before you stop?
+                <select required value={leadLeakAnswers.followUps} onChange={(event) => updateLeadLeakAnswer('followUps', event.target.value)} style={styles.leadLeakInput}>
+                  <option value="">Choose the closest answer</option>
+                  <option>None</option>
+                  <option>One</option>
+                  <option>Two or three</option>
+                  <option>Four or more</option>
+                  <option>No consistent process</option>
+                </select>
+              </label>
+              <label style={styles.questionLabel}>
+                5. What counts as a successful conversion?
+                <input required value={leadLeakAnswers.conversion} onChange={(event) => updateLeadLeakAnswer('conversion', event.target.value)} placeholder="Booked call, estimate, appointment, purchase…" style={styles.leadLeakInput} />
+              </label>
+              <button className="lead-leak-button" type="submit" style={styles.cta}>Show My First Lead Leak Read →</button>
+            </form>
+          )}
+
+          {leadLeakComplete && (
+            <div role="status" style={styles.leadLeakResult}>
+              <span style={styles.resultIcon}>🌊</span>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ margin: '0 0 8px' }}>Your Lead Leak Map has started.</h3>
+                <p style={{ ...styles.muted, margin: 0 }}>Your answers are saved for this visit. The next step is the free AI Wave Check, where AI Surfer can connect your response time, follow-up ownership, and conversion goal to the clearest automation opportunity.</p>
+              </div>
+              <Link to="/wave-check" style={styles.cta}>Continue to My AI Wave Check →</Link>
+            </div>
+          )}
+
+          <div style={styles.journeyRow} aria-label="AI Surfer customer journey">
+            {['DISCOVER', 'DIAGNOSE', 'PLAN', 'IMPLEMENT', 'TRANSFORM'].map((stage, index) => (
+              <span key={stage} style={{ ...styles.journeyStage, ...(index === 1 ? styles.journeyStageActive : {}) }}>{stage}</span>
+            ))}
+          </div>
         </section>
 
         <section style={styles.showcaseSection}>
@@ -246,6 +343,18 @@ const styles: Record<string, React.CSSProperties> = {
   waveCheckTitle: { margin: 0, fontSize: 'clamp(1.5rem,3vw,2.2rem)' },
   eyebrow: { margin: '0 0 12px', color: '#67e8f9', fontSize: '.76rem', fontWeight: 950, letterSpacing: '.18em' },
   muted: { color: '#a7bacd', lineHeight: 1.65 },
+  leadLeak: { maxWidth: 980, margin: '0 auto 72px', padding: 'clamp(24px,4vw,42px)', borderRadius: 30, border: '1px solid rgba(103,232,249,.28)', background: 'radial-gradient(circle at 10% 0%,rgba(14,116,144,.23),transparent 38%),linear-gradient(145deg,rgba(9,31,51,.98),rgba(4,14,28,.98))', boxShadow: '0 24px 90px rgba(0,0,0,.28)' },
+  leadLeakHeader: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 28, flexWrap: 'wrap' },
+  leadLeakTitle: { margin: 0, fontSize: 'clamp(2rem,5vw,3.6rem)', letterSpacing: '-.035em' },
+  leadLeakQuestion: { maxWidth: 720, margin: '16px 0 8px', color: '#e7fbff', fontSize: 'clamp(1.05rem,2.3vw,1.35rem)', fontWeight: 800, lineHeight: 1.45 },
+  leadLeakForm: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 18, marginTop: 30, paddingTop: 30, borderTop: '1px solid rgba(103,232,249,.16)' },
+  questionLabel: { display: 'grid', gap: 9, color: '#e7f7ff', fontWeight: 800, lineHeight: 1.4, textAlign: 'left' },
+  leadLeakInput: { width: '100%', boxSizing: 'border-box', minHeight: 48, padding: '12px 13px', borderRadius: 12, background: 'rgba(2,12,24,.88)', color: '#fff', border: '1px solid rgba(103,232,249,.25)', font: 'inherit' },
+  leadLeakResult: { display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap', marginTop: 28, padding: 22, borderRadius: 22, background: 'rgba(12,74,110,.22)', border: '1px solid rgba(103,232,249,.25)' },
+  resultIcon: { fontSize: '2rem' },
+  journeyRow: { display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 28, paddingTop: 22, borderTop: '1px solid rgba(255,255,255,.08)' },
+  journeyStage: { padding: '7px 10px', borderRadius: 999, color: '#7f95a9', background: 'rgba(255,255,255,.035)', fontSize: '.68rem', fontWeight: 900, letterSpacing: '.10em' },
+  journeyStageActive: { color: '#00131c', background: '#67e8f9' },
   showcaseSection: { padding: '52px 0 74px', textAlign: 'center' },
   sectionTitle: { margin: '0 auto', fontSize: 'clamp(2.1rem,5vw,4rem)', lineHeight: 1.02, letterSpacing: '-.035em' },
   sectionLead: { maxWidth: 760, margin: '18px auto 34px', color: '#a8b7cc', lineHeight: 1.7, fontSize: '1.04rem' },
