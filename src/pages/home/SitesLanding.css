@@ -588,34 +588,19 @@
   animation: sites-neon-wink 3.8s ease-in-out infinite alternate;
 }
 
-@keyframes sites-sparkle-drift {
-  .sites-landing to { background-position: 12% 188%, 72% 206%, 88% 246%; }
-}
+@keyframes sites-sparkle-drift { to { background-position: 12% 188%, 72% 206%, 88% 246%; } }
 
-@keyframes sites-sparkle-fade {
-  .sites-landing 0% { opacity: .34; }
-  .sites-landing 55% { opacity: .7; }
-  .sites-landing 100% { opacity: .48; }
-}
+@keyframes sites-sparkle-fade { 0% { opacity: .34; } 55% { opacity: .7; } 100% { opacity: .48; } }
 
-@keyframes sites-logo-dance {
-  .sites-landing 0%, .sites-landing 100% { transform: translateY(0) rotate(1.4deg); }
-  .sites-landing 35% { transform: translateY(-10px) rotate(-.6deg); }
-  .sites-landing 70% { transform: translateY(4px) rotate(2deg); }
-}
+@keyframes sites-logo-dance { 0%,100% { transform: translateY(0) rotate(1.4deg); } 35% { transform: translateY(-10px) rotate(-.6deg); } 70% { transform: translateY(4px) rotate(2deg); } }
 
-@keyframes sites-color-dance {
-  .sites-landing to { background-position: 220% center; }
-}
+@keyframes sites-color-dance { to { background-position: 220% center; } }
 
 @keyframes sites-button-shimmer {
   to { background-position: 230% center; }
 }
 
-@keyframes sites-neon-wink {
-  .sites-landing from { text-shadow: 0 0 7px rgba(24,238,241,.12); }
-  .sites-landing to { text-shadow: 0 0 16px rgba(24,238,241,.45), 0 0 28px rgba(255,60,185,.18); }
-}
+@keyframes sites-neon-wink { from { text-shadow: 0 0 7px rgba(24,238,241,.12); } to { text-shadow: 0 0 16px rgba(24,238,241,.45), 0 0 28px rgba(255,60,185,.18); } }
 
 
 /* Wave Check homepage hero */
@@ -818,4 +803,29 @@
 }
 @media (max-width:720px) {
   .sites-landing .wave-check-hero-media-link { width: min(430px, 88vw); margin-top: 28px; }
+}
+
+
+/* Live polish: true twinkle + keep full Wave Check artwork visible in circle */
+.sites-landing::before {
+  z-index: 1;
+  background-repeat: repeat;
+  animation: sites-sparkle-drift 16s linear infinite, sites-sparkle-fade 2.9s ease-in-out infinite alternate;
+}
+.sites-landing > * {
+  position: relative;
+  z-index: 2;
+}
+.sites-landing .wave-check-hero-media {
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, rgba(24,238,241,.12), #071423 72%);
+}
+.sites-landing .wave-check-hero-media .approved-landing-image {
+  width: 94% !important;
+  height: 94% !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: transparent !important;
 }
