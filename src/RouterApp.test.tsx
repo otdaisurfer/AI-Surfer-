@@ -45,7 +45,7 @@ describe("shared site branding", () => {
       expect(stagePosition).toBeGreaterThan(previousPosition);
       return stagePosition;
     }, funnelStart);
-    expect(html.match(/class="product-card-cta button button-primary"/g)).toHaveLength(9);
+    expect(html.match(/class="product-card-cta button button-primary"/g)).toHaveLength(10);
   });
 
   it("makes the Free AI Wave Check the primary homepage conversion action", () => {
