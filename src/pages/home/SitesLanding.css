@@ -248,7 +248,8 @@
 .sites-landing .lead-leak-result h3 { margin: 0 0 7px; }
 .sites-landing .lead-leak-result p { margin: 0; color: var(--muted); line-height: 1.6; }
 .sites-landing .lead-leak-journey { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .08); }
-.sites-landing .lead-leak-journey span { padding: 7px 10px; border-radius: 999px; color: #7f95a9; background: rgba(255, 255, 255, .04); font-size: .66rem; font-weight: 900; letter-spacing: .1em; }
+.sites-landing .lead-leak-journey span { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 999px; color: #7f95a9; background: rgba(255, 255, 255, .04); font-size: .66rem; font-weight: 900; letter-spacing: .1em; }
+.sites-landing .lead-leak-journey img { width: 28px; height: 28px; object-fit: contain; }
 .sites-landing .lead-leak-journey .active { color: #00131b; background: var(--cyan); }
 
 @media (max-width: 760px) {
@@ -459,6 +460,13 @@
   background: radial-gradient(circle at 100% 0%,rgba(255,60,185,.16),transparent 32%),linear-gradient(145deg,#102238,#080f1e);
 }
 .sites-landing .product-topline { display: flex; align-items: center; justify-content: space-between; }
+.sites-landing .product-agent-icon {
+  width: 92px;
+  height: 92px;
+  margin: 24px 0 0;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 22px rgba(24,238,241,.2));
+}
 .sites-landing .stage {
   padding: 7px 10px;
   border: 1px solid currentColor;
@@ -475,7 +483,7 @@
 .sites-landing .stage-transform { color: #ffc653; }
 .sites-landing .product-number { color: #3b546b; font-size: .74rem; font-weight: 800; }
 .sites-landing .product-category {
-  margin: 36px 0 10px;
+  margin: 28px 0 10px;
   color: #6d879f;
   font-size: .7rem;
   font-weight: 850;
@@ -579,6 +587,7 @@
   .sites-landing .section-heading { margin-bottom: 38px; text-align: left; }
   .sites-landing .product-grid { grid-template-columns: 1fr; }
   .sites-landing .product-card { min-height: 310px; }
+  .sites-landing .product-agent-icon { width: 82px; height: 82px; }
   .sites-landing .membership { display: block; margin: 0 16px 55px; padding: 40px 24px; border-radius: 28px; }
   .sites-landing .membership-actions { align-items: stretch; min-width: 0; margin-top: 30px; text-align: center; }
   .sites-landing footer { padding: 32px 20px 40px; }

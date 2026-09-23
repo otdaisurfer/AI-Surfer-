@@ -3,6 +3,14 @@ import "./SitesLanding.css";
 
 const revenueFunnel = ["LAND", "CAPTURE", "AUDIT", "RESULTS", "SELL", "IMPLEMENT", "RETAIN"];
 
+const customerJourney = [
+  { stage: "DISCOVER", icon: "/icons/ai-surfer/discover.webp" },
+  { stage: "DIAGNOSE", icon: "/icons/ai-surfer/diagnose.webp" },
+  { stage: "PLAN", icon: "/icons/ai-surfer/plan.webp" },
+  { stage: "IMPLEMENT", icon: "/icons/ai-surfer/implement.webp" },
+  { stage: "TRANSFORM", icon: "/icons/ai-surfer/transform.webp" },
+];
+
 const approvedMediaStyle = {
   display: "block",
   width: "100%",
@@ -52,6 +60,7 @@ const products = [
   {
     stage: "Implement",
     name: "Wave Scout™",
+    icon: "/icons/ai-surfer/wave-scout.webp",
     category: "Lead Generation AI",
     description:
       "Identify prospects, research buying signals, and organize opportunities so your team spends less time hunting and more time closing.",
@@ -61,6 +70,7 @@ const products = [
   {
     stage: "Implement",
     name: "Sales Rider™",
+    icon: "/icons/ai-surfer/sales-rider.webp",
     category: "AI Sales Assistant",
     description:
       "Turn leads into conversations and conversations into opportunities with an always-on sales assistant.",
@@ -70,6 +80,7 @@ const products = [
   {
     stage: "Implement",
     name: "Content Creator™",
+    icon: "/icons/ai-surfer/content-creator.webp",
     category: "AI Marketing Engine",
     description:
       "Generate strategic social posts, emails, blogs, campaigns, offers, and marketing assets while keeping your message aligned.",
@@ -78,7 +89,18 @@ const products = [
   },
   {
     stage: "Implement",
+    name: "Customer Care Cove™",
+    icon: "/icons/ai-surfer/customer-care-cove.webp",
+    category: "AI Customer Support",
+    description:
+      "Answer routine questions faster, guide customers to the right next step, and escalate important conversations to a real person.",
+    cta: "Improve Customer Care",
+    href: "/members/products/customer-care-cove",
+  },
+  {
+    stage: "Implement",
     name: "Automation Architect™",
+    icon: "/icons/ai-surfer/automation-architect.webp",
     category: "AI Business Automation",
     description:
       "Connect processes, tools, data, and AI agents to automate repetitive work and create a more scalable operation.",
@@ -88,6 +110,7 @@ const products = [
   {
     stage: "Transform",
     name: "Big Kahuna™",
+    icon: "/icons/ai-surfer/big-kahuna.webp",
     category: "AI Growth Architect",
     video: "/images/approved-landing/big-kahuna-animated.mp4",
     poster: "/images/approved-landing/big-kahuna-visibility.png",
@@ -365,8 +388,11 @@ export default function SitesLanding() {
         )}
 
         <div className="lead-leak-journey" aria-label="AI Surfer customer journey">
-          {["DISCOVER", "DIAGNOSE", "PLAN", "IMPLEMENT", "TRANSFORM"].map((stage) => (
-            <span className={stage === "DIAGNOSE" ? "active" : ""} key={stage}>{stage}</span>
+          {customerJourney.map(({ stage, icon }) => (
+            <span className={stage === "DIAGNOSE" ? "active" : ""} key={stage}>
+              <img src={icon} alt="" aria-hidden="true" loading="lazy" />
+              {stage}
+            </span>
           ))}
         </div>
       </section>
@@ -508,6 +534,15 @@ export default function SitesLanding() {
                   </span>
                   <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
                 </div>
+                {product.icon ? (
+                  <img
+                    className="product-agent-icon"
+                    src={product.icon}
+                    alt={`${product.name} icon`}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : null}
                 <p className="product-category">{product.category}</p>
                 <h3>{product.name}</h3>
                 <p className="product-description">{product.description}</p>
