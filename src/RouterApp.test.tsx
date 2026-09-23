@@ -24,8 +24,8 @@ describe("shared site branding", () => {
 
   it("renders the approved AI Surfer landing page at the site root", () => {
     const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/"]}><AuthProvider><RouterApp /></AuthProvider></MemoryRouter>);
-    expect(html).toContain("Ride the Wave.");
-    expect(html).toContain("Grow with AI.");
+    expect(html).toContain("Find your business");
+    expect(html).toContain("biggest AI opportunity.");
     expect(html).toContain("THE AI SURFER PRODUCT WAVE");
     expect(html).toContain('aria-label="Ocean Tide Drop AI SURFER home"');
     expect(html).toContain('data-homepage-logo="true"');
@@ -55,7 +55,7 @@ describe("shared site branding", () => {
       </MemoryRouter>,
     );
 
-    expect(html).toContain("Get My Free AI Wave Check™");
+    expect(html).toContain("Start My Free AI Wave Check™");
     expect(html).toContain('data-funnel-cta="hero-wave-check"');
     expect(html).toContain('href="/wave-check"');
     expect(html).not.toContain('href="https://otdaisurfer.surf/wave-check"');
@@ -72,7 +72,8 @@ describe("shared site branding", () => {
     expect(html).toContain("See your strongest AI opportunity");
     expect(html).toContain("Get a clear next step");
     expect(html).toContain("Turn the recommendation into action");
-    expect(html).toContain('data-funnel-cta="midpage-wave-check"');
+    expect(html).toContain("See Implementation Options");
+    expect(html).toContain('href="/pricing"');
   });
 
   it("keeps products, pricing, and members connected to the funnel", () => {
