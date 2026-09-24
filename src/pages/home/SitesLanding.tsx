@@ -167,20 +167,19 @@ export default function SitesLanding() {
         <a href="/wave-check">Find my biggest AI opportunity →</a>
       </div>
 
+      <a className="landing-logo-link" href="#top" aria-label="Ocean Tide Drop AI SURFER home">
+        <img
+          className="landing-logo"
+          src="/ocean_tide_logo.png"
+          alt=""
+          aria-hidden="true"
+          data-homepage-logo="true"
+          fetchPriority="high"
+          decoding="async"
+        />
+      </a>
+
       <nav className="nav-shell" aria-label="Main navigation">
-        <a className="brand" href="#top" aria-label="Ocean Tide Drop AI SURFER home">
-          <img
-            className="brand-mark"
-            src="/ocean_tide_logo.png"
-            alt=""
-            aria-hidden="true"
-            data-homepage-logo="true"
-          />
-          <span>
-            <strong>Ocean Tide Drop</strong>
-            <small>AI SURFER</small>
-          </span>
-        </a>
         <div className="nav-links">
           <a href="#product-wave">Products</a>
           <a href="/wave-check">Free Wave Check</a>
