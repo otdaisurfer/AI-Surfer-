@@ -39,7 +39,7 @@ const products = [
       "Answer five questions about where inquiries arrive, response time, follow-up ownership, and conversion. See which part of your lead path needs attention first.",
     cta: "Find My Lead Leak",
     href: "#lead-leak-finder",
-    image: "/images/lead-leak-finder.png",
+    image: "/images/file_00000000a1e481f9b0737d59a06238ce.png",
   },
   {
     stage: "Diagnose",
@@ -317,7 +317,7 @@ export default function SitesLanding() {
       <section className="lead-leak-finder" id="lead-leak-finder" aria-labelledby="lead-leak-title">
         <div className="lead-leak-visual">
           <img
-            src="/images/lead-leak-finder.png"
+            src="/images/file_00000000a1e481f9b0737d59a06238ce.png"
             alt="AI Fin finding lost leads in a glowing ocean sales pipeline"
             loading="lazy"
             decoding="async"
