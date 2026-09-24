@@ -165,7 +165,7 @@ export default function AiFinChat({ mode, embedded = false }: AiFinChatProps) {
   if (!open && !embedded) {
     return (
       <div style={styles.launcherWrap}>
-        <div style={styles.launcherHint}>Not sure where to start? Ask me.</div>
+        <div style={styles.launcherHint}>Come say hi to AI Fin 🐬</div>
         <button
           type="button"
           onClick={() => setOpen(true)}
