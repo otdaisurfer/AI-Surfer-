@@ -881,11 +881,11 @@
 /* Softer product information cards and clear artwork for the first two checks. */
 .sites-landing .brand-mark {
   display: block;
-  width: 52px;
-  height: 52px;
+  width: 94px;
+  height: 54px;
   padding: 3px;
   object-fit: contain;
-  background: #e6faff;
+  background: #061727;
   border-color: rgba(41, 166, 194, .38);
 }
 .sites-landing .wave-check-hero-image {
