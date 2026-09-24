@@ -10,13 +10,24 @@ const approvedImages = [
 ];
 
 const approvedVideos = [
-  "/images/approved-landing/big-kahuna-animated.mp4",
   "/images/approved-landing/ai-visibility-animated.mp4",
   "/images/approved-landing/product-ladder-animated.mp4",
 ];
 
 describe("SitesLanding approved media", () => {
-  it("renders exactly the six approved landing assets", () => {
+  it("gives every product one image and leaves the Lead Leak badge text unobstructed", () => {
+    const document = new JSDOM(renderToStaticMarkup(<SitesLanding />)).window.document;
+    const cards = Array.from(document.querySelectorAll<HTMLElement>(".product-card"));
+    const sources = cards.map((card) => card.querySelector(".product-card-image-link img")?.getAttribute("src"));
+
+    expect(cards).toHaveLength(11);
+    expect(sources.every(Boolean)).toBe(true);
+    expect(new Set(sources).size).toBe(cards.length);
+    expect(document.querySelector(".lead-leak-badge-title, .lead-leak-badge-url")).toBeNull();
+    expect(document.querySelector(".product-card video, .product-agent-icon")).toBeNull();
+  });
+
+  it("keeps the approved showcase and product ladder media", () => {
     const markup = renderToStaticMarkup(<SitesLanding />);
     const document = new JSDOM(markup).window.document;
 
@@ -27,7 +38,7 @@ describe("SitesLanding approved media", () => {
     expect(videos.map((video) => video.getAttribute("data-src")).sort()).toEqual([...approvedVideos].sort());
     expect(videos.every((video) => !video.hasAttribute("src"))).toBe(true);
     expect(images).toHaveLength(2);
-    expect(videos).toHaveLength(3);
+    expect(videos).toHaveLength(2);
   });
 
   it("keeps portrait media framed, accessible, and fallback-ready", () => {
@@ -36,7 +47,7 @@ describe("SitesLanding approved media", () => {
     const media = Array.from(document.querySelectorAll<HTMLElement>(".approved-landing-image, .approved-landing-video"));
     const videos = Array.from(document.querySelectorAll<HTMLVideoElement>("video.approved-landing-video"));
 
-    expect(media).toHaveLength(5);
+    expect(media).toHaveLength(4);
     for (const element of media) {
       expect(element.style.aspectRatio).toBe("4 / 5");
       expect(element.style.objectFit).toBe("contain");
