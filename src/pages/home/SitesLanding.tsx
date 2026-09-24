@@ -44,6 +44,7 @@ const products = [
   {
     stage: "Diagnose",
     name: "AI Opportunity Report™",
+    image: "/images/product-cards/ai-opportunity-report.webp",
     category: "Business AI Strategy",
     description:
       "Turn scattered AI possibilities into a prioritized list of the opportunities most likely to create measurable business value.",
@@ -53,6 +54,7 @@ const products = [
   {
     stage: "Plan",
     name: "AEO Blueprint™",
+    image: "/images/product-cards/aeo-blueprint.webp",
     category: "AI Search Strategy",
     description:
       "Build a practical roadmap for becoming more visible, understandable, and authoritative across AI-powered answer engines.",
@@ -62,6 +64,7 @@ const products = [
   {
     stage: "Plan",
     name: "Automation Blueprint™",
+    image: "/images/product-cards/automation-blueprint.webp",
     category: "AI Workflow Strategy",
     description:
       "Map repetitive work into AI-powered workflows that reduce manual effort, connect your tools, and make operations more scalable.",
@@ -71,7 +74,7 @@ const products = [
   {
     stage: "Implement",
     name: "Wave Scout™",
-    icon: "/icons/ai-surfer/wave-scout.webp",
+    image: "/images/product-cards/wave-scout.webp",
     category: "Lead Generation AI",
     description:
       "Identify prospects, research buying signals, and organize opportunities so your team spends less time hunting and more time closing.",
@@ -81,7 +84,7 @@ const products = [
   {
     stage: "Implement",
     name: "Sales Rider™",
-    icon: "/icons/ai-surfer/sales-rider.webp",
+    image: "/images/product-cards/sales-rider.webp",
     category: "AI Sales Assistant",
     description:
       "Turn leads into conversations and conversations into opportunities with an always-on sales assistant.",
@@ -91,7 +94,7 @@ const products = [
   {
     stage: "Implement",
     name: "Content Creator™",
-    icon: "/icons/ai-surfer/content-creator.webp",
+    image: "/images/product-cards/content-creator.webp",
     category: "AI Marketing Engine",
     description:
       "Generate strategic social posts, emails, blogs, campaigns, offers, and marketing assets while keeping your message aligned.",
@@ -101,7 +104,7 @@ const products = [
   {
     stage: "Implement",
     name: "Customer Care Cove™",
-    icon: "/icons/ai-surfer/customer-care-cove.webp",
+    image: "/images/product-cards/customer-care-cove.webp",
     category: "AI Customer Support",
     description:
       "Answer routine questions faster, guide customers to the right next step, and escalate important conversations to a real person.",
@@ -111,7 +114,7 @@ const products = [
   {
     stage: "Implement",
     name: "Automation Architect™",
-    icon: "/icons/ai-surfer/automation-architect.webp",
+    image: "/images/product-cards/automation-architect.webp",
     category: "AI Business Automation",
     description:
       "Connect processes, tools, data, and AI agents to automate repetitive work and create a more scalable operation.",
@@ -121,10 +124,8 @@ const products = [
   {
     stage: "Transform",
     name: "Big Kahuna™",
-    icon: "/icons/ai-surfer/big-kahuna.webp",
+    image: "/images/product-cards/big-kahuna.webp",
     category: "AI Growth Architect",
-    video: "/images/approved-landing/big-kahuna-animated.mp4",
-    poster: "/images/approved-landing/big-kahuna-visibility.png",
     description:
       "Bring strategy, visibility, automation, agents, workflows, and growth opportunities together into one complete AI transformation experience.",
     cta: "Go Big Kahuna",
@@ -322,8 +323,6 @@ export default function SitesLanding() {
             loading="lazy"
             decoding="async"
           />
-          <strong className="lead-leak-badge-title">LEAD LEAK FINDER</strong>
-          <strong className="lead-leak-badge-url">OTDAISURFER.SURF</strong>
         </div>
         <div className="lead-leak-content">
           <p className="eyebrow">DIAGNOSE · CLIENT-READY SKILL</p>
@@ -530,18 +529,9 @@ export default function SitesLanding() {
               style={{ overflow: "hidden", padding: 0, animationDelay: `${index * 0.35}s` }}
             >
               {product.image ? (
-                <a className="product-card-media product-card-image-link" href={product.href} aria-label={product.cta}>
+                <a className={`product-card-media product-card-image-link ${product.image.startsWith("/images/product-cards/") ? "product-card-image-link--editorial" : ""}`} href={product.href} aria-label={product.cta}>
                   <img src={product.image} alt={`${product.name} artwork`} loading="lazy" decoding="async" />
                 </a>
-              ) : null}
-              {product.video && product.poster ? (
-                <div className="product-card-media">
-                  <DeferredVideo
-                    src={product.video}
-                    poster={product.poster}
-                    label={`${product.name} animated AI visibility strategy artwork`}
-                  />
-                </div>
               ) : null}
               <div style={{ display: "flex", flexDirection: "column", flex: 1, padding: 25 }}>
                 <div className="product-topline">
@@ -550,15 +540,6 @@ export default function SitesLanding() {
                   </span>
                   <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
                 </div>
-                {product.icon ? (
-                  <img
-                    className="product-agent-icon"
-                    src={product.icon}
-                    alt={`${product.name} icon`}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ) : null}
                 <p className="product-category">{product.category}</p>
                 <h3>{product.name}</h3>
                 <p className="product-description">{product.description}</p>
