@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useState } from "react";
 import "./SitesLanding.css";
 
 const revenueFunnel = ["LAND", "CAPTURE", "AUDIT", "RESULTS", "SELL", "IMPLEMENT", "RETAIN"];
@@ -10,14 +10,6 @@ const customerJourney = [
   { stage: "IMPLEMENT", icon: "/icons/ai-surfer/implement.webp" },
   { stage: "TRANSFORM", icon: "/icons/ai-surfer/transform.webp" },
 ];
-
-const approvedMediaStyle = {
-  display: "block",
-  width: "100%",
-  aspectRatio: "4 / 5",
-  objectFit: "contain",
-  maxHeight: 560,
-} as const;
 
 const products = [
   {
@@ -44,7 +36,6 @@ const products = [
   {
     stage: "Diagnose",
     name: "AI Opportunity Report™",
-    image: "/images/product-cards/ai-opportunity-report.webp",
     category: "Business AI Strategy",
     description:
       "Turn scattered AI possibilities into a prioritized list of the opportunities most likely to create measurable business value.",
@@ -54,7 +45,6 @@ const products = [
   {
     stage: "Plan",
     name: "AEO Blueprint™",
-    image: "/images/product-cards/aeo-blueprint.webp",
     category: "AI Search Strategy",
     description:
       "Build a practical roadmap for becoming more visible, understandable, and authoritative across AI-powered answer engines.",
@@ -64,7 +54,6 @@ const products = [
   {
     stage: "Plan",
     name: "Automation Blueprint™",
-    image: "/images/product-cards/automation-blueprint.webp",
     category: "AI Workflow Strategy",
     description:
       "Map repetitive work into AI-powered workflows that reduce manual effort, connect your tools, and make operations more scalable.",
@@ -74,7 +63,6 @@ const products = [
   {
     stage: "Implement",
     name: "Wave Scout™",
-    image: "/images/product-cards/wave-scout.webp",
     category: "Lead Generation AI",
     description:
       "Identify prospects, research buying signals, and organize opportunities so your team spends less time hunting and more time closing.",
@@ -84,7 +72,6 @@ const products = [
   {
     stage: "Implement",
     name: "Sales Rider™",
-    image: "/images/product-cards/sales-rider.webp",
     category: "AI Sales Assistant",
     description:
       "Turn leads into conversations and conversations into opportunities with an always-on sales assistant.",
@@ -94,7 +81,6 @@ const products = [
   {
     stage: "Implement",
     name: "Content Creator™",
-    image: "/images/product-cards/content-creator.webp",
     category: "AI Marketing Engine",
     description:
       "Generate strategic social posts, emails, blogs, campaigns, offers, and marketing assets while keeping your message aligned.",
@@ -104,7 +90,6 @@ const products = [
   {
     stage: "Implement",
     name: "Customer Care Cove™",
-    image: "/images/product-cards/customer-care-cove.webp",
     category: "AI Customer Support",
     description:
       "Answer routine questions faster, guide customers to the right next step, and escalate important conversations to a real person.",
@@ -114,7 +99,6 @@ const products = [
   {
     stage: "Implement",
     name: "Automation Architect™",
-    image: "/images/product-cards/automation-architect.webp",
     category: "AI Business Automation",
     description:
       "Connect processes, tools, data, and AI agents to automate repetitive work and create a more scalable operation.",
@@ -124,7 +108,6 @@ const products = [
   {
     stage: "Transform",
     name: "Big Kahuna™",
-    image: "/images/product-cards/big-kahuna.webp",
     category: "AI Growth Architect",
     description:
       "Bring strategy, visibility, automation, agents, workflows, and growth opportunities together into one complete AI transformation experience.",
@@ -133,44 +116,6 @@ const products = [
     featured: true,
   },
 ];
-
-function DeferredVideo({ src, poster, label }: { src: string; poster: string; label: string }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || typeof IntersectionObserver === "undefined") return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        video.src = src;
-        void video.play().catch(() => undefined);
-        observer.disconnect();
-      },
-      { rootMargin: "240px 0px" },
-    );
-
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, [src]);
-
-  return (
-    <video
-      ref={videoRef}
-      className="approved-landing-video"
-      data-src={src}
-      poster={poster}
-      aria-label={label}
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="none"
-      style={approvedMediaStyle}
-    />
-  );
-}
 
 export default function SitesLanding() {
   const [leadLeakOpen, setLeadLeakOpen] = useState(false);
@@ -200,7 +145,6 @@ export default function SitesLanding() {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-7px); }
         }
-        .product-card { animation: landingWaveFloat 7s ease-in-out infinite; }
         @media (prefers-reduced-motion: reduce) {
           .product-card {
             animation: none !important;
@@ -407,49 +351,6 @@ export default function SitesLanding() {
         </div>
       </section>
 
-      <section className="approved-showcase" aria-labelledby="approved-showcase-title">
-        <div className="section-heading">
-          <p className="eyebrow">SEE THE AI SURFER SYSTEM</p>
-          <h2 id="approved-showcase-title">Practical AI support for visibility, customers, and growth.</h2>
-        </div>
-        <div className="approved-media-grid">
-          <figure className="approved-media-card">
-            <img
-              className="approved-landing-image"
-              src="/images/approved-landing/customer-care-cove.png"
-              alt="Customer Care Cove showing faster answers, FAQ support, appointment triage, and owner escalation"
-              loading="lazy"
-              fetchPriority="low"
-              decoding="async"
-              style={approvedMediaStyle}
-            />
-            <figcaption>Customer Care Cove keeps customer conversations flowing.</figcaption>
-          </figure>
-
-          <figure className="approved-media-card">
-            <DeferredVideo
-              src="/images/approved-landing/ai-visibility-animated.mp4"
-              poster="/images/approved-landing/big-kahuna-visibility.png"
-              label="Animated AI visibility strategy artwork"
-            />
-            <figcaption>Become easier for Google and AI answer engines to find and trust.</figcaption>
-          </figure>
-
-          <figure className="approved-media-card">
-            <img
-              className="approved-landing-image"
-              src="/images/approved-landing/big-kahuna-visibility.png"
-              alt="Big Kahuna strategy showing AEO, GEO, Google, ChatGPT, Gemini, and Perplexity visibility"
-              loading="lazy"
-              fetchPriority="low"
-              decoding="async"
-              style={approvedMediaStyle}
-            />
-            <figcaption>Big Kahuna connects visibility, authority, automation, and growth.</figcaption>
-          </figure>
-        </div>
-      </section>
-
       <section className="revenue-funnel" aria-label="AI Surfer revenue funnel">
         <p className="eyebrow">YOUR COMPLETE AI SALES MACHINE</p>
         <div className="revenue-funnel-track">
@@ -512,42 +413,38 @@ export default function SitesLanding() {
           </p>
         </div>
 
-        <figure className="approved-media-card product-ladder-media-card">
-          <DeferredVideo
-            src="/images/approved-landing/product-ladder-animated.mp4"
-            poster="/images/approved-landing/product-ladder.png"
-            label="Animated Ocean Tide Drop AI SURFER product ladder"
-          />
-          <figcaption>Ride from your first Wave Check to a connected AI growth system.</figcaption>
-        </figure>
-
         <div className="product-grid">
           {products.map((product, index) => (
             <article
-              className={`product-card ${product.featured ? "product-card-featured" : ""}`}
+              className={`product-card product-card--${product.stage.toLowerCase()} ${product.featured ? "product-card-featured" : ""}`}
               key={product.name}
-              style={{ overflow: "hidden", padding: 0, animationDelay: `${index * 0.35}s` }}
             >
-              {product.image ? (
-                <a className={`product-card-media product-card-image-link ${product.image.startsWith("/images/product-cards/") ? "product-card-image-link--editorial" : ""}`} href={product.href} aria-label={product.cta}>
-                  <img src={product.image} alt={`${product.name} artwork`} loading="lazy" decoding="async" />
-                </a>
-              ) : null}
-              <div style={{ display: "flex", flexDirection: "column", flex: 1, padding: 25 }}>
+              <div className="product-card-art">
+                {product.image ? (
+                  <img src={product.image} alt="" loading="lazy" decoding="async" />
+                ) : (
+                  <div className="product-card-monogram" aria-hidden="true">
+                    {product.name.split(" ").map((word) => word[0]).slice(0, 2).join("")}
+                  </div>
+                )}
+                <span className="product-card-index" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <div className="product-card-content">
                 <div className="product-topline">
                   <span className={`stage stage-${product.stage.toLowerCase()}`}>
                     {product.stage}
                   </span>
-                  <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="product-card-rule" aria-hidden="true" />
                 </div>
                 <p className="product-category">{product.category}</p>
                 <h3>{product.name}</h3>
                 <p className="product-description">{product.description}</p>
                 <a
-                  className="product-card-cta button button-primary"
+                  className="product-card-cta"
                   href={product.href}
                   data-funnel-cta="product"
-                  style={{ marginTop: "auto", width: "100%" }}
                 >
                   {product.cta} <span aria-hidden="true">→</span>
                 </a>
