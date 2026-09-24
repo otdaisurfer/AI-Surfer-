@@ -28,7 +28,18 @@ const products = [
       "Answer five quick questions to see your strongest AI opportunity, practical first move, and the implementation path that fits.",
     cta: "Start the Free Wave Check",
     href: "/wave-check",
+    image: "/images/file_00000000544481f9b024eea769829050.png",
     featured: true,
+  },
+  {
+    stage: "Diagnose",
+    name: "Lead Leak Finder",
+    category: "Lead Follow-Up Check",
+    description:
+      "Answer five questions about where inquiries arrive, response time, follow-up ownership, and conversion. See which part of your lead path needs attention first.",
+    cta: "Find My Lead Leak",
+    href: "#lead-leak-finder",
+    image: "/images/lead-leak-finder.png",
   },
   {
     stage: "Diagnose",
@@ -253,8 +264,8 @@ export default function SitesLanding() {
             <figure className="wave-check-hero-media">
               <img
                 className="wave-check-hero-image"
-                src="/images/file_00000000f10481f9a3d2f23cc759e7c6.png"
-                alt="Ocean Tide Drop AI SURFER Free AI Wave Check"
+                src="/images/file_00000000544481f9b024eea769829050.png"
+                alt="AI Fin dolphin inviting visitors to start the Free AI Wave Check"
                 fetchPriority="high"
                 decoding="async"
               />
@@ -518,6 +529,11 @@ export default function SitesLanding() {
               key={product.name}
               style={{ overflow: "hidden", padding: 0, animationDelay: `${index * 0.35}s` }}
             >
+              {product.image ? (
+                <a className="product-card-media product-card-image-link" href={product.href} aria-label={product.cta}>
+                  <img src={product.image} alt={`${product.name} artwork`} loading="lazy" decoding="async" />
+                </a>
+              ) : null}
               {product.video && product.poster ? (
                 <div className="product-card-media">
                   <DeferredVideo
