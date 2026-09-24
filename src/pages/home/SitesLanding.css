@@ -916,3 +916,28 @@
   background: linear-gradient(115deg, #8be5e9, #add6f5);
   box-shadow: 0 8px 20px rgba(35, 134, 161, .16);
 }
+
+/* Give the existing brand artwork a clear place in the landing page header. */
+.sites-landing .nav-shell .brand {
+  min-width: 0;
+  gap: 14px;
+}
+.sites-landing .nav-shell .brand-mark {
+  flex: 0 0 auto;
+  width: clamp(128px, 14vw, 178px);
+  height: 86px;
+  padding: 4px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+@media (max-width: 720px) {
+  .sites-landing .nav-shell { gap: 8px; }
+  .sites-landing .nav-shell .brand { gap: 8px; }
+  .sites-landing .nav-shell .brand-mark {
+    width: clamp(82px, 25vw, 112px);
+    height: 66px;
+    padding: 2px;
+  }
+  .sites-landing .nav-shell .brand strong { font-size: .76rem; }
+  .sites-landing .nav-shell .brand small { font-size: .58rem; letter-spacing: .1em; }
+}
