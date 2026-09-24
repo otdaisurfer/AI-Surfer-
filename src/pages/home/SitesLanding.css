@@ -1085,7 +1085,8 @@
   .sites-landing .product-card { transition: none; }
 }
 
-.sites-landing .product-card-art img[src*="/product-cards-v2/"] {
+.sites-landing .product-card-art img[src*="/product-cards-v2/"],
+.sites-landing .product-card-art img[src*="/product-cards-v3/"] {
   position: absolute;
   inset: 0;
   width: 100%;

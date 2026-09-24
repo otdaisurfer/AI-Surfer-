@@ -36,7 +36,7 @@ const products = [
   {
     stage: "Diagnose",
     name: "AI Opportunity Report™",
-    image: "/images/product-cards-v2/ai-opportunity-report.webp",
+    image: "/images/product-cards-v3/ai-opportunity-report.webp",
     category: "Business AI Strategy",
     description:
       "Turn scattered AI possibilities into a prioritized list of the opportunities most likely to create measurable business value.",
@@ -46,7 +46,7 @@ const products = [
   {
     stage: "Plan",
     name: "AEO Blueprint™",
-    image: "/images/product-cards-v2/aeo-blueprint.webp",
+    image: "/images/product-cards-v3/aeo-blueprint.webp",
     category: "AI Search Strategy",
     description:
       "Build a practical roadmap for becoming more visible, understandable, and authoritative across AI-powered answer engines.",
@@ -56,7 +56,7 @@ const products = [
   {
     stage: "Plan",
     name: "Automation Blueprint™",
-    image: "/images/product-cards-v2/automation-blueprint.webp",
+    image: "/images/product-cards-v3/automation-blueprint.webp",
     category: "AI Workflow Strategy",
     description:
       "Map repetitive work into AI-powered workflows that reduce manual effort, connect your tools, and make operations more scalable.",
@@ -66,7 +66,7 @@ const products = [
   {
     stage: "Implement",
     name: "Wave Scout™",
-    image: "/images/product-cards-v2/wave-scout.webp",
+    image: "/images/product-cards-v3/wave-scout.webp",
     category: "Lead Generation AI",
     description:
       "Identify prospects, research buying signals, and organize opportunities so your team spends less time hunting and more time closing.",
@@ -76,7 +76,7 @@ const products = [
   {
     stage: "Implement",
     name: "Sales Rider™",
-    image: "/images/product-cards-v2/sales-rider.webp",
+    image: "/images/product-cards-v3/sales-rider.webp",
     category: "AI Sales Assistant",
     description:
       "Turn leads into conversations and conversations into opportunities with an always-on sales assistant.",
@@ -86,7 +86,7 @@ const products = [
   {
     stage: "Implement",
     name: "Content Creator™",
-    image: "/images/product-cards-v2/content-creator.webp",
+    image: "/images/product-cards-v3/content-creator.webp",
     category: "AI Marketing Engine",
     description:
       "Generate strategic social posts, emails, blogs, campaigns, offers, and marketing assets while keeping your message aligned.",
@@ -106,7 +106,7 @@ const products = [
   {
     stage: "Implement",
     name: "Automation Architect™",
-    image: "/images/product-cards-v2/automation-architect.webp",
+    image: "/images/product-cards-v3/automation-architect.webp",
     category: "AI Business Automation",
     description:
       "Connect processes, tools, data, and AI agents to automate repetitive work and create a more scalable operation.",
@@ -116,7 +116,7 @@ const products = [
   {
     stage: "Transform",
     name: "Big Kahuna™",
-    image: "/images/product-cards-v2/big-kahuna.webp",
+    image: "/images/product-cards-v3/big-kahuna.webp",
     category: "AI Growth Architect",
     description:
       "Bring strategy, visibility, automation, agents, workflows, and growth opportunities together into one complete AI transformation experience.",

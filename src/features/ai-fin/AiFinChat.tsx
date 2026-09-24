@@ -1,9 +1,10 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
-import { Bot, ChevronDown, Loader2, LockKeyhole, MessageCircle, Send, Sparkles, X } from 'lucide-react';
+import { Bot, ChevronDown, Loader2, LockKeyhole, MessageCircle, Send, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import type { AccessMode, LeadDraft } from './contracts';
 import { useAiFin } from './useAiFin';
 import { getAiFinProductAction } from './productActions';
+import './AiFinChat.css';
 
 const OWNER_TIMEOUT_MS = 15 * 60 * 1000;
 
@@ -171,7 +172,7 @@ export default function AiFinChat({ mode, embedded = false }: AiFinChatProps) {
           aria-label="Open AI Fin"
           style={styles.launcher}
         >
-          <Sparkles size={22} />
+          <img className="ai-fin-launcher-mascot" src="/images/ai-fin-launcher.webp" alt="" aria-hidden="true" width="48" height="48" />
           <span>Ask AI Fin</span>
           <span style={styles.launcherDot} />
         </button>

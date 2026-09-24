@@ -1,0 +1,17 @@
+.ai-fin-launcher-mascot {
+  display: block;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  transform-origin: 60% 68%;
+  animation: ai-fin-greeting 3.8s ease-in-out infinite;
+}
+@keyframes ai-fin-greeting {
+  0%, 14%, 50%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-3px) rotate(-9deg); }
+  37% { transform: translateY(-1px) rotate(5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ai-fin-launcher-mascot { animation: none; }
+}
