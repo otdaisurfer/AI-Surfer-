@@ -1094,3 +1094,27 @@
   object-fit: cover;
   border-radius: 0;
 }
+
+/* The brand mark leads the page at the same visual scale as its hero artwork. */
+.sites-landing .landing-logo-link {
+  display: block;
+  width: min(920px, calc(100% - 32px));
+  margin: 18px auto 0;
+  line-height: 0;
+}
+.sites-landing .landing-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.sites-landing .nav-shell {
+  justify-content: center;
+  padding-top: 4px;
+  padding-bottom: 12px;
+}
+.sites-landing .nav-links { justify-content: center; }
+@media (max-width: 720px) {
+  .sites-landing .landing-logo-link { width: calc(100% - 20px); margin-top: 12px; }
+  .sites-landing .nav-shell { padding-top: 0; padding-bottom: 8px; }
+}
