@@ -16,14 +16,11 @@ describe("SitesLanding product collection", () => {
     }
   });
 
-  it("keeps artwork only on Wave Check and Lead Leak Finder cards", () => {
+  it("loads unique artwork for every product", () => {
     const document = new JSDOM(renderToStaticMarkup(<SitesLanding />)).window.document;
     const images = Array.from(document.querySelectorAll<HTMLImageElement>(".product-card-art img"));
-    expect(images.map((image) => image.getAttribute("src"))).toEqual([
-      "/images/file_00000000544481f9b024eea769829050.png",
-      "/images/file_00000000a1e481f9b0737d59a06238ce.png",
-    ]);
-    expect(document.querySelectorAll(".product-card-monogram")).toHaveLength(9);
+    expect(images).toHaveLength(11);
+    expect(new Set(images.map((image) => image.getAttribute("src"))).size).toBe(11);
     expect(document.querySelector(".approved-showcase, .product-ladder-media-card")).toBeNull();
   });
 });
