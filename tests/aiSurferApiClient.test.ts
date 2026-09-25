@@ -11,6 +11,36 @@ function jsonResponse(body: unknown, status = 200) {
 }
 
 describe("AiSurferApiClient AI Fin chat", () => {
+  it("keeps the browser receiver when using the native fetch implementation", async () => {
+    const originalFetch = globalThis.fetch;
+    const receiverAwareFetch = vi.fn(function (this: typeof globalThis) {
+      if (this !== globalThis) {
+        throw new TypeError("Illegal invocation");
+      }
+
+      return Promise.resolve(
+        jsonResponse({
+          answer: "Welcome to the wave.",
+          recommendedProductId: null,
+          knowledgeVersion: null,
+          leadSaved: false,
+          escalationRequired: false,
+        }),
+      );
+    });
+
+    globalThis.fetch = receiverAwareFetch as typeof fetch;
+
+    try {
+      const client = new AiSurferApiClient();
+      await expect(
+        client.chatAiFin({ mode: "public", message: "hello" }),
+      ).resolves.toMatchObject({ answer: "Welcome to the wave." });
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
   it("sends public AI Fin chat through the same-origin client without a server API key", async () => {
     const fetchImpl = vi.fn().mockResolvedValue(
       jsonResponse({

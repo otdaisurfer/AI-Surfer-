@@ -123,7 +123,7 @@ export class AiSurferApiClient {
   constructor(options: ApiClientOptions = {}) {
     this.baseUrl = (options.baseUrl ?? "").replace(/\/$/, "");
     this.apiKey = options.apiKey;
-    this.fetchImpl = options.fetchImpl ?? fetch;
+    this.fetchImpl = options.fetchImpl ?? fetch.bind(globalThis);
   }
 
   private async json<T>(
@@ -258,39 +258,3 @@ export class AiSurferApiClient {
   async *streamLaunchPlan(input: LaunchBrief): AsyncGenerator<unknown, void, void> {
     const response = await this.fetchImpl(`${this.baseUrl}/api/launch`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(this.apiKey ? { "X-AI-Surfer-Key": this.apiKey } : {}),
-      },
-      body: JSON.stringify(input),
-    });
-
-    if (!response.ok || !response.body) {
-      throw new Error(`Launch Desk request failed with status ${response.status}`);
-    }
-
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = "";
-
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-
-      buffer += decoder.decode(value, { stream: true });
-      const frames = buffer.split("\n\n");
-      buffer = frames.pop() ?? "";
-
-      for (const frame of frames) {
-        const line = frame
-          .split("\n")
-          .find((part) => part.startsWith("data: "));
-        if (!line) continue;
-
-        yield JSON.parse(line.slice(6));
-      }
-    }
-  }
-}
-
-export const aiSurferApi = new AiSurferApiClient();
