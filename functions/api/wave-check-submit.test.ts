@@ -147,6 +147,35 @@ describe("handleWaveCheckSubmit", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("queues CRM work even when the Pages runtime has no HubSpot token", async () => {
+    const fetchMock = vi.fn().mockResolvedValueOnce(new Response(null, { status: 201 }));
+    vi.stubGlobal("fetch", fetchMock);
+    const backgroundHandoff = vi.fn();
+
+    const response = await handleWaveCheckSubmit(
+      request(),
+      undefined,
+      3000,
+      undefined,
+      backgroundHandoff,
+    );
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      status: "saved",
+      hubspotStatus: "queued",
+    });
+    expect(backgroundHandoff).toHaveBeenCalledWith(
+      "surfer@example.com",
+      submission.submission_id,
+      expect.objectContaining({
+        score: 93,
+        topCategory: "Lead & Sales Follow-Up",
+      }),
+    );
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it("queues HubSpot work off the customer response path when a background handoff is provided", async () => {
     const fetchMock = vi.fn().mockResolvedValueOnce(new Response(null, { status: 201 }));
     vi.stubGlobal("fetch", fetchMock);
