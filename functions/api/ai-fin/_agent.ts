@@ -194,9 +194,14 @@ function buildInstructions(mode: AccessMode): string {
 }
 
 export function createAiFinAgent(context: AiFinAgentContext) {
+  const configuredModel = context.model?.trim();
+  const model = configuredModel && !/^gpt-5\.6-(?:luna|terra)$/i.test(configuredModel)
+    ? configuredModel
+    : 'gpt-4.1-mini';
+
   return new Agent<AiFinAgentContext, typeof AiFinOutput>({
     name: 'AI Fin',
-    model: context.model ?? 'gpt-4.1-mini',
+    model,
     instructions: buildInstructions(context.mode),
     tools: [getProductTool, recommendProductTool, searchKnowledgeTool, captureLeadTool],
     outputType: AiFinOutput,
