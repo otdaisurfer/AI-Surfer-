@@ -20,108 +20,18 @@ const products = [
       "Answer five quick questions to see your strongest AI opportunity, practical first move, and the implementation path that fits.",
     cta: "Start the Free Wave Check",
     href: "/wave-check",
-    image: "/images/file_00000000544481f9b024eea769829050.png",
+    image: "/images/file_00000000f10481f9a3d2f23cc759e7c6.png",
     featured: true,
   },
   {
     stage: "Diagnose",
-    name: "Lead Leak Finder",
+    name: "Lead Leak Binder",
     category: "Lead Follow-Up Check",
     description:
-      "Answer five questions about where inquiries arrive, response time, follow-up ownership, and conversion. See which part of your lead path needs attention first.",
-    cta: "Find My Lead Leak",
+      "See where leads are slipping away, organize the follow-up gaps, and identify the first automation worth fixing.",
+    cta: "Open the Lead Leak Binder",
     href: "#lead-leak-finder",
-    image: "/images/file_00000000a1e481f9b0737d59a06238ce.png",
-  },
-  {
-    stage: "Diagnose",
-    name: "AI Opportunity Report™",
-    image: "/images/product-cards-v3/ai-opportunity-report.webp",
-    category: "Business AI Strategy",
-    description:
-      "Turn scattered AI possibilities into a prioritized list of the opportunities most likely to create measurable business value.",
-    cta: "Explore Opportunities",
-    href: "/members/products/ai-opportunity-report",
-  },
-  {
-    stage: "Plan",
-    name: "AEO Blueprint™",
-    image: "/images/product-cards-v3/aeo-blueprint.webp",
-    category: "AI Search Strategy",
-    description:
-      "Build a practical roadmap for becoming more visible, understandable, and authoritative across AI-powered answer engines.",
-    cta: "Build the Blueprint",
-    href: "/members/products/aeo-blueprint",
-  },
-  {
-    stage: "Plan",
-    name: "Automation Blueprint™",
-    image: "/images/product-cards-v3/automation-blueprint.webp",
-    category: "AI Workflow Strategy",
-    description:
-      "Map repetitive work into AI-powered workflows that reduce manual effort, connect your tools, and make operations more scalable.",
-    cta: "Map Your Workflows",
-    href: "/members/products/automation-blueprint",
-  },
-  {
-    stage: "Implement",
-    name: "Wave Scout™",
-    image: "/images/product-cards-v3/wave-scout.webp",
-    category: "Lead Generation AI",
-    description:
-      "Identify prospects, research buying signals, and organize opportunities so your team spends less time hunting and more time closing.",
-    cta: "Ride with Wave Scout",
-    href: "/members/products/wave-scout",
-  },
-  {
-    stage: "Implement",
-    name: "Sales Rider™",
-    image: "/images/product-cards-v3/sales-rider.webp",
-    category: "AI Sales Assistant",
-    description:
-      "Turn leads into conversations and conversations into opportunities with an always-on sales assistant.",
-    cta: "Meet Sales Rider",
-    href: "/members/products/sales-rider",
-  },
-  {
-    stage: "Implement",
-    name: "Content Creator™",
-    image: "/images/product-cards-v3/content-creator.webp",
-    category: "AI Marketing Engine",
-    description:
-      "Generate strategic social posts, emails, blogs, campaigns, offers, and marketing assets while keeping your message aligned.",
-    cta: "Create with Content Creator",
-    href: "/members/products/content-creator",
-  },
-  {
-    stage: "Implement",
-    name: "Customer Care Cove™",
-    image: "/images/product-cards-v2/customer-care-cove.webp",
-    category: "AI Customer Support",
-    description:
-      "Answer routine questions faster, guide customers to the right next step, and escalate important conversations to a real person.",
-    cta: "Improve Customer Care",
-    href: "/members/products/customer-care-cove",
-  },
-  {
-    stage: "Implement",
-    name: "Automation Architect™",
-    image: "/images/product-cards-v3/automation-architect.webp",
-    category: "AI Business Automation",
-    description:
-      "Connect processes, tools, data, and AI agents to automate repetitive work and create a more scalable operation.",
-    cta: "Automate the Work",
-    href: "/members/products/automation-architect",
-  },
-  {
-    stage: "Transform",
-    name: "Big Kahuna™",
-    image: "/images/product-cards-v3/big-kahuna.webp",
-    category: "AI Growth Architect",
-    description:
-      "Bring strategy, visibility, automation, agents, workflows, and growth opportunities together into one complete AI transformation experience.",
-    cta: "Go Big Kahuna",
-    href: "/members/products/big-kahuna",
+    image: "/images/lead-leak-finder.png",
     featured: true,
   },
 ];
@@ -217,7 +127,7 @@ export default function SitesLanding() {
             <figure className="wave-check-hero-media">
               <img
                 className="wave-check-hero-image"
-                src="/images/file_00000000544481f9b024eea769829050.png"
+                src="/images/file_00000000f10481f9a3d2f23cc759e7c6.png"
                 alt="AI Fin dolphin inviting visitors to start the Free AI Wave Check"
                 fetchPriority="high"
                 decoding="async"
@@ -278,7 +188,7 @@ export default function SitesLanding() {
         </div>
         <div className="lead-leak-content">
           <p className="eyebrow">DIAGNOSE · CLIENT-READY SKILL</p>
-          <h2 id="lead-leak-title">Lead Leak Finder</h2>
+          <h2 id="lead-leak-title">Lead Leak Binder</h2>
           <p className="lead-leak-question">
             How many potential customers are disappearing because follow-up is too slow—or never happens?
           </p>
