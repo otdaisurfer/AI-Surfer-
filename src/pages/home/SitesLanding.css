@@ -29,11 +29,12 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-height: 42px;
-  padding: 9px 20px;
+  min-height: 50px;
+  padding: 11px 20px;
   color: #07101c;
   background: linear-gradient(90deg, #16eff3, #8bc6ff 36%, #ff3cb9 73%, #ff9b49);
-  font-size: .78rem;
+  font-size: .9rem;
+  line-height: 1.35;
   text-align: center;
 }
 .sites-landing .announcement span {
@@ -547,8 +548,8 @@
 }
 
 @media (max-width:720px) {
-  .sites-landing .announcement { flex-wrap: wrap; gap: 4px 10px; }
-  .sites-landing .announcement strong { width: 100%; }
+  .sites-landing .announcement { flex-wrap: wrap; gap: 5px 10px; min-height: 58px; padding: 12px 14px; font-size: .92rem; }
+  .sites-landing .announcement strong { width: 100%; font-size: 1rem; }
   .sites-landing .nav-shell { padding: 18px; }
   .sites-landing .nav-links > a:not(.nav-button) { display: none; }
   .sites-landing .hero { min-height: auto; padding: 55px 20px 90px; }
