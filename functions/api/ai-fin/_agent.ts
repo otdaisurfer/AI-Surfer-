@@ -196,7 +196,7 @@ function buildInstructions(mode: AccessMode): string {
 export function createAiFinAgent(context: AiFinAgentContext) {
   return new Agent<AiFinAgentContext, typeof AiFinOutput>({
     name: 'AI Fin',
-    model: context.model ?? 'gpt-5.6-luna',
+    model: context.model ?? 'gpt-4.1-mini',
     instructions: buildInstructions(context.mode),
     tools: [getProductTool, recommendProductTool, searchKnowledgeTool, captureLeadTool],
     outputType: AiFinOutput,

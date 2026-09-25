@@ -13,6 +13,6 @@ describe('AI Fin agent model selection', () => {
   it('uses the current low-cost OpenAI model by default', () => {
     const agent = createAiFinAgent(context);
 
-    expect(agent.model).toBe('gpt-5.6-luna');
+    expect(agent.model).toBe('gpt-4.1-mini');
   });
 });
