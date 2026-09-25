@@ -178,7 +178,7 @@ export async function handleWaveCheckSubmit(
       opportunities: normalized.opportunities,
     };
 
-    if (backgroundHubSpotHandoff && hubSpotAccessToken) {
+    if (backgroundHubSpotHandoff) {
       backgroundHubSpotHandoff(normalized.email, normalized.submission_id, hubSpotContext);
       return json({
         status: "saved",
@@ -219,15 +219,21 @@ export const onRequestPost: PagesFunction<WaveCheckEnv> = async ({
     env.HUBSPOT_ACCESS_TOKEN,
     DEFAULT_HUBSPOT_TIMEOUT_MS,
     makeD1RateLimitCheck(env.OTDAISURFER),
-    env.HUBSPOT_ACCESS_TOKEN
+    env.OTDAISURFER
       ? (email, submissionId, context) => waitUntil(
-        runBackgroundHubSpotHandoff(
-          env.OTDAISURFER,
-          email,
-          submissionId,
-          context,
-          env.HUBSPOT_ACCESS_TOKEN,
-        ),
+        env.HUBSPOT_ACCESS_TOKEN
+          ? runBackgroundHubSpotHandoff(
+            env.OTDAISURFER,
+            email,
+            submissionId,
+            context,
+            env.HUBSPOT_ACCESS_TOKEN,
+          )
+          : enqueueHubSpotRetry(
+            env.OTDAISURFER,
+            email,
+            submissionId,
+          ),
       )
       : undefined,
   );
