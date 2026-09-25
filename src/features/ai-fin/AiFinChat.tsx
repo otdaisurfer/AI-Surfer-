@@ -338,9 +338,8 @@ export default function AiFinChat({ mode, embedded = false }: AiFinChatProps) {
 const styles: Record<string, React.CSSProperties> = {
   launcherWrap: {
     position: 'fixed',
-    right: 18,
-    top: '50%',
-    transform: 'translateY(-50%)',
+    right: 'max(12px, env(safe-area-inset-right))',
+    bottom: 'max(12px, env(safe-area-inset-bottom))',
     zIndex: 90,
     display: 'grid',
     justifyItems: 'end',

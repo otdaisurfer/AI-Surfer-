@@ -11,6 +11,13 @@ describe("AI Fin mobile safeguards", () => {
     expect(source).toContain("bottom: 12");
   });
 
+  it("anchors the closed launcher at the phone-safe bottom-right corner", () => {
+    expect(source).toContain("right: 'max(12px, env(safe-area-inset-right))'");
+    expect(source).toContain("bottom: 'max(12px, env(safe-area-inset-bottom))'");
+    expect(source).not.toContain("top: '50%'");
+    expect(source).not.toContain("translateY(-50%)");
+  });
+
   it("keeps text inputs at 16px to avoid mobile focus zoom", () => {
     expect(source).toContain("fontSize: 16");
     expect((source.match(/fontSize: 16/g) ?? []).length).toBeGreaterThanOrEqual(2);
