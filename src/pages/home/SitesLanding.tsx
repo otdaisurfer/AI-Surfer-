@@ -20,7 +20,7 @@ const products = [
       "Answer five quick questions to see your strongest AI opportunity, practical first move, and the implementation path that fits.",
     cta: "Start the Free Wave Check",
     href: "/wave-check",
-    image: "/images/file_00000000f10481f9a3d2f23cc759e7c6.png",
+    image: "/images/file_00000000f10481f9a3d2f23cc759e7c6.png?v=20260925-2",
     featured: true,
   },
   {
@@ -31,7 +31,7 @@ const products = [
       "See where leads are slipping away, organize the follow-up gaps, and identify the first automation worth fixing.",
     cta: "Open the Lead Leak Binder",
     href: "#lead-leak-finder",
-    image: "/images/lead-leak-finder.png",
+    image: "/images/lead-leak-finder.png?v=20260925-2",
     featured: true,
   },
 ];
@@ -127,7 +127,7 @@ export default function SitesLanding() {
             <figure className="wave-check-hero-media">
               <img
                 className="wave-check-hero-image"
-                src="/images/file_00000000f10481f9a3d2f23cc759e7c6.png"
+                src="/images/file_00000000f10481f9a3d2f23cc759e7c6.png?v=20260925-2"
                 alt="AI Fin dolphin inviting visitors to start the Free AI Wave Check"
                 fetchPriority="high"
                 decoding="async"
@@ -180,7 +180,7 @@ export default function SitesLanding() {
       <section className="lead-leak-finder" id="lead-leak-finder" aria-labelledby="lead-leak-title">
         <div className="lead-leak-visual">
           <img
-            src="/images/lead-leak-finder.png"
+            src="/images/lead-leak-finder.png?v=20260925-2"
             alt="Lead Leak Binder for spotting follow-up gaps and lost opportunities"
             loading="lazy"
             decoding="async"
