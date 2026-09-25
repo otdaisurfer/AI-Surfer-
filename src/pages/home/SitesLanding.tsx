@@ -180,8 +180,8 @@ export default function SitesLanding() {
       <section className="lead-leak-finder" id="lead-leak-finder" aria-labelledby="lead-leak-title">
         <div className="lead-leak-visual">
           <img
-            src="/images/file_00000000a1e481f9b0737d59a06238ce.png"
-            alt="AI Fin finding lost leads in a glowing ocean sales pipeline"
+            src="/images/lead-leak-finder.png"
+            alt="Lead Leak Binder for spotting follow-up gaps and lost opportunities"
             loading="lazy"
             decoding="async"
           />
@@ -198,7 +198,7 @@ export default function SitesLanding() {
           </p>
           {!leadLeakOpen && (
             <button className="button button-primary lead-leak-cta" type="button" onClick={() => setLeadLeakOpen(true)}>
-              Find My Lead Leak →
+              Open My Lead Leak Binder →
             </button>
           )}
         </div>
@@ -240,7 +240,7 @@ export default function SitesLanding() {
               <input required value={leadLeakAnswers.conversion} onChange={(event) => updateLeadLeakAnswer("conversion", event.target.value)} placeholder="Booked call, estimate, appointment, purchase…" />
             </label>
             <button className="button button-primary lead-leak-cta" type="submit">
-              Show My First Lead Leak Read →
+              Show My Lead Leak Read →
             </button>
           </form>
         )}
@@ -249,7 +249,7 @@ export default function SitesLanding() {
           <div className="lead-leak-result" role="status">
             <span aria-hidden="true">🌊</span>
             <div>
-              <h3>Your Lead Leak Map has started.</h3>
+              <h3>Your Lead Leak Binder has started.</h3>
               <p>
                 Your answers are saved for this visit. Continue to the free AI Wave Check to connect
                 your response time, follow-up ownership, and conversion goal to the clearest automation opportunity.
@@ -284,50 +284,13 @@ export default function SitesLanding() {
         </p>
       </section>
 
-      <section className="results-preview" aria-labelledby="results-preview-title">
-        <div className="section-heading">
-          <p className="eyebrow">KNOW WHAT TO DO NEXT</p>
-          <h2 id="results-preview-title">Your Wave Check turns AI possibilities into a decision.</h2>
-          <p>
-            Instead of generic AI advice, the result points you toward the business
-            opportunity worth acting on first.
-          </p>
-        </div>
-        <div className="results-preview-grid">
-          <article>
-            <span>Strongest opportunity</span>
-            <h3>Find the highest-value wave</h3>
-            <p>
-              See whether visibility, follow-up, support, content, or workflow automation
-              deserves attention first.
-            </p>
-          </article>
-          <article>
-            <span>Business gap</span>
-            <h3>Understand what is slowing growth</h3>
-            <p>
-              See the visibility or workflow gap behind the recommendation in plain
-              business language.
-            </p>
-          </article>
-          <article>
-            <span>Recommended action</span>
-            <h3>Move from diagnosis to action</h3>
-            <p>
-              Get a clear next step and the AI SURFER product or service that matches it.
-            </p>
-          </article>
-        </div>
-      </section>
-
       <section className="product-section" id="product-wave" aria-labelledby="products-title">
         <div className="section-heading">
           <p className="eyebrow">THE AI SURFER PRODUCT WAVE</p>
-          <h2 id="products-title">From first signal to full AI transformation.</h2>
+          <h2 id="products-title">Start with the two clearest next steps.</h2>
           <p>
-            Start where your business is. Then ride the next wave when you&apos;re ready.
-            Every product solves a specific problem while connecting into one larger
-            AI growth system.
+            Begin with the Free AI Wave Check or open the Lead Leak Binder when follow-up
+            is the problem you already know needs attention.
           </p>
         </div>
 
