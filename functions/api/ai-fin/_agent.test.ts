@@ -22,6 +22,12 @@ describe('AI Fin agent model selection', () => {
     expect(agent.model).toBe('gpt-4.1-mini');
   });
 
+  it('replaces the ChatGPT Sol alias from the deployment environment', () => {
+    const agent = createAiFinAgent({ ...context, model: 'gpt-5.6-sol' });
+
+    expect(agent.model).toBe('gpt-4.1-mini');
+  });
+
   it('preserves an explicitly configured public model', () => {
     const agent = createAiFinAgent({ ...context, model: 'gpt-4.1' });
 
