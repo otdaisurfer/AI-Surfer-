@@ -21,6 +21,16 @@ function trackFunnelEvent(detail: FunnelEvent) {
 
 const offers = [
   {
+    title: "AEO + GEO Wave Audit",
+    price: "$97",
+    priceValue: 97,
+    text: "See how your business appears across AI answers, generative search, and traditional search—and get the clearest visibility fixes to make first.",
+    cta: "Get My AEO + GEO Audit",
+    href: AEO_GEO_AUDIT_URL,
+    kind: "checkout" as const,
+    featured: true,
+  },
+  {
     title: "Wave Starter",
     price: "$497",
     priceValue: 497,
@@ -28,7 +38,6 @@ const offers = [
     cta: "Buy Wave Starter",
     href: WAVE_STARTER_URL,
     kind: "checkout" as const,
-    featured: true,
   },
   {
     title: "Wave Builder",
