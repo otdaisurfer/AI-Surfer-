@@ -20,7 +20,7 @@ const products = [
       "Answer five quick questions to see your strongest AI opportunity, practical first move, and the implementation path that fits.",
     cta: "Start the Free Wave Check",
     href: "/wave-check",
-    image: "/images/ai-fin-ocean-wave-intelligence.png?v=20260928-1",
+    image: "/images/ai-fin-ocean-wave-intelligence.jpg?v=20260928-2",
     featured: true,
   },
   {
@@ -127,7 +127,7 @@ export default function SitesLanding() {
             <figure className="wave-check-hero-media">
               <img
                 className="wave-check-hero-image"
-                src="/images/ai-fin-ocean-wave-intelligence.png?v=20260928-1"
+                src="/images/ai-fin-ocean-wave-intelligence.jpg?v=20260928-2"
                 alt="AI Fin dolphin inviting visitors to start the Free AI Wave Check"
                 fetchPriority="high"
                 decoding="async"
