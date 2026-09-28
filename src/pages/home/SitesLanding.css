@@ -1119,3 +1119,98 @@
   .sites-landing .landing-logo-link { width: calc(100% - 20px); margin-top: 12px; }
   .sites-landing .nav-shell { padding-top: 0; padding-bottom: 8px; }
 }
+
+
+/* 2026-09-28 landing-page hierarchy repair */
+.sites-landing .landing-logo-link {
+  width: min(280px, calc(100% - 40px));
+  margin: 22px auto 4px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0,0,0,.36);
+}
+.sites-landing .landing-logo {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.sites-landing .nav-shell {
+  padding: 8px 28px 18px;
+}
+.sites-landing .wave-check-hero {
+  padding-top: 36px;
+  text-align: left;
+}
+.sites-landing .wave-check-hero-inner {
+  grid-template-columns: minmax(0,1.15fr) minmax(320px,.72fr);
+  grid-template-areas:
+    "eyebrow media"
+    "title media"
+    "lead media"
+    "cta media"
+    "footnote media";
+  column-gap: clamp(42px,6vw,86px);
+  justify-items: start;
+  align-items: center;
+}
+.sites-landing .wave-check-hero-inner > .eyebrow { grid-area: eyebrow; }
+.sites-landing .wave-check-hero-inner > h1 { grid-area: title; }
+.sites-landing .wave-check-hero-lead { grid-area: lead; margin-left: 0; }
+.sites-landing .wave-check-hero-cta { grid-area: cta; }
+.sites-landing .wave-check-hero-media-link {
+  grid-area: media;
+  width: min(410px,100%);
+  margin-top: 0;
+  justify-self: end;
+}
+.sites-landing .wave-check-hero-footnote { grid-area: footnote; }
+.sites-landing .wave-check-hero h1 {
+  font-size: clamp(3.4rem,6vw,6rem);
+}
+.sites-landing .wave-check-hero-image {
+  object-fit: contain;
+  background: radial-gradient(circle,rgba(24,238,241,.12),#071423 72%);
+}
+.sites-landing .product-grid {
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  max-width: 930px;
+  margin: 0 auto;
+}
+.sites-landing .revenue-funnel { display: none; }
+
+@media (max-width: 820px) {
+  .sites-landing .wave-check-hero { text-align: center; }
+  .sites-landing .wave-check-hero-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "eyebrow"
+      "title"
+      "lead"
+      "cta"
+      "media"
+      "footnote";
+    justify-items: center;
+  }
+  .sites-landing .wave-check-hero-lead { margin-right: auto; margin-left: auto; }
+  .sites-landing .wave-check-hero-media-link {
+    width: min(390px,88vw);
+    margin-top: 28px;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .sites-landing .landing-logo-link {
+    width: min(210px,calc(100% - 32px));
+    margin-top: 14px;
+  }
+  .sites-landing .nav-shell { padding-bottom: 12px; }
+  .sites-landing .wave-check-hero {
+    padding-top: 34px;
+    padding-bottom: 68px;
+  }
+  .sites-landing .wave-check-hero h1 {
+    font-size: clamp(2.85rem,14vw,4.45rem);
+  }
+  .sites-landing .wave-check-hero-lead { font-size: 1rem; }
+  .sites-landing .product-grid { grid-template-columns: 1fr; }
+}
