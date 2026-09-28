@@ -20,16 +20,16 @@ const products = [
       "Answer five quick questions to see your strongest AI opportunity, practical first move, and the implementation path that fits.",
     cta: "Start the Free Wave Check",
     href: "/wave-check",
-    image: "/images/file_00000000f10481f9a3d2f23cc759e7c6.png?v=20260925-2",
+    image: "/images/ai-fin-ocean-wave-intelligence.png?v=20260928-1",
     featured: true,
   },
   {
     stage: "Diagnose",
-    name: "Lead Leak Binder",
+    name: "Lead Leak Finder",
     category: "Lead Follow-Up Check",
     description:
       "See where leads are slipping away, organize the follow-up gaps, and identify the first automation worth fixing.",
-    cta: "Open the Lead Leak Binder",
+    cta: "Open the Lead Leak Finder",
     href: "#lead-leak-finder",
     image: "/images/lead-leak-finder.png?v=20260925-2",
     featured: true,
@@ -127,7 +127,7 @@ export default function SitesLanding() {
             <figure className="wave-check-hero-media">
               <img
                 className="wave-check-hero-image"
-                src="/images/file_00000000f10481f9a3d2f23cc759e7c6.png?v=20260925-2"
+                src="/images/ai-fin-ocean-wave-intelligence.png?v=20260928-1"
                 alt="AI Fin dolphin inviting visitors to start the Free AI Wave Check"
                 fetchPriority="high"
                 decoding="async"
@@ -181,14 +181,14 @@ export default function SitesLanding() {
         <div className="lead-leak-visual">
           <img
             src="/images/lead-leak-finder.png?v=20260925-2"
-            alt="Lead Leak Binder for spotting follow-up gaps and lost opportunities"
+            alt="Lead Leak Finder for spotting follow-up gaps and lost opportunities"
             loading="lazy"
             decoding="async"
           />
         </div>
         <div className="lead-leak-content">
           <p className="eyebrow">DIAGNOSE · CLIENT-READY SKILL</p>
-          <h2 id="lead-leak-title">Lead Leak Binder</h2>
+          <h2 id="lead-leak-title">Lead Leak Finder</h2>
           <p className="lead-leak-question">
             How many potential customers are disappearing because follow-up is too slow—or never happens?
           </p>
@@ -198,7 +198,7 @@ export default function SitesLanding() {
           </p>
           {!leadLeakOpen && (
             <button className="button button-primary lead-leak-cta" type="button" onClick={() => setLeadLeakOpen(true)}>
-              Open My Lead Leak Binder →
+              Open My Lead Leak Finder →
             </button>
           )}
         </div>
@@ -249,7 +249,7 @@ export default function SitesLanding() {
           <div className="lead-leak-result" role="status">
             <span aria-hidden="true">🌊</span>
             <div>
-              <h3>Your Lead Leak Binder has started.</h3>
+              <h3>Your Lead Leak Finder has started.</h3>
               <p>
                 Your answers are saved for this visit. Continue to the free AI Wave Check to connect
                 your response time, follow-up ownership, and conversion goal to the clearest automation opportunity.
@@ -289,7 +289,7 @@ export default function SitesLanding() {
           <p className="eyebrow">THE AI SURFER PRODUCT WAVE</p>
           <h2 id="products-title">Start with the two clearest next steps.</h2>
           <p>
-            Begin with the Free AI Wave Check or open the Lead Leak Binder when follow-up
+            Begin with the Free AI Wave Check or open the Lead Leak Finder when follow-up
             is the problem you already know needs attention.
           </p>
         </div>
