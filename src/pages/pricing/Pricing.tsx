@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const WAVE_STARTER_URL = "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b";
+const AEO_GEO_AUDIT_URL = "https://buy.stripe.com/eVq4gzaVZ350cDg5JJ4gg0a";\nconst WAVE_STARTER_URL = "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b";
 const STRATEGY_CALL_URL = "https://calendly.com/oceantidedrop/new-meeting";
 const STRATEGY_EMAIL = "mailto:oceantidedropservice@gmail.com?subject=AI%20Surfer%20Strategy%20Call";
 
@@ -73,11 +73,11 @@ export default function Pricing() {
           <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-300">Ocean Tide Drop AI SURFER</p>
           <h1 className="mt-3 text-5xl font-black md:text-6xl">Choose Your AI Wave 🌊</h1>
           <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-300">
-            Start with one focused build or bring us in for a broader growth system. Every offer is designed to move from opportunity to implementation without a maze of stale tiers.
+            Start with the $97 AEO + GEO Wave Audit to see where your business is missing from AI answers, then choose the implementation wave that fits the opportunity.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {offers.map((offer) => (
             <article key={offer.title} className={`rounded-3xl border p-7 ${offer.featured ? "border-cyan-300 bg-cyan-300/10" : "border-white/10 bg-white/[0.04]"}`}>
               <h2 className="text-2xl font-black">{offer.title}</h2>
