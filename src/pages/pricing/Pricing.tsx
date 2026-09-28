@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
-const AEO_GEO_AUDIT_URL = "https://buy.stripe.com/eVq4gzaVZ350cDg5JJ4gg0a";\nconst WAVE_STARTER_URL = "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b";
+const AEO_GEO_AUDIT_URL = "https://buy.stripe.com/eVq4gzaVZ350cDg5JJ4gg0a";
+const WAVE_STARTER_URL = "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b";
 const STRATEGY_CALL_URL = "https://calendly.com/oceantidedrop/new-meeting";
 const STRATEGY_EMAIL = "mailto:oceantidedropservice@gmail.com?subject=AI%20Surfer%20Strategy%20Call";
 
