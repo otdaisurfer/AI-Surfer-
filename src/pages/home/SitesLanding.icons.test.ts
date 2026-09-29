@@ -22,7 +22,7 @@ describe("AI Surfer icon set", () => {
 
   it("keeps the approved two-card launch focus", () => {
     expect(source).toContain('name: "Free AI Wave Check™"');
-    expect(source).toContain('name: "Lead Leak Binder"');
+    expect(source).toContain('name: "Lead Leak Finder"');
     expect(source).toContain('href: "/wave-check"');
     expect(source).toContain('href: "#lead-leak-finder"');
     expect(source).not.toContain('name: "Customer Care Cove™"');

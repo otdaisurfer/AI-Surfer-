@@ -46,7 +46,7 @@ describe("shared site branding", () => {
       return stagePosition;
     }, funnelStart);
     expect(html.match(/class="product-card-cta"/g)).toHaveLength(2);
-    expect(html).toContain("Lead Leak Binder");
+    expect(html).toContain("Lead Leak Finder");
     expect(html).toContain('href="#lead-leak-finder"');
   });
 

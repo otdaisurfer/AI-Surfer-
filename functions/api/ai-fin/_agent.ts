@@ -219,6 +219,46 @@ function buildRunInput(input: ChatRequest): string {
     : input.message;
 }
 
+export function buildAiFinFallbackResponse(
+  input: ChatRequest,
+  context: AiFinAgentContext,
+): ChatResponse {
+  const message = input.message.toLowerCase();
+  const deterministicVersion = computeKnowledgeVersion(context.knowledge);
+
+  let answer =
+    'I can help a local business find its clearest AI opportunity, spot lead follow-up leaks, improve visibility in AI and search results, plan useful content, strengthen customer support, and automate repetitive work. The best first step is the Free AI Wave Check so I can point you to the smallest practical next move.';
+  let recommendedProductId: ProductId | null = null;
+
+  if (/price|cost|starter|builder|tsunami|package|offer/.test(message)) {
+    const starter = getProduct('wave-starter');
+    const builder = getProduct('wave-builder');
+    const tsunami = getProduct('tsunami-growth');
+    answer = `AI SURFER has three implementation levels: ${starter.name} at ${formatMoney(starter.setupPriceCents)}, ${builder.name} at ${formatMoney(builder.setupPriceCents)}, and ${tsunami.name} at ${formatMoney(tsunami.setupPriceCents)}. If you are not sure which fits, start with the Free AI Wave Check and choose the smallest implementation that solves the clearest problem.`;
+  } else if (/lead|follow.?up|sales|prospect|inquir/.test(message)) {
+    recommendedProductId = 'wave-starter';
+    answer =
+      'I can help map where new inquiries arrive, how quickly they get a response, who owns follow-up, and where prospects disappear. Start with the Free AI Wave Check or Lead Leak Finder; if one clear follow-up gap is confirmed, Wave Starter is the focused implementation path.';
+  } else if (/visibility|seo|aeo|geo|search|google|citation|answer engine/.test(message)) {
+    recommendedProductId = 'aeo-wave-audit';
+    answer =
+      'I can check how clearly your business is understood across search, AI answers, and recommendation systems, then identify the highest-priority entity, content, technical, and citation gaps. The AEO + GEO Wave Audit is the focused diagnostic for that problem.';
+  } else if (/automat|workflow|repetitive|manual|operations/.test(message)) {
+    recommendedProductId = 'wave-builder';
+    answer =
+      'I can help identify repetitive work, map the handoffs, and choose the first automation worth building. A single focused workflow may fit Wave Starter; connected workflows and tools usually fit Wave Builder. The Free AI Wave Check will narrow that down.';
+  }
+
+  return {
+    answer,
+    recommendedProductId,
+    knowledgeVersion: deterministicVersion,
+    leadSaved: context.leadSaved === true,
+    escalationRequired: false,
+    traceId: context.traceId,
+  };
+}
+
 export async function runAiFin(
   input: ChatRequest,
   context: AiFinAgentContext,
@@ -249,14 +289,6 @@ export async function runAiFin(
       name: error instanceof Error ? error.name : 'UnknownError',
       message: error instanceof Error ? error.message : String(error),
     });
-    return {
-      answer:
-        'I hit a temporary snag while checking that for you. Your request has not been submitted or saved. Please try again, and I’ll pick the wave back up from here.',
-      recommendedProductId: context.recommendedProductId ?? null,
-      knowledgeVersion: deterministicVersion,
-      leadSaved: context.leadSaved === true,
-      escalationRequired: false,
-      traceId: context.traceId,
-    };
+    return buildAiFinFallbackResponse(input, context);
   }
 }
