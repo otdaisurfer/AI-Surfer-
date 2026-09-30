@@ -18,7 +18,7 @@ const input = {
 };
 
 describe("member tool generators", () => {
-  it("ships the eleven approved member tools", () => {
+  it("ships the twelve approved member tools", () => {
     expect(memberTools.map((tool) => tool.name)).toEqual([
       "Prompt Wave Builder",
       "Follow-Up Message Maker",
@@ -27,6 +27,7 @@ describe("member tool generators", () => {
       "Offer Wave Builder",
       "Revenue Tide Planner",
       "Content Wave Generator",
+      "AI Surfer Content Factory™",
       "Sales Wave Script Builder",
       "Sales Page Wave Builder",
       "Lead Magnet Wave Builder",
@@ -168,6 +169,19 @@ describe("member tool generators", () => {
     expect(result).toContain("DAY 1 — PROBLEM HOOK");
     expect(result).toContain("REEL IDEAS");
     expect(result).toContain("CALLS TO ACTION");
+  });
+
+  it("creates an approval-led multi-platform content factory workflow", () => {
+    const result = generateMemberToolResult("ai-surfer-content-factory", input);
+
+    expect(result).toContain("AI SURFER CONTENT FACTORY™");
+    expect(result).toContain("CREATE · APPROVE · PUBLISH · GROW");
+    expect(result).toContain("APPROVAL CHECKPOINT");
+    expect(result).toContain("PUBLISHING QUEUE");
+    expect(result).toContain("ENGAGEMENT ROUTER");
+    expect(result).toContain("Facebook");
+    expect(result).toContain("WhatsApp");
+    expect(result).toContain("Never auto-publish a sensitive reply");
   });
 
   it("creates a complete sales conversation script with closes and follow-up", () => {
