@@ -5,6 +5,7 @@ import Login from "./pages/auth/Login";
 import ResetPassword from "./pages/auth/ResetPassword";
 import MembersDashboard from "./pages/members/MembersDashboard";
 import MemberProduct from "./pages/members/MemberProduct";
+import PromptArchitect from "./pages/members/PromptArchitect";
 import SitesLanding from "./pages/home/SitesLanding";
 import NotFound from "./pages/not-found/NotFound";
 import Pricing from "./pages/pricing/Pricing";
@@ -58,6 +59,7 @@ export default function RouterApp() {
           <Route path="/members" element={<ProtectedRoute><MembersLayout /></ProtectedRoute>}>
             <Route index element={<MembersDashboard />} />
             <Route path="products/:slug" element={<MemberProduct />} />
+            <Route path="prompt-architect" element={<PromptArchitect />} />
           </Route>
 
           <Route path="/dashboard" element={<Navigate to="/members" replace />} />
