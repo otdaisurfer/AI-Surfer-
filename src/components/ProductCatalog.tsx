@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Ocean-tech artwork is matched to each product's role in the AI Surfer journey.
+
 interface Product {
   stage: 'DISCOVER' | 'DIAGNOSE' | 'PLAN' | 'IMPLEMENT' | 'TRANSFORM';
   name: string;
