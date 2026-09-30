@@ -1214,3 +1214,20 @@
   .sites-landing .wave-check-hero-lead { font-size: 1rem; }
   .sites-landing .product-grid { grid-template-columns: 1fr; }
 }
+
+
+/* Mobile product artwork repair: preserve the full approved card images. */
+@media (max-width: 720px) {
+  .sites-landing .product-card-art {
+    height: auto;
+    min-height: 250px;
+    padding: 12px;
+  }
+  .sites-landing .product-card-art img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+  }
+}
