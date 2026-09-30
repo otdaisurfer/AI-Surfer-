@@ -30,7 +30,7 @@ afterEach(() => {
 });
 
 describe("MemberToolDock", () => {
-  it("renders all eleven tools with a launch control", () => {
+  it("renders all twelve tools with a launch control", () => {
     const markup = renderToStaticMarkup(<MemberToolDock />);
 
     expect(markup).toContain("Members Tool Dock");
@@ -45,7 +45,8 @@ describe("MemberToolDock", () => {
     expect(markup).toContain("Sales Page Wave Builder");
     expect(markup).toContain("Lead Magnet Wave Builder");
     expect(markup).toContain("Friday Revenue Scorecard");
-    expect(markup.match(/>Open Tool</g)).toHaveLength(11);
+    expect(markup).toContain("AI Surfer Content Factory™");
+    expect(markup.match(/>Open Tool</g)).toHaveLength(12);
   });
 
   it("shows short examples that clarify what belongs in each field", async () => {

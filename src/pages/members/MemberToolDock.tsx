@@ -28,7 +28,8 @@ type PersistenceStatus = "idle" | "restoring" | "restored" | "restore-error" | "
 const workflowNext: Partial<Record<MemberToolId, MemberToolId>> = {
   "offer-wave-builder": "revenue-tide-planner",
   "revenue-tide-planner": "content-wave-generator",
-  "content-wave-generator": "sales-wave-script-builder",
+  "content-wave-generator": "ai-surfer-content-factory",
+  "ai-surfer-content-factory": "sales-wave-script-builder",
   "sales-wave-script-builder": "sales-page-wave-builder",
   "sales-page-wave-builder": "lead-magnet-wave-builder",
   "lead-magnet-wave-builder": "friday-revenue-scorecard",
