@@ -75,6 +75,7 @@ describe("FullWaveReport", () => {
 
     expect(html).toContain("Ocean Tide Drop AI SURFER");
     expect(html).toContain("/images/approved-ai-fin-wave-check.jpg");
+    expect(html).toContain("/ai-surfer-logo.jpg");
     expect(html).toContain("AI Phone Program");
     expect(html).toContain("Social Media Command Hub");
     expect(html).toContain("Plan my phone setup");
