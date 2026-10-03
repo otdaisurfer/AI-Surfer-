@@ -206,7 +206,7 @@ export default function FullWaveReport({ email, submissionId, saveStatus, onRetr
             <article className="rounded-3xl border border-cyan-300/20 bg-cyan-300/[0.04] p-5">
               <div className="text-xs font-black uppercase tracking-[0.16em] text-cyan-200">AI Phone Program</div>
               <h4 className="mt-2 text-xl font-black">A helpful first voice on the line</h4>
-              <p className="mt-3 text-sm leading-6 text-slate-300">Scope a branded AI phone receptionist to greet callers, collect useful inquiry details, and hand them off to your team. Phone-provider setup and testing are part of planning before activation.</p>
+              <p className="mt-3 text-sm leading-6 text-slate-300">Plan a branded AI phone receptionist for caller greetings and inquiry capture. We’ll confirm phone-provider setup, safeguards, and handoff options with you before activation.</p>
               <a href="https://calendly.com/oceantidedrop/new-meeting" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-full items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-3 text-center text-sm font-black text-cyan-100 hover:bg-cyan-300/15">Plan my phone setup</a>
             </article>
             <article className="rounded-3xl border border-fuchsia-300/20 bg-fuchsia-300/[0.04] p-5">
@@ -216,7 +216,7 @@ export default function FullWaveReport({ email, submissionId, saveStatus, onRetr
               <a href="https://calendly.com/oceantidedrop/new-meeting" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-cyan-300 via-blue-300 to-fuchsia-300 px-4 py-3 text-center text-sm font-black text-slate-950 hover:brightness-110">Plan my social command hub</a>
             </article>
           </div>
-          <p className="mt-4 text-xs leading-5 text-slate-400">These are implementation conversations, not claims that phone service or social publishing is already activated.</p>
+          <p className="mt-4 text-xs leading-5 text-slate-400">Phone and publishing connections are scoped and tested with you before they go live.</p>
         </section>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
