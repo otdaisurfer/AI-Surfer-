@@ -164,12 +164,13 @@ export default function AiFinChat({ mode, embedded = false }: AiFinChatProps) {
 
   if (!open && !embedded) {
     return (
-      <div style={styles.launcherWrap}>
-        <div style={styles.launcherHint}>Come say hi to AI Fin 🐬</div>
+      <div className="ai-fin-launcher-wrap" style={styles.launcherWrap}>
+        <div className="ai-fin-launcher-hint" style={styles.launcherHint}>Come say hi to AI Fin 🐬</div>
         <button
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Open AI Fin"
+          className="ai-fin-launcher-button"
           style={styles.launcher}
         >
           <img className="ai-fin-launcher-mascot" src="/images/ai-fin-launcher.webp" alt="" aria-hidden="true" width="48" height="48" />
