@@ -15,3 +15,44 @@
 @media (prefers-reduced-motion: reduce) {
   .ai-fin-launcher-mascot { animation: none; }
 }
+
+/* Mobile: keep AI Fin helpful without covering the offer underneath. */
+@media (max-width: 560px) {
+  .ai-fin-launcher-wrap {
+    right: max(10px, env(safe-area-inset-right)) !important;
+    bottom: max(10px, env(safe-area-inset-bottom)) !important;
+    gap: 7px !important;
+    max-width: calc(100vw - 20px) !important;
+  }
+
+  .ai-fin-launcher-hint {
+    padding: 8px 11px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+    line-height: 1.15 !important;
+    font-weight: 800 !important;
+  }
+
+  .ai-fin-launcher-button {
+    min-height: 52px !important;
+    padding: 9px 14px !important;
+    gap: 7px !important;
+    font-size: 15px !important;
+    max-width: 190px !important;
+  }
+
+  .ai-fin-launcher-mascot {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (max-width: 380px) {
+  .ai-fin-launcher-hint {
+    display: none !important;
+  }
+
+  .ai-fin-launcher-button {
+    max-width: 170px !important;
+  }
+}
