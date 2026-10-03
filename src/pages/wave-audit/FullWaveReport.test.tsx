@@ -80,7 +80,7 @@ describe("FullWaveReport", () => {
     expect(html).toContain("Social Media Command Hub");
     expect(html).toContain("Plan my phone setup");
     expect(html).toContain("Plan my social command hub");
-    expect(html).toContain("not claims that phone service or social publishing is already activated");
+    expect(html).toContain("Phone and publishing connections are scoped and tested with you before they go live.");
   });
 
   it("routes the $497 offer to Stripe and higher tiers to strategy-call handoffs", () => {
