@@ -186,6 +186,9 @@ export default function FullWaveReport({ email, submissionId, saveStatus, onRetr
         </div>
 
         <section aria-labelledby="connected-systems-title" className="mt-8 overflow-hidden rounded-[2rem] border border-cyan-300/25 bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 p-6 shadow-[0_0_40px_rgba(34,211,238,0.08)] md:p-8">
+          <div className="mb-6 rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3">
+            <img src="/ai-surfer-logo.jpg" alt="Ocean Tide Drop AI SURFER brand logo" loading="lazy" className="mx-auto h-20 w-auto max-w-full object-contain" />
+          </div>
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
             <img
               src="/images/approved-ai-fin-wave-check.jpg"
