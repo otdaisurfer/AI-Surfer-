@@ -70,6 +70,18 @@ describe("FullWaveReport", () => {
     expect(html).not.toContain("Get My $97 AEO Wave Audit");
   });
 
+  it("adds branded, clearly scoped phone and social command hub pathways", () => {
+    const html = renderReport();
+
+    expect(html).toContain("Ocean Tide Drop AI SURFER");
+    expect(html).toContain("/images/approved-ai-fin-wave-check.jpg");
+    expect(html).toContain("AI Phone Program");
+    expect(html).toContain("Social Media Command Hub");
+    expect(html).toContain("Plan my phone setup");
+    expect(html).toContain("Plan my social command hub");
+    expect(html).toContain("not claims that phone service or social publishing is already activated");
+  });
+
   it("routes the $497 offer to Stripe and higher tiers to strategy-call handoffs", () => {
     const html = renderReport();
 
