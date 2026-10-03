@@ -1293,3 +1293,60 @@
     height: 30px;
   }
 }
+
+
+/* 2026-10-03 phone-width hardening: stack product cards sooner and keep AI Fin compact. */
+@media (max-width: 900px) {
+  .sites-landing .product-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 620px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sites-landing .product-section {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .sites-landing .product-card-art {
+    min-height: 0 !important;
+    height: auto !important;
+    aspect-ratio: auto;
+    padding: 10px;
+  }
+
+  .sites-landing .product-card-art img {
+    position: static !important;
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    border-radius: 12px;
+  }
+
+  .ai-fin-launcher-wrap {
+    right: max(8px, env(safe-area-inset-right)) !important;
+    bottom: max(8px, env(safe-area-inset-bottom)) !important;
+    max-width: calc(100vw - 16px) !important;
+  }
+
+  .ai-fin-launcher-hint {
+    display: none !important;
+  }
+
+  .ai-fin-launcher-button {
+    min-height: 44px !important;
+    padding: 7px 12px !important;
+    gap: 6px !important;
+    font-size: 13px !important;
+    border-radius: 999px !important;
+  }
+
+  .ai-fin-launcher-mascot {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
