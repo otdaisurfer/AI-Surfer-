@@ -185,6 +185,37 @@ export default function FullWaveReport({ email, submissionId, saveStatus, onRetr
           </div>
         </div>
 
+        <section aria-labelledby="connected-systems-title" className="mt-8 overflow-hidden rounded-[2rem] border border-cyan-300/25 bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 p-6 shadow-[0_0_40px_rgba(34,211,238,0.08)] md:p-8">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+            <img
+              src="/images/approved-ai-fin-wave-check.jpg"
+              alt="AI Fin, the Ocean Tide Drop AI SURFER mascot"
+              loading="lazy"
+              className="h-20 w-20 rounded-2xl border border-cyan-300/30 object-cover shadow-lg shadow-cyan-950/40"
+            />
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-300">Ocean Tide Drop AI SURFER · Ride the Wave. Grow with AI.</p>
+              <h3 id="connected-systems-title" className="mt-2 text-2xl font-black md:text-3xl">Grow with AI, from first call to social post.</h3>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-300">Add practical systems around the opportunity you found. We’ll map the setup to your business before anything goes live.</p>
+            </div>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <article className="rounded-3xl border border-cyan-300/20 bg-cyan-300/[0.04] p-5">
+              <div className="text-xs font-black uppercase tracking-[0.16em] text-cyan-200">AI Phone Program</div>
+              <h4 className="mt-2 text-xl font-black">A helpful first voice on the line</h4>
+              <p className="mt-3 text-sm leading-6 text-slate-300">Scope a branded AI phone receptionist to greet callers, collect useful inquiry details, and hand them off to your team. Phone-provider setup and testing are part of planning before activation.</p>
+              <a href="https://calendly.com/oceantidedrop/new-meeting" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-full items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-3 text-center text-sm font-black text-cyan-100 hover:bg-cyan-300/15">Plan my phone setup</a>
+            </article>
+            <article className="rounded-3xl border border-fuchsia-300/20 bg-fuchsia-300/[0.04] p-5">
+              <div className="text-xs font-black uppercase tracking-[0.16em] text-fuchsia-200">Social Media Command Hub</div>
+              <h4 className="mt-2 text-xl font-black">Keep your content moving together</h4>
+              <p className="mt-3 text-sm leading-6 text-slate-300">Plan a branded workflow for campaigns, scheduling, and publishing across your social channels, shaped around your approvals and tools.</p>
+              <a href="https://calendly.com/oceantidedrop/new-meeting" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-cyan-300 via-blue-300 to-fuchsia-300 px-4 py-3 text-center text-sm font-black text-slate-950 hover:brightness-110">Plan my social command hub</a>
+            </article>
+          </div>
+          <p className="mt-4 text-xs leading-5 text-slate-400">These are implementation conversations, not claims that phone service or social publishing is already activated.</p>
+        </section>
+
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <button type="button" onClick={copyReport} className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-300/30 bg-cyan-300/10 px-6 py-3 font-bold text-cyan-100 hover:bg-cyan-300/15">{copied ? <Check size={17} /> : <Clipboard size={17} />}{copied ? "Copied" : "Copy Report"}</button>
           <button type="button" onClick={downloadReport} className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-bold text-white hover:bg-white/10"><Download size={17} /> Download Report</button>
