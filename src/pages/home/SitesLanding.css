@@ -1350,3 +1350,40 @@
     height: 24px !important;
   }
 }
+
+
+/* 2026-10-03 Lead Leak Finder mobile text containment fix */
+@media (max-width: 760px) {
+  .sites-landing .lead-leak-finder {
+    width: calc(100% - 24px);
+    max-width: calc(100% - 24px);
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .sites-landing .lead-leak-content,
+  .sites-landing .lead-leak-content > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .sites-landing .lead-leak-content h2 {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(2rem, 11vw, 3.25rem);
+    line-height: 1.02;
+    letter-spacing: -.045em;
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .sites-landing .lead-leak-question,
+  .sites-landing .lead-leak-description {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+}
