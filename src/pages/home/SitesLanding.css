@@ -251,7 +251,33 @@
 .sites-landing .lead-leak-journey .active { color: #00131b; background: var(--cyan); }
 
 @media (max-width: 760px) {
-  .sites-landing .lead-leak-finder { grid-template-columns: 1fr; margin-right: 18px; margin-left: 18px; }
+  .sites-landing .lead-leak-finder {
+    grid-template-columns: 1fr;
+    margin-right: 12px;
+    margin-left: 12px;
+    padding: 20px 16px 28px;
+  }
+  .sites-landing .lead-leak-visual {
+    width: 100%;
+    aspect-ratio: auto;
+    overflow: visible;
+    border-radius: 22px;
+    filter: drop-shadow(0 16px 34px rgba(24, 238, 241, .16));
+  }
+  .sites-landing .lead-leak-visual img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 18px;
+  }
+  .sites-landing .lead-leak-content h2 {
+    font-size: clamp(2.4rem, 13vw, 4rem);
+    overflow-wrap: anywhere;
+  }
+  .sites-landing .lead-leak-question {
+    font-size: 1.05rem;
+    line-height: 1.42;
+  }
   .sites-landing .lead-leak-form { grid-template-columns: 1fr; }
 }
 .sites-landing .approved-media-grid {
