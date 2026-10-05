@@ -259,7 +259,7 @@
   }
   .sites-landing .lead-leak-visual {
     width: 100%;
-    aspect-ratio: auto;
+    aspect-ratio: 1 / 1;
     overflow: visible;
     border-radius: 22px;
     filter: drop-shadow(0 16px 34px rgba(24, 238, 241, .16));
