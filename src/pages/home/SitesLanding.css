@@ -258,6 +258,8 @@
     padding: 20px 16px 28px;
   }
   .sites-landing .lead-leak-visual {
+    display: grid;
+    place-items: center;
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: visible;
@@ -265,8 +267,9 @@
     filter: drop-shadow(0 16px 34px rgba(24, 238, 241, .16));
   }
   .sites-landing .lead-leak-visual img {
+    display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
     border-radius: 18px;
   }
