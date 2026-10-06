@@ -31,8 +31,8 @@ describe("shared site branding", () => {
     expect(html).toContain('data-homepage-logo="true"');
     expect(html).toContain('src="/ocean_tide_logo.png"');
     expect(html).not.toContain('aria-label="Ocean Tide Drop AI Surfer brand"');
-    expect(html).toContain("The Free AI Wave Check is live");
-    expect(html).toContain("Find my biggest AI opportunity");
+    expect(html).toContain("Free AI Wave Check + Lead Leak Finder");
+    expect(html).toContain("Find where leads are slipping away");
   });
 
   it("keeps the seven-step revenue funnel and colored product actions on the landing page", () => {

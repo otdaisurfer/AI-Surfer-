@@ -5,7 +5,8 @@ const source = readFileSync("src/pages/home/SitesLanding.tsx", "utf8");
 
 describe("first-client homepage launch path", () => {
   it("makes the Free AI Wave Check the clear front door", () => {
-    expect(source).toContain("The Free AI Wave Check is live");
+    expect(source).toContain("Free AI Wave Check + Lead Leak Finder");
+    expect(source).toContain('href="#lead-leak-finder"');
     expect(source).toContain('href="/wave-check"');
     expect(source).toContain("Start My Free AI Wave Check™");
     expect(source).toContain('name: "Free AI Wave Check™"');
