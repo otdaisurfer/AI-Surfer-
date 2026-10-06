@@ -41,7 +41,7 @@ export default function Founders() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
               <div className="absolute bottom-8 left-8 z-20">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400 mb-2 block">Founder & Architect</span>
-                <h2 className="text-4xl font-black uppercase text-white tracking-tighter">Shannon Cahoon Foster</h2>
+                <h2 className="text-4xl font-black uppercase text-white tracking-tighter">Shannon Cahoon</h2>
               </div>
               <motion.div 
                 className="absolute inset-0 flex items-center justify-center"
