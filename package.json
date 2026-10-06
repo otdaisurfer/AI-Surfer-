@@ -24,7 +24,7 @@
     "worker:retry:check": "npx wrangler@4.112.0 deploy --dry-run --config wrangler.wave-check-retry.jsonc"
   },
   "keywords": ["react", "vite", "typescript", "marketing", "ai-surfer", "agents"],
-  "author": "Shannon Foster",
+  "author": "Shannon Cahoon",
   "license": "MIT",
   "dependencies": {
     "@google/genai": "^2.10.0",
