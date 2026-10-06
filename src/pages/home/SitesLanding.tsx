@@ -73,8 +73,8 @@ export default function SitesLanding() {
       `}</style>
       <div className="announcement">
         <span>🌊 Start here</span>
-        <strong>The Free AI Wave Check is live</strong>
-        <a href="/wave-check">Find my biggest AI opportunity →</a>
+        <strong>Free AI Wave Check + Lead Leak Finder</strong>
+        <a href="#lead-leak-finder">Find where leads are slipping away →</a>
       </div>
 
       <a className="landing-logo-link" href="#top" aria-label="Ocean Tide Drop AI SURFER home">
@@ -93,6 +93,7 @@ export default function SitesLanding() {
         <div className="nav-links">
           <a href="#product-wave">Products</a>
           <a href="/wave-check">Free Wave Check</a>
+          <a href="#lead-leak-finder">Lead Leak Finder</a>
           <a className="nav-button" href="/members">Members</a>
         </div>
       </nav>
@@ -111,13 +112,22 @@ export default function SitesLanding() {
             capture more opportunities, improve visibility, or strengthen the way your
             business runs.
           </p>
-          <a
-            className="button button-primary wave-check-hero-cta"
-            href="/wave-check"
-            data-funnel-cta="hero-wave-check"
-          >
-            Start My Free AI Wave Check™
-          </a>
+          <div className="hero-actions">
+            <a
+              className="button button-primary wave-check-hero-cta"
+              href="/wave-check"
+              data-funnel-cta="hero-wave-check"
+            >
+              Start My Free AI Wave Check™
+            </a>
+            <a
+              className="button button-secondary"
+              href="#lead-leak-finder"
+              data-funnel-cta="hero-lead-leak"
+            >
+              Find My Lead Leaks →
+            </a>
+          </div>
           <a
             className="wave-check-hero-media-link"
             href="/wave-check"
