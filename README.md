@@ -131,5 +131,5 @@ The core promise is simple:
 
 ---
 
-Created by Shannon Foster.  
+Created by Shannon Cahoon.  
 Ocean Tide Drop AI SURFER 🌊
