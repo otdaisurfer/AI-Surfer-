@@ -6,12 +6,15 @@ import { supabase } from "../../lib/supabase";
 import MemberToolDock from "./MemberToolDock";
 
 const products = [
-  ["🔎", "Wave Scout", "Find AI opportunities and qualified leads.", "wave-scout"],
-  ["💰", "Sales Rider", "Turn conversations into a repeatable sales system.", "sales-rider"],
-  ["✍️", "Content Creator", "Build an AI-powered content engine.", "content-creator"],
-  ["💬", "Customer Care Cove", "Automate helpful customer support.", "customer-care-cove"],
-  ["⚙️", "Automation Architect", "Connect the workflows that keep business moving.", "automation-architect"],
-  ["🐋", "Big Kahuna", "High-touch AI strategy and implementation.", "big-kahuna"],
+  ["🔍", "Lead Leak Finder", "Find where leads slip away and what to fix first.", "/#lead-leak-finder"],
+  ["🌊", "Free AI Wave Check", "Answer five questions and find your biggest AI opportunity.", "/wave-check"],
+  ["🌺", "AI Wave Audit", "Assess your business and get an AI opportunity report.", "/wave-audit"],
+  ["🔎", "Wave Scout", "Find AI opportunities and qualified leads.", "/members/products/wave-scout"],
+  ["💰", "Sales Rider", "Turn conversations into a repeatable sales system.", "/members/products/sales-rider"],
+  ["✍️", "Content Creator", "Build an AI-powered content engine.", "/members/products/content-creator"],
+  ["💬", "Customer Care Cove", "Automate helpful customer support.", "/members/products/customer-care-cove"],
+  ["⚙️", "Automation Architect", "Connect the workflows that keep business moving.", "/members/products/automation-architect"],
+  ["🐋", "Big Kahuna", "High-touch AI strategy and implementation.", "/members/products/big-kahuna"],
 ];
 
 export default function MembersDashboard() {
@@ -120,11 +123,19 @@ export default function MembersDashboard() {
           <h1>Welcome to your AI-Surfer Dashboard.</h1>
           <p style={styles.copy}>{email || "Member"} · <strong>{tier}</strong></p>
         </div>
-        <div style={styles.audit}>
+        <div style={{ display: "grid", gap: 18 }}>
+          <a href="/#lead-leak-finder" style={{ ...styles.audit, color: "white", textDecoration: "none", display: "grid", gap: 10 }}>
+            <span aria-hidden="true" style={{ fontSize: 34 }}>🔍</span>
+            <strong>Lead Leak Finder</strong>
+            <span style={styles.productText}>Find where leads slip away and what to fix first.</span>
+            <span style={{ ...styles.cta, color: "#082f49", justifySelf: "start" }}>Open Lead Leak Finder</span>
+          </a>
+          <div style={styles.audit}>
           <div style={{ fontSize: 34 }}>🌺</div>
           <strong>Start with your AI Wave Audit</strong>
           <p>Discover where AI can create the biggest business impact.</p>
           <button onClick={() => navigate("/wave-audit")} style={styles.cta}>Launch Wave Audit</button>
+          </div>
         </div>
       </section>
 
@@ -180,13 +191,13 @@ export default function MembersDashboard() {
           <span style={styles.tierPill}>{tier}</span>
         </div>
         <div style={styles.grid}>
-          {products.map(([icon, name, text, slug]) => (
-            <button key={name} onClick={() => navigate(`/members/products/${slug}`)} style={styles.product}>
+          {products.map(([icon, name, text, href]) => (
+            <a key={name} href={href} style={{ ...styles.product, textDecoration: "none" }}>
               <span style={{ fontSize: 30 }}>{icon}</span>
               <strong>{name}</strong>
               <span style={styles.productText}>{text}</span>
               <small>Open product →</small>
-            </button>
+            </a>
           ))}
         </div>
       </section>
