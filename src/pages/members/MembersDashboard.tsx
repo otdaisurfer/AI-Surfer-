@@ -1,3 +1,4 @@
+import WaveHandlerVisual from "../../components/WaveHandlerVisual";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -138,6 +139,8 @@ export default function MembersDashboard() {
           </div>
         </div>
       </section>
+
+      <WaveHandlerVisual />
 
       {tier === "Owner" && (
         <section style={styles.readiness}>

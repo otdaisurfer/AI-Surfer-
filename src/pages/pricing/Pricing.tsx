@@ -1,3 +1,4 @@
+import WaveHandlerVisual from "../../components/WaveHandlerVisual";
 import { useEffect } from "react";
 
 const AEO_GEO_AUDIT_URL = "https://buy.stripe.com/eVq4gzaVZ350cDg5JJ4gg0a";
@@ -86,6 +87,8 @@ export default function Pricing() {
             Start with the $97 AEO + GEO Wave Audit to see where your business is missing from AI answers, then choose the implementation wave that fits the opportunity.
           </p>
         </div>
+
+      <WaveHandlerVisual />
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {offers.map((offer) => (

@@ -1390,3 +1390,7 @@
     word-break: normal;
   }
 }
+
+/* Display the entire Wave Handler poster, including the Wave Check invitation. */
+.sites-landing .wave-check-hero-media { aspect-ratio: 1229 / 1536; border-radius: 24px; }
+.sites-landing .wave-check-hero-image { aspect-ratio: 1229 / 1536; height: auto; border-radius: 0; object-fit: contain; }

@@ -1,3 +1,4 @@
+import WaveHandlerVisual from "../../components/WaveHandlerVisual";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -126,6 +127,8 @@ export default function MemberProduct() {
         <h1>{product.name}</h1>
         <p style={styles.copy}>{product.description}</p>
       </div>
+
+      <WaveHandlerVisual />
 
       {hasAccess ? (
         <section style={styles.card}>

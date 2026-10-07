@@ -1,3 +1,4 @@
+import WaveHandlerVisual from "../../components/WaveHandlerVisual";
 import { FormEvent, useState } from "react";
 import "./SitesLanding.css";
 
@@ -139,8 +140,12 @@ export default function SitesLanding() {
             <figure className="wave-check-hero-media">
               <img
                 className="wave-check-hero-image"
-                src="/images/approved-ai-fin-wave-check.jpg?v=20260928-1"
-                alt="Approved AI Fin mascot inviting visitors to start the Free AI Wave Check"
+                src="/images/wave-handler/wave-check.webp"
+                srcSet="/images/wave-handler/wave-check-mobile.webp 768w, /images/wave-handler/wave-check.webp 1229w"
+                sizes="(max-width: 820px) 88vw, 410px"
+                width={1229}
+                height={1536}
+                alt="Wave Handler and AI Fin inviting you to find lost leads with the Free AI Wave Check"
                 fetchPriority="high"
                 decoding="async"
               />
@@ -305,6 +310,8 @@ export default function SitesLanding() {
             is the problem you already know needs attention.
           </p>
         </div>
+
+        <WaveHandlerVisual />
 
         <div className="product-grid">
           {products.map((product, index) => (
