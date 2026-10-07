@@ -192,7 +192,7 @@ export default function SitesLanding() {
       <section className="lead-leak-finder" id="lead-leak-finder" aria-labelledby="lead-leak-title">
         <div className="lead-leak-visual">
           <img
-            src=leadLeakImage
+            src={leadLeakImage}
             alt="Lead Leak Finder for spotting follow-up gaps and lost opportunities"
             loading="lazy"
             decoding="async"
