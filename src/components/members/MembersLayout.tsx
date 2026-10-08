@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 type TideMode = "auto" | "high" | "low";
 
@@ -83,6 +83,10 @@ export default function MembersLayout() {
               </p>
             </div>
 
+            <nav aria-label="Members navigation" className="mb-6 grid gap-3">
+              <Link to="/members" className="font-bold text-cyan-200">Command Center</Link>
+              <Link to="/members/pricing" className="font-bold text-pink-200">Pricing & Payments</Link>
+            </nav>
             <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
               <div className="text-xs uppercase tracking-widest text-white/50">
                 Status

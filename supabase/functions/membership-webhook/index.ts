@@ -2,6 +2,7 @@ import Stripe from "npm:stripe@14.25.0";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import type { Stripe as StripeType } from "npm:stripe@14.25.0";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { isOptionalSupportBillingEvent } from "./supportBilling.ts";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || (() => {
@@ -317,6 +318,8 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
+    if (isOptionalSupportBillingEvent(event)) return text("ok");
+
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as StripeType.Checkout.Session;
 

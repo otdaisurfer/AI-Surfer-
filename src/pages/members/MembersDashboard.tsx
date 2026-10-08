@@ -15,7 +15,7 @@ const products = [
   ["✍️", "Content Creator", "Build an AI-powered content engine.", "/members/products/content-creator"],
   ["💬", "Customer Care Cove", "Automate helpful customer support.", "/members/products/customer-care-cove"],
   ["⚙️", "Automation Architect", "Connect the workflows that keep business moving.", "/members/products/automation-architect"],
-  ["🐋", "Big Kahuna", "High-touch AI strategy and implementation.", "/members/products/big-kahuna"],
+  ["🐋", "Big Kahuna", "Focused AI strategy and a practical growth roadmap.", "/members/products/big-kahuna"],
 ];
 
 export default function MembersDashboard() {
@@ -141,6 +141,15 @@ export default function MembersDashboard() {
       </section>
 
       <WaveHandlerVisual />
+
+      <section style={styles.promptArchitect}>
+        <div>
+          <p style={styles.kicker}>PRICING & PAYMENTS</p>
+          <h2 style={{ margin: 0 }}>Membership, Services & Monthly Support</h2>
+          <p style={styles.productText}>Membership is $17/month. View every service price and choose optional monthly support through secure Stripe checkout.</p>
+        </div>
+        <button type="button" onClick={() => navigate("/members/pricing")} style={styles.cta}>View Pricing & Payments</button>
+      </section>
 
       {tier === "Owner" && (
         <section style={styles.readiness}>
