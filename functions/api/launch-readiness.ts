@@ -118,7 +118,7 @@ async function probeSupabase(env: LaunchReadinessEnv, fetchImpl: typeof fetch): 
 
 async function probeHubSpot(env: LaunchReadinessEnv, fetchImpl: typeof fetch): Promise<CheckResult> {
   if (!env.HUBSPOT_ACCESS_TOKEN) {
-    return { ok: false, detail: "HubSpot server binding is missing." };
+    return { ok: false, detail: "The website is missing HUBSPOT_ACCESS_TOKEN. Add the HubSpot private app token to the production environment, then run this check again." };
   }
 
   try {
@@ -130,6 +130,19 @@ async function probeHubSpot(env: LaunchReadinessEnv, fetchImpl: typeof fetch): P
         },
       },
     );
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        return { ok: false, detail: "HubSpot rejected the website's access token. Replace HUBSPOT_ACCESS_TOKEN with a valid private app token." };
+      }
+      if (response.status === 403) {
+        return { ok: false, detail: "The HubSpot token needs read access to CRM products." };
+      }
+      if (response.status === 404) {
+        return { ok: false, detail: "The Wave Starter product was not found in the HubSpot account connected to this website." };
+      }
+      return { ok: false, detail: `HubSpot could not verify the Wave Starter product (HTTP ${response.status}). Please retry.` };
+    }
 
     const body = await response.json().catch(() => ({})) as {
       properties?: {
@@ -157,7 +170,7 @@ async function probeHubSpot(env: LaunchReadinessEnv, fetchImpl: typeof fetch): P
 
 async function probeStripe(env: LaunchReadinessEnv, fetchImpl: typeof fetch): Promise<CheckResult> {
   if (!env.STRIPE_SECRET_KEY) {
-    return { ok: false, detail: "Stripe secret binding is missing." };
+    return { ok: false, detail: "The website is missing STRIPE_SECRET_KEY. Add the live Stripe server key to the production environment, then run this check again." };
   }
 
   try {
@@ -169,6 +182,19 @@ async function probeStripe(env: LaunchReadinessEnv, fetchImpl: typeof fetch): Pr
         },
       },
     );
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        return { ok: false, detail: "Stripe rejected the website's server key. Replace STRIPE_SECRET_KEY with a valid live key for the Ocean Tide Drop Stripe account." };
+      }
+      if (response.status === 403) {
+        return { ok: false, detail: "The website's Stripe key needs Payment Links read access." };
+      }
+      if (response.status === 404) {
+        return { ok: false, detail: "The Wave Starter payment link was not found. Check that the website's Stripe key belongs to the Ocean Tide Drop live account." };
+      }
+      return { ok: false, detail: `Stripe could not verify the Wave Starter payment link (HTTP ${response.status}). Please retry.` };
+    }
 
     const body = await response.json().catch(() => ({})) as {
       active?: boolean;

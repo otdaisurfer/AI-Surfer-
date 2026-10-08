@@ -94,6 +94,32 @@ function readyFetch() {
 }
 
 describe("production launch readiness", () => {
+  it.each([
+    ["hubspot", "api.hubapi.com", 401, "Replace HUBSPOT_ACCESS_TOKEN"],
+    ["hubspot", "api.hubapi.com", 403, "read access to CRM products"],
+    ["hubspot", "api.hubapi.com", 404, "product was not found"],
+    ["stripe", "api.stripe.com", 401, "Replace STRIPE_SECRET_KEY"],
+    ["stripe", "api.stripe.com", 403, "Payment Links read access"],
+    ["stripe", "api.stripe.com", 404, "payment link was not found"],
+  ])("explains %s HTTP %s failures without exposing credentials", async (service, hostname, status, expected) => {
+    const healthyFetch = readyFetch();
+    const fetchImpl = vi.fn(async (input: RequestInfo | URL) => {
+      if (new URL(String(input)).hostname === hostname) {
+        return new Response(JSON.stringify({ error: "sensitive upstream diagnostic stripe-secret hubspot-secret" }), { status: Number(status) });
+      }
+      return healthyFetch(input);
+    });
+    const response = await handleLaunchReadiness(request(), env, fetchImpl);
+    const body = await response.json() as {
+      status: string; blockers: string[]; checks: Record<string, { ok: boolean; detail: string }>;
+    };
+    expect(body.status).toBe("blocked");
+    expect(body.blockers).toEqual([service]);
+    expect(body.checks[service].detail).toContain(expected);
+    expect(JSON.stringify(body)).not.toContain("stripe-secret");
+    expect(JSON.stringify(body)).not.toContain("hubspot-secret");
+  });
+
   it("returns ready when the production bindings and downstream checks pass", async () => {
     const response = await handleLaunchReadiness(request(), env, readyFetch());
 
