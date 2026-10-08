@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../lib/supabase";
 import { getImplementationOffer } from "./implementationOffer";
+import ServiceCheckout from "./ServiceCheckout";
 
 type Tier = "free" | "bronze" | "wave" | "tsunami" | "enterprise" | "owner";
 
@@ -43,7 +44,7 @@ const products: Product[] = [
   { name: "Content Creator", icon: "✍️", slug: "content-creator", description: "Build an AI-powered content engine for consistent business growth.", minimumTier: "bronze", nextStep: "Build your content plan" },
   { name: "Customer Care Cove", icon: "💬", slug: "customer-care-cove", description: "Automate helpful customer support while keeping the human touch.", minimumTier: "bronze", nextStep: "Design your support flow" },
   { name: "Automation Architect", icon: "⚙️", slug: "automation-architect", description: "Connect the workflows that keep your business moving.", minimumTier: "wave", nextStep: "Map your automation stack" },
-  { name: "Big Kahuna", icon: "🐋", slug: "big-kahuna", description: "High-touch AI strategy and implementation for a full business transformation.", minimumTier: "tsunami", nextStep: "Book your strategy kickoff" },
+  { name: "Big Kahuna", icon: "🐋", slug: "big-kahuna", description: "Focused AI business strategy and a practical growth roadmap. Implementation is quoted separately.", minimumTier: "tsunami", nextStep: "Book your strategy kickoff" },
 ];
 
 function normalizeTier(value: unknown): Tier {
@@ -141,30 +142,16 @@ export default function MemberProduct() {
         <section style={styles.card}>
           <p style={styles.kicker}>MEMBER WORKSPACE</p>
           <h2>Unlock the ongoing {product.name} workspace with {minimumTierLabel}.</h2>
-          <p>Your current access level is <strong>{currentTierLabel}</strong>. Access controls the ongoing workspace, while implementation is handled separately through the current public offers below.</p>
-          <button onClick={() => navigate("/pricing")} style={styles.cta}>View Current Offers 💳</button>
+          <p>Your current access level is <strong>{currentTierLabel}</strong>. Workspace access depends on your tier. Services and optional support are purchased separately below.</p>
+          <button onClick={() => navigate("/members/pricing")} style={styles.cta}>View Pricing & Payments 💳</button>
         </section>
       )}
 
       {implementationOffer && (
         <section style={{ ...styles.card, ...styles.implementationCard }}>
-          <p style={styles.implementationKicker}>READY TO IMPLEMENT?</p>
-          <h2>Turn {product.name} into a working system for your business.</h2>
-          {implementationOffer.kind === "checkout" ? (
-            <>
-              <p style={styles.copy}>AI Surfer will design and build the implementation around your business, workflows, and goals.</p>
-              <p style={styles.price}>${implementationOffer.price.toLocaleString()} <span style={styles.priceNote}>one-time implementation</span></p>
-              <a href={implementationOffer.checkoutUrl} target="_blank" rel="noopener noreferrer" style={{ ...styles.cta, ...styles.linkButton }}>
-                {implementationOffer.cta} 🌊
-              </a>
-              <p style={styles.microcopy}>Secure checkout powered by Stripe.</p>
-            </>
-          ) : (
-            <>
-              <p style={styles.copy}>Big Kahuna is a high-touch strategy and implementation engagement, so we start with the right scope instead of forcing a one-size-fits-all checkout.</p>
-              <button onClick={() => navigate(implementationOffer.path)} style={styles.cta}>{implementationOffer.cta} 🌊</button>
-            </>
-          )}
+          <p style={styles.implementationKicker}>SERVICE & OPTIONAL SUPPORT</p>
+          <p>Agree your scope with AI SURFER, then choose your service or monthly support below.</p>
+          <ServiceCheckout offer={implementationOffer} />
         </section>
       )}
     </PageShell>

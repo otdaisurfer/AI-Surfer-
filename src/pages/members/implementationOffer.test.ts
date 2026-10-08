@@ -1,50 +1,30 @@
 import { describe, expect, it } from "vitest";
 import { getImplementationOffer } from "./implementationOffer";
 
-describe("getImplementationOffer", () => {
-  it.each([
-    ["wave-scout"],
-    ["sales-rider"],
-    ["content-creator"],
-    ["customer-care-cove"],
-  ])("maps %s to Wave Starter", (slug) => {
-    expect(getImplementationOffer(slug)).toEqual({
-      kind: "checkout",
-      label: "Wave Starter",
-      price: 497,
-      checkoutUrl: "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b",
-      cta: "Buy Wave Starter",
-    });
+describe("product service offers", () => {
+  it("routes Sales Rider to its own service and support, rather than Wave Starter", () => {
+    const sales = getImplementationOffer("sales-rider")!;
+    const starter = getImplementationOffer("wave-starter")!;
+    expect(sales.name).toBe("Sales Rider");
+    expect(sales.price).toBe(1497);
+    expect(sales.support.price).toBe(297);
+    expect(sales.checkoutUrl).not.toBe(starter.checkoutUrl);
+    expect(sales.support.checkoutUrl).not.toBe(sales.checkoutUrl);
   });
 
-  it("maps AEO Blueprint to Wave Builder", () => {
-    expect(getImplementationOffer("aeo-blueprint")).toEqual({
-      kind: "high-touch",
-      label: "Wave Builder",
-      cta: "Request a Wave Builder Strategy Call",
-      path: "/pricing",
-    });
+  it("offers Big Kahuna as a focused strategy engagement", () => {
+    expect(getImplementationOffer("big-kahuna")).toMatchObject({ name: "Big Kahuna", price: 997, support: { price: 297, minutes: 120 } });
+    expect(getImplementationOffer("big-kahuna")?.description).toContain("quoted separately");
   });
 
-  it("maps Automation Architect to Wave Builder", () => {
-    expect(getImplementationOffer("automation-architect")).toEqual({
-      kind: "high-touch",
-      label: "Wave Builder",
-      cta: "Request a Wave Builder Strategy Call",
-      path: "/pricing",
-    });
+  it("offers both blueprints and the opportunity report", () => {
+    for (const slug of ["aeo-blueprint", "automation-blueprint", "ai-opportunity-report"]) {
+      expect(getImplementationOffer(slug)?.checkoutUrl).toMatch(/^https:\/\/buy\.stripe\.com\//);
+    }
   });
 
-  it("maps Big Kahuna to Tsunami Growth", () => {
-    expect(getImplementationOffer("big-kahuna")).toEqual({
-      kind: "high-touch",
-      label: "Tsunami Growth",
-      cta: "Talk With AI Surfer",
-      path: "/pricing",
-    });
-  });
-
-  it("returns null for an unknown product", () => {
+  it("returns null for missing or unknown products", () => {
+    expect(getImplementationOffer()).toBeNull();
     expect(getImplementationOffer("not-a-product")).toBeNull();
   });
 });

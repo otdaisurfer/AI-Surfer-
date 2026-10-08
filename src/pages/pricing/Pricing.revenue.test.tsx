@@ -20,6 +20,15 @@ afterEach(() => {
 });
 
 describe("launch revenue conversion path", () => {
+  it("shows the live membership price and Stripe checkout", () => {
+    const { container, root } = renderPricing();
+    const join = [...container.querySelectorAll("a")].find((a) => a.textContent?.includes("Join AI SURFER"));
+    expect(join?.getAttribute("href")).toBe("https://buy.stripe.com/cNi00j5BFcFAcDg7RR4gg03");
+    expect(join?.textContent).toContain("$17/month");
+    expect(container.querySelector('a[href="/members/pricing"]')).not.toBeNull();
+    act(() => root.unmount());
+  });
+
   it("routes high-ticket inquiries to the live strategy-call booking flow", () => {
     const { container, root } = renderPricing();
     const anchors = Array.from(container.querySelectorAll("a"));

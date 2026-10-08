@@ -9,6 +9,12 @@ describe("canonical membership webhook source", () => {
     expect(existsSync(webhookPath)).toBe(true);
   });
 
+  it("filters optional support before changing membership state", () => {
+    const source = readFileSync(webhookPath, "utf8");
+    expect(source).toContain('import { isOptionalSupportBillingEvent } from "./supportBilling.ts"');
+    expect(source.indexOf('if (isOptionalSupportBillingEvent(event)) return text("ok")')).toBeLessThan(source.indexOf('event.type === "checkout.session.completed"'));
+  });
+
   it("preserves paid tier on failed payment and only frees on cancellation", () => {
     const source = readFileSync(webhookPath, "utf8");
 
