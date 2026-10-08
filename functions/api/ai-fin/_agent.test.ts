@@ -36,6 +36,29 @@ describe('AI Fin agent model selection', () => {
 });
 
 describe('AI Fin safe fallback', () => {
+  it('describes the full service catalog rather than only implementation packages', () => {
+    const response = buildAiFinFallbackResponse({ mode: 'public', message: 'what products do you offer' }, context);
+    for (const name of ['AI Lead Leak Finder', 'AI Opportunity Report', 'AEO Blueprint', 'Automation Blueprint', 'Wave Scout', 'Sales Rider', 'Content Creator', 'Customer Care Cove', 'Automation Architect', 'Big Kahuna', 'AI SURFER Membership', 'Prompt Architect', 'Content Factory']) {
+      expect(response.answer).toContain(name);
+    }
+    expect(response.answer).toContain('$17/month');
+    expect(response.leadSaved).toBe(false);
+  });
+
+  it('answers a named service price with separate optional support', () => {
+    const response = buildAiFinFallbackResponse({ mode: 'public', message: 'What does Customer Care Cove cost?' }, context);
+    expect(response.answer).toContain('$1,497 one-time');
+    expect(response.answer).toContain('$297/month');
+    expect(response.answer.toLowerCase()).toContain('optional');
+    expect(response.answer).not.toContain('three implementation levels');
+  });
+
+  it('supplies the full catalog to the model even without database knowledge', () => {
+    const agent = createAiFinAgent(context);
+    expect(agent.instructions).toContain('Customer Care Cove');
+    expect(agent.instructions).toContain('AI Lead Leak Finder');
+    expect(agent.instructions).toContain('Support is optional');
+  });
   it('gives public visitors a useful next step when the model runtime fails', () => {
     const response = buildAiFinFallbackResponse(
       { mode: 'public', message: 'What can you help a local business with?' },
