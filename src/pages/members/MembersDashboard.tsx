@@ -61,6 +61,7 @@ export default function MembersDashboard() {
       const body = await response.json() as {
         status?: "ready" | "blocked";
         blockers?: string[];
+        checks?: Record<string, { ok: boolean; detail: string }>;
         error?: string;
       };
 
@@ -75,10 +76,18 @@ export default function MembersDashboard() {
       }
 
       setReadinessStatus("blocked");
+      const serviceNames: Record<string, string> = {
+        openai: "OpenAI", hubspot: "HubSpot", supabase: "Supabase", stripe: "Stripe",
+      };
+      const details = Object.entries(body.checks ?? {})
+        .filter(([, check]) => !check.ok)
+        .map(([name, check]) => `${serviceNames[name] ?? name}: ${check.detail}`);
       setReadinessMessage(
-        body.blockers?.length
-          ? `Blocked by: ${body.blockers.join(", ")}.`
-          : "A production readiness blocker remains.",
+        details.length
+          ? details.join("\n\n")
+          : body.blockers?.length
+            ? `Needs attention: ${body.blockers.map(name => serviceNames[name] ?? name).join(", ")}.`
+            : "A production readiness blocker remains.",
       );
     } catch (error) {
       setReadinessStatus("error");
@@ -94,7 +103,7 @@ export default function MembersDashboard() {
   };
 
   return (
-    <main style={styles.page}>
+    <main className="members-dashboard" style={styles.page}>
       <header style={styles.header}>
         <div style={styles.brandPanel} aria-label="Members Command Center brand">
           <span aria-hidden="true" style={styles.silverSparkles}>
@@ -200,12 +209,12 @@ export default function MembersDashboard() {
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  page: { minHeight: "100vh", padding: "24px clamp(18px,5vw,70px) 70px", background: "transparent", color: "white", fontFamily: "system-ui, sans-serif" },
-  header: { maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 30 },
+  page: { minHeight: "100vh", padding: "24px clamp(18px,5vw,70px) 70px", background: "transparent", color: "white", fontFamily: "system-ui, sans-serif", fontSize: 16, lineHeight: 1.6 },
+  header: { maxWidth: 1200, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20, paddingBottom: 30 },
   brandPanel: {
     position: "relative",
     isolation: "isolate",
-    minWidth: 238,
+    minWidth: 0,
     padding: "16px 22px",
     borderRadius: 18,
     border: "1px solid rgba(226,232,240,.3)",
@@ -228,19 +237,19 @@ const styles: Record<string, React.CSSProperties> = {
   brand: { position: "relative", zIndex: 3, fontWeight: 950, letterSpacing: 2.2, color: "#67e8f9", textShadow: "0 0 18px rgba(103,232,249,.34)" },
   sub: { position: "relative", zIndex: 3, marginTop: 4, color: "#f8fafc", fontSize: 14, fontWeight: 800, letterSpacing: ".04em" },
   signOut: { background: "transparent", border: "1px solid #31506a", color: "#cbd5e1", borderRadius: 999, padding: "9px 16px", cursor: "pointer" },
-  hero: { maxWidth: 1200, margin: "0 auto 45px", display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 28, alignItems: "stretch" },
-  kicker: { color: "#00f2fe", fontWeight: 800, letterSpacing: 2, fontSize: 13, marginBottom: 8 },
+  hero: { maxWidth: 1200, margin: "0 auto 45px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,320px),1fr))", gap: 28, alignItems: "stretch" },
+  kicker: { color: "#00f2fe", fontWeight: 800, letterSpacing: 2, fontSize: 14, marginBottom: 8 },
   copy: { color: "#94a3b8" },
   audit: { padding: 28, borderRadius: 22, background: "rgba(10,20,38,.85)", border: "1px solid rgba(0,242,254,.35)" },
   cta: { border: 0, borderRadius: 999, padding: "12px 18px", fontWeight: 800, cursor: "pointer", background: "linear-gradient(90deg,#00f2fe,#4facfe)" },
-  readiness: { maxWidth: 1200, margin: "0 auto 32px", padding: 24, borderRadius: 22, border: "1px solid rgba(34,211,238,.35)", background: "rgba(8,47,73,.35)", display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 20, alignItems: "center" },
+  readiness: { maxWidth: 1200, margin: "0 auto 32px", padding: 24, borderRadius: 22, border: "1px solid rgba(34,211,238,.35)", background: "rgba(4,16,30,.94)", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,320px),1fr))", gap: 20, alignItems: "center" },
   readinessActions: { display: "grid", gap: 10, justifyItems: "start" },
-  readinessResult: { margin: 0, fontWeight: 800, lineHeight: 1.5 },
-  promptArchitect: { maxWidth: 1200, margin: "0 auto 32px", padding: 24, borderRadius: 22, border: "1px solid rgba(244,114,182,.35)", background: "linear-gradient(135deg,rgba(8,47,73,.72),rgba(88,28,135,.45))", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 20 },
+  readinessResult: { margin: 0, fontWeight: 700, fontSize: 16, lineHeight: 1.6, whiteSpace: "pre-line", overflowWrap: "anywhere" },
+  promptArchitect: { maxWidth: 1200, margin: "0 auto 32px", padding: 24, borderRadius: 22, border: "1px solid rgba(244,114,182,.35)", background: "linear-gradient(135deg,rgba(8,47,73,.94),rgba(40,18,68,.94))", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 20 },
   productsSection: { maxWidth: 1200, margin: "0 auto" },
   sectionHeading: { display: "flex", justifyContent: "space-between", alignItems: "end", gap: 20, marginBottom: 20 },
-  tierPill: { border: "1px solid rgba(0,242,254,.35)", borderRadius: 999, padding: "8px 14px", color: "#a5f3fc", fontSize: 13, fontWeight: 800 },
+  tierPill: { border: "1px solid rgba(0,242,254,.35)", borderRadius: 999, padding: "8px 14px", color: "#a5f3fc", fontSize: 14, fontWeight: 800 },
   grid: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 18 },
   product: { minHeight: 180, textAlign: "left", display: "grid", gap: 9, padding: 22, borderRadius: 20, border: "1px solid #203a52", background: "rgba(10,20,38,.8)", color: "#fff", cursor: "pointer" },
-  productText: { color: "#94a3b8", lineHeight: 1.45 },
+  productText: { color: "#cbd5e1", fontSize: 16, lineHeight: 1.6 },
 };
