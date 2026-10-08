@@ -95,6 +95,7 @@ export default function SitesLanding() {
       <nav className="nav-shell" aria-label="Main navigation">
         <div className="nav-links">
           <a href="#product-wave">Products</a>
+          <a href="/pricing#packages">Packages</a>
           <a href="/wave-check">Free Wave Check</a>
           <a href="#lead-leak-finder">Lead Leak Finder</a>
           <a className="nav-button" href="/members">Members</a>

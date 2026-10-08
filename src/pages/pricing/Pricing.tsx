@@ -1,3 +1,4 @@
+import ProductVisualCatalog from "../../components/ProductVisualCatalog";
 import WaveHandlerVisual from "../../components/WaveHandlerVisual";
 import { useEffect } from "react";
 import { MEMBERSHIP } from "../members/serviceOffers";
@@ -109,6 +110,12 @@ export default function Pricing() {
             </article>
           ))}
         </div>
+
+        <section id="packages" className="mt-12 scroll-mt-8">
+          <h2 className="text-3xl font-black">Explore every AI SURFER product</h2>
+          <p className="mt-3 text-slate-300">Your Wave Handler and AI Fin show each product in action. Choose a product to explore its next step.</p>
+          <ProductVisualCatalog />
+        </section>
 
         <section className="mt-10 rounded-3xl border border-pink-200/40 bg-white/[0.04] p-7">
           <h2 className="text-2xl font-black">AI SURFER Membership — ${MEMBERSHIP.price}/month</h2>

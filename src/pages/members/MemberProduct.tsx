@@ -1,4 +1,4 @@
-import WaveHandlerVisual from "../../components/WaveHandlerVisual";
+import ProductVisual from "../../components/ProductVisual";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -129,7 +129,7 @@ export default function MemberProduct() {
         <p style={styles.copy}>{product.description}</p>
       </div>
 
-      <WaveHandlerVisual />
+      <div className="mx-auto my-7 max-w-3xl"><ProductVisual slug={product.slug} /></div>
 
       {hasAccess ? (
         <section style={styles.card}>

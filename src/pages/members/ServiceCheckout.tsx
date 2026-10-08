@@ -1,9 +1,11 @@
+import ProductVisual from "../../components/ProductVisual";
 import type { ServiceOffer } from "./serviceOffers";
 import { SUPPORT_TERMS } from "./serviceOffers";
 
 export default function ServiceCheckout({ offer }: { offer: ServiceOffer }) {
   return (
     <article className="rounded-3xl border border-cyan-300/30 bg-slate-950/90 p-6 text-white md:p-8">
+      <div className="mb-5"><ProductVisual slug={offer.slug} /></div>
       <h2 className="text-2xl font-black">{offer.name}</h2>
       <p className="mt-3 leading-7 text-slate-300">{offer.description}</p>
       <p className="mt-5 text-3xl font-black text-cyan-300">

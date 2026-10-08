@@ -1,3 +1,4 @@
+import ProductVisual from "../../components/ProductVisual";
 import { useMemo, useState, type CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -105,6 +106,7 @@ export default function PromptArchitect() {
           <p style={styles.subtitle}>Build smarter prompts. Get better AI results.</p>
         </div>
       </header>
+      <div className="mx-auto my-6 max-w-2xl"><ProductVisual slug="prompt-architect" /></div>
 
       <div style={styles.presetWrap}>
         <strong>Start with a business template</strong>

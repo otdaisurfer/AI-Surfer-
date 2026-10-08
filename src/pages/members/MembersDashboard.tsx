@@ -1,3 +1,4 @@
+import ProductVisualCatalog from "../../components/ProductVisualCatalog";
 import WaveHandlerVisual from "../../components/WaveHandlerVisual";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,17 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../lib/supabase";
 import MemberToolDock from "./MemberToolDock";
 
-const products = [
-  ["🔍", "Lead Leak Finder", "Find where leads slip away and what to fix first.", "/#lead-leak-finder"],
-  ["🌊", "Free AI Wave Check", "Answer five questions and find your biggest AI opportunity.", "/wave-check"],
-  ["🌺", "AI Wave Audit", "Assess your business and get an AI opportunity report.", "/wave-audit"],
-  ["🔎", "Wave Scout", "Find AI opportunities and qualified leads.", "/members/products/wave-scout"],
-  ["💰", "Sales Rider", "Turn conversations into a repeatable sales system.", "/members/products/sales-rider"],
-  ["✍️", "Content Creator", "Build an AI-powered content engine.", "/members/products/content-creator"],
-  ["💬", "Customer Care Cove", "Automate helpful customer support.", "/members/products/customer-care-cove"],
-  ["⚙️", "Automation Architect", "Connect the workflows that keep business moving.", "/members/products/automation-architect"],
-  ["🐋", "Big Kahuna", "Focused AI strategy and a practical growth roadmap.", "/members/products/big-kahuna"],
-];
+
 
 export default function MembersDashboard() {
   const navigate = useNavigate();
@@ -202,16 +193,7 @@ export default function MembersDashboard() {
           <div><p style={styles.kicker}>YOUR AI TOOLKIT</p><h2>Your AI Surfer Products</h2></div>
           <span style={styles.tierPill}>{tier}</span>
         </div>
-        <div style={styles.grid}>
-          {products.map(([icon, name, text, href]) => (
-            <a key={name} href={href} style={{ ...styles.product, textDecoration: "none" }}>
-              <span style={{ fontSize: 30 }}>{icon}</span>
-              <strong>{name}</strong>
-              <span style={styles.productText}>{text}</span>
-              <small>Open product →</small>
-            </a>
-          ))}
-        </div>
+        <ProductVisualCatalog />
       </section>
     </main>
   );

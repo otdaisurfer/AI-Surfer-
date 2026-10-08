@@ -1,0 +1,10 @@
+.product-visual-catalog { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:24px; margin-top:24px; }
+.product-visual-card { display:flex; flex-direction:column; overflow:hidden; background:#082f49; border:1px solid #22d3ee55; border-radius:20px; color:white; text-decoration:none; transition:transform .2s,border-color .2s; }
+.product-visual-card:hover { transform:translateY(-3px); border-color:#67e8f9; }
+.product-visual-card:focus-visible { outline:3px solid #fbbf24; outline-offset:4px; }
+.product-visual-card > img { border-radius:0!important; }
+.product-visual-card-copy { padding:20px; display:grid; gap:12px; }
+.product-visual-card-copy h3 { margin:0; font-size:1.3rem; font-weight:800; }
+.product-visual-card-copy p { margin:0; color:#cbd5e1; line-height:1.6; }
+.product-visual-card-copy span { color:#67e8f9; font-weight:700; }
+@media(prefers-reduced-motion:reduce) { .product-visual-card { transition:none; } }
