@@ -112,7 +112,9 @@ export default function SitesLanding() {
             <span> biggest AI opportunity.</span>
           </h1>
           <p className="wave-check-hero-lead">
-            Answer five quick questions and get a practical read on where AI can save time,
+            Ocean Tide Drop AI SURFER helps small businesses capture leads, improve follow-up,
+            and save time with practical AI tools and automation. Answer five quick
+            questions and get a practical read on where AI can save time,
             capture more opportunities, improve visibility, or strengthen the way your
             business runs.
           </p>
