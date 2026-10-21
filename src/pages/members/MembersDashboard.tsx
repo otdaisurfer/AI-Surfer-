@@ -144,6 +144,14 @@ export default function MembersDashboard() {
 
       <section style={styles.promptArchitect}>
         <div>
+          <h2 style={{ margin: 0 }}>Bought a service on Shopify?</h2>
+          <p style={styles.productText}>View eligible purchases and activate your included 30 days of matching workspace access. No automatic renewal.</p>
+        </div>
+        <button type="button" onClick={() => navigate("/members/purchases")} style={styles.cta}>View my purchases</button>
+      </section>
+
+      <section style={styles.promptArchitect}>
+        <div>
           <p style={styles.kicker}>PRICING & PAYMENTS</p>
           <h2 style={{ margin: 0 }}>Membership, Services & Monthly Support</h2>
           <p style={styles.productText}>Membership is $17/month. View every service price and choose optional monthly support through secure Stripe checkout.</p>

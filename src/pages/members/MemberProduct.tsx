@@ -5,6 +5,9 @@ import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../lib/supabase";
 import { getImplementationOffer } from "./implementationOffer";
 import ServiceCheckout from "./ServiceCheckout";
+import { activeShopifyAccess } from "../../features/shopify-access/catalog";
+import { useShopifyPurchases } from "../../features/shopify-access/useShopifyPurchases";
+import { PurchaseAccessCard } from "../../features/shopify-access/ShopifyPurchases";
 
 type Tier = "free" | "bronze" | "wave" | "tsunami" | "enterprise" | "owner";
 
@@ -66,6 +69,7 @@ export default function MemberProduct() {
   const { user } = useAuth();
   const [tier, setTier] = useState<Tier>("free");
   const [loading, setLoading] = useState(true);
+  const purchases = useShopifyPurchases();
 
   const product = useMemo(() => products.find((item) => item.slug === slug), [slug]);
   const implementationOffer = useMemo(() => getImplementationOffer(slug), [slug]);
@@ -115,7 +119,9 @@ export default function MemberProduct() {
 
   if (loading) return <PageShell><p>🌊 Loading your product access...</p></PageShell>;
 
-  const hasAccess = tierRank[tier] >= tierRank[product.minimumTier];
+  const purchaseAccess = activeShopifyAccess(purchases.grants, product.slug, purchases.now);
+  const pendingPurchase = purchases.grants.find((grant) => grant.product_slug === product.slug && grant.status === 'pending');
+  const hasAccess = tierRank[tier] >= tierRank[product.minimumTier] || Boolean(purchaseAccess);
   const currentTierLabel = tierLabels[tier];
   const minimumTierLabel = tierLabels[product.minimumTier];
 
@@ -131,11 +137,14 @@ export default function MemberProduct() {
 
       <div className="mx-auto my-7 max-w-3xl"><ProductVisual slug={product.slug} /></div>
 
+      {(purchaseAccess || pendingPurchase) && <PurchaseAccessCard grant={(purchaseAccess || pendingPurchase)!} now={purchases.now} activate={purchases.activate} activating={purchases.activating} />}
+      {purchases.error && <p role="alert">{purchases.error}</p>}
+
       {hasAccess ? (
         <section style={styles.card}>
           <p style={styles.kicker}>ACCESS CONFIRMED</p>
           <h2>Your {product.name} workspace is ready.</h2>
-          <p>This product is connected to your <strong>{currentTierLabel}</strong>. The next workflow layer can be connected here as the product is activated.</p>
+          <p>{purchaseAccess ? <>This workspace is included with your Shopify purchase until {new Date(purchaseAccess.expires_at!).toLocaleString()}. Your membership tier stays unchanged.</> : <>This product is connected to your <strong>{currentTierLabel}</strong>. The next workflow layer can be connected here as the product is activated.</>}</p>
           <button onClick={() => navigate("/wave-audit")} style={styles.cta}>{product.nextStep} →</button>
         </section>
       ) : (
@@ -144,6 +153,7 @@ export default function MemberProduct() {
           <h2>Unlock the ongoing {product.name} workspace with {minimumTierLabel}.</h2>
           <p>Your current access level is <strong>{currentTierLabel}</strong>. Workspace access depends on your tier. Services and optional support are purchased separately below.</p>
           <button onClick={() => navigate("/members/pricing")} style={styles.cta}>View Pricing & Payments 💳</button>
+          <p><button type="button" onClick={() => navigate('/members/purchases')} style={styles.back}>Bought this on Shopify? View purchase access</button></p>
         </section>
       )}
 

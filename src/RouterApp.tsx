@@ -6,6 +6,7 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import MembersDashboard from "./pages/members/MembersDashboard";
 import MembersPricing from "./pages/members/MembersPricing";
 import MemberProduct from "./pages/members/MemberProduct";
+import ShopifyPurchases from "./features/shopify-access/ShopifyPurchases";
 import PromptArchitect from "./pages/members/PromptArchitect";
 import SitesLanding from "./pages/home/SitesLanding";
 import NotFound from "./pages/not-found/NotFound";
@@ -61,6 +62,7 @@ export default function RouterApp() {
             <Route index element={<MembersDashboard />} />
             <Route path="pricing" element={<MembersPricing />} />
             <Route path="products/:slug" element={<MemberProduct />} />
+            <Route path="purchases" element={<ShopifyPurchases />} />
             <Route path="prompt-architect" element={<PromptArchitect />} />
           </Route>
 
