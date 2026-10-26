@@ -1394,3 +1394,77 @@
 /* Display the entire Wave Handler poster, including the Wave Check invitation. */
 .sites-landing .wave-check-hero-media { aspect-ratio: 1229 / 1536; border-radius: 24px; }
 .sites-landing .wave-check-hero-image { aspect-ratio: 1229 / 1536; height: auto; border-radius: 0; object-fit: contain; }
+
+.sites-landing .founder-journey {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 64px);
+  width: calc(100% - 32px);
+  max-width: 1120px;
+  margin: 56px auto;
+  padding: clamp(24px, 5vw, 56px);
+  box-sizing: border-box;
+  border: 1px solid rgba(103, 232, 249, 0.28);
+  border-radius: 28px;
+  background: radial-gradient(circle at 0% 0%, rgba(244, 114, 182, 0.13), transparent 50%), #071b2c;
+  scroll-margin-top: 24px;
+}
+
+.sites-landing .founder-journey-art {
+  min-width: 0;
+  text-align: center;
+}
+
+.sites-landing .founder-journey-art img {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.sites-landing .founder-journey-art p {
+  color: #a5f3fc;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.sites-landing .founder-journey-copy {
+  min-width: 0;
+}
+
+.sites-landing .founder-journey-copy h2 {
+  margin: 14px 0 20px;
+  color: #f8fafc;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.12;
+}
+
+.sites-landing .founder-journey-copy > p:not(.eyebrow) {
+  color: #cbd5e1;
+  line-height: 1.8;
+}
+
+.sites-landing .founder-journey-copy .button {
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: 12px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.sites-landing .founder-journey-copy .founder-journey-note {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  .sites-landing .founder-journey {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sites-landing .founder-journey-art img {
+    max-width: 200px;
+  }
+}
