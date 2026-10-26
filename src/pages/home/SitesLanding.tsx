@@ -98,6 +98,7 @@ export default function SitesLanding() {
           <a href="/pricing#packages">Packages</a>
           <a href="/wave-check">Free Wave Check</a>
           <a href="#lead-leak-finder">Lead Leak Finder</a>
+          <a href="#our-journey">Our Journey</a>
           <a className="nav-button" href="/members">Members</a>
         </div>
       </nav>
@@ -384,6 +385,29 @@ export default function SitesLanding() {
         </a>
       </section>
 
+      <section className="founder-journey" id="our-journey" aria-labelledby="founder-journey-title">
+        <div className="founder-journey-art">
+          <img src="/ocean_tide_logo.png" alt="Ocean Tide Drop AI SURFER" loading="lazy" decoding="async" />
+          <p>My life. My lessons.<br />One wave at a time.</p>
+        </div>
+        <div className="founder-journey-copy">
+          <p className="eyebrow">BUILDING AI SURFER · ONE WAVE AT A TIME</p>
+          <h2 id="founder-journey-title">There&apos;s a life behind the logo.</h2>
+          <p>
+            Can a big dream become a small business? I&apos;m building Ocean Tide Drop AI SURFER—and
+            I&apos;m taking you along to find out. Follow the personal story behind the work:
+            what I&apos;m navigating, what I&apos;m learning, and what I try next.
+          </p>
+          <a
+            className="button button-primary"
+            href="https://aisurfer.myshopify.com/blogs/ai-surfer-insights/building-ai-surfer-one-wave-at-a-time-episode-1"
+          >
+            Read Episode 1: The Life Behind the Logo →
+          </a>
+          <p className="founder-journey-note">A story still unfolding, one piece at a time.</p>
+        </div>
+      </section>
+
       <section className="membership">
         <div className="membership-copy">
           <p className="eyebrow">YOUR AI COMMAND CENTER</p>
@@ -413,6 +437,7 @@ export default function SitesLanding() {
         <div className="footer-links">
           <a href="/wave-check">Free Wave Check</a>
           <a href="/pricing">Pricing</a>
+          <a href="#our-journey">Our Journey</a>
           <a href="/members">Members</a>
           <a href="/">Full Website</a>
           <a href="tel:8438704590">Call/Text (843) 870-4590</a>
