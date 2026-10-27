@@ -43,6 +43,7 @@
     "zod": "^4.1.0"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.10",
     "@eslint/js": "^8.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",

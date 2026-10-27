@@ -122,7 +122,9 @@ export default function Login() {
   const copy = mode === "signin"
     ? "Choose Google or email below. After sign-in, we will return you to the page you were trying to open."
     : mode === "signup"
-      ? "Create your account, then complete your membership plan to unlock the Members Dashboard."
+      ? destination.startsWith('/members/purchases')
+        ? "Create your account with your Shopify checkout email, confirm it, then activate eligible purchase access. No new subscription is required."
+        : "Create your account, then complete your membership plan to unlock the Members Dashboard."
       : "Enter your email and we’ll send you a secure password reset link.";
 
   return (
