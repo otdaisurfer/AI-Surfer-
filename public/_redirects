@@ -1,2 +1,6 @@
+/reviews /pricing 301
+/reviews/ /pricing 301
+/home / 301
+/home/ / 301
 /wave-audit /wave-check 302
 /* /index.html 200
