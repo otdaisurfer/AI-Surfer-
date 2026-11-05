@@ -98,7 +98,7 @@ export default function SitesLanding() {
           <a href="/pricing#packages">Packages</a>
           <a href="/wave-check">Free Wave Check</a>
           <a href="#lead-leak-finder">Lead Leak Finder</a>
-          <a href="#our-journey">Our Journey</a>
+          <a href="/blog/">Our Journey</a>
           <a className="nav-button" href="/members">Members</a>
         </div>
       </nav>
@@ -400,9 +400,9 @@ export default function SitesLanding() {
           </p>
           <a
             className="button button-primary"
-            href="https://aisurfer.myshopify.com/blogs/ai-surfer-insights/building-ai-surfer-one-wave-at-a-time-episode-1"
+            href="/blog/"
           >
-            Read Episode 1: The Life Behind the Logo →
+            Read Our Journey →
           </a>
           <p className="founder-journey-note">A story still unfolding, one piece at a time.</p>
         </div>
