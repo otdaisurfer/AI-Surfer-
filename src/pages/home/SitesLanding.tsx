@@ -437,7 +437,7 @@ export default function SitesLanding() {
         <div className="footer-links">
           <a href="/wave-check">Free Wave Check</a>
           <a href="/pricing">Pricing</a>
-          <a href="#our-journey">Our Journey</a>
+          <a href="/blog/">Our Journey</a>
           <a href="/members">Members</a>
           <a href="/">Full Website</a>
           <a href="tel:8438704590">Call/Text (843) 870-4590</a>
