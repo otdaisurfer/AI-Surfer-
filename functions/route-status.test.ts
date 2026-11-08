@@ -6,6 +6,23 @@ function request(path: string) {
 }
 
 describe("handleRouteStatus", () => {
+  it.each(["GET", "HEAD"])("permanently redirects legacy pages for %s before serving the app", async (method) => {
+    for (const [path, destination] of [["/reviews", "/pricing"], ["/reviews/", "/pricing"], ["/home", "/"], ["/home/", "/"]]) {
+      const next = vi.fn(async () => new Response("old page"));
+      const response = await handleRouteStatus(new Request(`https://otdaisurfer.surf${path}?utm_source=search`, { method }), next);
+      expect(response.status).toBe(301);
+      expect(response.headers.get("Location")).toBe(`https://otdaisurfer.surf${destination}?utm_source=search`);
+      expect(next).not.toHaveBeenCalled();
+    }
+  });
+
+  it("does not redirect a POST to the legacy reviews path", async () => {
+    const next = vi.fn(async () => new Response("not allowed", { status: 405 }));
+    const response = await handleRouteStatus(new Request("https://otdaisurfer.surf/reviews", { method: "POST" }), next);
+    expect(response.status).toBe(405);
+    expect(next).toHaveBeenCalledOnce();
+  });
+
   it.each([
     "/",
     "/pricing",
@@ -35,6 +52,28 @@ describe("handleRouteStatus", () => {
     expect(response.status).toBe(200);
     expect(await response.text()).toBe("app shell");
     expect(spaFallback).toHaveBeenCalledOnce();
+  });
+
+  it.each([
+    "/blog/",
+    "/blog/our-story/",
+    "/blog/building-ai-surfer-one-wave-at-a-time-episode-1/",
+  ])("keeps existing journal assets at %s successful", async (path) => {
+    const response = await handleRouteStatus(request(path), async () => new Response("article", { status: 200 }));
+    expect(response.status).toBe(200);
+    expect(await response.text()).toBe("article");
+  });
+
+  it("does not substitute the app shell for a missing static article", async () => {
+    const fallback = vi.fn(async () => new Response("app shell"));
+    const response = await handleRouteStatus(request("/blog/building-ai-surfer-one-wave-at-a-time-episode-1/"), async () => new Response("missing", { status: 404 }), fallback);
+    expect(response.status).toBe(404);
+    expect(fallback).not.toHaveBeenCalled();
+  });
+
+  it("keeps unknown journal articles as 404", async () => {
+    const response = await handleRouteStatus(request("/blog/no-such-episode/"), async () => new Response("app shell"));
+    expect(response.status).toBe(404);
   });
 
   it("returns the app shell with a real 404 status for unknown routes", async () => {
