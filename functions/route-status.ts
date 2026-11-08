@@ -21,7 +21,14 @@ export function isKnownAppRoute(pathname: string): boolean {
   return false;
 }
 
+const STATIC_JOURNAL_ROUTES = new Set([
+  "/blog",
+  "/blog/our-story",
+  "/blog/building-ai-surfer-one-wave-at-a-time-episode-1",
+]);
+
 function isKnownRoute(pathname: string): boolean {
+  if (STATIC_JOURNAL_ROUTES.has(pathname.replace(/\/$/, ""))) return true;
   if (isKnownAppRoute(pathname)) return true;
   if (pathname.startsWith("/api/")) return true;
   return /\/[^/]+\.[^/]+$/.test(pathname);
@@ -32,9 +39,15 @@ export async function handleRouteStatus(
   next: Next,
   spaFallback?: SpaFallback,
 ): Promise<Response> {
-  const response = await next();
-  const pathname = new URL(request.url).pathname;
+  const url = new URL(request.url);
+  const pathname = url.pathname;
   const canUseSpaFallback = request.method === "GET" || request.method === "HEAD";
+  const legacyPath = pathname.replace(/\/$/, "");
+  if (canUseSpaFallback && (legacyPath === "/reviews" || legacyPath === "/home")) {
+    url.pathname = legacyPath === "/reviews" ? "/pricing" : "/";
+    return Response.redirect(url.toString(), 301);
+  }
+  const response = await next();
 
   if (
     response.status === 404 &&
