@@ -43,10 +43,10 @@ function readyFetch() {
 
     if (
       url.hostname === "api.hubapi.com" &&
-      url.pathname.startsWith("/crm/v3/objects/products/")
+      url.pathname === "/crm/v3/objects/products/340889702100"
     ) {
       return new Response(JSON.stringify({
-        id: "332891806434",
+        id: "340889702100",
         properties: {
           name: "🌊 Wave Starter",
           hs_sku: "wave-starter",

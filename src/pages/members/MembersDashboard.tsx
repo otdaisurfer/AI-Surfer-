@@ -18,6 +18,8 @@ export default function MembersDashboard() {
   );
   const [readinessStatus, setReadinessStatus] = useState<"idle" | "checking" | "ready" | "blocked" | "error">("idle");
   const [readinessMessage, setReadinessMessage] = useState("");
+  const isWebsiteCopy = window.location.hostname.endsWith(".chatgpt.site");
+  const isOwner = user?.app_metadata?.role === "owner";
 
   useEffect(() => {
     if (!user) return;
@@ -56,8 +58,12 @@ export default function MembersDashboard() {
           Authorization: `Bearer ${session.access_token}`,
           Accept: "application/json",
         },
+        signal: AbortSignal.timeout(30000),
       });
 
+      if (!response.headers.get("content-type")?.includes("application/json")) {
+        throw new Error("The private readiness service is unavailable on this website. Open the live members area to run the production check.");
+      }
       const body = await response.json() as {
         status?: "ready" | "blocked";
         blockers?: string[];
@@ -66,12 +72,19 @@ export default function MembersDashboard() {
       };
 
       if (!response.ok) {
-        throw new Error(body.error || "The launch readiness check could not run.");
+        throw new Error(response.status === 401 || response.status === 403
+          ? "Owner verification failed. Sign in again with your owner account. If this continues, your server-side owner role needs to be checked."
+          : body.error || "The launch readiness check could not run.");
       }
 
-      if (body.status === "ready") {
+      const services = ["openai", "hubspot", "supabase", "stripe"];
+      if (!body.checks || !services.every(name => typeof body.checks?.[name]?.ok === "boolean") ||
+          !["ready", "blocked"].includes(body.status ?? "")) {
+        throw new Error("The readiness service returned an incomplete result. Nothing has been verified. Please retry.");
+      }
+      if (body.status === "ready" && services.every(name => body.checks?.[name]?.ok === true)) {
         setReadinessStatus("ready");
-        setReadinessMessage("All production readiness checks passed. AI SURFER is launch-ready.");
+        setReadinessMessage("The configured service checks passed. Complete the customer sign-in, checkout, and onboarding rehearsal before launch.");
         return;
       }
 
@@ -151,23 +164,29 @@ export default function MembersDashboard() {
         <button type="button" onClick={() => navigate("/members/pricing")} style={styles.cta}>View Pricing & Payments</button>
       </section>
 
-      {tier === "Owner" && (
-        <section style={styles.readiness}>
+      {isOwner && (
+        <section id="owner-readiness" style={styles.readiness}>
           <div>
             <p style={styles.kicker}>OWNER LAUNCH CONTROL</p>
             <h2 style={{ margin: 0 }}>Final Production Readiness</h2>
             <p style={styles.productText}>
-              Run the private live check for OpenAI, HubSpot, Supabase, and Stripe without exposing server secrets.
+              {isWebsiteCopy
+                ? "This website copy does not include the private production check. Run it on your live website to verify its service connections. You may need to sign in there."
+                : "Check OpenAI configuration and live HubSpot, Supabase, and Stripe connections. A passed check does not replace testing the customer journey."}
             </p>
           </div>
           <div style={styles.readinessActions}>
-            <button
+            {isWebsiteCopy ? (
+              <a href="https://otdaisurfer.surf/members#owner-readiness" target="_blank" rel="noopener noreferrer" style={{ ...styles.cta, color: "#082f49", textDecoration: "none" }}>
+                Open live owner check ↗
+              </a>
+            ) : <button
               onClick={runLaunchReadiness}
               disabled={readinessStatus === "checking"}
               style={styles.cta}
             >
               {readinessStatus === "checking" ? "Checking production..." : "Run final readiness check"}
-            </button>
+            </button>}
             {readinessStatus !== "idle" && readinessStatus !== "checking" && (
               <p
                 role="status"

@@ -1,5 +1,5 @@
 const WAVE_STARTER_PAYMENT_LINK_ID = "plink_1UFGD3Ex9w41hLcklxOvUg4f";
-const HUBSPOT_WAVE_STARTER_PRODUCT_ID = "332891806434";
+const HUBSPOT_WAVE_STARTER_PRODUCT_ID = "340889702100";
 const EXPECTED_SUPABASE_URL = "https://mkgnyarwiscttobnytin.supabase.co";
 
 interface LaunchReadinessEnv {

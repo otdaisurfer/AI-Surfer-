@@ -18,7 +18,7 @@ describe("shared site branding", () => {
       expect(headerPosition).toBeGreaterThanOrEqual(0);
       expect(routeContentPosition).toBeGreaterThan(headerPosition);
       expect(html).toContain('data-site-emblem="true"');
-      expect(html).toContain('src="/ocean_tide_logo.png"');
+      expect(html).toContain('src="/images/brand/ai-surfer-wide.webp"');
     },
   );
 
@@ -29,7 +29,7 @@ describe("shared site branding", () => {
     expect(html).toContain("THE AI SURFER PRODUCT WAVE");
     expect(html).toContain('aria-label="Ocean Tide Drop AI SURFER home"');
     expect(html).toContain('data-homepage-logo="true"');
-    expect(html).toContain('src="/ocean_tide_logo.png"');
+    expect(html).toContain('src="/images/brand/ai-surfer-wide.webp"');
     expect(html).not.toContain('aria-label="Ocean Tide Drop AI Surfer brand"');
     expect(html).toContain("START HERE: FREE AI WAVE CHECK");
     expect(html).toContain("Start My Free AI Wave Check™");

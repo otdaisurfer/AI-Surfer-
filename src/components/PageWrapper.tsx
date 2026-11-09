@@ -101,7 +101,7 @@ export default function PageWrapper({
         <div className="flex flex-col gap-6">
           <Link to="/" className="flex items-center gap-3 py-2 pl-2">
             <div className="w-10 h-10 flex items-center justify-center rounded-sm">
-              <img src="/logo.svg" alt="AI Surfer Logo" className="w-full h-full object-contain drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]" />
+              <img src="/images/brand/ai-surfer-round.webp" alt="AI Surfer Logo" className="w-full h-full object-contain drop-shadow-[0_0_5px_rgba(0,255,255,0.5)]" />
             </div>
             <span className="text-xl font-black tracking-tighter uppercase text-white">
               <span className="text-soul-gradient italic font-serif">AI Surfer</span>
@@ -272,7 +272,7 @@ export default function PageWrapper({
             <div className="flex flex-col items-center mb-16 select-none text-center animate-in fade-in slide-in-from-top-4 duration-1000">
               <div className="relative p-2 rounded-3xl bg-black/40 border border-white/5 shadow-[0_0_55px_rgba(0,0,0,0.85)]">
                 <img 
-                  src="/ocean_tide_logo.png" 
+                  src="/images/brand/ai-surfer-round.webp"
                   alt="OceanTideDrop AI Surfer" 
                   className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-contain rounded-2xl drop-shadow-[0_0_30px_rgba(34,211,238,0.25)] hover:drop-shadow-[0_0_50px_rgba(34,211,238,0.55)] transition-all duration-500 hover:scale-[1.03]"
                   referrerPolicy="no-referrer"
@@ -302,7 +302,7 @@ export default function PageWrapper({
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 text-left mb-20">
            <div className="col-span-1 md:col-span-2">
               <div className="w-12 h-12 flex items-center justify-center rounded-sm mb-6">
-                <img src="/logo.svg" alt="AI Surfer Logo" className="w-full h-full object-contain grayscale brightness-200" />
+                <img src="/images/brand/ai-surfer-round.webp" alt="AI Surfer Logo" className="w-full h-full object-contain" />
               </div>
               <p className="max-w-xs text-white font-medium leading-relaxed mb-8">
                 AI Surfer: A premium growth agency building digital architecture for tomorrow-focused brands.
