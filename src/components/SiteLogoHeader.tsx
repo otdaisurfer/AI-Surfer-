@@ -8,7 +8,7 @@ export default function SiteLogoHeader() {
     >
       <Link to="/" aria-label="Ocean Tide Drop AI Surfer home" style={styles.link}>
         <img
-          src="/ocean_tide_logo.png"
+          src="/images/brand/ai-surfer-wide.webp"
           alt="Ocean Tide Drop AI Surfer"
           data-site-emblem="true"
           style={styles.emblem}
@@ -32,7 +32,7 @@ const styles: Record<string, React.CSSProperties> = {
   },
   link: {
     display: "block",
-    width: "min(92vw, 560px)",
+    width: "min(88vw, 360px)",
     lineHeight: 0,
   },
   emblem: {

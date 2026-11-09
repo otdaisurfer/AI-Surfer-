@@ -16,7 +16,7 @@ describe("landing funnel responsive styles", () => {
 
   it("uses the approved Ocean Tide Drop logo in the homepage brand mark", () => {
     expect(funnelCss).toContain(".sites-landing .brand-mark");
-    expect(funnelCss).toContain('url("/ocean_tide_logo.png")');
+    expect(funnelCss).toContain('url("/images/brand/ai-surfer-round.webp")');
   });
 
   it("keeps phone and reduced-motion behavior explicit", () => {

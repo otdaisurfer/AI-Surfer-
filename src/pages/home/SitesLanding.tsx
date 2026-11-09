@@ -83,7 +83,7 @@ export default function SitesLanding() {
       <a className="landing-logo-link" href="#top" aria-label="Ocean Tide Drop AI SURFER home">
         <img
           className="landing-logo"
-          src="/ocean_tide_logo.png"
+          src="/images/brand/ai-surfer-wide.webp"
           alt=""
           aria-hidden="true"
           data-homepage-logo="true"
@@ -387,7 +387,7 @@ export default function SitesLanding() {
 
       <section className="founder-journey" id="our-journey" aria-labelledby="founder-journey-title">
         <div className="founder-journey-art">
-          <img src="/ocean_tide_logo.png" alt="Ocean Tide Drop AI SURFER" loading="lazy" decoding="async" />
+          <img src="/images/brand/ai-surfer-round.webp" alt="Ocean Tide Drop AI SURFER" loading="lazy" decoding="async" />
           <p>My life. My lessons.<br />One wave at a time.</p>
         </div>
         <div className="founder-journey-copy">

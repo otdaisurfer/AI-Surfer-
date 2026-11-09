@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import { MEMBERSHIP, SERVICE_OFFERS } from "./serviceOffers";
 import ServiceCheckout from "./ServiceCheckout";
 
-export default function MembersPricing() {
+export default function MembersPricing({ publicView = false }: { publicView?: boolean }) {
   return (
     <main className="mx-auto max-w-6xl px-2 py-8 text-white md:px-6">
-      <Link to="/members" className="font-bold text-cyan-200">← Command Center</Link>
+      <Link to={publicView ? "/pricing" : "/members"} className="font-bold text-cyan-200">{publicView ? "← Pricing" : "← Command Center"}</Link>
       <header className="mb-8 mt-7">
         <p className="text-xs font-black uppercase tracking-widest text-cyan-300">Ocean Tide Drop AI SURFER</p>
-        <h1 className="mt-3 text-4xl font-black md:text-5xl">Members Pricing & Payments</h1>
+        <h1 className="mt-3 text-4xl font-black md:text-5xl">{publicView ? "Services & Payments" : "Members Pricing & Payments"}</h1>
         <p className="mt-4 max-w-3xl leading-8 text-slate-200">Choose membership, a focused service, or optional monthly support. Each option has its own Stripe checkout.</p>
       </header>
       <section className="mb-10 rounded-3xl border border-pink-200/40 bg-slate-950/90 p-7">

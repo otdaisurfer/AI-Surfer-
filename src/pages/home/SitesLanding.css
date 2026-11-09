@@ -1152,7 +1152,7 @@
 
 /* 2026-09-28 landing-page hierarchy repair */
 .sites-landing .landing-logo-link {
-  width: min(280px, calc(100% - 40px));
+  width: min(360px, calc(100% - 40px));
   margin: 22px auto 4px;
   border-radius: 18px;
   overflow: hidden;
@@ -1229,7 +1229,7 @@
 
 @media (max-width: 720px) {
   .sites-landing .landing-logo-link {
-    width: min(210px,calc(100% - 32px));
+    width: min(280px,calc(100% - 32px));
     margin-top: 14px;
   }
   .sites-landing .nav-shell { padding-bottom: 12px; }
@@ -1468,3 +1468,6 @@
     max-width: 200px;
   }
 }
+
+/* Preserve the full uploaded logo, including its tagline. */
+.sites-landing .landing-logo { aspect-ratio: auto; object-fit: contain; }
