@@ -15,6 +15,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleUrl, setGoogleUrl] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [googleAvailable, setGoogleAvailable] = useState<boolean | null>(null);
@@ -110,10 +111,27 @@ export default function Login() {
     setLoading(true);
     clearMessages();
     window.sessionStorage.setItem(AUTH_RETURN_PATH_KEY, destination);
-    const { error: googleError } = await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${LIVE_SITE_ORIGIN}/login` } });
-    if (googleError) {
-      window.sessionStorage.removeItem(AUTH_RETURN_PATH_KEY);
-      setError(googleError.message);
+    setGoogleUrl("");
+    let timeout: ReturnType<typeof setTimeout> | undefined;
+    try {
+      const { data, error: googleError } = await Promise.race([
+        supabase.auth.signInWithOAuth({
+          provider: "google",
+          options: { redirectTo: `${LIVE_SITE_ORIGIN}/login`, skipBrowserRedirect: true },
+        }),
+        new Promise<never>((_, reject) => {
+          timeout = setTimeout(() => reject(new Error("Google sign-in took too long. Please retry or use email sign-in.")), 12000);
+        }),
+      ]);
+      if (googleError) throw googleError;
+      if (!data?.url) throw new Error("Google sign-in did not return a sign-in link. Please retry or use email sign-in.");
+      setGoogleUrl(data.url);
+      setMessage("Google sign-in continues on the live AI SURFER website. If Google does not open, use the separate-tab link below.");
+      window.location.assign(data.url);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Google sign-in could not open. Please retry or use email sign-in.");
+    } finally {
+      if (timeout) clearTimeout(timeout);
       setLoading(false);
     }
   };
@@ -137,6 +155,7 @@ export default function Login() {
         {mode === "signin" && googleAvailable && <button type="button" onClick={signInWithGoogle} disabled={loading} style={styles.googleButton}>{loading ? "Connecting..." : "🌐 Sign in with Google"}</button>}
         {mode === "signin" && googleAvailable === false && <div role="status" style={styles.authNotice}>Google sign-in is temporarily unavailable. Please use email below.</div>}
         {mode === "signin" && googleAvailable && <div style={styles.divider}><span>or continue with email</span></div>}
+        {googleUrl && <a href={googleUrl} target="_blank" rel="noopener noreferrer" style={styles.link}>Open Google sign-in in a separate tab ↗</a>}
         <form onSubmit={submit} style={styles.form}>
           <label style={styles.label}>Email<input type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} style={styles.input} placeholder="you@example.com" /></label>
           {mode !== "forgot" && <label style={styles.label}>Password<input type="password" autoComplete={mode === "signup" ? "new-password" : "current-password"} required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} style={styles.input} placeholder="At least 6 characters" /></label>}

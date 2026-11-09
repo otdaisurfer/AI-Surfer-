@@ -147,6 +147,29 @@ describe("Login return navigation", () => {
     await act(async () => secondRender.root.unmount());
   });
 
+  it("recovers when Google sign-in rejects instead of leaving all controls disabled", async () => {
+    authMocks.getSession.mockResolvedValue({ data: { session: null }, error: null });
+    authMocks.signInWithOAuth.mockRejectedValue(new Error("Connection failed"));
+    const { container, root } = await renderLogin();
+    const button = Array.from(container.querySelectorAll("button")).find((item) => item.textContent?.includes("Sign in with Google"))!;
+    await act(async () => button.click());
+    expect(container.textContent).toContain("Connection failed");
+    expect(button.disabled).toBe(false);
+    expect(container.textContent).not.toContain("Connecting...");
+    await act(async () => root.unmount());
+  });
+
+  it("recovers when Google returns no navigation URL", async () => {
+    authMocks.getSession.mockResolvedValue({ data: { session: null }, error: null });
+    authMocks.signInWithOAuth.mockResolvedValue({ data: {}, error: null });
+    const { container, root } = await renderLogin();
+    const button = Array.from(container.querySelectorAll("button")).find((item) => item.textContent?.includes("Sign in with Google"))!;
+    await act(async () => button.click());
+    expect(container.textContent).toContain("did not return a sign-in link");
+    expect(button.disabled).toBe(false);
+    await act(async () => root.unmount());
+  });
+
   it("offers email sign-in instead of a broken Google button when Google is disabled", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => ({ external: { email: true, google: false } }) }));
     authMocks.getSession.mockResolvedValue({ data: { session: null }, error: null });

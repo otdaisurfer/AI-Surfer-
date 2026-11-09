@@ -31,6 +31,25 @@ describe("members route", () => {
     expect(container.textContent).toContain("Free AI Wave Check — $0");
   });
 
+  it("directs the private website copy to the live owner check", () => {
+    const originalWindow = window;
+    vi.stubGlobal("window", new Proxy(originalWindow, {
+      get(target, key) {
+        if (key === "location") return { hostname: "ocean-tide-drop-ai-surfer-copy.ai-surfer-ot-0823.chatgpt.site" };
+        const value = Reflect.get(target, key);
+        return typeof value === "function" ? value.bind(target) : value;
+      },
+    }));
+    try {
+      const html = renderToStaticMarkup(<MemoryRouter initialEntries={["/members"]}><RouterApp /></MemoryRouter>);
+      expect(html).toContain("https://otdaisurfer.surf/members#owner-readiness");
+      expect(html).toContain("does not include the private production check");
+      expect(html).not.toContain("Run final readiness check");
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
   it("shows the dashboard over the members command-deck background", () => {
     const html = renderToStaticMarkup(
       <MemoryRouter initialEntries={["/members"]}>

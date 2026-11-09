@@ -83,7 +83,7 @@ export default function SitesLanding() {
       <a className="landing-logo-link" href="#top" aria-label="Ocean Tide Drop AI SURFER home">
         <img
           className="landing-logo"
-          src="/ocean_tide_logo.png"
+          src="/images/brand/ai-surfer-wide.webp"
           alt=""
           aria-hidden="true"
           data-homepage-logo="true"
@@ -98,6 +98,7 @@ export default function SitesLanding() {
           <a href="/pricing#packages">Packages</a>
           <a href="/wave-check">Free Wave Check</a>
           <a href="#lead-leak-finder">Lead Leak Finder</a>
+          <a href="/blog/">Our Journey</a>
           <a className="nav-button" href="/members">Members</a>
         </div>
       </nav>
@@ -214,11 +215,25 @@ export default function SitesLanding() {
             AI SURFER traces the path from first inquiry to sale, spots where prospects drift away,
             and identifies the first follow-up automation worth building.
           </p>
-          {!leadLeakOpen && (
-            <button className="button button-primary lead-leak-cta" type="button" onClick={() => setLeadLeakOpen(true)}>
-              Open My Lead Leak Finder →
-            </button>
-          )}
+          <div style={{ display: "grid", gap: 12, justifyItems: "start" }}>
+            {!leadLeakOpen && (
+              <button className="button button-primary lead-leak-cta" type="button" onClick={() => setLeadLeakOpen(true)}>
+                Open My Lead Leak Finder →
+              </button>
+            )}
+            <div>
+              <p className="lead-leak-description">
+                Want a hands-on review? Get written findings and a 30-minute video consultation for a one-time $197.
+              </p>
+              <a
+                className="button button-secondary lead-leak-cta"
+                href="https://buy.stripe.com/cNi4gz1lp9to46K2xx4gg0c"
+                data-funnel-cta="lead-leak-paid-review"
+              >
+                Get My $197 Lead Leak Review →
+              </a>
+            </div>
+          </div>
         </div>
 
         {leadLeakOpen && !leadLeakComplete && (
@@ -370,6 +385,29 @@ export default function SitesLanding() {
         </a>
       </section>
 
+      <section className="founder-journey" id="our-journey" aria-labelledby="founder-journey-title">
+        <div className="founder-journey-art">
+          <img src="/images/brand/ai-surfer-round.webp" alt="Ocean Tide Drop AI SURFER" loading="lazy" decoding="async" />
+          <p>My life. My lessons.<br />One wave at a time.</p>
+        </div>
+        <div className="founder-journey-copy">
+          <p className="eyebrow">BUILDING AI SURFER · ONE WAVE AT A TIME</p>
+          <h2 id="founder-journey-title">There&apos;s a life behind the logo.</h2>
+          <p>
+            Can a big dream become a small business? I&apos;m building Ocean Tide Drop AI SURFER—and
+            I&apos;m taking you along to find out. Follow the personal story behind the work:
+            what I&apos;m navigating, what I&apos;m learning, and what I try next.
+          </p>
+          <a
+            className="button button-primary"
+            href="/blog/"
+          >
+            Read Our Journey →
+          </a>
+          <p className="founder-journey-note">A story still unfolding, one piece at a time.</p>
+        </div>
+      </section>
+
       <section className="membership">
         <div className="membership-copy">
           <p className="eyebrow">YOUR AI COMMAND CENTER</p>
@@ -399,6 +437,7 @@ export default function SitesLanding() {
         <div className="footer-links">
           <a href="/wave-check">Free Wave Check</a>
           <a href="/pricing">Pricing</a>
+          <a href="/blog/">Our Journey</a>
           <a href="/members">Members</a>
           <a href="/">Full Website</a>
           <a href="tel:8438704590">Call/Text (843) 870-4590</a>

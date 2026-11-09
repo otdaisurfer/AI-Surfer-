@@ -25,7 +25,7 @@ describe("launch revenue conversion path", () => {
     const join = [...container.querySelectorAll("a")].find((a) => a.textContent?.includes("Join AI SURFER"));
     expect(join?.getAttribute("href")).toBe("https://buy.stripe.com/cNi00j5BFcFAcDg7RR4gg03");
     expect(join?.textContent).toContain("$17/month");
-    expect(container.querySelector('a[href="/members/pricing"]')).not.toBeNull();
+    expect(container.querySelector('a[href="/services"]')).not.toBeNull();
     act(() => root.unmount());
   });
 
