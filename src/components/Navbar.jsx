@@ -33,7 +33,7 @@ export default function Navbar() {
             Home
           </Link>
 
-          <Link className="text-white/80 hover:text-cyan-300" to="/pricing">
+          <Link className="text-white/80 hover:text-cyan-300" to="/members/pricing"">
             Pricing
           </Link>
 
@@ -62,7 +62,7 @@ export default function Navbar() {
 
           {/* Show "Upgrade" hint for non-members */}
           {user && !hasMembersAccess && (
-            <Link className="text-amber-400/80 hover:text-amber-300 font-semibold" to="/pricing">
+            <Link className="text-amber-400/80 hover:text-amber-300 font-semibold" to="/members/pricing"">
               🔒 Unlock Tools
             </Link>
           )}
