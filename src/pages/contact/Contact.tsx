@@ -152,7 +152,7 @@ export default function Contact() {
                   <span>Charleston, South Carolina</span>
                 </div>
                 <p className="text-xs text-white/40 uppercase tracking-widest font-black font-mono mb-4">Charleston HQ_</p>
-                <Link to="/pricing" className="inline-block px-6 py-3 bg-cyan-500/10 border border-cyan-400 text-cyan-400 text-center font-black uppercase text-[10px] tracking-widest hover:bg-cyan-400 hover:text-black transition-all">Start Your Project</Link>
+                <Link to="/members/pricing"" className="inline-block px-6 py-3 bg-cyan-500/10 border border-cyan-400 text-cyan-400 text-center font-black uppercase text-[10px] tracking-widest hover:bg-cyan-400 hover:text-black transition-all">Start Your Project</Link>
               </div>
             </div>
 
