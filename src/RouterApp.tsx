@@ -9,7 +9,6 @@ import MemberProduct from "./pages/members/MemberProduct";
 import PromptArchitect from "./pages/members/PromptArchitect";
 import SitesLanding from "./pages/home/SitesLanding";
 import NotFound from "./pages/not-found/NotFound";
-import Pricing from "./pages/pricing/Pricing";
 import WaveStarterSuccess from "./pages/pricing/WaveStarterSuccess";
 import Privacy from "./pages/legal/Privacy";
 import Terms from "./pages/legal/Terms";
@@ -41,12 +40,12 @@ export default function RouterApp() {
       <div data-site-route-content="true">
         <Routes>
           <Route path="/" element={<SitesLanding />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/services" element={<MembersPricing publicView />} />
+          <Route path="/pricing" element={<Navigate to="/members/pricing" replace />} />
+          <Route path="/services" element={<Navigate to="/members/pricing" replace />} />
           <Route path="/wave-starter/success" element={<WaveStarterSuccess />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/reviews" element={<Navigate to="/pricing" replace />} />
+          <Route path="/reviews" element={<Navigate to="/members/pricing" replace />} />
           <Route path="/wave-audit" element={<WaveAudit />} />
           <Route path="/wave-check" element={<WaveAudit />} />
           <Route path="/login" element={<Login />} />
