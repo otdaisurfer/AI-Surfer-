@@ -13,7 +13,7 @@ beforeAll(async () => {
   await db.exec(`create role anon; create role authenticated; create role service_role bypassrls;
     create schema auth; create table auth.users(id uuid primary key);
     insert into auth.users values ('${userId}'), ('${otherId}');`);
-  await db.exec(readFileSync(new URL('../supabase/migrations/20261020035805_shopify_product_access.sql', import.meta.url), 'utf8'));
+  await db.exec(readFileSync(new URL('../supabase/migrations/20261020044649_shopify_product_access.sql', import.meta.url), 'utf8'));
 }, 20000);
 afterAll(async () => db.close());
 async function paid(order: string, slug = 'content-creator') {
