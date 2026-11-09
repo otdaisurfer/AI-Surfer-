@@ -118,7 +118,7 @@ export default function SitesLanding() {
       <nav className="nav-shell" aria-label="Main navigation">
         <div className="nav-links">
           <a href="#product-wave">Products</a>
-          <a href="/pricing#packages">Packages</a>
+          <a href="/members/pricing#packages"#packages">Packages</a>
           <a href="/wave-check">Free Wave Check</a>
           <a href="#lead-leak-finder">Lead Leak Finder</a>
           <a href="/blog/">Our Journey</a>
@@ -383,7 +383,7 @@ export default function SitesLanding() {
             business problem you found first.
           </p>
         </div>
-        <a className="button button-secondary" href="/pricing">
+        <a className="button button-secondary" href="/members/pricing"">
           See Implementation Options →
         </a>
       </section>
@@ -424,7 +424,7 @@ export default function SitesLanding() {
           <a className="button button-primary" href="/members" data-funnel-cta="members">
             Enter the Members Area
           </a>
-          <a className="text-link" href="/pricing">
+          <a className="text-link" href="/members/pricing"">
             Go to Pricing →
           </a>
         </div>
@@ -439,7 +439,7 @@ export default function SitesLanding() {
         </div>
         <div className="footer-links">
           <a href="/wave-check">Free Wave Check</a>
-          <a href="/pricing">Pricing</a>
+          <a href="/members/pricing"">Pricing</a>
           <a href="/blog/">Our Journey</a>
           <a href="/members">Members</a>
           <a href="/">Full Website</a>
