@@ -92,6 +92,29 @@ export default function SitesLanding() {
         />
       </a>
 
+      <div className="homepage-top-artwork">
+          <a
+            className="wave-check-hero-media-link"
+            href="/wave-check"
+            aria-label="Start the Free AI Wave Check"
+            data-funnel-cta="hero-wave-check-image"
+          >
+            <figure className="wave-check-hero-media">
+              <img
+                className="wave-check-hero-image"
+                src="/images/wave-handler/wave-check.webp"
+                srcSet="/images/wave-handler/wave-check-mobile.webp 768w, /images/wave-handler/wave-check.webp 1229w"
+                sizes="(max-width: 820px) 88vw, 410px"
+                width={1229}
+                height={1536}
+                alt="Wave Handler and AI Fin inviting you to find lost leads with the Free AI Wave Check"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </figure>
+          </a>
+      </div>
+
       <nav className="nav-shell" aria-label="Main navigation">
         <div className="nav-links">
           <a href="#product-wave">Products</a>
@@ -133,26 +156,6 @@ export default function SitesLanding() {
               Find My Lead Leaks →
             </a>
           </div>
-          <a
-            className="wave-check-hero-media-link"
-            href="/wave-check"
-            aria-label="Start the Free AI Wave Check"
-            data-funnel-cta="hero-wave-check-image"
-          >
-            <figure className="wave-check-hero-media">
-              <img
-                className="wave-check-hero-image"
-                src="/images/wave-handler/wave-check.webp"
-                srcSet="/images/wave-handler/wave-check-mobile.webp 768w, /images/wave-handler/wave-check.webp 1229w"
-                sizes="(max-width: 820px) 88vw, 410px"
-                width={1229}
-                height={1536}
-                alt="Wave Handler and AI Fin inviting you to find lost leads with the Free AI Wave Check"
-                fetchPriority="high"
-                decoding="async"
-              />
-            </figure>
-          </a>
           <p className="wave-check-hero-footnote">
             Free to start. Clear next step. No giant AI project required.
           </p>
