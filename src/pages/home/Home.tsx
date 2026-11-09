@@ -27,7 +27,7 @@ export default function Home() {
           <div className="mt-10 flex justify-center gap-4 flex-wrap">
 
             <Link
-              to="/pricing"
+              to="/members/pricing""
               className="px-8 py-3 rounded-full bg-cyan-500 text-black font-bold hover:bg-cyan-400"
             >
               View Plans
