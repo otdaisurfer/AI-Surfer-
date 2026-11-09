@@ -76,8 +76,8 @@ export default function SitesLanding() {
       `}</style>
       <div className="announcement">
         <span>🌊 Start here</span>
-        <strong>Free AI Wave Check + Lead Leak Finder</strong>
-        <a href="#lead-leak-finder">Find where leads are slipping away →</a>
+        <strong>Free AI Wave Check</strong>
+        <a href="/wave-check">Find my biggest AI opportunity →</a>
       </div>
 
       <a className="landing-logo-link" href="#top" aria-label="Ocean Tide Drop AI SURFER home">
@@ -148,14 +148,14 @@ export default function SitesLanding() {
             >
               Start My Free AI Wave Check™
             </a>
-            <a
-              className="button button-secondary"
-              href="#lead-leak-finder"
-              data-funnel-cta="hero-lead-leak"
-            >
-              Find My Lead Leaks →
-            </a>
           </div>
+          <a
+            className="wave-check-secondary-link"
+            href="#lead-leak-finder"
+            data-funnel-cta="hero-lead-leak"
+          >
+            Already know follow-up is the problem? Try the Lead Leak Finder →
+          </a>
           <p className="wave-check-hero-footnote">
             Free to start. Clear next step. No giant AI project required.
           </p>
