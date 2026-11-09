@@ -54,7 +54,7 @@ export default function HomeLanding() {
             </p>
             <div style={styles.actions}>
               <Link to="/wave-check" style={styles.primaryButton}>Get My Free AI Wave Check™</Link>
-              <Link to="/pricing" style={styles.secondaryButton}>Explore AI Solutions</Link>
+              <Link to="/members/pricing"" style={styles.secondaryButton}>Explore AI Solutions</Link>
             </div>
             <p style={styles.microcopy}>Start with one question. Catch the right wave. Build from there. 🌊</p>
           </div>
