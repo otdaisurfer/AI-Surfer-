@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, CheckCircle2, AlertTriangle, Copy, Gauge, Rocket, Send, Sparkles, Users } from "lucide-react";
 import "./launch-desk.css";
+import { supabase } from "../lib/supabase";
 
 type Activity = { label: string; status: "running" | "done" };
 type Brief = { productBrief: string; audience: string; launchDate: string; constraints: string; assets: string; channels: string[] };
@@ -14,6 +15,34 @@ export default function LaunchDesk() {
   const [output, setOutput] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [scoreboard, setScoreboard] = useState({
+    outreach: 14,
+    waveChecks: null as number | null,
+    paid: null as number | null,
+  });
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadScoreboard() {
+      const [waveChecks, paid] = await Promise.all([
+        supabase.from("wave_audit_leads").select("submission_id", { count: "exact", head: true }),
+        supabase.from("payments").select("stripe_checkout_session_id", { count: "exact", head: true })
+          .eq("product_slug", "wave-starter")
+          .eq("status", "succeeded"),
+      ]);
+
+      if (!active) return;
+      setScoreboard((current) => ({
+        ...current,
+        waveChecks: waveChecks.error ? null : (waveChecks.count ?? 0),
+        paid: paid.error ? null : (paid.count ?? 0),
+      }));
+    }
+
+    void loadScoreboard();
+    return () => { active = false; };
+  }, []);
 
   const readiness = useMemo(() => activities.find((a) => a.label.startsWith("Readiness score")), [activities]);
   const update = (key: keyof Brief, value: string) => setBrief((b) => ({ ...b, [key]: value }));
@@ -52,6 +81,26 @@ export default function LaunchDesk() {
     <section className="launch-hero">
       <div><div className="eyebrow"><Sparkles size={15}/> TURN ROUGH IDEAS INTO RELEASES</div><h1>Plan the launch.<br/><span>Ship with confidence.</span></h1><p>Give Launch Desk the messy version. It turns the brief into a prioritized release plan, risk register, owners, and channel-ready copy.</p></div>
       <div className="hero-card"><div className="hero-card-icon"><Gauge/></div><div><strong>Launch readiness</strong><span>{readiness ? "Updated from your brief" : "Waiting for your brief"}</span></div><div className="score">{readiness ? "✓" : "--"}</div></div>
+    </section>
+
+    <section className="panel" style={{ margin: "0 auto 24px", maxWidth: 1180 }}>
+      <div className="panel-title">
+        <div><span className="step">00</span><div><h2>First Client Scoreboard</h2><p>Outreach → Wave Check → paid client</p></div></div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))", gap: 12 }}>
+        {[
+          ["Outreach sent", scoreboard.outreach],
+          ["Wave Checks", scoreboard.waveChecks ?? "—"],
+          ["Paid Wave Starter", scoreboard.paid ?? "—"],
+          ["Launch revenue", scoreboard.paid === null ? "—" : `${scoreboard.paid * 497}`],
+        ].map(([label, value]) => (
+          <div key={String(label)} style={{ border: "1px solid rgba(255,255,255,.1)", borderRadius: 16, padding: 16, background: "rgba(255,255,255,.035)" }}>
+            <div style={{ fontSize: 12, opacity: .7, textTransform: "uppercase", letterSpacing: ".08em" }}>{label}</div>
+            <div style={{ fontSize: 30, fontWeight: 900, marginTop: 6 }}>{value}</div>
+          </div>
+        ))}
+      </div>
+      <p style={{ margin: "14px 0 0", fontSize: 12, opacity: .65 }}>Wave Check and paid-sale counts refresh from Supabase when Launch Desk opens. Replies and strategy calls remain monitored through the active prospect watch.</p>
     </section>
 
     <div className="workspace">

@@ -1,13 +1,21 @@
-name: Deploy Pipeline
+name: Verify Cloudflare Pages Build
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages-build-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  verify:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +25,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -26,6 +34,9 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to Production (Main only)
-        if: github.ref == 'refs/heads/main'
-        run: echo "🚀 Deploy step goes here (Vercel / Netlify / Cloudflare)"
+      - name: Verify SPA deployment artifact
+        shell: bash
+        run: |
+          test -f dist/index.html
+          test -f dist/_redirects
+          grep -F '/* /index.html 200' dist/_redirects

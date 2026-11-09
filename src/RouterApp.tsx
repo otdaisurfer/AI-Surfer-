@@ -1,57 +1,82 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import App from "./App";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MembersLayout from "./components/members/MembersLayout";
 import Login from "./pages/auth/Login";
 import AgentWorkspace from "./pages/members/AgentWorkspace";
 import ApprovalQueue from "./pages/members/ApprovalQueue";
 import CrewDeck from "./pages/members/CrewDeck";
+import ResetPassword from "./pages/auth/ResetPassword";
 import MembersDashboard from "./pages/members/MembersDashboard";
+import MembersPricing from "./pages/members/MembersPricing";
 import MemberProduct from "./pages/members/MemberProduct";
+import PromptArchitect from "./pages/members/PromptArchitect";
+import SitesLanding from "./pages/home/SitesLanding";
+import NotFound from "./pages/not-found/NotFound";
+import Pricing from "./pages/pricing/Pricing";
+import WaveStarterSuccess from "./pages/pricing/WaveStarterSuccess";
+import Privacy from "./pages/legal/Privacy";
+import Terms from "./pages/legal/Terms";
 import WaveAudit from "./pages/wave-audit/WaveAudit";
+import AuditCheckout from "./pages/audit/AuditCheckout";
+import AuditSuccess from "./pages/audit/AuditSuccess";
+import AuditIntake from "./pages/audit/AuditIntake";
+import AuditReport from "./pages/audit/AuditReport";
 import LaunchDesk from "./launch-desk/LaunchDesk";
 import SiteLogoHeader from "./components/SiteLogoHeader";
+import AiFinChat from "./features/ai-fin/AiFinChat";
+
+function SiteChrome() {
+  const { pathname } = useLocation();
+  if (pathname === "/") return null;
+
+  return <SiteLogoHeader />;
+}
+
+function PublicAiFinLauncher() {
+  const { pathname } = useLocation();
+  return pathname === "/" ? <AiFinChat mode="public" /> : null;
+}
 
 export default function RouterApp() {
   return (
     <>
-      <SiteLogoHeader />
+      <SiteChrome />
       <div data-site-route-content="true">
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/pricing" element={<App />} />
+          <Route path="/" element={<SitesLanding />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/services" element={<MembersPricing publicView />} />
+          <Route path="/wave-starter/success" element={<WaveStarterSuccess />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/reviews" element={<Navigate to="/pricing" replace />} />
           <Route path="/wave-audit" element={<WaveAudit />} />
           <Route path="/wave-check" element={<WaveAudit />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/audit/success" element={<AuditSuccess />} />
+          <Route path="/audit/checkout" element={<ProtectedRoute><AuditCheckout /></ProtectedRoute>} />
+          <Route path="/audit/intake" element={<ProtectedRoute><AuditIntake /></ProtectedRoute>} />
+          <Route path="/audit/report/:orderId" element={<ProtectedRoute><AuditReport /></ProtectedRoute>} />
 
-          <Route
-            path="/launch-desk"
-            element={
-              <ProtectedRoute>
-                <LaunchDesk />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/members"
-            element={
-              <ProtectedRoute>
-                <MembersLayout />
-              </ProtectedRoute>
-            }
-          >
+          <Route path="/launch-desk" element={<ProtectedRoute><LaunchDesk /></ProtectedRoute>} />
+          <Route path="/ai-fin/owner" element={<ProtectedRoute><AiFinChat mode="owner" embedded /></ProtectedRoute>} />
+          <Route path="/members" element={<ProtectedRoute><MembersLayout /></ProtectedRoute>}>
             <Route index element={<MembersDashboard />} />
+            <Route path="pricing" element={<MembersPricing />} />
             <Route path="products/:slug" element={<MemberProduct />} />
             <Route path="crew" element={<CrewDeck />} />
             <Route path="crew/approvals" element={<ApprovalQueue />} />
             <Route path="crew/:agentSlug" element={<AgentWorkspace />} />
+            <Route path="prompt-architect" element={<PromptArchitect />} />
           </Route>
 
           <Route path="/dashboard" element={<Navigate to="/members" replace />} />
           <Route path="/ai-dashboard" element={<Navigate to="/members" replace />} />
-          <Route path="*" element={<App />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
+      <PublicAiFinLauncher />
     </>
   );
 }

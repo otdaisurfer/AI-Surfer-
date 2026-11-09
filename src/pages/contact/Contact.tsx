@@ -162,8 +162,8 @@ export default function Contact() {
                 <a href="mailto:oceantidedropaisurf@gmail.com" className="text-xs hover:text-white transition-colors break-all flex items-center gap-2">
                   <Mail className="w-3 h-3 text-[#00eaff]" /> oceantidedropaisurf@gmail.com
                 </a>
-                <a href="tel:8432177075" className="text-xs hover:text-white transition-colors flex items-center gap-2">
-                  <Phone className="w-3 h-3 text-purple-400" /> (843) 217-7075
+                <a href="tel:8438704590" className="text-xs hover:text-white transition-colors flex items-center gap-2">
+                  <Phone className="w-3 h-3 text-purple-400" /> (843) 870-4590
                 </a>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateWaveAuditResult } from "./scoring";
+import { calculateWaveAuditResult, detectRevenueLeaks } from "./scoring";
 import type { WaveAuditAnswers } from "./types";
 
 const baseAnswers: WaveAuditAnswers = {
@@ -46,5 +46,27 @@ describe("calculateWaveAuditResult", () => {
       aiPriority: "multiple",
     });
     expect(result.recommendedAgent).toBe("Big Kahuna");
+  });
+  it("detects lead and follow-up revenue leaks without inventing dollar values", () => {
+    const leaks = detectRevenueLeaks({
+      ...baseAnswers,
+      lostOpportunity: "followup",
+      aiPriority: "sales",
+    });
+    expect(leaks.some((leak) => leak.id === "slow-followup")).toBe(true);
+    expect(leaks.every((leak) => ["High", "Medium"].includes(leak.impact))).toBe(true);
+    expect(JSON.stringify(leaks)).not.toMatch(/\$\d/);
+  });
+
+  it("maps multi-area leak findings into the broader offer ladder", () => {
+    const leaks = detectRevenueLeaks({
+      businessType: "multi-location",
+      teamSize: "51+",
+      timeDrain: "multiple",
+      lostOpportunity: "multiple",
+      aiPriority: "multiple",
+    });
+    expect(leaks).toHaveLength(5);
+    expect(leaks.some((leak) => leak.recommendedOffer === "Tsunami Growth")).toBe(true);
   });
 });

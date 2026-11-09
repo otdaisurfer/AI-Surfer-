@@ -1,4 +1,4 @@
-import type { AuditAgent, WaveAuditAnswers, WaveAuditResult } from "./types";
+import type { AuditAgent, RevenueLeakFinding, WaveAuditAnswers, WaveAuditResult } from "./types";
 
 const CATEGORY_LABELS: Record<string, string> = {
   leads: "Lead & Sales Follow-Up",
@@ -128,6 +128,7 @@ export function calculateWaveAuditResult(answers: WaveAuditAnswers): WaveAuditRe
     opportunities: opportunities.filter(Boolean).slice(0, 2),
     recommendedAgent,
     confidenceLabel,
+    revenueLeaks: detectRevenueLeaks(answers),
   };
 }
 
@@ -146,4 +147,71 @@ function opportunityFor(category: string, answers: WaveAuditAnswers): string {
     default:
       return "Spot missed opportunities and turn scattered business data into clearer next actions.";
   }
+}
+
+
+export function detectRevenueLeaks(answers: WaveAuditAnswers): RevenueLeakFinding[] {
+  const leaks: RevenueLeakFinding[] = [];
+
+  if (answers.lostOpportunity === "leads" || answers.lostOpportunity === "multiple") {
+    leaks.push({
+      id: "missed-leads",
+      title: "Missed or unworked leads",
+      impact: "High",
+      signal: "Your answers suggest qualified opportunities may not be entering a consistent sales process.",
+      recommendedFix: "Capture, qualify, and route every new lead into one follow-up workflow.",
+      recommendedAgent: "Sales Rider",
+      recommendedOffer: "Wave Starter",
+    });
+  }
+
+  if (answers.lostOpportunity === "followup" || answers.lostOpportunity === "multiple" || answers.aiPriority === "sales") {
+    leaks.push({
+      id: "slow-followup",
+      title: "Slow lead follow-up",
+      impact: "High",
+      signal: "Sales follow-up is a priority or a stated opportunity leak.",
+      recommendedFix: "Trigger immediate acknowledgement, timed follow-ups, and an owner alert when a lead goes quiet.",
+      recommendedAgent: "Sales Rider",
+      recommendedOffer: "Wave Starter",
+    });
+  }
+
+  if (answers.lostOpportunity === "operations" || answers.lostOpportunity === "multiple" || answers.aiPriority === "automation") {
+    leaks.push({
+      id: "stalled-deals",
+      title: "Deals or quotes stuck in the pipeline",
+      impact: "High",
+      signal: "Manual workflows can leave opportunities waiting between stages.",
+      recommendedFix: "Add stage-age alerts, automatic next-step tasks, and escalation for stalled opportunities.",
+      recommendedAgent: "Automation Architect",
+      recommendedOffer: "Wave Builder",
+    });
+  }
+
+  if (answers.timeDrain === "repetitive" || answers.timeDrain === "multiple") {
+    leaks.push({
+      id: "payment-followup",
+      title: "Completed work without payment follow-up",
+      impact: "Medium",
+      signal: "Repetitive admin can include invoice, payment, and completion follow-up that slips through the cracks.",
+      recommendedFix: "Automate completion-to-invoice reminders and overdue-payment follow-up while keeping human approval for exceptions.",
+      recommendedAgent: "Automation Architect",
+      recommendedOffer: "Wave Builder",
+    });
+  }
+
+  if (answers.aiPriority === "marketing" || answers.aiPriority === "multiple") {
+    leaks.push({
+      id: "dormant-customers",
+      title: "Dormant customers with no reactivation",
+      impact: "Medium",
+      signal: "Existing customers may be an underused source of repeat business when reactivation is inconsistent.",
+      recommendedFix: "Segment past customers and trigger useful, permission-aware reactivation campaigns.",
+      recommendedAgent: "Content Creator",
+      recommendedOffer: answers.aiPriority === "multiple" ? "Tsunami Growth" : "Wave Builder",
+    });
+  }
+
+  return leaks.slice(0, 5);
 }

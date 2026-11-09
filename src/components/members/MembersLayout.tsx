@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import "./MembersLayout.css";
+import { Link, Outlet } from "react-router-dom";
 
 type TideMode = "auto" | "high" | "low";
 
@@ -33,6 +34,7 @@ export default function MembersLayout() {
   return (
     <div
       className="
+        members-shell
         min-h-screen
         bg-cover
         bg-center
@@ -52,12 +54,13 @@ export default function MembersLayout() {
           ${tide.overlay}
         `}
       >
-        <div className="flex gap-6">
+        <div className="members-layout-row">
           <aside
             className="
               hidden
-              md:flex
-              w-80
+              lg:flex
+              w-64
+              shrink-0
               flex-col
               rounded-3xl
               bg-white/10
@@ -83,6 +86,10 @@ export default function MembersLayout() {
               </p>
             </div>
 
+            <nav aria-label="Members navigation" className="mb-6 grid gap-3">
+              <Link to="/members" className="font-bold text-cyan-200">Command Center</Link>
+              <Link to="/members/pricing" className="font-bold text-pink-200">Pricing & Payments</Link>
+            </nav>
             <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
               <div className="text-xs uppercase tracking-widest text-white/50">
                 Status
@@ -98,7 +105,7 @@ export default function MembersLayout() {
             </div>
           </aside>
 
-          <main className="flex-1 min-w-0 bg-transparent">
+          <main className="members-content">
             <Outlet />
           </main>
         </div>

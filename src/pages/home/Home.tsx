@@ -83,9 +83,13 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="relative z-10 px-6 py-8 text-center text-xs text-white/30 border-t border-white/10">
-
-        © {new Date().getFullYear()} Ocean Tide Drop AI
-
+        <p>© {new Date().getFullYear()} Ocean Tide Drop AI</p>
+        <a
+          href="tel:8438704590"
+          className="mt-2 inline-block hover:text-white transition-colors"
+        >
+          Call/Text (843) 870-4590
+        </a>
       </footer>
 
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Ocean-tech artwork is matched to each product's role in the AI Surfer journey.
+
 interface Product {
   stage: 'DISCOVER' | 'DIAGNOSE' | 'PLAN' | 'IMPLEMENT' | 'TRANSFORM';
   name: string;
@@ -19,8 +21,8 @@ const products: Product[] = [
     category: 'AI Visibility & Discovery',
     description: 'Find the visibility gaps that keep AI systems from understanding, trusting, citing, and recommending your business.',
     cta: 'Run the Wave Audit',
-    href: '/wave-audit',
-    image: '/packages/aeo-wave-audit.jpg',
+    href: '/wave-check',
+    image: '/packages/aeo-wave-audit-ocean-tech.png',
     badge: '/product-icons/aeo-wave-audit.png',
     featured: true,
   },
@@ -31,7 +33,7 @@ const products: Product[] = [
     description: 'Turn scattered AI possibilities into a prioritized list of the opportunities most likely to create measurable business value.',
     cta: 'Explore Opportunities',
     href: '/members/products/ai-opportunity-report',
-    image: '/packages/ai-opportunity-report.jpg',
+    image: '/packages/ai-opportunity-report-ocean-tech.png',
     badge: '/product-icons/ai-opportunity-report.png',
   },
   {
@@ -41,7 +43,7 @@ const products: Product[] = [
     description: 'Build a practical roadmap for becoming more visible, understandable, and authoritative across AI-powered search and answer engines.',
     cta: 'Build the Blueprint',
     href: '/members/products/aeo-blueprint',
-    image: '/packages/aeo-blueprint.jpg',
+    image: '/packages/aeo-blueprint-ocean-tech.png',
     badge: '/product-icons/aeo-blueprint.png',
   },
   {
@@ -51,7 +53,7 @@ const products: Product[] = [
     description: 'Map repetitive work into AI-powered workflows that reduce manual effort, connect your tools, and make operations more scalable.',
     cta: 'Map Your Workflows',
     href: '/members/products/automation-blueprint',
-    image: '/packages/automation-blueprint.jpg',
+    image: '/packages/automation-blueprint-ocean-tech.png',
     badge: '/product-icons/automation-blueprint.png',
   },
   {
@@ -61,7 +63,7 @@ const products: Product[] = [
     description: 'Identify prospects, research buying signals, and organize opportunities so your sales team spends less time hunting and more time closing.',
     cta: 'Ride with Wave Scout',
     href: '/members/products/wave-scout',
-    image: '/packages/wave-scout.jpg',
+    image: '/packages/wave-scout-ocean-tech.png',
     badge: '/product-icons/wave-scout.png',
   },
   {
@@ -71,7 +73,7 @@ const products: Product[] = [
     description: 'Turn leads into conversations and conversations into opportunities with an always-on sales assistant.',
     cta: 'Meet Sales Rider',
     href: '/members/products/sales-rider',
-    image: '/packages/sales-rider.jpg',
+    image: '/packages/sales-rider-ocean-tech.png',
     badge: '/product-icons/sales-rider.png',
   },
   {
@@ -81,7 +83,7 @@ const products: Product[] = [
     description: 'Generate strategic social posts, emails, blogs, campaigns, offers, and marketing assets while keeping your message aligned.',
     cta: 'Create with Content Creator',
     href: '/members/products/content-creator',
-    image: '/packages/content-creator.jpg',
+    image: '/packages/content-creator-ocean-tech.png',
     badge: '/product-icons/content-creator.png',
   },
   {
@@ -91,7 +93,7 @@ const products: Product[] = [
     description: 'Connect processes, tools, data, and AI agents to automate repetitive work and create a more scalable operation.',
     cta: 'Automate the Work',
     href: '/members/products/automation-architect',
-    image: '/packages/automation-architect.jpg',
+    image: '/packages/automation-architect-ocean-tech.png',
     badge: '/product-icons/automation-architect.png',
   },
   {

@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { buildAuditCheckoutPath, resolveAuditSubmissionId } from "../pages/audit/auditCheckoutContext";
+
+const AEO_CHECKOUT_CONTEXT_KEY = "ai-surfer:aeo-checkout-context";
 
 export default function ProtectedRoute({ children }: { children: ReactNode }) {
   const location = useLocation();
@@ -26,7 +29,16 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
   }
 
   if (!session) {
-    const from = `${location.pathname}${location.search}${location.hash}`;
+    let from = `${location.pathname}${location.search}${location.hash}`;
+
+    if (location.pathname === "/audit/checkout" && !location.search) {
+      const submissionId = resolveAuditSubmissionId(
+        "",
+        window.sessionStorage.getItem(AEO_CHECKOUT_CONTEXT_KEY),
+      );
+      if (submissionId) from = buildAuditCheckoutPath(submissionId);
+    }
+
     return <Navigate to="/login" replace state={{ from }} />;
   }
 

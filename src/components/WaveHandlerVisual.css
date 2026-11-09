@@ -1,0 +1,7 @@
+.wave-handler-visual { width: 100%; max-width: 960px; margin: 28px auto; overflow: hidden; border: 1px solid #51d6e5; border-radius: 24px; background: #06334b; box-shadow: 0 16px 40px rgba(0, 124, 156, .18); }
+.wave-handler-visual picture { display: block; }
+.wave-handler-visual img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; }
+.wave-handler-visual figcaption { padding: 16px 20px; color: #fff; font-size: 1rem; line-height: 1.5; }
+.wave-handler-visual figcaption strong, .wave-handler-visual figcaption span { display: block; }
+.wave-handler-visual figcaption span { color: #c8f5f8; }
+@media (max-width: 600px) { .wave-handler-visual { border-radius: 16px; } .wave-handler-visual figcaption { padding: 14px 16px; } }

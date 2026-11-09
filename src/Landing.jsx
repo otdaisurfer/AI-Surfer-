@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
 
+// images
+import homepageConcept from "../assets/images/ocean_ai_yacht.png";
+import cyberWave from "../assets/images/cyber_surfer_wave_1779220118634.png";
+
 export default function Landing() {
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
@@ -59,6 +63,25 @@ export default function Landing() {
         <p className="mt-6 text-xs text-white/40">
           Live system • AI agents active • self-upgrading infrastructure
         </p>
+
+        {/* --- Added images to make the landing more visual --- */}
+        <div className="mt-10 max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-8">
+          <img
+            src={homepageConcept}
+            alt="Ocean AI yacht concept art"
+            className="w-full max-w-md rounded-2xl shadow-2xl object-cover hidden md:block"
+          />
+
+          <div className="w-full md:max-w-2xl">
+            <img
+              src={cyberWave}
+              alt="Cyber surfer wave graphic"
+              className="w-full rounded-xl shadow-lg object-cover"
+            />
+            <p className="mt-3 text-sm text-white/50">Visuals: Ocean-theme artwork to reinforce the AI Surfer brand and convey motion, polish, and focus on outcomes.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   );

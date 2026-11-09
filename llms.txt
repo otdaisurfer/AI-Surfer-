@@ -1,0 +1,62 @@
+# Ocean Tide Drop AI SURFER
+
+> Practical AI implementation, AEO/GEO visibility, automation, and specialist AI agents for small and local businesses.
+
+## Canonical customer journey
+
+Discover → Diagnose → Plan → Implement → Transform
+
+- Discover: Free AI Wave Check
+- Diagnose: AEO Wave Audit and focused business diagnostics
+- Plan: AI Opportunity Report, AEO Blueprint, Automation Blueprint, 30-Day Wave Plan
+- Implement: specialist AI agents and business workflows
+- Transform: Big Kahuna multi-area strategy and implementation
+
+## Current public offers
+
+- Wave Starter — $497 — one focused AI implementation sprint — direct purchase
+- Wave Builder — $1,997 — connected visibility, lead flow, follow-up, or automation implementation — strategy call
+- Tsunami Growth — $3,997 — multi-area AI strategy and deeper implementation — strategy call
+
+If a visitor is unsure which offer fits, route them to the Free AI Wave Check.
+
+## Specialist agent crew
+
+- Wave Scout — opportunity discovery, visibility gaps, and lead intelligence
+- Sales Rider — lead capture, response, follow-up, and conversion workflows
+- Content Creator — repeatable AI-assisted content and campaign systems
+- Customer Care Cove — customer support and service workflows
+- Automation Architect — repetitive workflow design and integrations
+- Big Kahuna — multi-area AI strategy and coordinated implementation
+
+## AEO and GEO
+
+AI SURFER evaluates practical AI-search readiness across:
+
+- Conversational Intent
+- Entity Authority
+- Technical Readiness
+- Content Authority
+- AI Visibility
+- Citation Opportunities
+
+The goal is to make a business easier for people and AI systems to discover, understand, trust, summarize, and cite.
+
+## Documentation
+
+- Introduction: /docs/knowledge-hub/introduction
+- Quickstart: /docs/knowledge-hub/quickstart
+- Free AI Wave Check: /docs/knowledge-hub/features/wave-check
+- AEO Wave Audit: /docs/knowledge-hub/features/wave-audit
+- Launch Desk: /docs/knowledge-hub/features/launch-desk
+- Members Dashboard: /docs/knowledge-hub/features/members-dashboard
+- AI Agent Crew: /docs/knowledge-hub/agents/overview
+- AEO and GEO: /docs/knowledge-hub/aeo-geo
+- Pricing: /docs/knowledge-hub/pricing
+- Deployment: /docs/knowledge-hub/deployment
+- Developer API overview: /api/overview
+
+## Source of truth
+
+The canonical repository product source is:
+docs/knowledge-hub/ai-surfer-knowledge-hub.md

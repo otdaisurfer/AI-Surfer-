@@ -1,0 +1,19 @@
+.members-shell { width: 100%; min-width: 0; background-color: #060c18; overflow-x: clip; }
+.members-shell, .members-shell *, .members-shell *::before, .members-shell *::after { box-sizing: border-box; }
+.members-layout-row { display: flex; gap: 24px; min-width: 0; }
+.members-content { flex: 1 1 0%; width: 0; min-width: 0; max-width: 100%; }
+.members-dashboard { width: 100%; min-width: 0; overflow-wrap: anywhere; }
+.members-dashboard section, .members-dashboard header, .members-dashboard [style*="grid-template-columns"] > * { min-width: 0; }
+.members-dashboard button, .members-dashboard a { max-width: 100%; }
+@media (max-width: 1023px) {
+  .members-layout-row { display: block; }
+  .members-content { width: 100%; }
+  .members-dashboard { padding: 16px 0 48px !important; }
+}
+@media (max-width: 480px) {
+  .members-dashboard > header > div { width: 100%; }
+  .members-dashboard section { padding: 20px !important; }
+  .members-dashboard h1 { font-size: 1.75rem; line-height: 1.25; }
+  .members-dashboard h2 { font-size: 1.35rem; line-height: 1.35; }
+  .members-dashboard button { min-height: 44px; font-size: 16px; }
+}

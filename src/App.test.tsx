@@ -11,9 +11,9 @@ describe("homepage Free AI Wave Check", () => {
       </MemoryRouter>,
     );
 
-    expect(html.match(/href="\/wave-check"/g)).toHaveLength(2);
+    expect(html.match(/href="\/wave-check"/g)).toHaveLength(3);
     expect(html).toContain("Get My Free AI Wave Check™");
-    expect(html).toContain("Can AI find and recommend your business?");
-    expect(html).toContain("Start My Free Wave Check");
+    expect(html).toContain("Can AI find, understand, and recommend your business?");
+    expect(html).toContain("Start Free");
   });
 });

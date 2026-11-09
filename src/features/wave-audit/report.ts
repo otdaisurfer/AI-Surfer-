@@ -140,12 +140,16 @@ export function buildWaveAuditReport(
   };
 }
 
-export function formatWaveAuditReport(report: WaveAuditReport, submissionId: string): string {
+export function formatWaveAuditReport(report: WaveAuditReport, submissionId: string, result?: WaveAuditResult): string {
   const priorities = report.priorityActions.map((action, index) => `${index + 1}. ${action}`).join("\n");
   const plan = report.plan
     .map((phase) => `${phase.window} — ${phase.title}\n${phase.action}`)
     .join("\n\n");
   const metrics = report.metrics.map((metric) => `• ${metric}`).join("\n");
+  const revenueLeaks = (result?.revenueLeaks ?? [])
+    .map((leak) => `• ${leak.title} — ${leak.impact} impact\n  Signal: ${leak.signal}\n  Fix: ${leak.recommendedFix}\n  ${leak.recommendedAgent} · ${leak.recommendedOffer}`)
+    .join("\n\n");
+  const revenueLeakSection = revenueLeaks ? `\n\nREVENUE LEAK CHECK\n${revenueLeaks}` : "";
 
   return `OCEAN TIDE DROP AI SURFER — AI WAVE REPORT
 
