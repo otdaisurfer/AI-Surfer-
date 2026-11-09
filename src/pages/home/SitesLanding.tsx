@@ -215,25 +215,25 @@ export default function SitesLanding() {
             AI SURFER traces the path from first inquiry to sale, spots where prospects drift away,
             and identifies the first follow-up automation worth building.
           </p>
-          {!leadLeakOpen && (
-            <div style={{ display: "grid", gap: 12, justifyItems: "start" }}>
+          <div style={{ display: "grid", gap: 12, justifyItems: "start" }}>
+            {!leadLeakOpen && (
               <button className="button button-primary lead-leak-cta" type="button" onClick={() => setLeadLeakOpen(true)}>
                 Open My Lead Leak Finder →
               </button>
-              <div>
-                <p className="lead-leak-description">
-                  Want a hands-on review? Get written findings and a 30-minute video consultation for a one-time $197.
-                </p>
-                <a
-                  className="button button-secondary lead-leak-cta"
-                  href="https://buy.stripe.com/cNi4gz1lp9to46K2xx4gg0c"
-                  data-funnel-cta="lead-leak-paid-review"
-                >
-                  Get My $197 Lead Leak Review →
-                </a>
-              </div>
+            )}
+            <div>
+              <p className="lead-leak-description">
+                Want a hands-on review? Get written findings and a 30-minute video consultation for a one-time $197.
+              </p>
+              <a
+                className="button button-secondary lead-leak-cta"
+                href="https://buy.stripe.com/cNi4gz1lp9to46K2xx4gg0c"
+                data-funnel-cta="lead-leak-paid-review"
+              >
+                Get My $197 Lead Leak Review →
+              </a>
             </div>
-          )}
+          </div>
         </div>
 
         {leadLeakOpen && !leadLeakComplete && (
