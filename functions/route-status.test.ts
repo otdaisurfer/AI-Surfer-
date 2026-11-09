@@ -26,6 +26,11 @@ describe("handleRouteStatus", () => {
   it.each([
     "/",
     "/pricing",
+    "/services",
+    "/privacy",
+    "/terms",
+    "/wave-starter/success",
+    "/ai-fin/owner",
     "/login",
     "/wave-audit",
     "/audit/success?session_id=test",

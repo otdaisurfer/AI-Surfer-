@@ -4,6 +4,11 @@ type SpaFallback = () => Promise<Response>;
 const EXACT_APP_ROUTES = new Set([
   "/",
   "/pricing",
+  "/services",
+  "/privacy",
+  "/terms",
+  "/wave-starter/success",
+  "/ai-fin/owner",
   "/wave-audit",
   "/wave-check",
   "/login",
