@@ -69,7 +69,7 @@ export default function Navbar() {
 
 
           <Link
-            to="/members/pricing""
+            to="/members/pricing"
             className="
               hidden
               md:block
