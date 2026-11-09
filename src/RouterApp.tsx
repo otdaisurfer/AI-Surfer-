@@ -42,6 +42,7 @@ export default function RouterApp() {
         <Routes>
           <Route path="/" element={<SitesLanding />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/services" element={<MembersPricing publicView />} />
           <Route path="/wave-starter/success" element={<WaveStarterSuccess />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />

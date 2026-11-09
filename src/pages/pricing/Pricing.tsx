@@ -122,7 +122,7 @@ export default function Pricing() {
           <p className="mt-3 leading-7 text-slate-300">Bronze membership includes Builder Access to the member workspaces assigned to that tier. Done-for-you services and optional monthly support are purchased separately.</p>
           <a href={MEMBERSHIP.checkoutUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex rounded-full bg-cyan-300 px-6 py-3 font-black text-slate-950">Join AI SURFER — $17/month</a>
           <p className="mt-4 text-sm text-slate-300">Use your member account email at checkout. Renews monthly until cancelled.</p>
-          <a href="/members/pricing" className="mt-4 inline-flex font-bold text-pink-200">View all Members pricing & optional support →</a>
+          <a href="/services" className="mt-4 inline-flex font-bold text-pink-200">View all services & optional support →</a>
         </section>
 
         <div className="mx-auto mt-12 max-w-3xl rounded-3xl border border-white/10 bg-white/[0.04] p-7 text-slate-300">

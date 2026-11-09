@@ -21,7 +21,14 @@ export function isKnownAppRoute(pathname: string): boolean {
   return false;
 }
 
+const STATIC_JOURNAL_ROUTES = new Set([
+  "/blog",
+  "/blog/our-story",
+  "/blog/building-ai-surfer-one-wave-at-a-time-episode-1",
+]);
+
 function isKnownRoute(pathname: string): boolean {
+  if (STATIC_JOURNAL_ROUTES.has(pathname.replace(/\/$/, ""))) return true;
   if (isKnownAppRoute(pathname)) return true;
   if (pathname.startsWith("/api/")) return true;
   return /\/[^/]+\.[^/]+$/.test(pathname);
