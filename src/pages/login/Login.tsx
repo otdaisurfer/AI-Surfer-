@@ -491,7 +491,7 @@ export default function Login() {
 
         <div className="mt-8 text-center">
           <Link
-            to="/pricing"
+            to="/members/pricing""
             className="
               text-sm
               text-white/40
