@@ -1471,3 +1471,111 @@
 
 /* Preserve the full uploaded logo, including its tagline. */
 .sites-landing .landing-logo { aspect-ratio: auto; object-fit: contain; }
+
+
+/* 2026-11-09: tighten the top-of-page brand + artwork stack. */
+.sites-landing .landing-logo-link {
+  width: min(300px, calc(100% - 36px));
+  margin: 14px auto 6px;
+  box-shadow: none;
+  border-radius: 14px;
+}
+
+.sites-landing .homepage-top-artwork {
+  width: min(760px, calc(100% - 32px));
+  margin: 2px auto 8px;
+}
+
+.sites-landing .homepage-top-artwork .wave-check-hero-media-link {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.sites-landing .homepage-top-artwork .wave-check-hero-media {
+  width: 100%;
+  max-width: 760px;
+  aspect-ratio: auto;
+  margin: 0 auto;
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.sites-landing .homepage-top-artwork .wave-check-hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  background: transparent;
+}
+
+.sites-landing .nav-shell {
+  padding-top: 4px;
+  padding-bottom: 10px;
+}
+
+.sites-landing .wave-check-hero {
+  padding-top: 24px;
+  padding-bottom: 58px;
+}
+
+.sites-landing .wave-check-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 850px);
+  grid-template-areas:
+    "eyebrow"
+    "title"
+    "lead"
+    "cta"
+    "footnote";
+  justify-content: center;
+  justify-items: center;
+  row-gap: 0;
+  text-align: center;
+}
+
+.sites-landing .wave-check-hero-inner > .eyebrow { grid-area: eyebrow; }
+.sites-landing .wave-check-hero-inner > h1 { grid-area: title; }
+.sites-landing .wave-check-hero-lead {
+  grid-area: lead;
+  margin-right: auto;
+  margin-left: auto;
+}
+.sites-landing .wave-check-hero-inner > .hero-actions {
+  grid-area: cta;
+  justify-content: center;
+}
+.sites-landing .wave-check-hero-footnote { grid-area: footnote; }
+
+@media (max-width: 720px) {
+  .sites-landing .landing-logo-link {
+    width: min(230px, calc(100% - 28px));
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+
+  .sites-landing .homepage-top-artwork {
+    width: calc(100% - 20px);
+    margin-top: 0;
+    margin-bottom: 6px;
+  }
+
+  .sites-landing .homepage-top-artwork .wave-check-hero-media {
+    border-radius: 16px;
+  }
+
+  .sites-landing .nav-shell {
+    padding-top: 2px;
+    padding-bottom: 8px;
+  }
+
+  .sites-landing .wave-check-hero {
+    padding-top: 20px;
+    padding-bottom: 48px;
+  }
+
+  .sites-landing .wave-check-hero h1 {
+    font-size: clamp(2.55rem, 12vw, 4rem);
+  }
+}
