@@ -23,7 +23,7 @@ export default function Landing() {
         <div className="flex gap-5 text-sm text-white/70">
           <Link to="/login">Login</Link>
           <Link to="/dashboard">Open OS</Link>
-          <Link to="/pricing">Upgrade</Link>
+          <Link to="/members/pricing"">Upgrade</Link>
         </div>
       </div>
 
@@ -53,7 +53,7 @@ export default function Landing() {
           </Link>
 
           <Link
-            to="/pricing"
+            to="/members/pricing""
             className="border border-white/20 px-7 py-3 rounded-xl"
           >
             View Plans
