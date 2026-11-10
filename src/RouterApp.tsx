@@ -2,6 +2,9 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MembersLayout from "./components/members/MembersLayout";
 import Login from "./pages/auth/Login";
+import AgentWorkspace from "./pages/members/AgentWorkspace";
+import ApprovalQueue from "./pages/members/ApprovalQueue";
+import CrewDeck from "./pages/members/CrewDeck";
 import ResetPassword from "./pages/auth/ResetPassword";
 import MembersDashboard from "./pages/members/MembersDashboard";
 import MembersPricing from "./pages/members/MembersPricing";
@@ -62,6 +65,9 @@ export default function RouterApp() {
             <Route index element={<MembersDashboard />} />
             <Route path="pricing" element={<MembersPricing />} />
             <Route path="products/:slug" element={<MemberProduct />} />
+            <Route path="crew" element={<CrewDeck />} />
+            <Route path="crew/approvals" element={<ApprovalQueue />} />
+            <Route path="crew/:agentSlug" element={<AgentWorkspace />} />
             <Route path="prompt-architect" element={<PromptArchitect />} />
           </Route>
 
