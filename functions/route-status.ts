@@ -20,7 +20,8 @@ const EXACT_APP_ROUTES = new Set([
 ]);
 
 export function isKnownAppRoute(pathname: string): boolean {
-  if (EXACT_APP_ROUTES.has(pathname)) return true;
+  const normalizedPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
+  if (EXACT_APP_ROUTES.has(normalizedPath)) return true;
   if (pathname.startsWith("/members/")) return true;
   if (pathname.startsWith("/audit/")) return true;
   return false;

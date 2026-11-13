@@ -26,6 +26,9 @@ describe("handleRouteStatus", () => {
   it.each([
     "/",
     "/pricing",
+    "/pricing/",
+    "/wave-check/",
+    "/services/",
     "/services",
     "/privacy",
     "/terms",
