@@ -6,9 +6,34 @@ function request(path: string) {
 }
 
 describe("handleRouteStatus", () => {
+  it.each(["GET", "HEAD"])("permanently redirects legacy pages for %s before serving the app", async (method) => {
+    for (const [path, destination] of [["/reviews", "/pricing"], ["/reviews/", "/pricing"], ["/home", "/"], ["/home/", "/"]]) {
+      const next = vi.fn(async () => new Response("old page"));
+      const response = await handleRouteStatus(new Request(`https://otdaisurfer.surf${path}?utm_source=search`, { method }), next);
+      expect(response.status).toBe(301);
+      expect(response.headers.get("Location")).toBe(`https://otdaisurfer.surf${destination}?utm_source=search`);
+      expect(next).not.toHaveBeenCalled();
+    }
+  });
+
+  it("does not redirect a POST to the legacy reviews path", async () => {
+    const next = vi.fn(async () => new Response("not allowed", { status: 405 }));
+    const response = await handleRouteStatus(new Request("https://otdaisurfer.surf/reviews", { method: "POST" }), next);
+    expect(response.status).toBe(405);
+    expect(next).toHaveBeenCalledOnce();
+  });
+
   it.each([
     "/",
     "/pricing",
+    "/pricing/",
+    "/wave-check/",
+    "/services/",
+    "/services",
+    "/privacy",
+    "/terms",
+    "/wave-starter/success",
+    "/ai-fin/owner",
     "/login",
     "/wave-audit",
     "/audit/success?session_id=test",

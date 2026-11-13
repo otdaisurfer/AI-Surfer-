@@ -4,6 +4,11 @@ type SpaFallback = () => Promise<Response>;
 const EXACT_APP_ROUTES = new Set([
   "/",
   "/pricing",
+  "/services",
+  "/privacy",
+  "/terms",
+  "/wave-starter/success",
+  "/ai-fin/owner",
   "/wave-audit",
   "/wave-check",
   "/login",
@@ -15,7 +20,8 @@ const EXACT_APP_ROUTES = new Set([
 ]);
 
 export function isKnownAppRoute(pathname: string): boolean {
-  if (EXACT_APP_ROUTES.has(pathname)) return true;
+  const normalizedPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
+  if (EXACT_APP_ROUTES.has(normalizedPath)) return true;
   if (pathname.startsWith("/members/")) return true;
   if (pathname.startsWith("/audit/")) return true;
   return false;
@@ -39,9 +45,15 @@ export async function handleRouteStatus(
   next: Next,
   spaFallback?: SpaFallback,
 ): Promise<Response> {
-  const response = await next();
-  const pathname = new URL(request.url).pathname;
+  const url = new URL(request.url);
+  const pathname = url.pathname;
   const canUseSpaFallback = request.method === "GET" || request.method === "HEAD";
+  const legacyPath = pathname.replace(/\/$/, "");
+  if (canUseSpaFallback && (legacyPath === "/reviews" || legacyPath === "/home")) {
+    url.pathname = legacyPath === "/reviews" ? "/pricing" : "/";
+    return Response.redirect(url.toString(), 301);
+  }
+  const response = await next();
 
   if (
     response.status === 404 &&
