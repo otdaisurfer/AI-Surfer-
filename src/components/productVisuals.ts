@@ -12,12 +12,6 @@ export const PRODUCT_VISUALS = [
     "href": "/#lead-leak-finder"
   },
   {
-    "slug": "ai-wave-audit",
-    "name": "AI Wave Audit",
-    "description": "Assess your business opportunities.",
-    "href": "/wave-audit"
-  },
-  {
     "slug": "aeo-geo-wave-audit",
     "name": "AEO + GEO Wave Audit",
     "description": "Discover your AI visibility gaps.",

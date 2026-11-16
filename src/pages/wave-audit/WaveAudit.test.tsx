@@ -27,6 +27,8 @@ describe("WaveAudit", () => {
       </MemoryRouter>,
     );
 
+    expect(html).toContain("Free AI Wave Check");
+    expect(html).not.toContain("AI Wave Audit");
     expect(html).toContain("What type of business do you run?");
     expect(html).toMatch(/Question\s*<!-- -->1<!-- -->\s*of\s*<!-- -->5/);
     expect(html).not.toContain("Unlock My Full AI Wave Report");

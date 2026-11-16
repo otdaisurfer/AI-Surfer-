@@ -126,7 +126,7 @@ export default function WaveAudit() {
       <Navbar />
       <div className="relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-32 md:px-8">
         <div className="mb-10 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan-200 backdrop-blur"><Sparkles size={14} /> AI Wave Audit</div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan-200 backdrop-blur"><Sparkles size={14} /> Free AI Wave Check</div>
           <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black tracking-tight md:text-6xl">See where your business can catch a bigger AI wave.</h1>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">Answer five quick business questions. Get an instant AI Opportunity Score™ and a practical first recommendation.</p>
         </div>
