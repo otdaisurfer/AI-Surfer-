@@ -20,6 +20,18 @@ afterEach(() => {
 });
 
 describe("launch revenue conversion path", () => {
+  it("keeps the free check distinct from the paid audit and its existing checkout", () => {
+    const { container, root } = renderPricing();
+    const cards = [...container.querySelectorAll(".product-visual-card")];
+    const names = cards.map((card) => card.querySelector("h3")?.textContent);
+    expect(names).toContain("Free AI Wave Check");
+    expect(names).toContain("AEO + GEO Wave Audit");
+    expect(names).not.toContain("AI Wave Audit");
+    const audit = [...container.querySelectorAll("a")].find((a) => a.textContent?.trim() === "Get My AEO + GEO Audit");
+    expect(audit?.getAttribute("href")).toBe("https://buy.stripe.com/eVq4gzaVZ350cDg5JJ4gg0a");
+    act(() => root.unmount());
+  });
+
   it("shows the live membership price and Stripe checkout", () => {
     const { container, root } = renderPricing();
     const join = [...container.querySelectorAll("a")].find((a) => a.textContent?.includes("Join AI SURFER"));
