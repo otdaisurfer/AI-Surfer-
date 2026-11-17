@@ -85,8 +85,8 @@ describe("WaveAudit", () => {
     const tsunami = offerLinks.find((link) => link.textContent?.includes("Book Tsunami Growth Strategy Call"));
 
     expect(starter?.href).toContain("buy.stripe.com");
-    expect(builder?.href).toContain("calendly.com/oceantidedrop/new-meeting");
-    expect(tsunami?.href).toContain("calendly.com/oceantidedrop/new-meeting");
+    expect(builder?.href).toContain("calendly.com/oceantidedrop/ai-surfer-business-ai-consultation");
+    expect(tsunami?.href).toContain("calendly.com/oceantidedrop/ai-surfer-business-ai-consultation");
     expect(container.textContent).not.toContain("Get My $97 AEO Wave Audit");
     expect(saveWaveAuditLead).toHaveBeenCalledWith(expect.objectContaining({
       email: "surfer@example.com",
