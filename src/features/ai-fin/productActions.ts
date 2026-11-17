@@ -8,7 +8,7 @@ export type AiFinProductAction = {
 };
 
 const WAVE_STARTER_CHECKOUT = "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b";
-const STRATEGY_CALL_URL = "https://calendly.com/oceantidedrop/new-meeting";
+const STRATEGY_CALL_URL = "https://calendly.com/oceantidedrop/ai-surfer-business-ai-consultation";
 
 const PRODUCT_ACTIONS: Record<ProductId, AiFinProductAction> = {
   "free-wave-check": {
