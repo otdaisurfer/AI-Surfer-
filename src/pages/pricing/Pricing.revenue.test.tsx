@@ -48,8 +48,8 @@ describe("launch revenue conversion path", () => {
     const tsunami = anchors.find((a) => a.textContent?.includes("Talk With AI Surfer"));
     const fallback = anchors.find((a) => a.getAttribute("href")?.startsWith("mailto:"));
 
-    expect(builder?.getAttribute("href")).toBe("https://calendly.com/oceantidedrop/new-meeting");
-    expect(tsunami?.getAttribute("href")).toBe("https://calendly.com/oceantidedrop/new-meeting");
+    expect(builder?.getAttribute("href")).toBe("https://calendly.com/oceantidedrop/ai-surfer-business-ai-consultation");
+    expect(tsunami?.getAttribute("href")).toBe("https://calendly.com/oceantidedrop/ai-surfer-business-ai-consultation");
     expect(fallback?.getAttribute("href")).toContain("oceantidedropservice@gmail.com");
     act(() => root.unmount());
   });
