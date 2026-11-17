@@ -74,8 +74,8 @@ describe("FullWaveReport", () => {
     const html = renderReport();
 
     expect(html).toContain("https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b");
-    expect(html).toContain("https://calendly.com/oceantidedrop/new-meeting");
-    expect(html.match(/https:\/\/calendly\.com\/oceantidedrop\/new-meeting/g)?.length).toBeGreaterThanOrEqual(2);
+    expect(html).toContain("https://calendly.com/oceantidedrop/ai-surfer-business-ai-consultation");
+    expect(html.match(/https:\/\/calendly\.com\/oceantidedrop\/ai-surfer-business-ai-consultation/g)?.length).toBeGreaterThanOrEqual(2);
     expect(html).not.toContain('href="/audit/checkout"');
   });
 
