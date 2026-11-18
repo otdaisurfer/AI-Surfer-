@@ -113,7 +113,7 @@ async function runBackgroundHubSpotHandoff(
 ) {
   const status = await syncHubSpotContact(email, accessToken, timeoutMs, context);
   if (status === "failed" && db) {
-    await enqueueHubSpotRetry(db, email, submissionId);
+    await enqueueHubSpotRetry(db, email, submissionId, context);
   }
 
   await drainHubSpotRetryQueue(db, accessToken, timeoutMs);
@@ -233,6 +233,7 @@ export const onRequestPost: PagesFunction<WaveCheckEnv> = async ({
             env.OTDAISURFER,
             email,
             submissionId,
+            context,
           ),
       )
       : undefined,
