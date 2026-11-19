@@ -164,9 +164,14 @@ export default function WaveAudit() {
                 <div className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-300">Your teaser Wave Map</div>
                 <h2 className="mt-3 text-3xl font-black">Your Biggest Wave: {result.topCategory}</h2>
                 <div className="mt-6 space-y-3">{result.opportunities.map((item) => <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm leading-6 text-slate-200">{item}</div>)}</div>
-                <div className="mt-6 rounded-2xl border border-cyan-300/20 bg-cyan-300/5 p-5"><div className="text-xs uppercase tracking-wider text-cyan-200">Recommended AI Surfer Agent</div><div className="mt-1 text-2xl font-black">{result.recommendedAgent}</div></div>
+                <div className="mt-6 rounded-2xl border border-cyan-300/20 bg-cyan-300/5 p-5"><div className="text-xs uppercase tracking-wider text-cyan-200">Recommended AI Surfer Agent</div><div className="mt-1 text-2xl font-black">{result.recommendedAgent}</div>
+                  <a href="/services" className="mt-3 inline-flex font-bold text-cyan-300 hover:text-white">See {result.recommendedAgent} and the other AI Surfer services →</a>
+                </div>
               </div>
             </div>
+            <p className="mt-6 text-center text-sm text-slate-400">
+              Not sure which wave fits? <a href="/pricing" className="font-bold text-cyan-300 hover:text-white">Compare the packages on the pricing page →</a>
+            </p>
             <div className="mt-6 rounded-[2rem] border border-white/10 bg-slate-900/80 p-7 shadow-2xl backdrop-blur-xl md:p-9">
               <div className="text-xs font-bold uppercase tracking-[0.18em] text-amber-200">Unlock the full report</div>
               <h2 className="mt-2 text-3xl font-black">Open my full AI Wave Report</h2>

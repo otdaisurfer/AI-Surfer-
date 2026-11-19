@@ -11,6 +11,8 @@ import SitesLanding from "./pages/home/SitesLanding";
 import NotFound from "./pages/not-found/NotFound";
 import Pricing from "./pages/pricing/Pricing";
 import Products from "./pages/products/Products";
+import About from "./pages/about/About";
+import Contact from "./pages/contact/Contact";
 import WaveStarterSuccess from "./pages/pricing/WaveStarterSuccess";
 import Privacy from "./pages/legal/Privacy";
 import Terms from "./pages/legal/Terms";
@@ -44,6 +46,8 @@ export default function RouterApp() {
           <Route path="/" element={<SitesLanding />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/services" element={<MembersPricing publicView />} />
           <Route path="/wave-starter/success" element={<WaveStarterSuccess />} />
           <Route path="/privacy" element={<Privacy />} />

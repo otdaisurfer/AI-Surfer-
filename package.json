@@ -23,7 +23,14 @@
     "worker:retry:deploy": "npx wrangler@4.112.0 deploy --config wrangler.wave-check-retry.jsonc",
     "worker:retry:check": "npx wrangler@4.112.0 deploy --dry-run --config wrangler.wave-check-retry.jsonc"
   },
-  "keywords": ["react", "vite", "typescript", "marketing", "ai-surfer", "agents"],
+  "keywords": [
+    "react",
+    "vite",
+    "typescript",
+    "marketing",
+    "ai-surfer",
+    "agents"
+  ],
   "author": "Shannon Cahoon",
   "license": "MIT",
   "dependencies": {
@@ -36,6 +43,7 @@
     "express": "^5.2.1",
     "framer-motion": "^11.0.0",
     "lucide-react": "^0.294.0",
+    "motion": "^14.14.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.18.1",
@@ -61,5 +69,8 @@
     "vite": "^8.1.2",
     "vitest": "^4.1.9"
   },
-  "engines": { "node": ">=18.0.0", "npm": ">=9.0.0" }
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
 }

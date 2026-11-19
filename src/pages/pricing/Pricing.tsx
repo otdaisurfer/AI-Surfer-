@@ -43,6 +43,10 @@ const offers = [
     href: WAVE_STARTER_URL,
     kind: "checkout" as const,
   },
+  // NOTE: Wave Builder ($1,997) and Tsunami Growth ($3,997) have no buy path yet —
+  // no Stripe payment links exist for them. Do not point these at a checkout URL
+  // until the links are created in Stripe, and do not activate them until the SC
+  // retail license + sales-tax setup is done (SC tax gate). Strategy call for now.
   {
     title: "Wave Builder",
     price: "$1,997",
