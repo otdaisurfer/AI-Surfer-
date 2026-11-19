@@ -13,7 +13,7 @@ describe("AI Fin product actions", () => {
   it("routes higher-tier recommendations to the live strategy-call booking flow", () => {
     for (const productId of ["wave-builder", "tsunami-growth"] as const) {
       expect(getAiFinProductAction(productId)).toEqual(expect.objectContaining({
-        href: "https://calendly.com/oceantidedrop/new-meeting",
+        href: "https://calendly.com/oceantidedrop/ai-surfer-business-ai-consultation",
         external: true,
         funnelEvent: "strategy_call_click",
       }));
