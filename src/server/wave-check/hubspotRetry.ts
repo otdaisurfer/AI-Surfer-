@@ -3,6 +3,10 @@ export const DEFAULT_HUBSPOT_TIMEOUT_MS = 3000;
 const RETRY_BASE_SECONDS = 60;
 const RETRY_MAX_SECONDS = 21600;
 const RETRY_BATCH_SIZE = 5;
+// Prevent Pages background handoffs and the scheduled Worker from processing
+// the same due row at the same time. This is a lease, not an exactly-once
+// guarantee: a timed-out HubSpot request can still have been accepted remotely.
+const RETRY_LEASE_SECONDS = 60;
 
 export type HubSpotSyncStatus = "synced" | "not_configured" | "failed";
 
@@ -226,6 +230,16 @@ function decodeRetryContext(json: string, submissionId: string): WaveCheckHubSpo
   return context as WaveCheckHubSpotContext;
 }
 
+function changedRows(result: unknown): number {
+  if (!result || typeof result !== "object") return 0;
+  const value = result as {
+    changes?: unknown;
+    meta?: { changes?: unknown };
+  };
+  if (typeof value.meta?.changes === "number") return value.meta.changes;
+  return typeof value.changes === "number" ? value.changes : 0;
+}
+
 export async function drainHubSpotRetryQueue(
   db: D1Like | undefined,
   accessToken?: string,
@@ -250,6 +264,20 @@ export async function drainHubSpotRetryQueue(
     : [];
 
   for (const row of rows) {
+    // Claim atomically before making external calls. Concurrent Pages/Worker
+    // drains can select the same row, but only one can move its due timestamp.
+    const claim = await db.prepare(`
+      UPDATE wave_check_hubspot_retry_v2
+      SET next_attempt_at = ?, updated_at = ?
+      WHERE submission_id = ? AND next_attempt_at <= ?
+    `).bind(
+      now + RETRY_LEASE_SECONDS,
+      now,
+      row.submission_id,
+      now,
+    ).run();
+    if (changedRows(claim) !== 1) continue;
+
     let status: HubSpotSyncStatus = "failed";
     try {
       const context = row.context_json === null
@@ -257,7 +285,7 @@ export async function drainHubSpotRetryQueue(
         : decodeRetryContext(row.context_json, row.submission_id);
       status = await syncHubSpotContact(row.email, accessToken, timeoutMs, context);
     } catch {
-      // Preserve malformed queued context for diagnosis; never discard a report.
+      // Preserve malformed queued context for diagnosis; never contact HubSpot.
       console.error("Wave Check retry context could not be decoded");
     }
     if (status === "synced") {
