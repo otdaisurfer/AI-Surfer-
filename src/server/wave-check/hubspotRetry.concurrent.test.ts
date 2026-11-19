@@ -59,10 +59,12 @@ describe("Wave Check concurrent retry drains", () => {
     await enqueueHubSpotRetry(db, "wave@example.com", context.submissionId, context);
     sqlite.prepare("UPDATE wave_check_hubspot_retry_v2 SET next_attempt_at = 0").run();
 
-    let releaseFetch!: (response: Response) => void;
-    const fetchMock = vi.fn(() => new Promise<Response>((resolve) => {
-      releaseFetch = resolve;
-    }));
+    let releaseSearch!: (response: Response) => void;
+    const fetchMock = vi.fn()
+      .mockImplementationOnce(() => new Promise<Response>((resolve) => {
+        releaseSearch = resolve;
+      }))
+      .mockResolvedValueOnce(Response.json({ id: "note-1" }));
     vi.stubGlobal("fetch", fetchMock);
 
     const firstDrain = drainHubSpotRetryQueue(db, "test-token");
@@ -71,10 +73,14 @@ describe("Wave Check concurrent retry drains", () => {
     // Let both queue reads and the atomic claim settle before completing HTTP.
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    releaseFetch(Response.json({ results: [{ id: "contact-1" }] }));
+    releaseSearch(Response.json({ results: [{ id: "contact-1" }] }));
     await Promise.all([firstDrain, secondDrain]);
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    // A diagnostic retry makes one contact-search call and one note call.
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock.mock.calls[1][0]).toBe("https://api.hubapi.com/crm/v3/objects/notes");
+    const noteBody = JSON.parse(fetchMock.mock.calls[1][1].body as string);
+    expect(noteBody.properties.hs_note_body).toContain(context.submissionId);
     expect(sqlite.prepare("SELECT count(*) AS count FROM wave_check_hubspot_retry_v2").get()?.count).toBe(0);
     expect(sqlite.prepare("SELECT count(*) AS count FROM wave_check_hubspot_retry_v2_context").get()?.count).toBe(0);
     sqlite.close();
