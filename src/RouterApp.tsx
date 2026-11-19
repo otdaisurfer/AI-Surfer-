@@ -52,7 +52,7 @@ export default function RouterApp() {
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/audit/success" element={<AuditSuccess />} />
-          <Route path="/audit/checkout" element={<ProtectedRoute><AuditCheckout /></ProtectedRoute>} />
+          <Route path="/audit/checkout" element={<AuditCheckout />} />
           <Route path="/audit/intake" element={<ProtectedRoute><AuditIntake /></ProtectedRoute>} />
           <Route path="/audit/report/:orderId" element={<ProtectedRoute><AuditReport /></ProtectedRoute>} />
 
