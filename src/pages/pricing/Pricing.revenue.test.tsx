@@ -32,6 +32,18 @@ describe("launch revenue conversion path", () => {
     act(() => root.unmount());
   });
 
+  it("links the Packages navigation target to the purchase and booking buttons", () => {
+    const { container, root } = renderPricing();
+    const buttons = container.querySelectorAll("#packages a");
+    expect(Array.from(buttons, (button) => button.getAttribute("href"))).toEqual([
+      "https://buy.stripe.com/eVq4gzaVZ350cDg5JJ4gg0a",
+      "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b",
+      "https://calendly.com/oceantidedrop/ai-surfer-business-ai-consultation",
+      "https://calendly.com/oceantidedrop/ai-surfer-business-ai-consultation",
+    ]);
+    act(() => root.unmount());
+  });
+
   it("shows the live membership price and Stripe checkout", () => {
     const { container, root } = renderPricing();
     const join = [...container.querySelectorAll("a")].find((a) => a.textContent?.includes("Join AI SURFER"));
