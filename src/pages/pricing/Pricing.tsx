@@ -92,7 +92,7 @@ export default function Pricing() {
 
       <WaveHandlerVisual />
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div id="packages" className="mt-12 scroll-mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {offers.map((offer) => (
             <article key={offer.title} className={`rounded-3xl border p-7 ${offer.featured ? "border-cyan-300 bg-cyan-300/10" : "border-white/10 bg-white/[0.04]"}`}>
               <h2 className="text-2xl font-black">{offer.title}</h2>
@@ -111,7 +111,7 @@ export default function Pricing() {
           ))}
         </div>
 
-        <section id="packages" className="mt-12 scroll-mt-8">
+        <section className="mt-12">
           <h2 className="text-3xl font-black">Explore every AI SURFER product</h2>
           <p className="mt-3 text-slate-300">Your Wave Handler and AI Fin show each product in action. Choose a product to explore its next step.</p>
           <ProductVisualCatalog />
