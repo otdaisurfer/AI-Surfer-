@@ -21,9 +21,17 @@
     "worker:browser": "npx wrangler@4.112.0 browser create",
     "worker:retry:dev": "npx wrangler@4.112.0 dev --remote --config wrangler.wave-check-retry.jsonc",
     "worker:retry:deploy": "npx wrangler@4.112.0 deploy --config wrangler.wave-check-retry.jsonc",
-    "worker:retry:check": "npx wrangler@4.112.0 deploy --dry-run --config wrangler.wave-check-retry.jsonc"
+    "worker:retry:check": "npx wrangler@4.112.0 deploy --dry-run --config wrangler.wave-check-retry.jsonc",
+    "prebuild": "node scripts/check-env-security.mjs"
   },
-  "keywords": ["react", "vite", "typescript", "marketing", "ai-surfer", "agents"],
+  "keywords": [
+    "react",
+    "vite",
+    "typescript",
+    "marketing",
+    "ai-surfer",
+    "agents"
+  ],
   "author": "Shannon Cahoon",
   "license": "MIT",
   "dependencies": {
@@ -61,5 +69,8 @@
     "vite": "^8.1.2",
     "vitest": "^4.1.9"
   },
-  "engines": { "node": ">=18.0.0", "npm": ">=9.0.0" }
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
 }

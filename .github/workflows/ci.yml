@@ -25,6 +25,9 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Check environment security
+        run: node scripts/check-env-security.mjs
+
       - name: Install dependencies
         run: npm install
 
