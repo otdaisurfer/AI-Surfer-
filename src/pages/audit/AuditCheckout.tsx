@@ -1,15 +1,11 @@
 import { useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
 
 const AEO_WAVE_AUDIT_PAYMENT_LINK = "https://buy.stripe.com/eVq4gzaVZ350cDg5JJ4gg0a";
 
 export default function AuditCheckout() {
-  const { session } = useAuth();
-
   useEffect(() => {
-    if (!session?.access_token) return;
-    window.location.assign(AEO_WAVE_AUDIT_PAYMENT_LINK);
-  }, [session?.access_token]);
+    window.location.replace(AEO_WAVE_AUDIT_PAYMENT_LINK);
+  }, []);
 
   return (
     <main className="min-h-screen bg-slate-950 px-5 py-16 text-white">
