@@ -200,14 +200,16 @@ export default function App() {
       </div>
 
       {selectedTier && (
-        <div style={styles.overlay}>
+        <div style={styles.overlay} role="dialog" aria-modal="true" aria-labelledby="checkout-modal-title">
           <div style={styles.modal}>
             <button onClick={() => setSelectedTier(null)} style={styles.close} aria-label="Close checkout">×</button>
-            <h3>{selectedTier.name}</h3>
+            <h3 id="checkout-modal-title">{selectedTier.name}</h3>
             <form onSubmit={handleCheckoutSubmit}>
-              <input required type="email" placeholder="surfer@oceantide.ai" value={email} onChange={(event) => setEmail(event.target.value)} style={styles.input} />
+              <label htmlFor="checkout-email">Email address</label>
+              <input id="checkout-email" required type="email" placeholder="surfer@oceantide.ai" value={email} onChange={(event) => setEmail(event.target.value)} style={styles.input} />
               <div style={{ display: 'flex', gap: 8 }}>
-                <input placeholder="OCEANTIDE20" value={promoCode} onChange={(event) => setPromoCode(event.target.value)} style={styles.input} />
+                <label htmlFor="checkout-promo" className="sr-only">Promo code</label>
+                <input id="checkout-promo" placeholder="OCEANTIDE20" value={promoCode} onChange={(event) => setPromoCode(event.target.value)} style={styles.input} />
                 <button type="button" onClick={handleApplyPromo}>Apply</button>
               </div>
               {promoStatus && <p style={{ color: promoStatus.success ? '#4ade80' : '#f87171' }}>{promoStatus.msg}</p>}

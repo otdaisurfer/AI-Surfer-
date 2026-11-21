@@ -84,6 +84,8 @@ export default function SitesLanding() {
         <img
           className="landing-logo"
           src="/images/brand/ai-surfer-wide.webp"
+          width={1536}
+          height={838}
           alt=""
           aria-hidden="true"
           data-homepage-logo="true"
@@ -298,7 +300,7 @@ export default function SitesLanding() {
         <div className="lead-leak-journey" aria-label="AI Surfer customer journey">
           {customerJourney.map(({ stage, icon }) => (
             <span className={stage === "DIAGNOSE" ? "active" : ""} key={stage}>
-              <img src={icon} alt="" aria-hidden="true" loading="lazy" />
+              <img src={icon} width={28} height={28} alt="" aria-hidden="true" loading="lazy" />
               {stage}
             </span>
           ))}
@@ -390,7 +392,7 @@ export default function SitesLanding() {
 
       <section className="founder-journey" id="our-journey" aria-labelledby="founder-journey-title">
         <div className="founder-journey-art">
-          <img src="/images/brand/ai-surfer-round.webp" alt="Ocean Tide Drop AI SURFER" loading="lazy" decoding="async" />
+          <img src="/images/brand/ai-surfer-round.webp" width={280} height={280} alt="Ocean Tide Drop AI SURFER" loading="lazy" decoding="async" />
           <p>My life. My lessons.<br />One wave at a time.</p>
         </div>
         <div className="founder-journey-copy">
