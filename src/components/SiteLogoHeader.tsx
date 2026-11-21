@@ -10,6 +10,8 @@ export default function SiteLogoHeader() {
         <img
           src="/images/brand/ai-surfer-wide.webp"
           alt="Ocean Tide Drop AI Surfer"
+          width={1536}
+          height={838}
           data-site-emblem="true"
           style={styles.emblem}
         />

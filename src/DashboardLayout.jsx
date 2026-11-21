@@ -16,15 +16,17 @@ export default function DashboardLayout() {
     <div className="min-h-screen bg-black text-white flex">
 
       {/* 🌊 SIDEBAR */}
-      <div className="w-64 border-r border-white/10 p-4">
+      <aside className="w-64 border-r border-white/10 p-4">
         <div className="text-xl font-bold mb-6">
           🌊 Ocean Tide OS
         </div>
 
-        <div className="space-y-2">
+        <nav className="space-y-2" aria-label="Dashboard navigation">
           {menu.map((item) => (
             <button
               key={item.id}
+              type="button"
+              aria-current={view === item.id ? "page" : undefined}
               onClick={() => setView(item.id)}
               className={`w-full text-left px-3 py-2 rounded transition ${
                 view === item.id
@@ -35,11 +37,11 @@ export default function DashboardLayout() {
               {item.label}
             </button>
           ))}
-        </div>
-      </div>
+        </nav>
+      </aside>
 
       {/* 🌊 MAIN PANEL */}
-      <div className="flex-1 p-6 overflow-auto">
+      <main className="flex-1 p-6 overflow-auto">
 
         {/* HEADER */}
         <div className="border-b border-white/10 pb-4 mb-6">
@@ -112,7 +114,7 @@ export default function DashboardLayout() {
           />
         )}
 
-      </div>
+      </main>
     </div>
   );
 }
