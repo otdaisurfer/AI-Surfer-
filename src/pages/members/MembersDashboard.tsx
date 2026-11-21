@@ -216,6 +216,17 @@ export default function MembersDashboard() {
 
       <MemberToolDock />
 
+      {isOwner && (
+        <section style={styles.promptArchitect}>
+          <div>
+            <p style={styles.kicker}>OWNER PREVIEW</p>
+            <h2 style={{ margin: 0 }}>AI SURFER Crew Deck</h2>
+            <p style={styles.productText}>Preview the six-agent workspace. Customer execution remains disabled pending runtime verification.</p>
+          </div>
+          <button type="button" onClick={() => navigate("/members/crew")} style={styles.cta}>Open Crew Preview</button>
+        </section>
+      )}
+
       <section style={styles.productsSection}>
         <div style={styles.sectionHeading}>
           <div><p style={styles.kicker}>YOUR AI TOOLKIT</p><h2>Your AI Surfer Products</h2></div>
