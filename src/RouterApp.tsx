@@ -10,6 +10,7 @@ import PromptArchitect from "./pages/members/PromptArchitect";
 import SitesLanding from "./pages/home/SitesLanding";
 import NotFound from "./pages/not-found/NotFound";
 import Pricing from "./pages/pricing/Pricing";
+import Products from "./pages/products/Products";
 import WaveStarterSuccess from "./pages/pricing/WaveStarterSuccess";
 import Privacy from "./pages/legal/Privacy";
 import Terms from "./pages/legal/Terms";
@@ -42,6 +43,7 @@ export default function RouterApp() {
         <Routes>
           <Route path="/" element={<SitesLanding />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/services" element={<MembersPricing publicView />} />
           <Route path="/wave-starter/success" element={<WaveStarterSuccess />} />
           <Route path="/privacy" element={<Privacy />} />
@@ -74,3 +76,4 @@ export default function RouterApp() {
     </>
   );
 }
+
