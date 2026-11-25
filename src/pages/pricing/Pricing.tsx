@@ -90,7 +90,7 @@ export default function Pricing() {
           <p className="text-xs font-black uppercase tracking-[0.2em] text-cyan-300">Ocean Tide Drop AI SURFER</p>
           <h1 className="mt-3 text-5xl font-black md:text-6xl">Choose Your AI Wave 🌊</h1>
           <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-300">
-            Start with the $97 AEO + GEO Wave Audit to see where your business is missing from AI answers, then choose the implementation wave that fits the opportunity.
+            The $97 AEO + GEO Wave Audit helps Charleston-area small businesses see how they appear in AI answers and search results. Find out where customers can find you, where you’re missing, and what to fix first.
           </p>
         </div>
 
