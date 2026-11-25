@@ -25,6 +25,7 @@ const STATIC_JOURNAL_ROUTES = new Set([
   "/blog",
   "/blog/our-story",
   "/blog/building-ai-surfer-one-wave-at-a-time-episode-1",
+  "/blog/building-ai-surfer-one-wave-at-a-time-episode-2",
 ]);
 
 function isKnownRoute(pathname: string): boolean {

@@ -41,6 +41,7 @@ describe("handleRouteStatus", () => {
     "/blog/",
     "/blog/our-story/",
     "/blog/building-ai-surfer-one-wave-at-a-time-episode-1/",
+    "/blog/building-ai-surfer-one-wave-at-a-time-episode-2/",
   ])("keeps existing journal assets at %s successful", async (path) => {
     const response = await handleRouteStatus(request(path), async () => new Response("article", { status: 200 }));
     expect(response.status).toBe(200);
