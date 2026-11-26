@@ -18,7 +18,7 @@ const PRODUCT_ACTIONS: Record<ProductId, AiFinProductAction> = {
   },
   "aeo-wave-audit": {
     label: "Explore the AEO Wave Audit",
-    href: "/wave-audit",
+    href: "/services#aeo-wave-audit",
     funnelEvent: "recommendation_cta_click",
   },
   "wave-starter": {

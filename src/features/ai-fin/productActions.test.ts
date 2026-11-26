@@ -26,7 +26,7 @@ describe("AI Fin product actions", () => {
       funnelEvent: "recommendation_cta_click",
     }));
     expect(getAiFinProductAction("aeo-wave-audit")).toEqual(expect.objectContaining({
-      href: "/wave-audit",
+      href: "/services#aeo-wave-audit",
       funnelEvent: "recommendation_cta_click",
     }));
   });

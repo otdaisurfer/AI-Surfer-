@@ -70,24 +70,12 @@ export default function PageWrapper({
 
   const navLinks = [
     { to: "/", label: "Home", icon: HomeIcon, color: "text-yellow-500" },
-    { to: "/gallery", label: "Work", icon: Briefcase, color: "text-blue-500" },
+    { to: "/products", label: "Products", icon: Briefcase, color: "text-blue-500" },
     { to: "/services", label: "Services", icon: Layers, color: "text-purple-500" },
-    { to: "/members", label: "Members", icon: LayoutDashboard, color: "text-cyan-400" },
-    { to: "/reviews", label: "Reviews", icon: Star, color: "text-yellow-400" },
-    { to: "/founders", label: "Founders", icon: Users, color: "text-emerald-500" },
-    { to: "/create", label: "C.R.E.A.T.E.", icon: Command, color: "text-[#00ff66]" },
-    { to: "/surfer", label: "AI Surfer", icon: Anchor, color: "text-[#39ff14]" },
-    { to: "/scan-pay", label: "Scan & Pay", icon: Coins, color: "text-green-400" },
-    { to: "/ocean", label: "Tide Drop", icon: Waves, color: "text-cyan-400" },
-    { to: "/ocean-services", label: "Ocean Services", icon: Layers, color: "text-blue-400" },
-    { to: "/ocean-reports", label: "Surf Reports", icon: BookOpen, color: "text-teal-400" },
-    { to: "/ocean-cases", label: "Success Stories", icon: Target, color: "text-orange-400" },
-    { to: "/ocean-roi", label: "ROI Calculator", icon: Calculator, color: "text-indigo-400" },
-    { to: "/ocean-contact", label: "Contact Us", icon: Mail, color: "text-pink-400" },
     { to: "/pricing", label: "Pricing", icon: Coins, color: "text-yellow-300" },
-    { to: "/commander", label: "Commander", icon: Command, color: "text-[#00ff66]" },
-    { to: "/memorial", label: "Bull's Memorial", icon: Anchor, color: "text-orange-500" },
-    { to: "/tribute", label: "Tip Jar", icon: Coins, color: "text-pink-500" },
+    { to: "/wave-check", label: "Free AI Wave Check", icon: Waves, color: "text-teal-400" },
+    { to: "/members", label: "Members", icon: LayoutDashboard, color: "text-cyan-400" },
+    { to: "/about", label: "About", icon: Users, color: "text-emerald-500" },
     { to: "/contact", label: "Contact", icon: MessageSquare, color: "text-green-500" },
   ];
 
@@ -162,11 +150,11 @@ export default function PageWrapper({
           ) : user ? (
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between p-2 bg-white/5 border border-white/5 rounded-xl">
-                <Link to="/profile" className="flex items-center gap-3">
+                <Link to="/members" className="flex items-center gap-3">
                   {user.photoURL ? (
-                     <img src={user.photoURL} alt={user.displayName || "User"} className={`w-8 h-8 rounded-full border-2 transition-all ${isActive('/profile') ? 'border-cyan-400' : 'border-white/20'}`} />
+                     <img src={user.photoURL} alt={user.displayName || "User"} className={`w-8 h-8 rounded-full border-2 transition-all ${isActive('/members') ? 'border-cyan-400' : 'border-white/20'}`} />
                   ) : (
-                     <div className={`w-8 h-8 rounded-full bg-white/10 border-2 flex items-center justify-center text-[10px] font-bold text-white transition-all ${isActive('/profile') ? 'border-cyan-400' : 'border-white/20'}`}>
+                     <div className={`w-8 h-8 rounded-full bg-white/10 border-2 flex items-center justify-center text-[10px] font-bold text-white transition-all ${isActive('/members') ? 'border-cyan-400' : 'border-white/20'}`}>
                        {user.email?.[0].toUpperCase()}
                      </div>
                   )}
@@ -185,7 +173,7 @@ export default function PageWrapper({
               </div>
 
               {/* Neural Dashboard Quick Link */}
-              <Link to="/members" className={`w-full flex items-center justify-center gap-2 py-3 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 rounded-xl group transition-all hover:bg-cyan-500 hover:text-black ${isActive('/members') && !isActive('/members/sync') ? 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(6,182,212,0.3)]' : ''}`}>
+              <Link to="/members" className={`w-full flex items-center justify-center gap-2 py-3 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 rounded-xl group transition-all hover:bg-cyan-500 hover:text-black ${isActive('/members') ? 'bg-cyan-500 text-black shadow-[0_0_15px_rgba(6,182,212,0.3)]' : ''}`}>
                 <LayoutDashboard className="w-3.5 h-3.5 group-hover:rotate-12 transition-transform" />
                 <span className="text-[10px] font-black uppercase tracking-widest">My Dashboard</span>
               </Link>
@@ -249,8 +237,8 @@ export default function PageWrapper({
                        <span className="font-bold text-cyan-100 group-hover:text-cyan-400 transition-colors">Growth Design</span>
                        <span className="text-[10px] uppercase text-zinc-500">Service</span>
                      </Link>
-                     <Link onClick={() => setIsSearchOpen(false)} to="/members/sync" className="px-4 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-sm flex items-center justify-between group transition-colors">
-                       <span className="font-bold text-emerald-100 group-hover:text-emerald-400 transition-colors">Neural Sync</span>
+                     <Link onClick={() => setIsSearchOpen(false)} to="/members/prompt-architect" className="px-4 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-sm flex items-center justify-between group transition-colors">
+                       <span className="font-bold text-emerald-100 group-hover:text-emerald-400 transition-colors">Prompt Architect</span>
                        <span className="text-[10px] uppercase text-zinc-500">Applet</span>
                      </Link>
                      <Link onClick={() => setIsSearchOpen(false)} to="/contact" className="px-4 py-3 bg-white/5 hover:bg-white/10 rounded-xl text-sm flex items-center justify-between group transition-colors">
@@ -316,17 +304,6 @@ export default function PageWrapper({
                 </form>
               </div>
 
-              <div className="flex items-center gap-4">
-                 <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-500/20 hover:border-cyan-400 hover:text-cyan-400 transition-all text-white">
-                    <Twitter className="w-4 h-4" />
-                 </a>
-                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-400 transition-all text-white">
-                    <Linkedin className="w-4 h-4" />
-                 </a>
-                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink-500/20 hover:border-pink-400 hover:text-pink-400 transition-all text-white">
-                    <Instagram className="w-4 h-4" />
-                 </a>
-              </div>
            </div>
            <div>
               <h4 className="text-white font-black uppercase tracking-widest text-xs mb-6">Capabilities</h4>
@@ -334,7 +311,7 @@ export default function PageWrapper({
                  <li><Link to="/services" className="hover:text-white transition-colors">Brand Identity</Link></li>
                  <li><Link to="/services" className="hover:text-white transition-colors">AI Integration</Link></li>
                  <li><Link to="/services" className="hover:text-white transition-colors">Growth Design</Link></li>
-                 <li><Link to="/founders" className="hover:text-white transition-colors">Founders Society</Link></li>
+                 <li><Link to="/about" className="hover:text-white transition-colors">About AI SURFER</Link></li>
               </ul>
            </div>
            <div>
@@ -344,7 +321,7 @@ export default function PageWrapper({
                  <li><a href="mailto:oceantidedropaisurf@gmail.com" className="hover:text-white transition-colors">oceantidedropaisurf@gmail.com</a></li>
                  <li className="pt-4"><Link to="/contact" className="inline-block px-6 py-3 bg-cyan-500/10 border border-cyan-400 text-cyan-400 font-black uppercase text-[10px] tracking-widest hover:bg-cyan-400 hover:text-black transition-all">Start Your Project</Link></li>
                  <li className="pt-4 mt-4 border-t border-white/5 flex flex-col gap-2">
-                    <Link to="/support" className="hover:text-white transition-colors">Support & Service</Link>
+                    <Link to="/services" className="hover:text-white transition-colors">Services & Support</Link>
                     <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
                     <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
                  </li>

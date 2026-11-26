@@ -13,7 +13,7 @@ describe("AI Fin product actions", () => {
   it("routes the AEO Wave Audit to its public entry page", () => {
     expect(getAiFinProductAction("aeo-wave-audit")).toEqual(expect.objectContaining({
       label: "Explore the AEO Wave Audit",
-      href: "/wave-audit",
+      href: "/services#aeo-wave-audit",
       funnelEvent: "recommendation_cta_click",
     }));
   });
