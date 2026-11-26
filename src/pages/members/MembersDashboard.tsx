@@ -176,6 +176,14 @@ export default function MembersDashboard() {
             </p>
           </div>
           <div style={styles.readinessActions}>
+            <a
+              href="https://ai-surfer-google-search-performance.ai-surfer-ot-0823.chatgpt.site"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#a5f3fc", fontWeight: 700 }}
+            >
+              Open Google Search Performance
+            </a>
             {isWebsiteCopy ? (
               <a href="https://otdaisurfer.surf/members#owner-readiness" target="_blank" rel="noopener noreferrer" style={{ ...styles.cta, color: "#082f49", textDecoration: "none" }}>
                 Open live owner check ↗
