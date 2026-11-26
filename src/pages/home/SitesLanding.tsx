@@ -40,6 +40,10 @@ const products = [
 ];
 
 export default function SitesLanding() {
+  const showBlackFriday = Date.now() >= Date.parse("2026-11-25T00:00:00-05:00")
+    && Date.now() < Date.parse("2026-11-28T00:00:00-05:00");
+  const saleCheckout = import.meta.env.VITE_BLACK_FRIDAY_PAYMENT_LINK;
+  const saleEmail = "mailto:Info@oceantidedrop.com?subject=AUDIT%20%E2%80%94%20Black%20Friday&body=My%20service%3A%20%0AMy%20town%3A%20%0AMy%20website%3A%20";
   const [leadLeakOpen, setLeadLeakOpen] = useState(false);
   const [leadLeakComplete, setLeadLeakComplete] = useState(false);
   const [leadLeakAnswers, setLeadLeakAnswers] = useState({
@@ -74,11 +78,23 @@ export default function SitesLanding() {
           }
         }
       `}</style>
+      {showBlackFriday ? (
+        <section id="black-friday" className="black-friday-offer" aria-labelledby="black-friday-title">
+          <p>Black Friday · Through November 27</p>
+          <h2 id="black-friday-title">AEO Wave Audit for $67</h2>
+          <p>Which service do you want your town to find? We’ll review how your business appears in AI search and identify what to improve first.</p>
+          <p><s>Regularly $97</s> · Save $30 · One-time payment</p>
+          <a className="button button-primary" href={saleCheckout || saleEmail}>
+            {saleCheckout ? "Get my $67 audit" : "Email Shannon for the $67 audit"}
+          </a>
+        </section>
+      ) : (
       <div className="announcement">
         <span>🌊 Start here</span>
         <strong>Free AI Wave Check</strong>
         <a href="/wave-check">Find my biggest AI opportunity →</a>
       </div>
+      )}
 
       <a className="landing-logo-link" href="#top" aria-label="Ocean Tide Drop AI SURFER home">
         <img
