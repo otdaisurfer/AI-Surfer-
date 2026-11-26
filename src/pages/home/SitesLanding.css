@@ -1619,3 +1619,17 @@
     line-height: 1.45;
   }
 }
+
+.sites-landing .black-friday-offer {
+  background: #082e39;
+  border-bottom: 3px solid #ff978a;
+  color: #fff;
+  display: grid;
+  gap: .65rem;
+  justify-items: center;
+  padding: clamp(1.5rem, 4vw, 3rem) 1rem;
+  text-align: center;
+}
+.black-friday-offer h2 { color: #8ff5e9; font-size: clamp(1.8rem, 5vw, 3.4rem); line-height: 1.1; margin: 0; }
+.black-friday-offer p { max-width: 58ch; margin: 0; }
+.black-friday-offer .button { margin-top: .35rem; }
