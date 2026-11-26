@@ -80,13 +80,16 @@ export default function SitesLanding() {
       `}</style>
       {showBlackFriday ? (
         <section id="black-friday" className="black-friday-offer" aria-labelledby="black-friday-title">
-          <p>Black Friday · Through November 27</p>
-          <h2 id="black-friday-title">AEO Wave Audit for $67</h2>
+          <div className="sale-copy">
+          <p className="sale-dates">Black Friday · Through Nov 27</p>
+          <h2 id="black-friday-title">AEO Wave Audit</h2>
           <p>Which service do you want your town to find? We’ll review how your business appears in AI search and identify what to improve first.</p>
-          <p><s>Regularly $97</s> · Save $30 · One-time payment</p>
+          <p className="sale-price"><strong>$67</strong> <s aria-label="Regular price 97 dollars">$97</s> <span>Save $30 · One time</span></p>
           <a className="button button-primary" href={saleCheckout || saleEmail}>
             {saleCheckout ? "Get my $67 audit" : "Email Shannon for the $67 audit"}
           </a>
+          </div>
+          <img className="sale-fin" src="/images/ai-fin-ocean-wave-intelligence.jpg" alt="AI Fin framed by a glowing ocean wave" width="480" height="480" />
         </section>
       ) : (
       <div className="announcement">
