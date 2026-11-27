@@ -7,7 +7,7 @@
   "homepage": "https://otdaisurfer.surf",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/render-pricing.mjs",
     "preview": "vite preview",
     "lint": "eslint .",
     "test": "vitest",

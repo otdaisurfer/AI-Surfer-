@@ -44,11 +44,10 @@ describe("launch revenue conversion path", () => {
     act(() => root.unmount());
   });
 
-  it("shows the live membership price and Stripe checkout", () => {
+  it("keeps retired membership checkout off public pricing", () => {
     const { container, root } = renderPricing();
-    const join = [...container.querySelectorAll("a")].find((a) => a.textContent?.includes("Join AI SURFER"));
-    expect(join?.getAttribute("href")).toBe("https://buy.stripe.com/cNi00j5BFcFAcDg7RR4gg03");
-    expect(join?.textContent).toContain("$17/month");
+    expect(container.querySelector('a[href="https://buy.stripe.com/cNi00j5BFcFAcDg7RR4gg03"]')).toBeNull();
+    expect(container.textContent).not.toContain("$17/month");
     expect(container.querySelector('a[href="/services"]')).not.toBeNull();
     act(() => root.unmount());
   });
