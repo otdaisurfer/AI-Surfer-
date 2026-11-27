@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../lib/supabase";
 import { getImplementationOffer } from "./implementationOffer";
 import ServiceCheckout from "./ServiceCheckout";
+import { isCrewAgentSlug } from "../../crew/catalog";
 
 type Tier = "free" | "bronze" | "wave" | "tsunami" | "enterprise" | "owner";
 
@@ -116,6 +117,9 @@ export default function MemberProduct() {
   if (loading) return <PageShell><p>🌊 Loading your product access...</p></PageShell>;
 
   const hasAccess = tierRank[tier] >= tierRank[product.minimumTier];
+  const workspacePath = tier === "owner" && isCrewAgentSlug(product.slug)
+    ? `/members/crew/${product.slug}`
+    : "/wave-audit";
   const currentTierLabel = tierLabels[tier];
   const minimumTierLabel = tierLabels[product.minimumTier];
 
@@ -136,7 +140,7 @@ export default function MemberProduct() {
           <p style={styles.kicker}>ACCESS CONFIRMED</p>
           <h2>Your {product.name} workspace is ready.</h2>
           <p>This product is connected to your <strong>{currentTierLabel}</strong>. The next workflow layer can be connected here as the product is activated.</p>
-          <button onClick={() => navigate("/wave-audit")} style={styles.cta}>{product.nextStep} →</button>
+          <button onClick={() => navigate(workspacePath)} style={styles.cta}>{product.nextStep} →</button>
         </section>
       ) : (
         <section style={styles.card}>
