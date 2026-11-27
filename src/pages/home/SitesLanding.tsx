@@ -43,7 +43,7 @@ export default function SitesLanding() {
   const showBlackFriday = Date.now() >= Date.parse("2026-11-25T00:00:00-05:00")
     && Date.now() < Date.parse("2026-11-28T00:00:00-05:00");
   const saleCheckout = import.meta.env.VITE_BLACK_FRIDAY_PAYMENT_LINK;
-  const saleEmail = "mailto:Info@oceantidedrop.com?subject=AUDIT%20%E2%80%94%20Black%20Friday&body=My%20service%3A%20%0AMy%20town%3A%20%0AMy%20website%3A%20";
+  const saleEmail = "mailto:admin@otdaisurfer.surf?subject=AUDIT%20%E2%80%94%20Black%20Friday&body=My%20service%3A%20%0AMy%20town%3A%20%0AMy%20website%3A%20";
   const [leadLeakOpen, setLeadLeakOpen] = useState(false);
   const [leadLeakComplete, setLeadLeakComplete] = useState(false);
   const [leadLeakAnswers, setLeadLeakAnswers] = useState({
