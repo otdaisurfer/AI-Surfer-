@@ -1,7 +1,6 @@
 import ProductVisualCatalog from "../../components/ProductVisualCatalog";
 import WaveHandlerVisual from "../../components/WaveHandlerVisual";
 import { useEffect } from "react";
-import { MEMBERSHIP } from "../members/serviceOffers";
 
 const AEO_GEO_AUDIT_URL = "https://buy.stripe.com/eVq4gzaVZ350cDg5JJ4gg0a";
 const WAVE_STARTER_URL = "https://buy.stripe.com/aFa8wP7JN3500Uy1tt4gg0b";
@@ -119,13 +118,6 @@ export default function Pricing() {
           <h2 className="text-3xl font-black">Explore every AI SURFER product</h2>
           <p className="mt-3 text-slate-300">Your Wave Handler and AI Fin show each product in action. Choose a product to explore its next step.</p>
           <ProductVisualCatalog />
-        </section>
-
-        <section className="mt-10 rounded-3xl border border-pink-200/40 bg-white/[0.04] p-7">
-          <h2 className="text-2xl font-black">AI SURFER Membership — ${MEMBERSHIP.price}/month</h2>
-          <p className="mt-3 leading-7 text-slate-300">Bronze membership includes Builder Access to the member workspaces assigned to that tier. Done-for-you services and optional monthly support are purchased separately.</p>
-          <a href={MEMBERSHIP.checkoutUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex rounded-full bg-cyan-300 px-6 py-3 font-black text-slate-950">Join AI SURFER — $17/month</a>
-          <p className="mt-4 text-sm text-slate-300">Use your member account email at checkout. Renews monthly until cancelled.</p>
           <a href="/services" className="mt-4 inline-flex font-bold text-pink-200">View all services & optional support →</a>
         </section>
 

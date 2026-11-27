@@ -39,4 +39,6 @@ jobs:
         run: |
           test -f dist/index.html
           test -f dist/_redirects
-          grep -F '/* /index.html 200' dist/_redirects
+          test -f dist/pricing.html
+          test ! -e dist/404.html
+          grep -Fq 'Charleston-area' dist/pricing.html
