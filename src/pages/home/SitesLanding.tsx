@@ -1,6 +1,9 @@
+import { getServiceOffer } from "../members/serviceOffers";
 import WaveHandlerVisual from "../../components/WaveHandlerVisual";
 import { FormEvent, useState } from "react";
 import "./SitesLanding.css";
+
+const leadLeakOffer = getServiceOffer("ai-lead-leak-finder")!;
 
 const revenueFunnel = ["LAND", "CAPTURE", "AUDIT", "RESULTS", "SELL", "IMPLEMENT", "RETAIN"];
 
@@ -40,10 +43,6 @@ const products = [
 ];
 
 export default function SitesLanding() {
-  const showBlackFriday = Date.now() >= Date.parse("2026-11-25T00:00:00-05:00")
-    && Date.now() < Date.parse("2026-11-28T00:00:00-05:00");
-  const saleCheckout = import.meta.env.VITE_BLACK_FRIDAY_PAYMENT_LINK;
-  const saleEmail = "mailto:admin@otdaisurfer.surf?subject=AUDIT%20%E2%80%94%20Black%20Friday&body=My%20service%3A%20%0AMy%20town%3A%20%0AMy%20website%3A%20";
   const [leadLeakOpen, setLeadLeakOpen] = useState(false);
   const [leadLeakComplete, setLeadLeakComplete] = useState(false);
   const [leadLeakAnswers, setLeadLeakAnswers] = useState({
@@ -78,33 +77,16 @@ export default function SitesLanding() {
           }
         }
       `}</style>
-      {showBlackFriday ? (
-        <section id="black-friday" className="black-friday-offer" aria-labelledby="black-friday-title">
-          <div className="sale-copy">
-          <p className="sale-dates">Black Friday · Through Nov 27</p>
-          <h2 id="black-friday-title">AEO Wave Audit</h2>
-          <p>Which service do you want your town to find? We’ll review how your business appears in AI search and identify what to improve first.</p>
-          <p className="sale-price"><strong>$67</strong> <s aria-label="Regular price 97 dollars">$97</s> <span>Save $30 · One time</span></p>
-          <a className="button button-primary" href={saleCheckout || saleEmail}>
-            {saleCheckout ? "Get my $67 audit" : "Email Shannon for the $67 audit"}
-          </a>
-          </div>
-          <img className="sale-fin" src="/images/ai-fin-ocean-wave-intelligence.jpg" alt="AI Fin framed by a glowing ocean wave" width="480" height="480" />
-        </section>
-      ) : (
       <div className="announcement">
         <span>🌊 Start here</span>
-        <strong>Free AI Wave Check</strong>
-        <a href="/wave-check">Find my biggest AI opportunity →</a>
+        <strong>Free AI Wave Check + Lead Leak Finder</strong>
+        <a href="#lead-leak-finder">Find where leads are slipping away →</a>
       </div>
-      )}
 
       <a className="landing-logo-link" href="#top" aria-label="Ocean Tide Drop AI SURFER home">
         <img
           className="landing-logo"
           src="/images/brand/ai-surfer-wide.webp"
-          width={1536}
-          height={838}
           alt=""
           aria-hidden="true"
           data-homepage-logo="true"
@@ -112,29 +94,6 @@ export default function SitesLanding() {
           decoding="async"
         />
       </a>
-
-      <div className="homepage-top-artwork">
-          <a
-            className="wave-check-hero-media-link"
-            href="/wave-check"
-            aria-label="Start the Free AI Wave Check"
-            data-funnel-cta="hero-wave-check-image"
-          >
-            <figure className="wave-check-hero-media">
-              <img
-                className="wave-check-hero-image"
-                src="/images/wave-handler/wave-check.webp"
-                srcSet="/images/wave-handler/wave-check-mobile.webp 768w, /images/wave-handler/wave-check.webp 1229w"
-                sizes="(max-width: 820px) 88vw, 410px"
-                width={1229}
-                height={1536}
-                alt="Wave Handler and AI Fin inviting you to find lost leads with the Free AI Wave Check"
-                fetchPriority="high"
-                decoding="async"
-              />
-            </figure>
-          </a>
-      </div>
 
       <nav className="nav-shell" aria-label="Main navigation">
         <div className="nav-links">
@@ -169,13 +128,33 @@ export default function SitesLanding() {
             >
               Start My Free AI Wave Check™
             </a>
+            <a
+              className="button button-secondary"
+              href="#lead-leak-finder"
+              data-funnel-cta="hero-lead-leak"
+            >
+              Find My Lead Leaks →
+            </a>
           </div>
           <a
-            className="wave-check-secondary-link"
-            href="#lead-leak-finder"
-            data-funnel-cta="hero-lead-leak"
+            className="wave-check-hero-media-link"
+            href="/wave-check"
+            aria-label="Start the Free AI Wave Check"
+            data-funnel-cta="hero-wave-check-image"
           >
-            Already know follow-up is the problem? Try the Lead Leak Finder →
+            <figure className="wave-check-hero-media">
+              <img
+                className="wave-check-hero-image"
+                src="/images/wave-handler/wave-check.webp"
+                srcSet="/images/wave-handler/wave-check-mobile.webp 768w, /images/wave-handler/wave-check.webp 1229w"
+                sizes="(max-width: 820px) 88vw, 410px"
+                width={1229}
+                height={1536}
+                alt="Wave Handler and AI Fin inviting you to find lost leads with the Free AI Wave Check"
+                fetchPriority="high"
+                decoding="async"
+              />
+            </figure>
           </a>
           <p className="wave-check-hero-footnote">
             Free to start. Clear next step. No giant AI project required.
@@ -251,10 +230,10 @@ export default function SitesLanding() {
               </p>
               <a
                 className="button button-secondary lead-leak-cta"
-                href="https://buy.stripe.com/cNi4gz1lp9to46K2xx4gg0c"
+                href={leadLeakOffer.checkoutUrl}
                 data-funnel-cta="lead-leak-paid-review"
               >
-                Get My $197 Lead Leak Review →
+                Get My ${leadLeakOffer.price} {leadLeakOffer.name} →
               </a>
             </div>
           </div>
@@ -319,7 +298,7 @@ export default function SitesLanding() {
         <div className="lead-leak-journey" aria-label="AI Surfer customer journey">
           {customerJourney.map(({ stage, icon }) => (
             <span className={stage === "DIAGNOSE" ? "active" : ""} key={stage}>
-              <img src={icon} width={28} height={28} alt="" aria-hidden="true" loading="lazy" />
+              <img src={icon} alt="" aria-hidden="true" loading="lazy" />
               {stage}
             </span>
           ))}
@@ -394,6 +373,15 @@ export default function SitesLanding() {
         </div>
       </section>
 
+      <section className="offer-ladder" aria-labelledby="offer-ladder-title">
+        <h2 id="offer-ladder-title">Which AI SURFER offer fits your business?</h2>
+        <video controls playsInline preload="metadata" width="1280" height="720" aria-labelledby="offer-ladder-title">
+          <source src="/videos/offer-ladder.mp4" type="video/mp4" />
+          <track kind="captions" src="/videos/offer-ladder.vtt" srcLang="en" label="English" />
+        </video>
+        <a className="button button-primary" href="/wave-check">Take the Free AI Wave Check</a>
+      </section>
+
       <section className="implementation-path" aria-labelledby="implementation-path-title">
         <div>
           <p className="eyebrow">FROM RECOMMENDATION TO REAL WORK</p>
@@ -411,7 +399,7 @@ export default function SitesLanding() {
 
       <section className="founder-journey" id="our-journey" aria-labelledby="founder-journey-title">
         <div className="founder-journey-art">
-          <img src="/images/brand/ai-surfer-round.webp" width={280} height={280} alt="Ocean Tide Drop AI SURFER" loading="lazy" decoding="async" />
+          <img src="/images/brand/ai-surfer-round.webp" alt="Ocean Tide Drop AI SURFER" loading="lazy" decoding="async" />
           <p>My life. My lessons.<br />One wave at a time.</p>
         </div>
         <div className="founder-journey-copy">
@@ -428,7 +416,7 @@ export default function SitesLanding() {
           >
             Read Our Journey →
           </a>
-          <p className="founder-journey-note">A story still unfolding, one piece at a time.</p>
+          <p className="founder-journey-note">New chapter: <a href="/blog/building-ai-surfer-one-wave-at-a-time-episode-2/">Episode 2 — Giving the Dream a Name →</a></p>
         </div>
       </section>
 
